@@ -52,7 +52,7 @@ Bye.                                                        # Using io.out
   >Prints a message to the terminal.
   
   ```zig
-  pub inline fn out       (comptime _msg: []const u8) void
+  pub inline fn out       (comptime _msg: []const u8)                           void
   ```
 
 - **`outFMT`**  
@@ -60,7 +60,7 @@ Bye.                                                        # Using io.out
   > Prints a formatted message with arguments.
   
   ```zig
-  pub inline fn outFMT    (comptime _fmt: []const u8, _args: anytype) void
+  pub inline fn outFMT    (comptime _fmt: []const u8, _args: anytype)           void
   ```
 
 - **`get`**  
@@ -68,7 +68,7 @@ Bye.                                                        # Using io.out
   > Reads input from the terminal without printing a prompt.
   
   ```zig
-  pub inline fn get       () []const u8
+  pub inline fn get       ()                                                    []const u8
   ```
 
 - **`ask`**  
@@ -76,7 +76,7 @@ Bye.                                                        # Using io.out
   > Prints a message and waits for user input.
   
   ```zig
-  pub inline fn ask       (comptime _msg: []const u8) []const u8
+  pub inline fn ask       (comptime _msg: []const u8)                           []const u8
   ```
 
 - **`eql`**  
@@ -84,7 +84,7 @@ Bye.                                                        # Using io.out
   > Compares two arrays of a specific type and returns a boolean.
   
   ```zig
-  pub inline fn eql       (_type: type, _one: []const u8, _two: []const u8) bool
+  pub inline fn eql       (_type: type, _one: []const u8, _two: []const u8)     bool
   ```
 
 ---
