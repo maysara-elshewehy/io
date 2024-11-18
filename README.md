@@ -21,7 +21,8 @@ Here’s a quick example to get started:
 ```zig
 const io = @import("io");
 
-pub fn main() !void {
+pub fn main() !void
+{
     io.out("Hi:");                                          // Print a message
 
     const name = io.ask("> What is your name? ");           // Prompt and read user input
