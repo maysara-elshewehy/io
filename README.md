@@ -84,7 +84,7 @@ Bye.                                                        # Using io.out
   > Compares two arrays of a specific type and returns a boolean.
   
   ```zig
-  pub inline fn eql       (_type: type, _one: []const u8, _two: []const u8)     bool
+  pub inline fn eql       (_type: type, _one: []const _type, _two: []const _type)     bool
   ```
 
 ---
