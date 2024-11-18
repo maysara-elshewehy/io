@@ -38,9 +38,22 @@
         return get();
     }
 
-    pub inline fn eql       (_type: type, _one: []const u8, _two: []const u8)       bool
+    pub inline fn eql       (_type: type, _one: []const _type, _two: []const _type)       bool
     {
-        return std.mem.eql(_type, _one, _two);
+        if(_one.len-1 != _two.len)
+        {
+            return false;
+        }
+
+        for (0.._one.len-1) |i|
+        {
+            if (_one[i] != _two[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 // ════════════════════════════════════════════════════════════════════════════════════  //
