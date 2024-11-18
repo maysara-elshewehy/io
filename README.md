@@ -36,3 +36,36 @@
     - #### get(`_msg`) `[]const u8`
     - #### ask(`_msg`) `void`
     - #### eql(`_type`, `_one`, `_two`) `bool`
+
+- ## Installation
+
+    Add this to your build.zig.zon
+
+    ```zig
+    .dependencies       =
+    .{
+        .io =
+        .{
+            .url = "https://github.com/Super-ZIG/io/archive/refs/tags/0.0.0.tar.gz",
+            // the correct hash will be suggested by zig (see your terminal after running your program to find it !)
+        }
+    },
+    ```
+
+    And add this to you build.zig (after exe declaration !)
+
+    ```zig
+    const io = b.dependency("io",
+    .{
+            .target = target,
+            .optimize = optimize,
+    });
+    exe.root_module.addImport("io", io.module("io"));
+
+    ```
+
+    You can then import the library into your code like this
+
+    ```zig
+    const io = @import("io");
+    ```
