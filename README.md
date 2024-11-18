@@ -100,8 +100,8 @@ To use **SuperZIG IO** in your project, follow these steps:
 .{
     .io = 
     .{
-        .url = "https://github.com/Super-ZIG/io/archive/refs/tags/0.0.0.tar.gz",
-        .hash = "Replace with the correct hash (provided by Zig after the first build)"
+        .url   = "https://github.com/Super-ZIG/io/archive/refs/tags/0.0.0.tar.gz",
+        .hash  = "Replace with the correct hash (provided by Zig after the first build)"
     },
 };
 ```
