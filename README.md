@@ -96,10 +96,12 @@ To use **SuperZIG IO** in your project, follow these steps:
 ### 1. Add the dependency to `build.zig.zon`  
 
 ```zig
-.dependencies = .{
-    .io = .{
+.dependencies = 
+.{
+    .io = 
+    .{
         .url = "https://github.com/Super-ZIG/io/archive/refs/tags/0.0.0.tar.gz",
-        // Replace with the correct hash (provided by Zig after the first build).
+        .hash = "Replace with the correct hash (provided by Zig after the first build)"
     },
 };
 ```
@@ -109,10 +111,12 @@ To use **SuperZIG IO** in your project, follow these steps:
 Add the following **after** declaring the executable:  
 
 ```zig
-const io = b.dependency("io", .{
-    .target = target,
-    .optimize = optimize,
+const io = b.dependency("io",
+.{
+    .target     = target,
+    .optimize   = optimize,
 });
+
 exe.root_module.addImport("io", io.module("io"));
 ```
 
