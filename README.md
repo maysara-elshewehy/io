@@ -1,130 +1,187 @@
-# **SuperZIG IO**  
+# **[SuperZig](https://github.com/Super-ZIG)** \ IO 🚀
 
-A lightweight and easy-to-use solution for terminal input and output operations, featuring inline functions for quick integration.  
+A simple and efficient library for handling **input/output** operations in the **Zig** programming language.
 
-- ## **Why ?**  
+This library provides various methods to interact with the system, from reading input to writing output, and even listening to system events. 🎧
 
-    - **Lightweight:** Focused on simplicity and efficiency.  
+## Features ✨
 
-    - **Convenient Functions:** Handles common terminal I/O tasks with minimal code.
+- **🎤 Output Handling**
+    > Output messages to the console easily with customizable formats.
+  
+- **📝 Input Handling**
+    > Read inputs from the console, with flexible reading capabilities.
+  
+- **🌍 Platform Compatibility**
+    > Supports Windows, Linux and macOS.
+  
+- **🖱️ Event Listening**
+    > Listen to system events like key presses in real-time.
 
-    - **Format Support:** Easily print formatted messages.  
 
-> Enjoy writing cleaner, faster Zig programs with **SuperZIG IO** 🔥❤️ !  
+## Usage 📖
+
+Here are some of the main methods you can use in **SuperZIG - IO** :
+
+- ### [`out`](./docs/func/out.md) 📢
+
+    Outputs a simple message followed by a newline to the console.
+
+    ```zig
+    io.out("Hello, World!");                    // print "Hello, World!\n"
+    ```
+
+- ### [`in`](./docs/func/in.md) 📥
+    
+    Reads input from the user until a newline character is encountered.
+
+    ```zig
+    const input = io.in();                      // wait for user input..
+    io.outWith("Input: {s} \n", .{ input });    // print "Input: <input>\n"
+    ```
+
+- ### [`ask`](./docs/func/ask.md) ❓
+
+    Displays a message and waits for the user to respond.
+
+    ```zig
+    const name = io.ask("What's your name?");   // print "What's your name?\n"
+                                                // wait for user input..
+    io.outWith("Welcome, {s} \n", .{ name });   // print "Welcome, <name>\n"
+    ```
+
+- ### [`on`](./docs/func/on.md) , [`once`](./docs/func/once.md) 👂
+
+    Listens for key input.
+
+    ```zig
+    const example = struct
+    {
+        inline fn callback(key: io.types.key) !void
+        {
+            try io.outWith("code: {d} , char:  {c} , mod: {s}   \n"     , .{ key.get() , key.char() , key.mod() });
+            try io.outWith("ctrl: {}  , shift: {}  , alt: {}    \n\n"   , .{ key.ctrl(), key.shift(), key.alt() });
+        }
+
+        inline fn condition ()
+        !bool
+        {
+            return true;
+        }
+
+        inline fn run ()
+        !void
+        {
+            try io.once (callback);                 // just one time.
+            try io.on   (condition, callback);      // repeat until the condition is met.
+        }
+    };
+
+    try example.run();
+    ```
+
+    _**RESULT**_
+
+    > suppose i pressed `a` then `ctrl` `a` then `shift` `a` then `alt` `a` then `alt` `ctrl` `a` then `alt` `shift` `a` in order.
+
+    ```ts
+    code : 97        char  : 'a'      mod : "none"
+    ctrl : false     shift : false    alt : false
+
+    code : 1         char  : 'A'      mod : "ctrl"
+    ctrl : true      shift : false    alt : false
+
+    code : 65        char  : 'A'      mod : "shift"
+    ctrl : false     shift : true     alt : false
+
+    code : 97        char  : 'a'      mod : "alt"
+    ctrl : false     shift : false    alt : true
+
+    code : 1         char  : 'A'      mod : "alt + ctrl"
+    ctrl : true      shift : false    alt : true
+
+    code : 65        char  : 'A'      mod : "alt + shift"
+    ctrl : false     shift : true     alt : true
+    ```
 
 ---
 
-## **Overview**  
+- ## Installation 📦
 
-Here’s a quick example to get started:  
+    To use **SuperZIG IO** in your project, follow these steps:  
 
-```zig
-const io = @import("io");
+    1. #### Add the dependency to `build.zig.zon`  
 
-pub fn main() !void
-{
-    io.out("Hi:");                                          // Print a message
+        > **Replace** `_version` _with_ **last version**.
 
-    const name = io.ask("> What is your name? ");           // Prompt and read user input
+        > **Replace** `_hash` _with_ **hash provided by zig builder**.
 
-    io.outFMT("> Nice to meet you, Mr.{s}!\n", .{name});    // Print formatted message
+        ```zig
+        .dependencies = 
+        .{
+            .io = 
+            .{
+                .url    = "https://github.com/Super-ZIG/io/archive/refs/tags/_version.tar.gz",
+                .hash   = "_hash"
+            },
+        };
+        ```
 
-    io.out("Bye.");                                         // Print another message
-}
-```
+    2. #### Modify your `build.zig` file  
 
-**Expected Output:**  
+        > Add the following after declaring the executable. 
 
-```bash
-Hi:                                                         # Using io.out
-> What is your name?                                        # Using io.ask/io.out
-Maysara                                                     # Using io.ask/io.get
-> Nice to meet you, Mr.Maysara!                             # Using io.outFMT
-Bye.                                                        # Using io.out
-```
+        ```zig
+        const io = b.dependency("io",
+        .{
+            .target     = target,
+            .optimize   = optimize,
+        });
 
----
+        exe.root_module.addImport("io", io.module("io"));
+        ```
 
-## **Functions**  
+    3. #### Import the library in your Zig code  
 
-- **`out`**
+        ```zig
+        const io = @import("io");
+        ```
 
-  >Prints a message to the terminal.
-  
-  ```zig
-  pub inline fn out       (comptime _msg: []const u8)                               void
-  ```
+- ## [Documentation 📚](./docs/readme.md)
 
-- **`outFMT`**  
-  
-  > Prints a formatted message with arguments.
-  
-  ```zig
-  pub inline fn outFMT    (comptime _fmt: []const u8, _args: anytype)               void
-  ```
+    > For detailed information, visit the [`/docs`](./docs/readme.md) folder.
 
-- **`get`**  
-  
-  > Reads input from the terminal without printing a prompt.
-  
-  ```zig
-  pub inline fn get       ()                                                        []const u8
-  ```
+  - ## Testing
 
-- **`ask`**  
-  
-  > Prints a message and waits for user input.
-  
-  ```zig
-  pub inline fn ask       (comptime _msg: []const u8)                               []const u8
-  ```
+    ```bash
+    zig test test.zig     # run tests
+    zig build try         # try examples
+    ```
 
-- **`eql`**  
-  
-  > Compares two arrays of a specific type and returns a boolean.
-  
-  ```zig
-  pub inline fn eql       (_type: type, _one: []const _type, _two: []const _type)   bool
-  ```
+  - ### TODO
 
----
+    > .. ?
+    
+    - complete unit tests.
+    - add custom writer with flush function.
+    - more functions for terminal.
+    - support files io.
+    - . . . ?
+        
+  - ### Contributing
 
-## **Installation**  
+    > Contributions are always welcome! Feel free to open issues, fork the repository, or submit pull requests.
 
-To use **SuperZIG IO** in your project, follow these steps:  
+    - Fork the project.
+    - Create your feature branch.
+    - Write tests and Testing.
+    - Commit your changes.
+    - Push to the branch.
+    - Open a pull request.
 
-### 1. Add the dependency to `build.zig.zon`  
+  - ### License 📄
 
-```zig
-.dependencies = 
-.{
-    .io = 
-    .{
-        .url    = "https://github.com/Super-ZIG/io/archive/refs/tags/0.0.0.tar.gz",
-        .hash   = "Replace with the correct hash (provided by Zig)"
-    },
-};
-```
-
-### 2. Modify your `build.zig` file  
-
-Add the following **after** declaring the executable:  
-
-```zig
-const io = b.dependency("io",
-.{
-    .target     = target,
-    .optimize   = optimize,
-});
-
-exe.root_module.addImport("io", io.module("io"));
-```
-
-### 3. Import the library in your Zig code  
-
-```zig
-const io = @import("io");
-```
+    This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 
