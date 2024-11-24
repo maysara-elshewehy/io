@@ -2,7 +2,7 @@
 
     const       std                         = @import("std");
     const       builtin                     = @import("builtin");
-    pub const   type                        = @import("./types/_.zig");
+    pub const   types                       = @import("./types/_.zig");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
