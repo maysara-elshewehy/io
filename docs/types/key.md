@@ -39,60 +39,70 @@
 - #### **Methods**
 
   - **state**  
-    Returns the press state of the key.  
+      
+      > Returns the press state of the key.  
 
-    ```zig
-    pub inline fn state(_self: *const key) State;
-    ```
+      ```zig
+      pub inline fn state(_self: *const key) State;
+      ```
 
   - **get**  
-    Returns the key code.  
+      
+      > Returns the key code.  
 
-    ```zig
-    pub inline fn get(_self: *const key) u8;
-    ```
+      ```zig
+      pub inline fn get(_self: *const key) u8;
+      ```
 
   - **char**  
-    Returns the character representation of the key based on modifiers.  
+      
+      > Returns the character representation of the key based on modifiers.  
 
-    ```zig
-    pub inline fn char(_self: *const key) u8;
-    ```
+      ```zig
+      pub inline fn char(_self: *const key) u8;
+      ```
 
   - **mod**  
-    Returns a string representation of the active modifiers.  
+      
+      > Returns a string representation of the active modifiers.  
 
-    ```zig
-    pub inline fn mod(_self: *const key) []const u8;
-    ```
+      ```zig
+      pub inline fn mod(_self: *const key) []const u8;
+      ```
 
   - **alt**  
-    Returns `true` if the `Alt` modifier is active.  
+      
+      > Returns `true` if the `Alt` modifier is active.  
 
-    ```zig
-    pub inline fn alt(_self: *const key) bool;
-    ```
+      ```zig
+      pub inline fn alt(_self: *const key) bool;
+      ```
 
   - **ctrl**  
-    Returns `true` if the `Ctrl` modifier is active.  
+      
+      > Returns `true` if the `Ctrl` modifier is active.  
 
-    ```zig
-    pub inline fn ctrl(_self: *const key) bool;
-    ```
+      ```zig
+      pub inline fn ctrl(_self: *const key) bool;
+      ```
 
   - **shift**  
-    Returns `true` if the `Shift` modifier is active.  
+      
+      > Returns `true` if the `Shift` modifier is active.  
 
-    ```zig
-    pub inline fn shift(_self: *const key) bool;
-    ```
+      ```zig
+      pub inline fn shift(_self: *const key) bool;
+      ```
 
   - **count**  
-    Returns the count of active modifiers.  
+      
+      > Returns the count of active modifiers. 
 
-    ```zig
-    pub inline fn count(_self: *const key) u8;
-    ```
+      > 1 for the key itself, and 1 for ctrl, 1 for shift, 1 for alt, so the min is 1, max is 4.  
+
+      ```zig
+      pub inline fn count(_self: *const key) u8;
+      ```
 
 - #### **Constants**
 
@@ -107,13 +117,19 @@
     ```zig
     const myKey = key
     {
-        .m_val      = 65, // 'A'
-        .m_mod      = 2,  // Shift
-        .m_state    = key.State.None,
+        .m_val      = 65,                     // 'A'
+        .m_mod      = 2,                      // 'Shift'
+        .m_state    = key.State.DoublePress   // 'A' + 'Shift',
     };
 
     try io.outWith( "Key: {c},     Modifiers: {s},    Count: {d}   \n",
                  .{ myKey.char(),   myKey.mod(),     myKey.count() });
+    ```
+
+    **_RESULT_**
+
+    ```zig
+    Key: 'A', Modifiers: 'Shift', Count: 2
     ```
 
 - #### **Notes**
