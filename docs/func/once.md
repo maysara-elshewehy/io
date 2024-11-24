@@ -1,4 +1,4 @@
-# **[SuperZig](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`once`** 👂
+# **[SuperZIG](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`once`** 👂
 
 - #### **Definition**
 

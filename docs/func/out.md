@@ -1,4 +1,4 @@
-# **[SuperZig](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`out`** 📢
+# **[SuperZIG](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`out`** 📢
 
 - #### **Definition**
 
@@ -26,7 +26,7 @@
 
 - #### **Notes**
 
-    - Uses Zig `std.io writer` for output.
+    - Uses ZIG `std.io writer` for output.
 
     - **Internally calls `outWith` with `"\n"` appended to `_msg`.**
   

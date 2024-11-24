@@ -1,6 +1,6 @@
-# **[SuperZig](https://github.com/Super-ZIG)** \ IO 🚀
+# **[SuperZIG](https://github.com/Super-ZIG)** \ IO 🚀
 
-A simple and efficient library for handling **input/output** operations in the **Zig** programming language.
+A simple and efficient library for handling **input/output** operations in the **ZIG** programming language.
 
 This library provides various methods to interact with the system, from reading input to writing output, and even listening to system events. 🎧
 
@@ -141,7 +141,7 @@ Here are some of the main methods you can use in **SuperZIG - IO** :
         exe.root_module.addImport("io", io.module("io"));
         ```
 
-    3. #### Import the library in your Zig code  
+    3. #### Import the library in your ZIG code  
 
         ```zig
         const io = @import("io");

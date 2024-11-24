@@ -1,4 +1,4 @@
-# **[SuperZig](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`outWriterWith`** 📢
+# **[SuperZIG](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`outWriterWith`** 📢
 
 - #### **Definition**
 

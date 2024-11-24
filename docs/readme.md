@@ -1,4 +1,4 @@
-# **[SuperZig](https://github.com/Super-ZIG)** \ **[IO](../README.md)** \ Documentation 📚
+# **[SuperZIG](https://github.com/Super-ZIG)** \ **[IO](../README.md)** \ Documentation 📚
 
 | index                     |
 | ------------------------- |

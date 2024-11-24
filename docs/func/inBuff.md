@@ -1,4 +1,4 @@
-# **[SuperZig](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`inBuff`** 📥
+# **[SuperZIG](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`inBuff`** 📥
 
 - #### **Definition**
 
@@ -28,7 +28,7 @@
 
 - #### **Notes**
 
-    - Uses Zig `std.io reader` for input.
+    - Uses ZIG `std.io reader` for input.
 
     - **Throws an error if reading fails.**
 

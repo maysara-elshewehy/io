@@ -1,4 +1,4 @@
-# **[SuperZig](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`in`** 📥
+# **[SuperZIG](https://github.com/Super-ZIG)** \ **[IO](../../README.md)** \ **[Docs](../readme.md)** \ **`in`** 📥
 
 - #### **Definition**
 
@@ -27,7 +27,7 @@
 
 - #### **Notes**
 
-    - Uses Zig `std.io reader` for input.
+    - Uses ZIG `std.io reader` for input.
 
     - **Reads input into a global buffer `g_buff_1024`.**
   
