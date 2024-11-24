@@ -1,15 +1,20 @@
 # **[SuperZIG](https://github.com/Super-ZIG)** \ **[IO](../README.md)** \ Documentation 📚
 
-| index                     |
-| ------------------------- |
-| [Functions](#functions)   |
-| [Structures](#structures) |
+| index                             |
+| --------------------------------- |
+| [Functions](#functions)           |
+| [Functions : Output](#output)     |
+| [Functions : Input](#input)       |
+| [Functions : Events](#events)     |
+| [Functions : Terminal](#terminal) |
+| [Functions : Files](#files)       |
+| [Structures](#structures)         |
 
 ---
 
 - ## Functions
 
-  - ### Output 📢
+  - ### Output
 
     - [out ( `_msg` )](./func/out.md)
         
@@ -51,7 +56,7 @@
         !void
         ```
 
-  - ### Input 📥
+  - ### Input
 
     - [in ( )](./func/in.md)
         
@@ -93,7 +98,7 @@
         !void
         ```
 
-  - ### Events 👂
+  - ### Events
     
     - [once ( `_call` )](./func/once.md) 
         
