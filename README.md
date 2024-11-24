@@ -18,6 +18,8 @@ This library provides various methods to interact with the system, from reading 
 - **🖱️ Event Listening**
     > Listen to system events like key presses in real-time.
 
+- **📦 Single File Usage**  
+    > Use the lightweight version directly by dragging `io.lite.zig` into your project.
 
 ## Usage 📖
 
