@@ -2,16 +2,13 @@
 
     const       std                         = @import("std");
     const       builtin                     = @import("builtin");
-    const       typesFile                   = @import("./types/_.zig");
+    pub const   type                        = @import("./types/_.zig");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
 
 
 // ╔══════════════════════════════════════ DATA ══════════════════════════════════════╗
-
-    /// Alias for io library types.
-    pub const   types                       = typesFile;
 
     /// Global buffer for General purposes.
     var         g_buff_1024 : [1024]u8      = undefined;
