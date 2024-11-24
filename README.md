@@ -108,7 +108,7 @@ Here are some of the main methods you can use in **SuperZIG - IO** :
 
 - ## Installation 📦
 
-    > **`NEW`** _now you can use `./dist/io.lite.zig` file directly in your project **Just One Single File**._
+    > **`NEW`** _now you can use [`io.lite.zig`](./dist/io.lite.zig) file directly in your project **Just One Single File**._
 
     To use **SuperZIG IO** in your project, follow these steps:  
 
