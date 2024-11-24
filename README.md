@@ -108,83 +108,119 @@ Here are some of the main methods you can use in **SuperZIG - IO** :
 
 - ## Installation 📦
 
-    > **`NEW`** _now you can use [`io.lite.zig`](./dist/io.lite.zig) file directly in your project **Just One Single File**._
+    You can use the library in two ways:
 
-    To use **SuperZIG IO** in your project, follow these steps:  
+    - ### **Option 1: Single File Integration**
 
-    1. #### Add the dependency to `build.zig.zon`  
-
-        > **Replace** `_version` _with_ **last version**.
-
-        > **Replace** `_hash` _with_ **hash provided by zig builder**.
+        - Download the [`io.lite.zig`](./dist/io.lite.zig) file.  
+        - Add it to your project directory.  
+        - Import it in your code:
 
         ```zig
-        .dependencies = 
-        .{
-            .io = 
+        const io = @import("path/to/your/io.lite.zig");
+        ```
+
+    - ### **Option 2: Zig Dependency**
+
+        1. Add the dependency to `build.zig.zon`:
+
+            > **Replace** `_version` _with_ **last version**.
+
+            > **Replace** `_hash` _with_ **hash provided by zig builder**.
+
+            ```zig
+            .dependencies = 
             .{
-                .url    = "https://github.com/Super-ZIG/io/archive/refs/tags/_version.tar.gz",
-                .hash   = "_hash"
-            },
-        };
-        ```
+                .io = 
+                .{
+                    .url    = "https://github.com/Super-ZIG/io/archive/refs/tags/_version.tar.gz",
+                    .hash   = "_hash"
+                },
+            };
+            ```
 
-    2. #### Modify your `build.zig` file  
+        2. Modify your `build.zig` file:
 
-        > Add the following after declaring the executable. 
+            > Add the following after declaring the executable. 
 
-        ```zig
-        const io = b.dependency("io",
-        .{
-            .target     = target,
-            .optimize   = optimize,
-        });
+            ```zig
+            const io = b.dependency("io",
+            .{
+                .target     = target,
+                .optimize   = optimize,
+            });
 
-        exe.root_module.addImport("io", io.module("io"));
-        ```
+            exe.root_module.addImport("io", io.module("io"));
+            ```
 
-    3. #### Import the library in your ZIG code  
+        3. Import the library in your code:
 
-        ```zig
-        const io = @import("io");
-        ```
+            ```zig
+            const io = @import("io");
+            ```
 
 - ## [Documentation 📚](./docs/readme.md)
 
     > For detailed information, visit the [`/docs`](./docs/readme.md) folder.
 
-  - ## Testing
+    ---
 
-    ```bash
-    zig test test.zig     # run tests
-    zig build try         # try examples
-    ```
+    - ### Support the Project ❤️
 
-  - ### TODO
-
-    > .. ?
-    
-    - complete unit tests.
-    - add custom writer with flush function.
-    - more functions for terminal.
-    - support files io.
-    - . . . ?
+        > If you enjoy using **SuperZIG** and want to support its development, consider buying me a coffee or sending a small donation!
         
-  - ### Contributing
+        > Your support helps me dedicate more time to improving this project and creating more amazing tools for the community :)
 
-    > Contributions are always welcome! Feel free to open issues, fork the repository, or submit pull requests.
+        - [Donate via **✨ PayPal**](https://www.paypal.me/MaysaraElshewehy)
+          
+          _OR_
 
-    - Fork the project.
-    - Create your feature branch.
-    - Write tests and Testing.
-    - Commit your changes.
-    - Push to the branch.
-    - Open a pull request.
+        - [Buy me a coffee on **☕ Ko-fi**](https://ko-fi.com/codeguild)
 
-  - ### License 📄
+        Thank you for your generosity and encouragement! 💖
+    ---
+    
+    - ### Testing
 
-    This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+        ```bash
+        zig test test.zig     # run tests
+        zig build try         # try examples
+        ```
 
+    - ### Contributing 🤝
+
+        > Contributions are always welcome! Feel free to open issues, fork the repository, or submit pull requests.
+
+        - Fork the project.
+        - Create your feature branch.
+        - Write tests and Testing.
+        - Commit your changes.
+        - Push to the branch.
+        - Open a pull request.
+
+    - ### Author 💻
+
+        > If you encounter any problems or have any suggestions, please feel free to contact me at :
+
+        - 📧 `Email` [maysara.elshewehy@gmail.com](mailto:mmaysara.elshewehy@gmail.com)  
+        
+        - 🌐 `GitHub` [github.com/maysara-elshewehy](https://github.com/maysara-elshewehy)  
+
+
+    - ### License 📄
+
+        This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+    - ##### TODO
+
+        > .. ?
+
+        - complete unit tests.
+        - add custom writer with flush function.
+        - more functions for terminal.
+        - support files io.
+        - . . . ?
+                
 ---
 
 Made with ❤️ by [Maysara](http://github.com/maysara-elshewehy).
