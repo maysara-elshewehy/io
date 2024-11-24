@@ -46,12 +46,12 @@
       pub inline fn state(_self: *const key) State;
       ```
 
-  - **get**  
+  - **code**  
       
       > Returns the key code.  
 
       ```zig
-      pub inline fn get(_self: *const key) u8;
+      pub inline fn code(_self: *const key) u8;
       ```
 
   - **char**  

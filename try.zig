@@ -107,7 +107,7 @@
                 {
                     inline fn callback(key: io.types.key) !void
                     {
-                        try io.outWith("code: {d} , char:  {c} , mod: {s}       \n"   , .{ key.get(),  key.char(),  key.mod() });
+                        try io.outWith("code: {d} , char:  {c} , mod: {s}       \n"   , .{ key.code(), key.char(),  key.mod() });
                         try io.outWith("ctrl: {}  , shift: {}  , alt: {}        \n\n" , .{ key.ctrl(), key.shift(), key.alt() });
                     }
 

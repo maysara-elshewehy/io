@@ -28,7 +28,7 @@
 
     inline fn keyCallback(key: io.types.key) !void
     {
-        try io.outWith("Key code: {d}\n", .{key.get()});
+        try io.outWith("Key code: {d}\n", .{key.code()});
     }
 
     try io.on(condition, keyCallback);

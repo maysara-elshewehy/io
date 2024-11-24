@@ -55,7 +55,7 @@
             }
 
             /// Returns the key code.
-            pub inline fn get
+            pub inline fn code
             (_self: *const key) 
             u8 
             {
