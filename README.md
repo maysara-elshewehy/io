@@ -222,7 +222,11 @@ Here are some of the main methods you can use in **SuperZIG - IO** :
         - more functions for terminal.
         - support files io.
         - . . . ?
-                
+
+    - ##### Related
+        
+        - [SuperZIG CLI](https://github.com/Super-ZIG/cli)
+      
 ---
 
 Made with ❤️ by [Maysara](http://github.com/maysara-elshewehy).
