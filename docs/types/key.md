@@ -122,14 +122,14 @@
         .m_state    = key.State.DoublePress   // 'A' + 'Shift',
     };
 
-    try io.outWith( "Key: {c},     Modifiers: {s},    Count: {d}   \n",
+    try io.outWith( "Char: {c},    Modifiers: {s},    Count: {d}   \n",
                  .{ myKey.char(),   myKey.mod(),     myKey.count() });
     ```
 
     **_RESULT_**
 
     ```zig
-    Key: 'A', Modifiers: 'Shift', Count: 2
+    Char: 'A', Modifiers: 'Shift', Count: 2
     ```
 
 - #### **Notes**
