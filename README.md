@@ -108,7 +108,7 @@ Here are some of the main methods you can use in **SuperZIG - IO** :
 
 - ## Installation 📦
 
-    You can use the library in two ways:
+    > You can use the library in two ways:
 
     - ### **Option 1: Single File Integration**
 
