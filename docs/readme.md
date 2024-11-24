@@ -46,7 +46,7 @@
         > Outputs a simple message followed by a newline to a specific writer.
 
         ```zig
-        pub inline fn outWith
+        pub inline fn outWriterWith
         ( comptime _fmt: []const u8, _args: anytype, _writer: anytype )
         !void
         ```
