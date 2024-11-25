@@ -79,7 +79,7 @@
                 unreachable;
             }
             
-            Help.reset();
+            defer Help.reset();
         }
 
         const Help = struct
@@ -122,13 +122,8 @@
                 // Set timeout to 0 (no wait time for input)
                 g_newSettings.c_cc[linuxH.VTIME] = 0;                               // Set the VTIME control character to 0 to disable wait time
 
-
                 // Set the new terminal settings
-                if (linuxH.tcsetattr(0, linuxH.TCSAFLUSH, &g_newSettings) != 0) 
-                {
-                    // Register the cleanup function to restore terminal settings on program exit
-                    defer reset();
-                }
+                // if (linuxH.tcsetattr(0, linuxH.TCSAFLUSH, &g_newSettings) != 0) 
             }
 
             // Function to detect modifier keys (Ctrl, Alt, Shift)
