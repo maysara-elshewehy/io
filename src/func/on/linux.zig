@@ -63,6 +63,7 @@
         !void
         {
             Help.init();
+            defer Help.reset();
 
             // Read key input
             g_bytesRead = linuxH.read(0, &g_keyBuffer, @sizeOf(@TypeOf(g_keyBuffer)));
@@ -78,8 +79,6 @@
                 // try _call(types.key{ .key = 0, .character = 0, .modifiers = 0, });
                 unreachable;
             }
-            
-            defer Help.reset();
         }
 
         const Help = struct
@@ -123,7 +122,11 @@
                 g_newSettings.c_cc[linuxH.VTIME] = 0;                               // Set the VTIME control character to 0 to disable wait time
 
                 // Set the new terminal settings
-                // if (linuxH.tcsetattr(0, linuxH.TCSAFLUSH, &g_newSettings) != 0) 
+                if (linuxH.tcsetattr(0, linuxH.TCSAFLUSH, &g_newSettings) != 0)
+                {
+                    // Reset to avoid needing to press enter and to hide the user input in the terminal !
+                    Help.reset();
+                } 
             }
 
             // Function to detect modifier keys (Ctrl, Alt, Shift)
