@@ -2,7 +2,7 @@
 
     const   std                     = @import("std");
     const   loop                    = @import("../../libs/loop.zig");
-    const   types                   = @import("../../types/_.zig");
+    const   types                   = @import("../../types/all.zig");
 
     const   linuxH                  = @cImport
     ({
