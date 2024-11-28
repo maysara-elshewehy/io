@@ -226,6 +226,8 @@ Here are some of the main methods you can use in **SuperZIG - IO** :
     - ##### Related
         
         - [SuperZIG CLI](https://github.com/Super-ZIG/cli)
+
+        - [SuperZIG ANSI](https://github.com/Super-ZIG/ansi)
       
 ---
 
