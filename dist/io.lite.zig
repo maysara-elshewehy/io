@@ -262,7 +262,7 @@ const __WIN_API__ = if (builtin.os.tag == .windows) struct {
                 // Check if Shift key (either left or right) is pressed
                 if (checkKeyState(windowsH.VK_LSHIFT) & 0x8000 != 0 or checkKeyState(windowsH.VK_RSHIFT) & 0x8000 != 0)
                 {
-                    l_modifiers |= 1 << 1;                  // Set the Shift modifier
+                    l_modifiers |= 1 << 1;      // Set the Shift modifier
                 }
 
                 // Check if Ctrl key (either left or right) is pressed and there's a valid key press
@@ -270,7 +270,7 @@ const __WIN_API__ = if (builtin.os.tag == .windows) struct {
                 {
                     if (g_lastKey != 0)
                     {
-                        l_modifiers |= 1 << 2;              // Set the Ctrl modifier
+                        l_modifiers |= 1 << 2;  // Set the Ctrl modifier
                     }
                 }
 
@@ -279,11 +279,11 @@ const __WIN_API__ = if (builtin.os.tag == .windows) struct {
                 {
                     if (g_lastKey != 0)
                     {
-                        l_modifiers |= 1 << 0;              // Set the Alt modifier
+                        l_modifiers |= 1 << 0;  // Set the Alt modifier
                     }
                 }
 
-                return l_modifiers;                         // Return the detected modifiers
+                return l_modifiers; // Return the detected modifiers
             }
 
             inline fn getKeyValue(key: u8) u8
