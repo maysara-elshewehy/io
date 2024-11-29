@@ -53,20 +53,20 @@
         try out(_msg); try inBuff(_buff); }
 
     /// Listens for key input.
-    pub inline fn once ( _call: anytype ) !void {
+    pub inline fn once ( _call: anytype, _args: anytype ) !void {
         if (builtin.os.tag == .windows) {
-            return @import("./func/on/windows.zig").once(_call);
+            return @import("./func/on/windows.zig").once(_call, _args);
         } else if (builtin.os.tag == .linux) { 
-            return @import("./func/on/linux.zig").once(_call);
+            return @import("./func/on/linux.zig").once(_call, _args);
         } else { 
             try outWith("OS not supported : {}\n", .{builtin.os.tag}); unreachable; } }
 
     /// Listens for key input until the condition is met.
-    pub inline fn on ( _cond: anytype, _call: anytype ) !void {
+    pub inline fn on ( _cond: anytype, _condArgs: anytype, _call: anytype, _callArgs: anytype ) !void {
         if (builtin.os.tag == .windows) {
-            return @import("./func/on/windows.zig").on(_cond, _call);
+            return @import("./func/on/windows.zig").on(_cond, _condArgs, _call, _callArgs);
             } else if (builtin.os.tag == .linux) {
-                return @import("./func/on/linux.zig").on(_cond, _call);
+                return @import("./func/on/linux.zig").on(_cond, _condArgs, _call, _callArgs);
                 } else {
                     try outWith("OS not supported : {}\n", .{builtin.os.tag}); unreachable; } }
 

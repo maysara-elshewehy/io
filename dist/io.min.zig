@@ -47,20 +47,20 @@ pub inline fn askBuff ( comptime _msg: []const u8, _buff: []u8 ) !void {
     try out (_msg); try inBuff  (_buff); }
 
 /// Listens for key input.
-pub inline fn once ( _call: anytype ) !void {
+pub inline fn once ( _call: anytype, _args: anytype ) !void {
     if (builtin.os.tag == .windows) {
-        return __WIN_API__.once(_call);
+        return __WIN_API__.once(_call, _args);
     } else if (builtin.os.tag == .linux) { 
-        return __LIN_API__.once(_call);
+        return __LIN_API__.once(_call, _args);
     } else { 
         try outWith("OS not supported : {}\n", .{builtin.os.tag}); unreachable; } }
 
 /// Listens for key input until the condition is met.
-pub inline fn on ( _cond: anytype, _call: anytype ) !void {
+pub inline fn on ( _cond: anytype, _condArgs: anytype, _call: anytype, _callArgs: anytype ) !void {
     if (builtin.os.tag == .windows) {
-        return __WIN_API__.on(_cond, _call);
+        return __WIN_API__.on(_cond, _condArgs, _call, _callArgs);
     } else if (builtin.os.tag == .linux) {
-        return __LIN_API__.on(_cond, _call);
+        return __LIN_API__.on(_cond, _condArgs, _call, _callArgs);
     } else {
         try outWith("OS not supported : {}\n", .{builtin.os.tag}); unreachable; } }
 
@@ -169,12 +169,12 @@ const __WIN_API__ = if (builtin.os.tag == .windows) struct {
     const MAX_KEYPRESS_DELAY : f64  = 1.0;
 
     /// Listen for a single key press and invoke the provided callback function
-    pub inline fn once ( _call: anytype ) !void {
-        try Logic.Core( _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE) ); }
+    pub inline fn once ( _call: anytype, _args: anytype ) !void {
+        try Logic.Core( _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE), _args ); }
     
     /// Listen for key input until the specified condition is met and invoke the callback function
-    pub inline fn on ( _cond: anytype, _call: anytype ) !void {
-        try loop.untilWith( _cond, Logic.Core, .{ _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE) } ); }
+    pub inline fn on ( _cond: anytype, _condArgs: anytype, _call: anytype, _callArgs: anytype ) !void {
+        try loop.untilWith( _cond, _condArgs, Logic.Core, .{ _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE), _callArgs } ); }
 
     const Logic = struct
     {
@@ -183,9 +183,7 @@ const __WIN_API__ = if (builtin.os.tag == .windows) struct {
         var g_state         : g_State   = g_State.None; // Stores the current key press state (SinglePress/DoublePress)
 
         /// Core function to handle key input and invoke the callback function
-        inline fn Core
-        ( _call: anytype, _hConsole: anytype )
-        !void
+        inline fn Core( _call: anytype, _hConsole: anytype, _args: anytype ) !void
         {
             var l_bytesRead : u32 = 0;
             var l_inputRecord : windowsH.INPUT_RECORD = undefined;
@@ -232,7 +230,7 @@ const __WIN_API__ = if (builtin.os.tag == .windows) struct {
                     };
 
                     // Call the provided callback function with the key object
-                    try _call(l_res);
+                    try _call(l_res, _args);
 
                     break;
                 }
@@ -303,17 +301,17 @@ const __LIN_API__ = if (builtin.os.tag == .linux) struct {
     var g_bytesRead : isize = undefined;
 
     /// Listen for key input
-    pub inline fn once ( _call: anytype ) !void {
-        try Logic.Core( _call ); }
+    pub inline fn once ( _call: anytype, _args: anytype ) !void {
+        try Logic.Core( _call, _args ); }
 
     /// Listen for key input until the condition is met
-    pub inline fn on ( _cond: anytype, _call: anytype ) !void {
-        try loop.untilWith( _cond, Logic.Core, .{ _call } ); }
+    pub inline fn on ( _cond: anytype, _condArgs: anytype, _call: anytype, _callArgs: anytype ) !void {
+        try loop.untilWith( _cond, _condArgs, Logic.Core, .{ _call, _callArgs } ); }
 
     const Logic = struct
     {
         /// The entry point of our logic !
-        inline fn Core ( _call: anytype ) !void 
+        inline fn Core ( _call: anytype, _args: anytype ) !void 
         {
             Help.init();
             defer Help.reset();
@@ -324,7 +322,7 @@ const __LIN_API__ = if (builtin.os.tag == .linux) struct {
             if (g_bytesRead > 0) 
             { 
                 const l_res: types.key = Help.detectMods(g_keyBuffer[0..], g_bytesRead);
-                try _call(l_res);
+                try _call(l_res, _args);
             } 
             else 
             {
@@ -426,8 +424,8 @@ const __LIN_API__ = if (builtin.os.tag == .linux) struct {
 
 /// @ref https://github.com/Super-ZIG/io/blob/main/dist/loop.min.zig
 const loop = struct {
-    pub inline fn untilWith ( _cond: anytype, _call: anytype, _args: anytype ) !void {
+    pub inline fn untilWith ( _cond: anytype, _condArgs: anytype, _call: anytype, _callArgs: anytype ) !void {
         while (true) {
-            try @call(.auto, _call, _args);
-            if (!try _cond()) break; } }
+            try @call(.auto, _call, _callArgs);
+            if (!try @call(.auto, _cond, _condArgs)) break; } }
 };

@@ -34,12 +34,12 @@
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
     /// Listen for a single key press and invoke the provided callback function
-    pub inline fn once ( _call: anytype ) !void {
-        try Logic.Core( _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE) ); }
+    pub inline fn once ( _call: anytype, _args: anytype ) !void {
+        try Logic.Core( _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE), _args ); }
     
     /// Listen for key input until the specified condition is met and invoke the callback function
-    pub inline fn on ( _cond: anytype, _call: anytype ) !void {
-        try loop.untilWith( _cond, Logic.Core, .{ _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE) } ); }
+    pub inline fn on ( _cond: anytype, _condArgs: anytype, _call: anytype, _callArgs: anytype ) !void {
+        try loop.untilWith( _cond, _condArgs, Logic.Core, .{ _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE), _callArgs } ); }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -54,9 +54,7 @@
         var g_state         : g_State   = g_State.None; // Stores the current key press state (SinglePress/DoublePress)
 
         /// Core function to handle key input and invoke the callback function
-        inline fn Core
-        ( _call: anytype, _hConsole: anytype )
-        !void
+        inline fn Core( _call: anytype, _hConsole: anytype, _args: anytype ) !void
         {
             var l_bytesRead : u32 = 0;
             var l_inputRecord : windowsH.INPUT_RECORD = undefined;
@@ -103,7 +101,7 @@
                     };
 
                     // Call the provided callback function with the key object
-                    try _call(l_res);
+                    try _call(l_res, _args);
 
                     break;
                 }
@@ -113,13 +111,13 @@
         const Help = struct
         {
             /// Get the current state of a key based on its virtual key code
-            inline fn checkKeyState ( _keyCode: i32 ) i32
+            inline fn checkKeyState( _keyCode: i32 ) i32
             {
                 return windowsH.GetKeyState(_keyCode); // Return the key state (pressed or not)
             }
 
             /// Detect the state of modifier keys (Shift, Ctrl, Alt)
-            inline fn detectMods () u3
+            inline fn detectMods() u3
             {
                 var l_modifiers : u3 = 0;
 

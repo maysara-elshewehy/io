@@ -3,7 +3,7 @@
     const std       = @import("std");
     const ioMin     = @import("./dist/io.min.zig");
     const ioFull    = @import("./src/io.zig");
-    const io        = ioFull;
+    const io        = ioMin;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -105,7 +105,7 @@
             {
                 const example = struct
                 {
-                    inline fn callback(key: io.types.key) !void
+                    inline fn callback(key: io.types.key, _: anytype) !void
                     {
                         try io.outWith("code: {d} , char:  {c} , mod: {s}       \n"   , .{ key.code(), key.char(),  key.mod() });
                         try io.outWith("ctrl: {}  , shift: {}  , alt: {}        \n\n" , .{ key.ctrl(), key.shift(), key.alt() });
@@ -120,12 +120,12 @@
                     {
                         TRY("once");
                         {
-                            try io.once(callback);
+                            try io.once(callback, .{});
                         }
 
                         TRY("on");
                         {
-                            try io.on(condition, callback);
+                            try io.on(condition, .{}, callback, .{});
                         }
                     }
                 };

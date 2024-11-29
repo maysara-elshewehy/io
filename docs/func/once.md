@@ -8,7 +8,7 @@
 
     ```zig
     pub inline fn once
-    ( _call: anytype ) 
+    ( _call: anytype, _args: anytype ) 
     !void
     ```
 
@@ -16,15 +16,17 @@
 
   - `_call`: A callback function invoked with key details.
 
+  - `_args`: Callback arguments **[REQUIRED]**.
+
 - #### **Example**
 
     ```zig
-    inline fn keyCallback(key: io.types.key) !void
+    inline fn keyCallback(key: io.types.key, _: anytype) !void
     {
         try io.outWith("Key code: {d}\n", .{key.code()});
     }
 
-    try io.on(keyCallback);
+    try io.on(keyCallback, .{});
     ```
 
 - #### **Notes**
@@ -32,6 +34,8 @@
     - **Platform-specific, with support for `Windows` and `Linux`.**
 
     - **Outputs an error message for unsupported platforms.**
+
+    - **You can pass your arguments inside the `.{ }`.**
 
 - ##### Related
 

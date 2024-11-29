@@ -29,12 +29,12 @@
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
     /// Listen for key input
-    pub inline fn once ( _call: anytype ) !void {
-        try Logic.Core( _call ); }
+    pub inline fn once ( _call: anytype, _args: anytype ) !void {
+        try Logic.Core( _call, _args ); }
 
     /// Listen for key input until the condition is met
-    pub inline fn on ( _cond: anytype, _call: anytype ) !void {
-        try loop.untilWith( _cond, Logic.Core, .{ _call } ); }
+    pub inline fn on ( _cond: anytype, _condArgs: anytype, _call: anytype, _callArgs: anytype ) !void {
+        try loop.untilWith( _cond, _condArgs, Logic.Core, .{ _call, _callArgs } ); }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -45,7 +45,7 @@
     const Logic = struct
     {
         /// The entry point of our logic !
-        inline fn Core ( _call: anytype ) !void 
+        inline fn Core ( _call: anytype, _args: anytype ) !void 
         {
             Help.init();
             defer Help.reset();
@@ -56,7 +56,7 @@
             if (g_bytesRead > 0) 
             { 
                 const l_res: types.key = Help.detectMods(g_keyBuffer[0..], g_bytesRead);
-                try _call(l_res);
+                try _call(l_res, _args);
             } 
             else 
             {

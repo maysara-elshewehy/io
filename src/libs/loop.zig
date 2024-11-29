@@ -8,7 +8,7 @@
 // GitHub   : https://github.com/maysara-elshewehy
 
 
-pub inline fn untilWith ( _cond: anytype, _call: anytype, _args: anytype ) !void {
+pub inline fn untilWith ( _cond: anytype, _condArgs: anytype, _call: anytype, _callArgs: anytype ) !void {
     while (true) {
-        try @call(.auto, _call, _args);
-        if (!try _cond()) break; } }
+        try @call(.auto, _call, _callArgs);
+        if (!try @call(.auto, _cond, _condArgs)) break; } }

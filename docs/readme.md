@@ -8,7 +8,7 @@
 | [Functions : Events](#events)     |
 | [Functions : Terminal](#terminal) |
 | [Functions : Files](#files)       |
-| [Structures](#structures)         |
+| [Types](#types)                   |
 
 ---
 
@@ -100,23 +100,23 @@
 
   - ### Events
     
-    - [once ( `_call` )](./func/once.md) 
+    - [once ( `_call`, `_args` )](./func/once.md) 
         
         > Listens for key input.
 
         ```zig
         pub inline fn once
-        ( _call: anytype )
+        ( _call: anytype, _args: anytype )
         !void
         ```
 
-    - [on ( `_cond`, `_call` )](./func/on.md) 
+    - [on ( `_cond`, `_condArgs`, `_call`, `_callArgs` )](./func/on.md) 
         
         > Listens for key input until the condition is met.
 
         ```zig
         pub inline fn on
-        ( _cond: anytype, _call: anytype )
+        ( _cond: anytype, _condArgs: anytype, _call: anytype, _callArgs: anytype )
         !void
         ```
 
@@ -141,7 +141,7 @@
     > _.. ?_
 
 
-- ## Structures
+- ## Types
 
   - [key](./types/key.md)
     

@@ -59,13 +59,13 @@ Here are some of the main methods you can use in **SuperZIG - IO** :
     ```zig
     const example = struct
     {
-        inline fn callback(key: io.types.key) !void
+        inline fn callback(key: io.types.key, _: anytype) !void
         {
             try io.outWith("code: {d} , char:  {c} , mod: {s}   \n"     , .{ key.code() , key.char() , key.mod() });
             try io.outWith("ctrl: {}  , shift: {}  , alt: {}    \n\n"   , .{ key.ctrl() , key.shift(), key.alt() });
         }
 
-        inline fn condition ()
+        inline fn condition (_: anytype)
         !bool
         {
             return true;
@@ -74,8 +74,8 @@ Here are some of the main methods you can use in **SuperZIG - IO** :
         inline fn run ()
         !void
         {
-            try io.once (callback);                 // just one time.
-            try io.on   (condition, callback);      // repeat until the condition is met.
+            try io.once (callback,  .{});                   // just one time.
+            try io.on   (condition, .{}, callback, .{});    // repeat until the condition is met.
         }
     };
 
