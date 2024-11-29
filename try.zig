@@ -1,9 +1,9 @@
 // ╔══════════════════════════════════════ FILE ══════════════════════════════════════╗
 
     const std       = @import("std");
-    const ioLite    = @import("./dist/io.lite.zig");
+    const ioMin    = @import("./dist/io.min.zig");
     const ioFull    = @import("./src/io.zig");
-    const io        = ioLite;
+    const io        = ioFull;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 

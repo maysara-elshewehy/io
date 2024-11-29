@@ -1,4 +1,4 @@
-// This is a lite version of https://github.com/Super-ZIG/io library.
+// This is a min version of https://github.com/Super-ZIG/io library.
 // I created this file to use this library without the need to install it via Zig. 
 // Simply drag this single file into your project and import it.
 //
@@ -426,7 +426,7 @@ const __LIN_API__ = if (builtin.os.tag == .linux) struct {
 } else null;
 
 
-/// @ref https://github.com/Super-ZIG/io/blob/main/dist/loop.lite.zig
+/// @ref https://github.com/Super-ZIG/io/blob/main/dist/loop.min.zig
 const loop = struct {
     pub inline fn untilWith ( _cond: anytype, _call: anytype, _args: anytype ) !void {
         while (true) {

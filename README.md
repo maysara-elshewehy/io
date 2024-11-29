@@ -19,7 +19,7 @@ This library provides various methods to interact with the system, from reading 
     > Listen to system events like key presses in real-time.
 
 - **📦 Single File Usage**  
-    > Use the lightweight version directly by dragging `io.lite.zig` into your project.
+    > Use the lightweight version directly by dragging `io.min.zig` into your project.
 
 ## Usage 📖
 
@@ -114,12 +114,12 @@ Here are some of the main methods you can use in **SuperZIG - IO** :
 
     - ### **Option 1: Single File Integration**
 
-        - Download the [`io.lite.zig`](./dist/io.lite.zig) file.  
+        - Download the [`io.min.zig`](./dist/io.min.zig) file.  
         - Add it to your project directory.  
         - Import it in your code:
 
         ```zig
-        const io = @import("path/to/your/io.lite.zig");
+        const io = @import("path/to/your/io.min.zig");
         ```
 
     - ### **Option 2: Zig Dependency**
