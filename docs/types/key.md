@@ -104,14 +104,6 @@
       pub inline fn count(_self: *const key) u8;
       ```
 
-- #### **Constants**
-
-  - `MOD_ALT` Represents the `Alt` key modifier (`1 << 0`).
-
-  - `MOD_SHIFT` Represents the `Shift` key modifier (`1 << 1`).
-
-  - `MOD_CTRL` Represents the `Ctrl` key modifier (`1 << 2`).
-
 - #### **Example**
 
     ```zig
