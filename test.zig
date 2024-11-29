@@ -1,10 +1,14 @@
 // ╔══════════════════════════════════════ LOAD ══════════════════════════════════════╗
 
-    const       io          = @import("./src/io.zig");
-    const       std         = @import("std");
-    const       testing     = std.testing;
+    const std       = @import("std");
+    const ioLite    = @import("./dist/io.lite.zig");
+    const ioFull    = @import("./src/io.zig");
+    const io        = ioLite;
+    const testing   = std.testing;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
 
 // ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
 
@@ -26,7 +30,7 @@
             }
         }
 
-        // TODO: implement it !
+        // TODO: complete it !
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

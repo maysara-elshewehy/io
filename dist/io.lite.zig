@@ -70,11 +70,6 @@ pub inline fn on ( _cond: anytype, _call: anytype ) !void {
 pub inline fn cls () !void {
     _ = try out("\x1b[2J\x1b[H"); }
 
-/// untilWith
-pub inline fn untilWith ( _cond: anytype, _call: anytype, _args: anytype ) !void {
-    while (true) {
-        try @call(.auto, _call, _args); if (!try _cond()) break; } }
-
 /// Alias for io library types.
 pub const types = struct {
     // Struct to represent key press details.
@@ -181,7 +176,7 @@ const __WIN_API__ = if (builtin.os.tag == .windows) struct {
     
     /// Listen for key input until the specified condition is met and invoke the callback function
     pub inline fn on ( _cond: anytype, _call: anytype ) !void {
-        try untilWith( _cond, Logic.Core, .{ _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE) } ); }
+        try loop.untilWith( _cond, Logic.Core, .{ _call, windowsH.GetStdHandle(windowsH.STD_INPUT_HANDLE) } ); }
 
     const Logic = struct
     {
@@ -315,7 +310,7 @@ const __LIN_API__ = if (builtin.os.tag == .linux) struct {
 
     /// Listen for key input until the condition is met
     pub inline fn on ( _cond: anytype, _call: anytype ) !void {
-        try untilWith( _cond, Logic.Core, .{ _call } ); }
+        try loop.untilWith( _cond, Logic.Core, .{ _call } ); }
 
     const Logic = struct
     {
@@ -429,3 +424,12 @@ const __LIN_API__ = if (builtin.os.tag == .linux) struct {
         };
     };
 } else null;
+
+
+/// @ref https://github.com/Super-ZIG/io/blob/main/dist/loop.lite.zig
+const loop = struct {
+    pub inline fn untilWith ( _cond: anytype, _call: anytype, _args: anytype ) !void {
+        while (true) {
+            try @call(.auto, _call, _args);
+            if (!try _cond()) break; } }
+};
