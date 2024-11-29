@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════ FILE ══════════════════════════════════════╗
 
     const std       = @import("std");
-    const ioMin    = @import("./dist/io.min.zig");
+    const ioMin     = @import("./dist/io.min.zig");
     const ioFull    = @import("./src/io.zig");
     const io        = ioFull;
 
