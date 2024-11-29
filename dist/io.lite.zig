@@ -61,10 +61,10 @@ pub inline fn once ( _call: anytype ) !void {
 pub inline fn on ( _cond: anytype, _call: anytype ) !void {
     if (builtin.os.tag == .windows) {
         return __WIN_API__.on(_cond, _call);
-        } else if (builtin.os.tag == .linux) {
-            return __LIN_API__.on(_cond, _call);
-            } else {
-                try outWith("OS not supported : {}\n", .{builtin.os.tag}); unreachable; } }
+    } else if (builtin.os.tag == .linux) {
+        return __LIN_API__.on(_cond, _call);
+    } else {
+        try outWith("OS not supported : {}\n", .{builtin.os.tag}); unreachable; } }
 
 /// Clears the terminal(Screen).
 pub inline fn cls () !void {
