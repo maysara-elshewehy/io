@@ -12,12 +12,6 @@
     !void
     ```
 
-- #### **Parameters**
-
-  - `_msg`
-      
-      > The message to output.
-
 - #### **Example**
 
     ```zig
@@ -25,13 +19,9 @@
     try io.cls();           // cleanup
     ```
 
-- #### **Notes**
-
-    - `. . ?`
-
 - ##### Related
 
-  - ###### [`. . ?`](#)
+  - ###### [`clsLine`](./clsLine.md)
   
 ---
 

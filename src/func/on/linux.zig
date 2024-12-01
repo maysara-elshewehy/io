@@ -42,39 +42,31 @@
 
 // ╔══════════════════════════════════════ LOGIC ═════════════════════════════════════╗
 
-    const Logic = struct
-    {
+    const Logic = struct {
         /// The entry point of our logic !
-        inline fn Core ( _call: anytype, _args: anytype ) !void 
-        {
+        inline fn Core ( _call: anytype, _args: anytype ) !void  {
             Help.init();
             defer Help.reset();
 
             // Read key input
             g_bytesRead = linuxH.read(0, &g_keyBuffer, @sizeOf(@TypeOf(g_keyBuffer)));
 
-            if (g_bytesRead > 0) 
-            { 
+            if (g_bytesRead > 0) { 
                 const l_res: types.key = Help.detectMods(g_keyBuffer[0..], g_bytesRead);
                 try _call(l_res, _args);
-            } 
-            else 
-            {
+            } else {
                 unreachable; 
             }
         }
 
-        const Help = struct 
-        {
+        const Help = struct {
             /// Restore old terminal settings to prevent permanent changes.
-            inline fn reset () void 
-            {
+            inline fn reset () void {
                 _ = linuxH.tcsetattr(0, linuxH.TCSAFLUSH, &g_oldSettings);
             }
 
             /// Setup the new terminal settings.
-            inline fn init () void 
-            {
+            inline fn init () void {
                 // Cleanup the buffer
                 g_keyBuffer[0..].* = @as([3]u8, std.mem.zeroes([3]u8));
 
@@ -98,30 +90,37 @@
 
                 // Set the new terminal settings
                 // Reset to avoid needing to press enter and to hide the user input in the terminal !
-                if (linuxH.tcsetattr(0, linuxH.TCSAFLUSH, &g_newSettings) != 0)
-                {
+                if (linuxH.tcsetattr(0, linuxH.TCSAFLUSH, &g_newSettings) != 0) {
                     Help.reset(); 
                 } 
             }
 
             // Function to detect modifier keys (Ctrl, Alt, Shift)
-            inline fn detectMods ( _keyBuffer: []const u8, _bytesRead: isize ) types.key
-            {
-                var l_res = types.key
-                {
+            inline fn detectMods ( _keyBuffer: []const u8, _bytesRead: isize ) types.key {
+                var l_res = types.key {
                     .m_val  = 0,
                     .m_mod  = 0,
                     .m_state = types.key.State.None };
 
                 if (_bytesRead == 0) { return l_res; }
 
+                // Detect arrow keys
+                if (_keyBuffer[1] == '[' and _bytesRead > 2) {
+                    l_res.m_arrow = switch (_keyBuffer[2]) {
+                        'A' => types.key.Arrow.Up,
+                        'B' => types.key.Arrow.Down,
+                        'C' => types.key.Arrow.Right,
+                        'D' => types.key.Arrow.Left,
+                        else => types.key.Arrow.None,
+                    };
+                    return l_res;
+                }
+                
                 // Alt key detection
-                if (_keyBuffer[0] == 0x1B)
-                {
+                if (_keyBuffer[0] == 0x1B) {
                     l_res.m_mod |= 1 << 0;
 
-                    if (_bytesRead > 1)
-                    {
+                    if (_bytesRead > 1) {
                         l_res.m_val = _keyBuffer[1];
                         if (std.ascii.isUpper(_keyBuffer[1])) { l_res.m_mod |= 1 << 1; }
                         if (_keyBuffer[1] >= 0x00 and _keyBuffer[1] <= 0x1F) { l_res.m_mod |= 1 << 2; }
@@ -131,8 +130,7 @@
                 }
 
                 // Ctrl key detection
-                if (_keyBuffer[0] >= 0x00 and _keyBuffer[0] <= 0x1F)
-                {
+                if (_keyBuffer[0] >= 0x00 and _keyBuffer[0] <= 0x1F) {
                     l_res.m_mod |= 1 << 2;
                     l_res.m_val = _keyBuffer[0];
 
@@ -147,8 +145,7 @@
                 return l_res;
             }  
 
-            inline fn getKeyValue(key: u8) u8 
-            {
+            inline fn getKeyValue(key: u8) u8 {
                 return key;
             }
         };

@@ -134,6 +134,16 @@
         !void
         ```
 
+    - [clsLine ( )](./func/clsLine.md) 
+        
+        > Clears the current line of the terminal.
+
+        ```zig
+        pub inline fn clsLine
+        ( )
+        !void
+        ```
+
     > _.. ?_
 
   - ### Files

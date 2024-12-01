@@ -23,6 +23,10 @@
     const VK_RCONTROL   = 0xA3;
     const VK_LMENU      = 0xA4;
     const VK_RMENU      = 0xA5;
+    const VK_UP         = 0x26;
+    const VK_DOWN       = 0x28;
+    const VK_LEFT       = 0x25;
+    const VK_RIGHT      = 0x27;
 
     // Maximum allowed delay between key presses to be considered as double press
     const MAX_KEYPRESS_DELAY : f64  = 1.0;
@@ -47,36 +51,30 @@
 
 // ╔══════════════════════════════════════ LOGIC ═════════════════════════════════════╗
 
-    const Logic = struct
-    {
+    const Logic = struct {
         var g_lastKeyTime   : f64       = 0.0;          // Stores the timestamp of the last key press
         var g_lastKey       : u8        = 0;            // Stores the last pressed key
         var g_state         : g_State   = g_State.None; // Stores the current key press state (SinglePress/DoublePress)
 
         /// Core function to handle key input and invoke the callback function
-        inline fn Core( _call: anytype, _hConsole: anytype, _args: anytype ) !void
-        {
+        inline fn Core( _call: anytype, _hConsole: anytype, _args: anytype ) !void {
             var l_bytesRead : u32 = 0;
             var l_inputRecord : windowsH.INPUT_RECORD = undefined;
             
-            while(true)
-            {
+            while(true) {
                 // Read the console input event (key press)
                 _ = windowsH.ReadConsoleInputA(_hConsole, &l_inputRecord, 1, &l_bytesRead);
 
-                if (l_inputRecord.EventType == windowsH.KEY_EVENT and l_inputRecord.Event.KeyEvent.bKeyDown != 0)
-                {
+                if (l_inputRecord.EventType == windowsH.KEY_EVENT and l_inputRecord.Event.KeyEvent.bKeyDown != 0) {
                     const l_key         = l_inputRecord.Event.KeyEvent.uChar.AsciiChar;
                     const l_currentTime = @as(f64, @floatFromInt(std.time.timestamp()));
+                    const l_virtualKey  = l_inputRecord.Event.KeyEvent.wVirtualKeyCode;
 
                     // Check the time between the current and last key press
-                    if (l_currentTime - g_lastKeyTime <= MAX_KEYPRESS_DELAY)
-                    {
+                    if (l_currentTime - g_lastKeyTime <= MAX_KEYPRESS_DELAY) {
                         // If the time between presses is less than the allowed threshold, treat as double press
                         g_state = g_State.DoublePress;
-                    }
-                    else
-                    {
+                    } else {
                         // Otherwise, treat as single press
                         g_state = g_State.SinglePress;
                     }
@@ -85,19 +83,27 @@
                     g_lastKey = l_key;              // Update the last pressed key
 
                     const l_modifiers = Help.detectMods(); // Detect the modifier keys (Shift, Ctrl, Alt)
-                    
-                    // If the key pressed is 0 (no valid key), ignore
-                    if (l_key == 0)
-                    {
-                        return;
+
+                    // Get Arrows
+                    var l_arrows : types.key.Arrow = undefined;
+
+                    switch (l_virtualKey) {
+                        VK_UP    => l_arrows = types.key.Arrow.Up,
+                        VK_DOWN  => l_arrows = types.key.Arrow.Down,
+                        VK_LEFT  => l_arrows = types.key.Arrow.Left,
+                        VK_RIGHT => l_arrows = types.key.Arrow.Right,
+                        else     => { 
+                            if(l_key == 0) { return; }
+                            else { l_arrows = types.key.Arrow.None; }
+                        },
                     }
 
                     // Create a key object with the key value, modifiers, and key press state
-                    const l_res         = types.key
-                    {
+                    const l_res         = types.key {
                         .m_val          = Help.getKeyValue(l_key),
                         .m_mod          = l_modifiers,
                         .m_state        = g_state,
+                        .m_arrow        = l_arrows
                     };
 
                     // Call the provided callback function with the key object
@@ -108,39 +114,31 @@
             }
         }
 
-        const Help = struct
-        {
+        const Help = struct {
             /// Get the current state of a key based on its virtual key code
-            inline fn checkKeyState( _keyCode: i32 ) i32
-            {
+            inline fn checkKeyState( _keyCode: i32 ) i32 {
                 return windowsH.GetKeyState(_keyCode); // Return the key state (pressed or not)
             }
 
             /// Detect the state of modifier keys (Shift, Ctrl, Alt)
-            inline fn detectMods() u3
-            {
+            inline fn detectMods() u3 {
                 var l_modifiers : u3 = 0;
 
                 // Check if Shift key (either left or right) is pressed
-                if (checkKeyState(windowsH.VK_LSHIFT) & 0x8000 != 0 or checkKeyState(windowsH.VK_RSHIFT) & 0x8000 != 0)
-                {
+                if (checkKeyState(windowsH.VK_LSHIFT) & 0x8000 != 0 or checkKeyState(windowsH.VK_RSHIFT) & 0x8000 != 0) {
                     l_modifiers |= 1 << 1;                  // Set the Shift modifier
                 }
 
                 // Check if Ctrl key (either left or right) is pressed and there's a valid key press
-                if (checkKeyState(windowsH.VK_LCONTROL) & 0x8000 != 0 or checkKeyState(windowsH.VK_RCONTROL) & 0x8000 != 0)
-                {
-                    if (g_lastKey != 0)
-                    {
+                if (checkKeyState(windowsH.VK_LCONTROL) & 0x8000 != 0 or checkKeyState(windowsH.VK_RCONTROL) & 0x8000 != 0) {
+                    if (g_lastKey != 0) {
                         l_modifiers |= 1 << 2;              // Set the Ctrl modifier
                     }
                 }
 
                 // Check if Alt key (either left or right) is pressed and there's a valid key press
-                if (checkKeyState(windowsH.VK_LMENU) & 0x8000 != 0 or checkKeyState(windowsH.VK_RMENU) & 0x8000 != 0)
-                {
-                    if (g_lastKey != 0)
-                    {
+                if (checkKeyState(windowsH.VK_LMENU) & 0x8000 != 0 or checkKeyState(windowsH.VK_RMENU) & 0x8000 != 0) {
+                    if (g_lastKey != 0) {
                         l_modifiers |= 1 << 0;              // Set the Alt modifier
                     }
                 }
@@ -148,8 +146,7 @@
                 return l_modifiers;                         // Return the detected modifiers
             }
 
-            inline fn getKeyValue(key: u8) u8
-            { 
+            inline fn getKeyValue(key: u8) u8 { 
                 return key;
             }
         };

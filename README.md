@@ -11,7 +11,13 @@ This library provides various methods to interact with the system, from reading 
   
 - **📝 Input Handling**
     > Read inputs from the console, with flexible reading capabilities.
-  
+
+- **🗝️ Special Key Detection**
+    > Detect a variety of special keys such as:  
+    - **Modifier Keys**: Alt, Shift, Ctrl (both left and right variants).
+    - **Navigation Keys**: Arrow keys (Up ⬆️, Down ⬇️, Left ⬅️, Right ➡️).
+    - **Editing Keys**: Enter, Backspace, and more.
+
 - **🌍 Platform Compatibility**
     > Supports Windows, Linux and macOS.
   

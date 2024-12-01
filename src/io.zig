@@ -74,4 +74,9 @@
     pub inline fn cls () !void {
         _ = try out("\x1b[2J\x1b[H"); }
 
+    /// Clears the current line of the terminal.
+    pub inline fn clsLine () !void {
+        try outWith("\r", .{});
+    }
+
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

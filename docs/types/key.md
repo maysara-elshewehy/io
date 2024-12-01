@@ -9,16 +9,14 @@
     ```zig
     pub const key = struct
     {
-        pub const State = enum
-        {
-            None,
-            SinglePress,
-            DoublePress,
-        };
+        pub const State = enum { None, SinglePress, DoublePress, };
+        pub const Arrow = enum { None, Up, Down, Right, Left };
 
-        m_val   : u8;            // Key code
-        m_mod   : u3;            // Modifier keys (ctrl, alt, shift)
-        m_state : State;         // Press state
+        m_val   : u8,                   // Key code
+        m_mod   : u3,                   // Modifier keys (ctrl, alt, shift)
+        m_state : State,                // Press state
+        m_arrow : Arrow = Arrow.None,   // arrow keys
+
     };
     ```
 
@@ -35,6 +33,18 @@
     - `SinglePress` A single key press.
 
     - `DoublePress` A double key press.
+
+  - `m_arrow` Arrow keys, represented by the `Arrow` enum:
+    
+    - `None` No arrow pressed.
+    
+    - `Up` Up arrow pressed.
+    
+    - `Down` Down arrow pressed.
+    
+    - `Left` Left arrow pressed.
+    
+    - `Right` Right arrow pressed.
 
 - #### **Methods**
 
@@ -92,6 +102,62 @@
 
       ```zig
       pub inline fn shift(_self: *const key) bool;
+      ```
+
+  - **enter**  
+      
+      > Returns `true` if the `Enter` key is pressed.  
+
+      ```zig
+      pub inline fn shift(_self: *const key) bool;
+      ```
+
+  - **backspace**  
+      
+      > Returns `true` if the `Backspace` key is pressed.  
+
+      ```zig
+      pub inline fn backspace(_self: *const key) bool;
+      ```
+
+  - **upArrow**  
+      
+      > Returns `true` if the `upArrow` key is pressed.  
+
+      ```zig
+      pub inline fn upArrow(_self: *const key) bool;
+      ```
+
+  - **downArrow**  
+      
+      > Returns `true` if the `downArrow` key is pressed.  
+
+      ```zig
+      pub inline fn downArrow(_self: *const key) bool;
+      ```
+
+  - **rightArrow**  
+      
+      > Returns `true` if the `rightArrow` key is pressed.  
+
+      ```zig
+      pub inline fn rightArrow(_self: *const key) bool;
+      ```
+
+  - **leftArrow**  
+      
+      > Returns `true` if the `leftArrow` key is pressed.  
+
+      ```zig
+      pub inline fn leftArrow(_self: *const key) bool;
+      ```
+
+  - **arrow**  
+      
+      > Returns `Arrow` enum.  
+
+      ```zig
+      pub inline fn leftArrow(_self: *const key) Arrow;
       ```
 
   - **count**  
