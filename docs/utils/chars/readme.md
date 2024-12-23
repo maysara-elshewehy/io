@@ -2,8 +2,9 @@
 
 <div align="center">
 <img src="../../dist/img/logo/chars/logo.png" alt="chars" style="display: block; max-width: 100%;" />
+<br />
 <b style="font-style: italic;color:gray;">simplified and perfected.</b>
-
+<br />
 <div style="margin-top:20px; margin-bottom:0px;">
     <a href="https://github.com/Super-ZIG/io/actions/workflows/main.yml">
         <img src="https://github.com/Super-ZIG/io/actions/workflows/main.yml/badge.svg" alt="CI" />
