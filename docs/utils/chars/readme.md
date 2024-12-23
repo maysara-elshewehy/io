@@ -1,7 +1,7 @@
 # [←](../../readme.md) `io`.`utils`.`chars`
 
 <p align="center">
-  <img src="../../dist/img/logo/chars/logo.png" alt="chars" width="1000" />
+  <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/logo/chars/logo.png" alt="chars" width="1000" />
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 <br />
 
 <div align="center">
-    <img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+    <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 </div>
@@ -27,7 +27,7 @@
 > ..?
 
 <div align="center">
-<img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ### API
@@ -36,7 +36,7 @@
 
         | Method                  | Description                                                   |
         | ----------------------- | ------------------------------------------------------------- |
-        | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_                  |
+        | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_.                  |
         | [`calc`](./api/calc.md) | Returns the number of characters in the string.               |
         | [`make`](./api/make.md) | Returns a _(`fixed-string`)_ with specified size and content. |
         | [`get`](./api/get.md) | Returns the (`unicode` or `char`) at the specified position_(`non-real`)_ in the string. |
@@ -101,9 +101,7 @@
         | [`split`](./api/split.md)     | Splits the string into a slice based on a delimiter and a target position. |
 
 <div align="center">
-<img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-<div align="center">
-<p style="color:grey;">Made with ❤️ by <a style="background: rgb(241,196,80); background: linear-gradient(90deg, rgba(241,196,80,1) 38%, rgba(255,207,115,1) 52%, rgba(246,192,70,1) 62%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;" href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>
-</div>
+<p align="center" style="color:grey;">Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

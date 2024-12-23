@@ -739,15 +739,79 @@
 
         test "Split a string into slice" {
             var res = chars.make(64, null);
-            chars.append(res[0..], 0, "🌍1🌍🌍2🌍🌍3🌍");           // 👉 "🌍1🌍🌍2🌍🌍3🌍"
+            chars.append(res[0..], 0, "🌍1🌍🌍2🌍🌍3🌍");       // 👉 "🌍1🌍🌍2🌍🌍3🌍"
             const len = 27;
 
-            try EQLS(chars.split(res[0..len], "🌍", 0).?, "");      // 👉 ""
-            try EQLS(chars.split(res[0..len], "🌍", 1).?, "1");     // 👉 "1"
-            try EQLS(chars.split(res[0..len], "🌍", 2).?, "");      // 👉 ""
-            try EQLS(chars.split(res[0..len], "🌍", 3).?, "2");     // 👉 "2"
-            try EQLS(chars.split(res[0..len], "🌍", 5).?, "3");     // 👉 "3"
-            try EQLS(chars.split(res[0..len], "🌍", 6).?, "");      // 👉 ""
+            try EQLS(chars.split(res[0..len], "🌍", 0).?,  ""); // 👉 ""
+            try EQLS(chars.split(res[0..len], "🌍", 1).?, "1"); // 👉 "1"
+            try EQLS(chars.split(res[0..len], "🌍", 2).?,  ""); // 👉 ""
+            try EQLS(chars.split(res[0..len], "🌍", 3).?, "2"); // 👉 "2"
+            try EQLS(chars.split(res[0..len], "🌍", 5).?, "3"); // 👉 "3"
+            try EQLS(chars.split(res[0..len], "🌍", 6).?,  ""); // 👉 ""
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── DOCS ────────────────────────────┐
+
+        test "docs: make" {
+
+            // init with undefined.
+            const src1 = chars.make(64, null);
+            try EQL(undefined,src1); // 👉 undefined
+
+            // init with value.
+            const src2 = chars.make(64, "=🌍🌟!");
+            try EQLS("=🌍🌟!",src2[0..10]); // 👉 =🌍🌟!..
+        }
+
+        test "docs: size" {
+            var res = chars.make(64, "=🌍🌟!");
+
+            // size of array.
+            try EQL(64, chars.size(res[0..])); // 👉 64
+
+            // size of single characters.
+            try EQL(1,  chars.size(res[0])); // 👉 1
+
+            // size of unicode.
+            try EQL(4,chars.size(res[1])); // 👉 4 'beg  of 🌍'
+            try EQL(1,chars.size(res[2])); // 👉 1 'part of 🌍'
+            try EQL(1,chars.size(res[3])); // 👉 1 'part of 🌍'
+            try EQL(1,chars.size(res[4])); // 👉 1 'end  of 🌍'
+
+            try EQL(4,chars.size(res[5])); // 👉 4 'beg  of 🌟'
+            try EQL(1,chars.size(res[6])); // 👉 1 'part of 🌟'
+            try EQL(1,chars.size(res[7])); // 👉 1 'part of 🌟'
+            try EQL(1,chars.size(res[8])); // 👉 1 'end  of 🌟'
+
+            // size of single character.
+            try EQL(1,chars.size(res[9])); // 👉 1 '!'
+        }
+
+        test "docs: calc" {
+            var src = chars.make(64, null);
+
+            // non-terminated string.
+            try EQL(64,chars.calc(src[0..])); // 👉 64
+
+            // append some string.
+            chars.append(src[0..], 0, "=🌍🌟!");
+
+            // terminate the string
+            src[11] = 0;
+
+            // try again
+            try EQL(11,chars.calc(src[0..])); // 👉 11
+        }
+
+        test "docs: get" {
+            var res = chars.make(64, "=🌍🌟!");
+            try EQLS(chars.get(res[0..], 0).?,  "="); // 👉 "="
+            try EQLS(chars.get(res[0..], 1).?, "🌍"); // 👉 "🌍"
+            try EQLS(chars.get(res[0..], 2).?, "🌟"); // 👉 "🌟"
+            try EQLS(chars.get(res[0..], 3).?,  "!"); // 👉 "!"
         }
 
     // └──────────────────────────────────────────────────────────────┘
