@@ -2,10 +2,10 @@
 
     const std = @import("std");
 
-    /// Utilities for `io.chars` unit.
+    /// Utilities for `io.utils.chars` unit.
     pub const utils = @import("./utils.zig");
 
-    /// Data type structure for the `io.chars` unit.
+    /// Data type structure for the `io.utils.chars` unit.
     pub const types = @import("./types.zig").types;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

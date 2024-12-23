@@ -751,6 +751,30 @@
 
     // ┌──────────────────────────── DOCS ────────────────────────────┐
 
+        test "readme example" {
+            // Creates a new array of characters with undefined value.
+            var str = chars.make(64, null);
+
+            // Appends a string to the array.
+            chars.append(str[0..], 0, "Hello 🌍");                  // 👉 "Hello 🌍"
+            try EQLS("Hello 🌍",str[0..10]);
+
+            // Appends a character to the array.
+            chars.append(str[0..], 10, '!');                         // 👉 "Hello 🌍!"
+            try EQLS("Hello 🌍!",str[0..11]);
+
+            // Removes a character using its positions.
+            chars.remove(str[0..], 1);                              // 👉 "Hllo 🌍!"
+            try EQLS("Hllo 🌍!",str[0..10]);
+
+            // Removes a range of string.
+            chars.remove(str[0..], .{ 0, 9});                       // 👉 "!"
+            try EQLS("!",str[0..1]);
+
+            // Replace a part of string with another
+            _ = chars.replace(str[0..], 1, "!", "Hello 🌍!", 1);   // 👉 "Hello 🌍!"
+            try EQLS("Hello 🌍!",str[0..11]);
+        }
         test "docs: make" {
 
             // init with undefined.

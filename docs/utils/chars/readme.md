@@ -26,6 +26,33 @@
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
+
+- #### Usage 🌀
+
+    ```zig
+    const chars = @import("io").utils.chars;
+    ```
+
+    ```zig
+    // Creates a new array of characters with undefined value.
+    var str = chars.make(64, null);
+
+    // Appends a string to the array.
+    chars.append(str[0..], 0, "Hello 🌍");              // 👉 "Hello 🌍"
+
+    // Appends a character to the array.
+    chars.append(str[0..], 10, '!');                    // 👉 "Hello 🌍!"
+
+    // Removes a character using its positions.
+    chars.remove(str[0..], 1);                          // 👉 "Hllo 🌍!"
+
+    // Removes a range of string.
+    chars.remove(str[0..], .{ 0, 9 });                  // 👉 "!"
+
+    // Replace a part of string with another
+    chars.replace(str[0..], 1, "!", "Hello 🌍!", 1);    // 👉 "Hello 🌍!"
+    ```
+
 - ### API
 
    - #### ❱ Basics
