@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`init`
+# [←](../readme.md) `io`.`utils`.`chars`.`ubytes`
 
-> Initialize an empty string.
+> Returns the number of characters in the string (Unicode characters are counted as regular characters).
 
 ```zig
-pub fn init() Self
+pub inline fn ubytes(_it: anytype) types.unsigned
 ```
 
 
@@ -13,16 +13,18 @@ pub fn init() Self
 
 - #### Parameters
 
-    - None.
+    - `_it` : `anytype`
+
+        > The _(`string` or `char`)_ to be processed for length calculation.
 
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `Self`
+- #### Returns : `?types.cstr`
 
-    > An empty string structure.
+    > The length of `_it`.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -31,15 +33,23 @@ pub fn init() Self
 - #### Example
 
     ```zig
-    const string = @import("io").utils.string;
+    const chars = @import("io").utils.chars;
     ```
 
     ```zig
-    var str = string.init();    // Creates a new string structure.
-    defer str.deinit();         // Cleans up the allocated memory (if allocated) when the scope ends.
-    str.size();                 // 👉 0
-    str.len();                  // 👉 0
-    str.src();                  // 👉 ""
+    var src = chars.make(64, null);
+
+    // non-terminated string.
+    chars.ubytes(src[0..]);   // 👉 64
+
+    // append some string.
+    chars.append(src[0..], 0, "=🌍🌟!");
+
+    // terminate the string
+    src[11] = 0;
+
+    // try again
+    chars.ubytes(src[0..]);   // 👉 4
     ```
 
 
@@ -49,11 +59,13 @@ pub fn init() Self
 
 - ##### Related
 
-  > [`io.types.string.initWith`](./initWith.md)
+  > [`io.utils.chars.bytes`](./bytes.md)
 
-  > [`io.types.string.deinit`](./deinit.md)
+  > [`io.utils.chars.size`](./size.md)
 
-  > [`io.types.string.allocate`](./allocate.md)
+  > [`io.utils.chars.make`](./make.md)
+
+  > [`io.utils.chars.get`](./get.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

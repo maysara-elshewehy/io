@@ -27,10 +27,22 @@
         }
 
         /// Returns the number of characters in the string.
-        pub inline fn calc(_it: types.cstr) types.unsigned {
+        pub inline fn bytes(_it: types.cstr) types.unsigned {
             var i: types.unsigned = 0;
             while (i < _it.len) { if(_it[i] == 0) break; i += 1; }
             return i;
+        }
+
+        /// Returns the number of characters in the string (Unicode characters are counted as regular characters).
+        pub inline fn ubytes(_it: types.cstr) types.unsigned {
+            var i: types.unsigned = 0;
+            var j: types.unsigned = 0;
+            while (i < _it.len) {
+                if(_it[i] == 0) break;
+                i += utils.sizeOf(_it[i]);
+                j += 1;
+            }
+            return j;
         }
 
         /// Returns the size of the specified (array of characters : The actual size of the array)

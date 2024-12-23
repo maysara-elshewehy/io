@@ -3,7 +3,7 @@
 > Initialize a string with an allocator and a given substring.
 
 ```zig
-pub fn initWith(_it: types.cstr) anyerror!Self
+pub fn initWith(_it: anytype) anyerror!Self
 ```
 
 
@@ -13,17 +13,17 @@ pub fn initWith(_it: types.cstr) anyerror!Self
 
 - #### Parameters
 
-    - `_it` : `types.cstr`
+    - `_it` : `types.cstr` or `types.char` or `Self`
 
-        > The initial substring to be used for creating the string.
+        > The initial value to be used for creating the string.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `Self`
+- #### Returns : `Self` or `anyerror`
 
-    > An initialized string structure.
+    > An initialized string structure or error if failed.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -35,11 +35,29 @@ pub fn initWith(_it: types.cstr) anyerror!Self
     const string = @import("io").utils.string;
     ```
 
+    > using array of characters.
+
     ```zig
-    var str = string.initWith("Hello 🌍!");
+    var str = try string.initWith("Hello 🌍!");     👉 "Hello 🌍!"
     defer str.deinit();
     ```
 
+    > using character.
+
+    ```zig
+    var str = try string.initWith('!');             👉 "!"
+    defer str.deinit();
+    ```
+
+    > using another string structure.
+
+    ```zig
+    var str1 = try string.initWith("Hello 🌍!");    👉 "Hello 🌍!"
+    defer str.deinit();
+
+    var str2 = try string.initWith(str1);           👉 "Hello 🌍!"
+    defer str.deinit();
+    ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

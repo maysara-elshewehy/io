@@ -166,19 +166,19 @@
             // size > 0
             const res = chars.make(64, null);
             try EQL(64, chars.size(res));
-            try EQL(0,  chars.calc(res[0..]));
+            try EQL(0,  chars.bytes(res[0..]));
 
             // size = 0
             const res2 = chars.make(0, null);
             try EQL(0,  chars.size(res2));
-            try EQL(0,  chars.calc(res2[0..]));
+            try EQL(0,  chars.bytes(res2[0..]));
         }
 
         test "Non-empty constant" {
             // size > 0
             const res = chars.make(64, "Hello");
             try EQL(64, chars.size(res));
-            try EQL(64,  chars.calc(res[0..])); // zig by default doesn't add '/0' character.
+            try EQL(64,  chars.bytes(res[0..])); // zig by default doesn't add '/0' character.
         }
 
         test "Get the character/unicode at the non-real position" {
@@ -420,13 +420,13 @@
             try EQLS("Hello World!", res[0..12]);
 
             chars.pop(res[0..], 12, 1);
-            try EQLS("Hello World", res[0..chars.calc(res[0..])]);
+            try EQLS("Hello World", res[0..chars.bytes(res[0..])]);
 
             chars.pop(res[0..], 11, 6);
-            try EQLS("Hello", res[0..chars.calc(res[0..])]);
+            try EQLS("Hello", res[0..chars.bytes(res[0..])]);
 
             chars.pop(res[0..], 5, 5);
-            try EQLS("", res[0..chars.calc(res[0..])]);
+            try EQLS("", res[0..chars.bytes(res[0..])]);
         }
 
         test "Remove N characters from the beginning of the string (using shift function)" {
@@ -436,13 +436,13 @@
             try EQLS("Hello World!", res[0..12]);
 
             chars.shift(res[0..], 12, 1);
-            try EQLS("ello World!", res[0..chars.calc(res[0..])]);
+            try EQLS("ello World!", res[0..chars.bytes(res[0..])]);
 
             chars.shift(res[0..], 11, 5);
-            try EQLS("World!", res[0..chars.calc(res[0..])]);
+            try EQLS("World!", res[0..chars.bytes(res[0..])]);
 
             chars.shift(res[0..], 6, 6);
-            try EQLS("", res[0..chars.calc(res[0..])]);
+            try EQLS("", res[0..chars.bytes(res[0..])]);
         }
 
         test "Fill the string with (`0` character)" {
@@ -580,7 +580,7 @@
 
             chars.append(res[0..], 0, "   !🌍🌟=   ");
             try EQL(3, chars.trimEnd(res[0..16], ' '));
-            try EQLS("   !🌍🌟=", res[0..chars.calc(res[0..])]);
+            try EQLS("   !🌍🌟=", res[0..chars.bytes(res[0..])]);
         }
 
         test "Trim start and end of string" {
@@ -589,7 +589,7 @@
 
             chars.append(res[0..], 0, "   !🌍🌟=   ");
             try EQL(6, chars.trim(res[0..16], ' '));
-            try EQLS("!🌍🌟=", res[0..chars.calc(res[0..])]);
+            try EQLS("!🌍🌟=", res[0..chars.bytes(res[0..])]);
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -810,11 +810,11 @@
             try EQL(1,chars.size(res[9])); // 👉 1 '!'
         }
 
-        test "docs: calc" {
+        test "docs: bytes" {
             var src = chars.make(64, null);
 
             // non-terminated string.
-            try EQL(64,chars.calc(src[0..])); // 👉 64
+            try EQL(64,chars.bytes(src[0..])); // 👉 64
 
             // append some string.
             chars.append(src[0..], 0, "=🌍🌟!");
@@ -823,7 +823,23 @@
             src[11] = 0;
 
             // try again
-            try EQL(11,chars.calc(src[0..])); // 👉 11
+            try EQL(11,chars.bytes(src[0..])); // 👉 11
+        }
+
+        test "docs: ubytes" {
+            var src = chars.make(64, null);
+
+            // non-terminated string.
+            try EQL(64,chars.ubytes(src[0..])); // 👉 64
+
+            // append some string.
+            chars.append(src[0..], 0, "=🌍🌟!");
+
+            // terminate the string
+            src[11] = 0;
+
+            // try again
+            try EQL(4, chars.ubytes(src[0..10])); // 👉 4
         }
 
         test "docs: get" {

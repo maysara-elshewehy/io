@@ -3,7 +3,7 @@
 > Deallocate the string buffer.
 
 ```zig
-pub fn deinit(_self: Self) void
+pub fn deinit(_self: *Self) void
 ```
 
 
@@ -13,7 +13,7 @@ pub fn deinit(_self: Self) void
 
 - #### Parameters
 
-    - `_self` : `Self`
+    - `_self` : `*Self`
 
         > The string structure to be cleaned up.
 
@@ -37,8 +37,16 @@ pub fn deinit(_self: Self) void
     ```
 
     ```zig
-    var str = string.init();    // Creates a new string structure.
-    defer str.deinit();         // Cleans up the allocated memory (if allocated) when the scope ends.
+    var str = string.initWith("Hello 🌍!");
+
+    str.size();  // 👉 22
+    str.bytes(); // 👉 11
+
+    // Cleans up the allocated memory.
+    str.deinit();
+
+    str.size();  // 👉 0
+    str.bytes(); // 👉 0
     ```
 
 

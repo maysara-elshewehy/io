@@ -57,12 +57,13 @@
 
    - #### ❱ Basics
 
-        | Method                  | Description                                                                              |
-        | ----------------------- | ---------------------------------------------------------------------------------------- |
-        | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_.                                            |
-        | [`calc`](./api/calc.md) | Returns the number of characters in the string.                                          |
-        | [`make`](./api/make.md) | Returns a _(`fixed-string`)_ with specified size and content.                            |
-        | [`get`](./api/get.md)   | Returns the (`unicode` or `char`) at the specified position_(`non-real`)_ in the string. |
+        | Method                      | Description                                                                                            |
+        | --------------------------- | ------------------------------------------------------------------------------------------------------ |
+        | [`size`](./api/size.md)     | Returns the size of a _(`string` or `char`)_.                                                          |
+        | [`bytes`](./api/bytes.md)   | Returns the number of characters in the string.                                                        |
+        | [`ubytes`](./api/ubytes.md) | Returns the number of characters in the string (Unicode characters are counted as regular characters). |
+        | [`make`](./api/make.md)     | Returns a _(`fixed-string`)_ with specified size and content.                                          |
+        | [`get`](./api/get.md)       | Returns the (`unicode` or `char`) at the specified position_(`non-real`)_ in the string.               |
 
    - #### ➕ Insertion
 
@@ -114,6 +115,19 @@
         | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times.                              |
         | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                     |
         | [`split`](./api/split.md)     | Splits the string into a slice based on a delimiter and a target position. |
+
+  - #### Types
+
+    > `io.utils.chars.types.<typeName>`.
+
+    | Type       | Refer To     |
+    | ---------- | ------------ |
+    | `char`     | `u8`         |
+    | `str`      | `[]u8`       |
+    | `cstr`     | `[]const u8` |
+    | `unsigned` | `usize`      |
+    | `signed`   | `isize`      |
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>

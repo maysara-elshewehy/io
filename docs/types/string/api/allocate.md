@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`utils`.`chars`.`calc`
+# [←](../readme.md) `io`.`types`.`string`.`allocate`
 
-> Returns the number of characters in the string.
+> Allocate or reallocate the string buffer to a new size.
 
 ```zig
-pub inline fn calc(_it: anytype) types.unsigned
+pub fn allocate(_self: *Self, _bytes: types.unsigned) anyerror!void
 ```
 
 
@@ -13,18 +13,21 @@ pub inline fn calc(_it: anytype) types.unsigned
 
 - #### Parameters
 
-    - `_it` : `anytype`
+    - `_self` : `*Self`
 
-        > The _(`string` or `char`)_ to be processed for length calculation.
+        > The string structure to be used.
 
+    - `_bytes` : `types.unsigned`
+
+        > The number of bytes to allocate for the string buffer.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `?types.cstr`
+- #### Returns : `void` or `anyerror`
 
-    > The length of `_it`.
+    > If allocation fails, an error is returned. Otherwise, the string buffer is deallocated and reallocated to the new size.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -33,25 +36,19 @@ pub inline fn calc(_it: anytype) types.unsigned
 - #### Example
 
     ```zig
-    const chars = @import("io").utils.chars;
+    const string = @import("io").utils.string;
     ```
+
+    > using array of characters.
 
     ```zig
-    var src = chars.make(64, null);
+    var str = string.init(");
+    defer str.deinit();
 
-    // non-terminated string.
-    chars.calc(src[0..]);   // 👉 64
-
-    // append some string.
-    chars.append(src[0..], 0, "=🌍🌟!");
-
-    // terminate the string
-    src[11] = 0;
-
-    // try again
-    chars.calc(src[0..]);   // 👉 11
+    str.size(); // 👉 0
+    try str.allocate(10);
+    str.size(); // 👉 10
     ```
-
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -59,11 +56,11 @@ pub inline fn calc(_it: anytype) types.unsigned
 
 - ##### Related
 
-  > [`io.utils.chars.size`](./size.md)
+  > [`io.types.string.init`](./init.md)
 
-  > [`io.utils.chars.make`](./make.md)
+  > [`io.types.string.initWith`](./initWith.md)
 
-  > [`io.utils.chars.get`](./get.md)
+  > [`io.types.string.deinit`](./deinit.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
