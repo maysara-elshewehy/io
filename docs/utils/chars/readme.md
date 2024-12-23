@@ -1,6 +1,6 @@
 # [←](../../readme.md) `io`.`utils`.`chars`
 
-<center>
+<div align="center">
 <img src="../../dist/img/logo/chars/logo.png" alt="chars" style="display: block; max-width: 100%;" />
 <b style="font-style: italic;color:gray;">simplified and perfected.</b>
 
@@ -13,13 +13,13 @@
 </div>
 
 <img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px; max-width:50%;"/>
-</center>
+</div>
 
 > ..?
 
-<center>
+<div align="center">
 <img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px; max-width:50%;"/>
-</center>
+</div>
 
 - ### API
 
@@ -91,10 +91,10 @@
         | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                     |
         | [`split`](./api/split.md)     | Splits the string into a slice based on a delimiter and a target position. |
 
-<center>
+<div align="center">
 <img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px; max-width:50%;"/>
-</center>
+</div>
 
-<center>
+<div align="center">
 <p style="color:grey;">Made with ❤️ by <a style="background: rgb(241,196,80); background: linear-gradient(90deg, rgba(241,196,80,1) 38%, rgba(255,207,115,1) 52%, rgba(246,192,70,1) 62%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;" href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>
-</center>
+</div>
