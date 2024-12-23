@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <b>simplified and perfected.</b><br />
+  <strong>Streamline string and character manipulation in Zig 🌟</strong><br />
 </p>
 
 <br />
@@ -24,7 +24,7 @@
 
 </div>
 
-> ..?
+> A **streamlined** and **powerful** library for **string** and **character** manipulation in **Zig**. It provides **efficient** and **robust** functions for typical operations such as **insertions**, **deletions**, **replacements**, and **searches**, with comprehensive **Unicode** support 🔥.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -34,12 +34,12 @@
 
    - #### ❱ Basics
 
-        | Method                  | Description                                                   |
-        | ----------------------- | ------------------------------------------------------------- |
-        | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_.                  |
-        | [`calc`](./api/calc.md) | Returns the number of characters in the string.               |
-        | [`make`](./api/make.md) | Returns a _(`fixed-string`)_ with specified size and content. |
-        | [`get`](./api/get.md) | Returns the (`unicode` or `char`) at the specified position_(`non-real`)_ in the string. |
+        | Method                  | Description                                                                              |
+        | ----------------------- | ---------------------------------------------------------------------------------------- |
+        | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_.                                            |
+        | [`calc`](./api/calc.md) | Returns the number of characters in the string.                                          |
+        | [`make`](./api/make.md) | Returns a _(`fixed-string`)_ with specified size and content.                            |
+        | [`get`](./api/get.md)   | Returns the (`unicode` or `char`) at the specified position_(`non-real`)_ in the string. |
 
    - #### ➕ Insertion
 
@@ -68,15 +68,7 @@
         | [`find`](./api/find.md)   | Returns the first occurrence of a _(`string` or `char`)_ in a string. |
         | [`rfind`](./api/rfind.md) | Returns the last occurrence of a _(`string` or `char`)_ in a string.  |
 
-    - #### ℀ Case
-
-        | Method                        | Description                                     |
-        | ----------------------------- | ----------------------------------------------- |
-        | [`toLower`](./api/toLower.md) | Converts all (ASCII) letters to _`lower` case_. |
-        | [`toUpper`](./api/toUpper.md) | Converts all (ASCII) letters to _`upper` case_. |
-        | [`toTitle`](./api/toTitle.md) | Converts all (ASCII) words to _`title` case_.   |
-
-    - #### ⚌ Check
+    - #### ❓ Check
 
         | Method                              | Description                                                   |
         | ----------------------------------- | ------------------------------------------------------------- |
@@ -85,21 +77,20 @@
         | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given substring.     |
         | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given substring.   |
 
-    - #### ⚌ Replace
+    - #### ⏪️ Replace
 
         | Method                          | Description                                                                                                    |
         | ------------------------------- | -------------------------------------------------------------------------------------------------------------- |
         | [`replace`](./api/replace.md)   | Replaces the first `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements. |
         | [`rreplace`](./api/rreplace.md) | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
 
-    - #### ⚌ More
+    - #### ▨ More
 
         | Method                        | Description                                                                |
         | ----------------------------- | -------------------------------------------------------------------------- |
         | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times.                              |
         | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                     |
         | [`split`](./api/split.md)     | Splits the string into a slice based on a delimiter and a target position. |
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
