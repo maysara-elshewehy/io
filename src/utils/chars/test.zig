@@ -162,27 +162,23 @@
 
     // ┌─────────────────────────── BASICS ───────────────────────────┐
 
-        test "Basics" {
-            // Empty constant.
-            {
-                // size > 0
-                const res = chars.make(64, null);
-                try EQL(64, chars.size(res));
-                try EQL(0,  chars.calc(res[0..]));
+        test "Empty constant" {
+            // size > 0
+            const res = chars.make(64, null);
+            try EQL(64, chars.size(res));
+            try EQL(0,  chars.calc(res[0..]));
 
-                // size = 0
-                const res2 = chars.make(0, null);
-                try EQL(0,  chars.size(res2));
-                try EQL(0,  chars.calc(res2[0..]));
-            }
+            // size = 0
+            const res2 = chars.make(0, null);
+            try EQL(0,  chars.size(res2));
+            try EQL(0,  chars.calc(res2[0..]));
+        }
 
-            // Non-empty constant.
-            {
-                // size > 0
-                const res = chars.make(64, "Hello");
-                try EQL(64, chars.size(res));
-                try EQL(64,  chars.calc(res[0..])); // zig by default doesn't add '/0' character.
-            }
+        test "Non-empty constant" {
+            // size > 0
+            const res = chars.make(64, "Hello");
+            try EQL(64, chars.size(res));
+            try EQL(64,  chars.calc(res[0..])); // zig by default doesn't add '/0' character.
         }
 
         test "Get the character/unicode at the non-real position" {
