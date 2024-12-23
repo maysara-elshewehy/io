@@ -1,25 +1,33 @@
 # [←](../../readme.md) `io`.`utils`.`chars`
 
-<div align="center">
-<img src="../../dist/img/logo/chars/logo.png" alt="chars" style="display: block; max-width: 100%;" />
-<br />
-<b style="font-style: italic;color:gray;">simplified and perfected.</b>
-<br />
-<div style="margin-top:20px; margin-bottom:0px;">
-    <a href="https://github.com/Super-ZIG/io/actions/workflows/main.yml">
+<p align="center">
+  <img src="../../dist/img/logo/chars/logo.png" alt="chars" width="1000" />
+</p>
+
+<p align="center">
+     <a href="https://github.com/Super-ZIG/io/actions/workflows/main.yml">
         <img src="https://github.com/Super-ZIG/io/actions/workflows/main.yml/badge.svg" alt="CI" />
     </a>
     <img src="https://img.shields.io/github/issues/Super-ZIG/io?style=flat" alt="Github Repo Issues" />
     <img src="https://img.shields.io/github/stars/Super-ZIG/io?style=social" alt="GitHub Repo stars" />
+</p>
+
+<p align="center">
+  <b>simplified and perfected.</b><br />
+</p>
+
+<br />
+
+<div align="center">
+    <img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-<img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px; max-width:50%;"/>
 </div>
 
 > ..?
 
 <div align="center">
-<img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px; max-width:50%;"/>
+<img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### API
@@ -93,7 +101,7 @@
         | [`split`](./api/split.md)     | Splits the string into a slice based on a delimiter and a target position. |
 
 <div align="center">
-<img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px; max-width:50%;"/>
+<img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center">
