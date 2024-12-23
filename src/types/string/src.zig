@@ -96,7 +96,7 @@
 
         // ┌─────────────────────────── INSERT ───────────────────────────┐
 
-            /// Appends a substring or character into the end of the string.
+            /// Inserts a (`string` or `char`) into the `end` of the string.
             pub fn append(_self: *Self, _it: anytype) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.append(_it.src());
                 const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
@@ -105,14 +105,14 @@
                 _self.m_bytes += l_count;
             }
 
-            /// Appends a formatted string into the end of the string.
+            /// Inserts a (`formatted string`) into the `end` of the string.
             pub fn appendf(_self: *Self, comptime _fmt: anytype, _args: anytype) anyerror!void {
                 const l_count = std.fmt.count(_fmt, _args);
                 try _self.__alloc(l_count + _self.m_bytes);
                 _self.writer().print(_fmt, _args) catch {};
             }
 
-            /// Prepends a substring or character into the beginning of the string.
+            /// Inserts a (`string` or `char`) into the `beginning` of the string.
             pub fn prepend(_self: *Self, _it: anytype) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.prepend(_it.src());
                 const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
@@ -121,7 +121,7 @@
                 _self.m_bytes += l_count;
             }
 
-            /// Prepends a formatted string into the beginning of the string.
+            /// Inserts a (`formatted string`) into the `beginning` of the string.
             pub fn prependf(_self: *Self, comptime _fmt: anytype, _args: anytype) anyerror!void {
                 const l_count = std.fmt.count(_fmt, _args);
                 try _self.__alloc(l_count + _self.m_bytes);
@@ -132,7 +132,7 @@
                 _self.m_bytes += l_count;
             }
 
-            /// Inserts a substring or character into the string at the specified index.
+            /// Inserts a (`string` or `char`) into a `specific position` in the string.
             pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.insert(_it.src(), _pos);
                 if(_pos == _self.m_bytes) return _self.append(_it);
@@ -144,7 +144,7 @@
                 _self.m_bytes += l_count;
             }
 
-            /// Inserts a substring or character into the string at the specified index.
+            /// Inserts a (`string` or `char`) into a `specific position` in the string.
             pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.insert(_it.src(), _pos);
                 if(_pos == _self.m_bytes) return _self.append(_it);
@@ -156,7 +156,7 @@
                 _self.m_bytes += l_count;
             }
 
-            /// Inserts a formatted string into the string at the specified index.
+            /// Inserts a (`formatted string`) into a `specific position` in the string.
             pub fn insertf(_self: *Self, comptime _fmt: anytype, _args: anytype, _pos: types.unsigned) anyerror!void {
                 if(_pos == _self.m_bytes) return _self.appendf(_fmt, _args);
                 if(_pos == 0) return _self.appendf(_fmt, _args);
@@ -229,10 +229,10 @@
             inline fn __alloc(_self: *Self, _bytes: types.unsigned) anyerror!void {
                 if (_self.m_buff) |_| {
                     if (_self.m_size <= _bytes+1) {
-                        try _self.allocate((_bytes) * 2);
+                        try _self.allocate((_bytes+1) * 2);
                     }
                 } else {
-                    try _self.allocate((_bytes) * 2);
+                    try _self.allocate((_bytes+1) * 2);
                 }
             }
 

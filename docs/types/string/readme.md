@@ -39,7 +39,7 @@
     try str.append("Hello 🌍!");    // 👉 "Hello 🌍!"
     str.ubytes();                   // 👉 8     (Unicode characters are counted as regular characters).
     str.bytes();                    // 👉 11    Regular characters = 1, Unicode characters = 4.
-    str.size();                     // 👉 22    Total size of the allocated memory.
+    str.size();                     // 👉 24    Total size of the allocated memory `(11+1)*2`.
     str.src();                      // 👉 "Hello 🌍!"
     ```
 
@@ -62,6 +62,14 @@
         | [`ubytes`](./api/ubytes.md) | Returns the number of characters in the string (Unicode characters are counted as regular characters). |
         | [`size`](./api/size.md)     | Returns the size of the string.                                                                        |
         | [`src`](./api/src.md)       | Returns the source of the string.                                                                      |
+
+   - #### ➕ Insertion
+
+        | Method                        | Description                                                                |
+        | ----------------------------- | -------------------------------------------------------------------------- |
+        | [`append`](./api/append.md)   | Inserts a _(`string` or `char`)_ into the `end` of the string.             |
+        | [`prepend`](./api/prepend.md) | Inserts a _(`string` or `char`)_ into the `beg` of the string.             |
+        | [`insert`](./api/insert.md)   | Inserts a _(`string` or `char`)_ into a `specific position` in the string. |
 
    - #### ⡾ Fields
 

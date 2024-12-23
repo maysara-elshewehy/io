@@ -91,13 +91,13 @@
             if(_pos == _len) return append(_to, _len, _it);
             if(_pos == 0) return prepend(_to, _len, _it);
 
-            if(utils.indexOf(_to, _pos)) |i| {
+            if(utils.indexOf(_to, _pos)) |_i| {
                 if (utils.isCharType(@TypeOf(_it))) {
-                    utils.moveRight(_to[0..], i, _len, 1);
-                    _to[i] = _it;
+                    utils.moveRight(_to[0..], _i, _len, 1);
+                    _to[_i] = _it;
                 } else {
-                    utils.moveRight(_to[0..], i, _len-i, _it.len);
-                    utils.copy(_to, i, _it);
+                    utils.moveRight(_to[0..], _i, _len-_i, _it.len);
+                    utils.copy(_to, _i, _it);
                 }
             }
         }

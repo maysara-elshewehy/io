@@ -37,44 +37,44 @@
 
             // Append a string.
             try res.append("Hello");
-            try EQL(10, res.size());
+            try EQL(12, res.size());
             try EQL(5,  res.bytes());
             try EQLS("Hello", res.src());
 
             // Append a character.
             try res.append(' ');
-            try EQL(10, res.size());
+            try EQL(12, res.size());
             try EQL(6,  res.bytes());
             try EQLS("Hello ", res.src());
 
             // Append a string.
             // size 30 => 10(current size) + 5(length of "World") = 15*2
             try res.append("World");
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(11, res.bytes());
             try EQLS("Hello World", res.src());
 
             // Prepend a string.
             try res.prepend("--");
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(13, res.bytes());
             try EQLS("--Hello World", res.src());
 
             // Prepend a character.
             try res.prepend('!');
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(14, res.bytes());
             try EQLS("!--Hello World", res.src());
 
             // Insert a string.
             try res.insert("^^", 1);
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(16, res.bytes());
             try EQLS("!^^--Hello World", res.src());
 
             // Insert a character.
             try res.insert(' ', 1);
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(17, res.bytes());
             try EQLS("! ^^--Hello World", res.src());
 
@@ -88,45 +88,45 @@
 
             // Append a string.
             try res.appendf("{s}", .{"Hello"});
-            try EQL(10, res.size());
+            try EQL(12, res.size());
             try EQL(5,  res.bytes());
             try EQLS("Hello", res.src());
 
             // Append a character.
             try res.appendf("{c}", .{' '});
-            try EQL(10, res.size());
+            try EQL(12, res.size());
             try EQL(6,  res.bytes());
             try EQLS("Hello ", res.src());
 
             // Append a string.
-            // size 22 => 11*2
+            // size 24 => 11*2
             try res.appendf("{s}", .{"World"});
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(11, res.bytes());
             try EQLS("Hello World", res.src());
 
             // Prepend a string.
             try res.prependf("{s}", .{"--"});
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(13, res.bytes());
             try EQLS("--Hello World", res.src());
 
             // Prepend a character.
             try res.prependf("{c}", .{'!'});
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(14, res.bytes());
             try EQLS("!--Hello World", res.src());
 
             // Insert a string.
             try res.insertf("{s}", .{"^^"}, 1);
 
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(16, res.bytes());
             try EQLS("!^^--Hello World", res.src());
 
             // Insert a character.
             try res.insertf("{c}", .{' '}, 1);
-            try EQL(22, res.size());
+            try EQL(24, res.size());
             try EQL(17, res.bytes());
             try EQLS("! ^^--Hello World", res.src());
 
@@ -162,7 +162,7 @@
             var str = try string.initWith("Hello 🌍!");
             defer str.deinit();
 
-            try EQL(22, str.size());            // 👉 22
+            try EQL(24, str.size());            // 👉 24
             try EQL(11, str.bytes());           // 👉 11
             try EQL(8, str.ubytes());           // 👉 8
             try EQLS("Hello 🌍!", str.src());   // 👉 "Hello 🌍!"
@@ -172,7 +172,7 @@
             var str = try string.initWith('!');
             defer str.deinit();
 
-            try EQL(2, str.size());     // 👉 2
+            try EQL(4, str.size());     // 👉 2
             try EQL(1, str.bytes());    // 👉 1
             try EQL(1, str.ubytes());   // 👉 1
             try EQLS("!", str.src());   // 👉 "!"
@@ -185,7 +185,7 @@
             var str2 = try string.initWith(str1);
             defer str2.deinit();
 
-            try EQL(str1.size(), str2.size());      // 👉 22
+            try EQL(str1.size(), str2.size());      // 👉 24
             try EQL(str1.bytes(), str2.bytes());    // 👉 11
             try EQL(str1.ubytes(), str2.ubytes());  // 👉 8
             try EQLS(str1.src(), str2.src());       // 👉 "Hello 🌍!"
@@ -356,7 +356,7 @@
             try str.append("Hello 🌍!");        // 👉 "Hello 🌍!"
             try EQL(8, str.ubytes());           // 👉 8     (Unicode characters are counted as regular characters).
             try EQL(11, str.bytes());           // 👉 11    Regular characters = 1, Unicode characters = 4.
-            try EQL(22, str.size());            // 👉 22    Total size of the allocated memory.
+            try EQL(24, str.size());            // 👉 24    Total size of the allocated memory.
             try EQLS("Hello 🌍!", str.src());   // 👉 "Hello 🌍!"
         }
 
@@ -377,7 +377,7 @@
 
         test "docs: initWith" {
             var str = try string.initWith("Hello 🌍!"); defer str.deinit();
-            try EQL(22, str.size());     // 👉 22
+            try EQL(24, str.size());     // 👉 24
             try EQL(11, str.bytes());    // 👉 11
             try EQL(8, str.ubytes());    // 👉 8
             try EQLS("Hello 🌍!", str.src());    // 👉 "Hello 🌍!"
@@ -405,6 +405,63 @@
             try EQLS("", str.src());            // 👉 ""
             try str.append("Hello 🌍!");
             try EQLS("Hello 🌍!", str.src());   // 👉 "Hello 🌍!"
+        }
+
+        test "docs: append" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append('=');    // 👉 "="
+            try EQLS("=", str.src());
+
+            try str.append("🌍");   // 👉 "=🌍"
+            try EQLS("=🌍", str.src());
+
+            try str.append("🌟");   // 👉 "=🌍🌟"
+            try EQLS("=🌍🌟", str.src());
+
+            var other = try string.initWith("!!");
+            defer other.deinit();
+
+            try str.append(other);  // 👉 "=🌍🌟!!"
+            try EQLS("=🌍🌟!!", str.src());
+        }
+
+        test "docs: prepend" {
+            var str = string.init(); defer str.deinit();
+
+            try str.prepend('=');
+            try EQLS("=", str.src());   // 👉 "="
+
+            try str.prepend("🌍");      // 👉 "🌍="
+            try EQLS("🌍=", str.src());
+
+            try str.prepend("🌟");      // 👉 "🌟🌍="
+            try EQLS("🌟🌍=", str.src());
+
+            var other = try string.initWith("!!");
+            defer other.deinit();
+
+            try str.prepend(other);     // 👉 "!!🌟🌍="
+            try EQLS("!!🌟🌍=", str.src());
+        }
+
+        test "docs: insert" {
+            var str = string.init(); defer str.deinit();
+
+            try str.insert('=', 0);      // 👉 "="
+            try EQLS("=", str.src());
+
+            try str.insert("🌍", 1);    // 👉 "=🌍"
+            try EQLS("=🌍", str.src());
+
+            try str.insert("🌟", 1);    // 👉 "=🌟🌍"
+            try EQLS("=🌟🌍", str.src());
+
+            var other = try string.initWith("!!");
+            defer other.deinit();
+
+            try str.insert(other, 3);   // 👉 "!!🌟🌍="
+            try EQLS("=🌟🌍!!", str.src());
         }
 
     // └──────────────────────────────────────────────────────────────┘
