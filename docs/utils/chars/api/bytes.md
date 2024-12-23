@@ -40,7 +40,7 @@ pub inline fn bytes(_it: anytype) types.unsigned
     var src = chars.make(64, null);
 
     // non-terminated string.
-    chars.bytes(src[0..]);   // 👉 64
+    _ = chars.bytes(src[0..]);  // 👉 64
 
     // append some string.
     chars.append(src[0..], 0, "=🌍🌟!");
@@ -49,7 +49,7 @@ pub inline fn bytes(_it: anytype) types.unsigned
     src[11] = 0;
 
     // try again
-    chars.bytes(src[0..]);   // 👉 11
+    _ = chars.bytes(src[0..]);  // 👉 11
     ```
 
 

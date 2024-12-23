@@ -64,7 +64,7 @@ pub inline fn make(comptime _size: comptime_int, comptime _with :?types.cstr) [_
 
   > [`io.utils.chars.size`](./size.md)
 
-  > [`io.utils.chars.calc`](./calc.md)
+  > [`io.utils.chars.bytes`](./bytes.md)
 
   > [`io.utils.chars.get`](./get.md)
 

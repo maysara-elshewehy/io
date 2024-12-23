@@ -43,10 +43,10 @@ pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr
     ```zig
     const src = chars.make(64, "=🌍🌟!");
 
-    chars.get(res[0..], 0).?; // 👉 "="
-    chars.get(res[0..], 1).?; // 👉 "🌍"
-    chars.get(res[0..], 2).?; // 👉 "🌟"
-    chars.get(res[0..], 3).?; // 👉 "!"
+    _ = chars.get(res[0..], 0).?; // 👉 "="
+    _ = chars.get(res[0..], 1).?; // 👉 "🌍"
+    _ = chars.get(res[0..], 2).?; // 👉 "🌟"
+    _ = chars.get(res[0..], 3).?; // 👉 "!"
     ```
 
 
@@ -58,7 +58,7 @@ pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr
 
   > [`io.utils.chars.make`](./make.md)
 
-  > [`io.utils.chars.calc`](./calc.md)
+  > [`io.utils.chars.bytes`](./bytes.md)
 
   > [`io.utils.chars.size`](./size.md)
 

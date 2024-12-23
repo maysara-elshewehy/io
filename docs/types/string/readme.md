@@ -58,10 +58,10 @@
 
         | Method                      | Description                                                                                            |
         | --------------------------- | ------------------------------------------------------------------------------------------------------ |
-        | [`bytes`](./api/bytes.md)   | Returns the number of characters in the buffer.                                                        |
-        | [`ubytes`](./api/ubytes.md) | Returns the number of characters in the buffer (Unicode characters are counted as regular characters). |
-        | [`size`](./api/size.md)     | Returns the size of the buffer.                                                                        |
-        | [`src`](./api/src.md)       | Returns the source of the buffer.                                                                      |
+        | [`bytes`](./api/bytes.md)   | Returns the number of characters in the string.                                                        |
+        | [`ubytes`](./api/ubytes.md) | Returns the number of characters in the string (Unicode characters are counted as regular characters). |
+        | [`size`](./api/size.md)     | Returns the size of the string.                                                                        |
+        | [`src`](./api/src.md)       | Returns the source of the string.                                                                      |
 
    - #### ⡾ Fields
 
@@ -69,8 +69,8 @@
         | --------- | -------------------------------------------------- |
         | `m_buff`  | Nullable array of characters to store the content. |
         | `m_alloc` | Allocator used for memory management.              |
-        | `m_size`  | Size of the buffer.                                |
-        | `m_bytes` | Length of the buffer.                              |
+        | `m_size`  | Size of the string.                                |
+        | `m_bytes` | Length of the string.                              |
 
 
     - #### ⠟ Types

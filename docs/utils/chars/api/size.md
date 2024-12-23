@@ -40,24 +40,24 @@ pub inline fn size(_it: anytype) types.unsigned
     const src = chars.make(64, "=🌍🌟!");
 
     // size of array.
-    chars.size(res[0..]);   // 👉 64
+    _ = chars.size(res[0..]);   // 👉 64
 
     // size of single characters.
-    chars.size(res[0]);     // 👉 1
+    _ = chars.size(res[0]);     // 👉 1
 
     // size of unicode.
-    chars.size(res[1]);     // 👉 4 'beg  of 🌍'
-    chars.size(res[2]);     // 👉 1 'part of 🌍'
-    chars.size(res[3]);     // 👉 1 'part of 🌍'
-    chars.size(res[4]);     // 👉 1 'end  of 🌍'
+    _ = chars.size(res[1]);     // 👉 4 'beg  of 🌍'
+    _ = chars.size(res[2]);     // 👉 1 'part of 🌍'
+    _ = chars.size(res[3]);     // 👉 1 'part of 🌍'
+    _ = chars.size(res[4]);     // 👉 1 'end  of 🌍'
 
-    chars.size(res[5]);     // 👉 4 'beg  of 🌟'
-    chars.size(res[6]);     // 👉 1 'part of 🌟'
-    chars.size(res[7]);     // 👉 1 'part of 🌟'
-    chars.size(res[8]);     // 👉 1 'end  of 🌟'
+    _ = chars.size(res[5]);     // 👉 4 'beg  of 🌟'
+    _ = chars.size(res[6]);     // 👉 1 'part of 🌟'
+    _ = chars.size(res[7]);     // 👉 1 'part of 🌟'
+    _ = chars.size(res[8]);     // 👉 1 'end  of 🌟'
 
     // size of single character.
-    chars.size(res[9]);     // 👉 1 '!'
+    _ = chars.size(res[9]);     // 👉 1 '!'
     ```
 
 
@@ -67,7 +67,7 @@ pub inline fn size(_it: anytype) types.unsigned
 
 - ##### Related
 
-  > [`io.utils.chars.calc`](./calc.md)
+  > [`io.utils.chars.bytes`](./bytes.md)
 
   > [`io.utils.chars.make`](./make.md)
 

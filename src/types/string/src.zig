@@ -18,31 +18,31 @@
         m_buff: ?types.str,
         /// Allocator used for memory management.
         m_alloc: std.mem.Allocator,
-        /// Size of the buffer.
+        /// Size of the string.
         m_size: types.unsigned,
-        /// Length of the buffer.
+        /// Length of the string.
         m_bytes: types.unsigned,
 
 
         // ┌─────────────────────────── BASICS ───────────────────────────┐
 
-            /// Returns the number of characters in the buffer.
+            /// Returns the number of characters in the string.
             pub fn bytes(_self: Self) types.unsigned {
                 return _self.m_bytes;
             }
 
-            /// Returns the number of characters in the buffer (Unicode characters are counted as regular characters).
+            /// Returns the number of characters in the string (Unicode characters are counted as regular characters).
             pub fn ubytes(_self: Self) types.unsigned {
                 if(_self.m_buff) |m_buff| return chars.ubytes(m_buff[0.._self.m_bytes]);
                 return 0;
             }
 
-            /// Returns the size of the buffer.
+            /// Returns the size of the string.
             pub fn size(_self: Self) types.unsigned {
                 return _self.m_size;
             }
 
-            /// Returns the source of the buffer.
+            /// Returns the source of the string.
             pub fn src(_self: Self) types.cstr {
                 if (_self.m_buff) |m_buff| return m_buff[0.._self.m_bytes];
                 return "";
