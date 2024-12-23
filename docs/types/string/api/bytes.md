@@ -42,7 +42,7 @@ pub fn bytes(_self: Self) types.unsigned
 
     _ = str.bytes(); // 👉 0
 
-    str.append("Hello 🌍!");
+    try str.append("Hello 🌍!");
 
     _ = str.bytes(); // 👉 11
     ```

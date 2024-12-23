@@ -100,15 +100,15 @@
             pub fn append(_self: *Self, _it: anytype) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.append(_it.src());
                 const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
-                try __alloc(_self, l_count);
-                chars.append(_self.m_buff.?[0..], _self.m_bytes, _it);
+                try _self.__alloc(l_count + _self.m_bytes);
+                chars.append(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it);
                 _self.m_bytes += l_count;
             }
 
             /// Appends a formatted string into the end of the string.
             pub fn appendf(_self: *Self, comptime _fmt: anytype, _args: anytype) anyerror!void {
                 const l_count = std.fmt.count(_fmt, _args);
-                try __alloc(_self, l_count);
+                try _self.__alloc(l_count + _self.m_bytes);
                 _self.writer().print(_fmt, _args) catch {};
             }
 
@@ -116,7 +116,7 @@
             pub fn prepend(_self: *Self, _it: anytype) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.prepend(_it.src());
                 const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
-                try __alloc(_self, l_count);
+                try _self.__alloc(l_count + _self.m_bytes);
                 chars.prepend(_self.m_buff.?[0..], _self.m_bytes, _it);
                 _self.m_bytes += l_count;
             }
@@ -124,8 +124,8 @@
             /// Prepends a formatted string into the beginning of the string.
             pub fn prependf(_self: *Self, comptime _fmt: anytype, _args: anytype) anyerror!void {
                 const l_count = std.fmt.count(_fmt, _args);
-                try __alloc(_self, l_count);
-                chars.utils.moveRight(_self.m_buff.?[0..], 0, _self.m_bytes, l_count);
+                try _self.__alloc(l_count + _self.m_bytes);
+                chars.utils.moveRight(_self.m_buff.?[0.._self.m_size], 0, _self.m_bytes, l_count);
                 var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[0..]);
                 const l_writer = l_fixedBufferStream.writer();
                 l_writer.print(_fmt, _args) catch {};
@@ -135,9 +135,24 @@
             /// Inserts a substring or character into the string at the specified index.
             pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.insert(_it.src(), _pos);
+                if(_pos == _self.m_bytes) return _self.append(_it);
+                if(_pos == 0) return _self.prepend(_it);
+
                 const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
-                try __alloc(_self, l_count);
-                chars.insert(_self.m_buff.?[0..], _self.m_bytes, _it, _pos);
+                try _self.__alloc(l_count + _pos);
+                chars.insert(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it, _pos);
+                _self.m_bytes += l_count;
+            }
+
+            /// Inserts a substring or character into the string at the specified index.
+            pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
+                if(@TypeOf(_it) == Self) return _self.insert(_it.src(), _pos);
+                if(_pos == _self.m_bytes) return _self.append(_it);
+                if(_pos == 0) return _self.prepend(_it);
+
+                const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
+                try _self.__alloc(l_count + _pos);
+                chars.insertReal(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it, _pos);
                 _self.m_bytes += l_count;
             }
 
@@ -147,9 +162,9 @@
                 if(_pos == 0) return _self.appendf(_fmt, _args);
 
                 const l_count = std.fmt.count(_fmt, _args);
-                try __alloc(_self, l_count);
+                try _self.__alloc(l_count + _self.m_bytes);
                 if(chars.utils.indexOf(_self.src(), _pos)) |l_pos| {
-                    chars.utils.moveRight(_self.m_buff.?[0..], l_pos, _self.m_bytes, l_count);
+                    chars.utils.moveRight(_self.m_buff.?[0.._self.m_size], l_pos, _self.m_bytes, l_count);
                 }
 
                 var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[_pos..]);
@@ -213,11 +228,11 @@
             /// ..?
             inline fn __alloc(_self: *Self, _bytes: types.unsigned) anyerror!void {
                 if (_self.m_buff) |_| {
-                    if (_self.m_size <= (_bytes + _self.m_bytes)) {
-                        try _self.allocate((_self.m_size + _bytes) * 2);
+                    if (_self.m_size <= _bytes+1) {
+                        try _self.allocate((_bytes) * 2);
                     }
                 } else {
-                    try _self.allocate(_bytes * 2);
+                    try _self.allocate((_bytes) * 2);
                 }
             }
 

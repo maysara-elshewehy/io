@@ -69,6 +69,9 @@
     /// `_shift`: Number of positions to shift the elements to the right.
     pub inline fn moveRight(_src: types.str, _start: types.unsigned, _count: types.unsigned, _shift: types.unsigned) void {
         if (_shift == 0 or _count == 0) return; // No need to move if nothing changes.
+        // if (_start + _count + _shift > _src.len) {
+        //     // @panic("Buffer overflow detected in `moveRight`.");
+        // }
         var i: types.unsigned = _start + _count;
         while (i > _start) : (i -= 1) {
             _src[i + _shift - 1] = _src[i - 1];

@@ -314,8 +314,8 @@
 
             chars.insert(res[0..], 0, "!", 0);
             chars.insert(res[0..], 1, "🌍", 0);
-            chars.insert(res[0..], 6, "Hello", 0);
-            chars.insert(res[0..], 11, " ", 5);
+            chars.insert(res[0..], 5, "Hello", 0);
+            chars.insert(res[0..], 10, " ", 5);
 
             try EQLS("Hello 🌍!", res[0..11]);
         }

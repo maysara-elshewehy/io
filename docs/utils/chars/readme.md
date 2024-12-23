@@ -27,7 +27,7 @@
 </div>
 
 
-- #### Usage 🌀
+- #### Usage
 
     ```zig
     const chars = @import("io").utils.chars;

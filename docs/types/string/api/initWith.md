@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`init`
+# [←](../readme.md) `io`.`types`.`string`.`initWith`
 
 > Initialize a string with an allocator and a given substring.
 

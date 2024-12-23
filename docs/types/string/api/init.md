@@ -38,7 +38,7 @@ pub fn init() Self
     var str = string.init();    // Creates a new string structure.
     defer str.deinit();         // Cleans up the allocated memory (if allocated) when the scope ends.
     str.size();                 // 👉 0
-    str.len();                  // 👉 0
+    str.bytes();                // 👉 0
     str.src();                  // 👉 ""
     ```
 

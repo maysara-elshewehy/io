@@ -78,10 +78,10 @@
         /// Inserts a (`string` or `char`) into the beginning of the string.
         pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void {
             if (utils.isCharType(@TypeOf(_it))) {
-                utils.moveRight(_to, 0, _len, 1);
+                utils.moveRight(_to[0..], 0, _len, 1);
                 _to[0] = _it;
             } else {
-                utils.moveRight(_to, 0, _len, _it.len);
+                utils.moveRight(_to[0..], 0, _len, _it.len);
                 utils.copy(_to, 0, _it);
             }
         }
@@ -93,11 +93,11 @@
 
             if(utils.indexOf(_to, _pos)) |i| {
                 if (utils.isCharType(@TypeOf(_it))) {
-                    utils.moveRight(_to, i, _len, 1);
+                    utils.moveRight(_to[0..], i, _len, 1);
                     _to[i] = _it;
                 } else {
-                    utils.moveRight(_to, i, _len, _it.len);
-                    utils.copy(_to, i - utils.begOf(_to[0..], i), _it);
+                    utils.moveRight(_to[0..], i, _len-i, _it.len);
+                    utils.copy(_to, i, _it);
                 }
             }
         }
@@ -106,12 +106,11 @@
         pub inline fn insertReal(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void {
             if(_pos == _len) return append(_to, _len, _it);
             if(_pos == 0) return prepend(_to, _len, _it);
-
             if (utils.isCharType(@TypeOf(_it))) {
-                utils.moveRight(_to, _pos, _len, 1);
+                utils.moveRight(_to[0..], _pos, _len, 1);
                 _to[_pos] = _it;
             } else {
-                utils.moveRight(_to, _pos, _len, _it.len);
+                utils.moveRight(_to[0..], _pos, _len, _it.len);
                 utils.copy(_to, _pos - utils.begOf(_to[0..], _pos), _it);
             }
         }
@@ -305,6 +304,7 @@
         }
 
     // └──────────────────────────────────────────────────────────────┘
+
 
     // ┌──────────────────────────── MORE ────────────────────────────┐
 

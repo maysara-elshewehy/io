@@ -26,7 +26,7 @@
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Usage 🌀
+- #### Usage
 
     ```zig
     const string = @import("io").types.string;
@@ -34,11 +34,11 @@
 
     ```zig
     var str = string.init();        // Creates a new string structure.
-    defer string.deinit();          // Cleans up the allocated memory (if allocated) when the scope ends.
+    defer str.deinit();             // Cleans up the allocated memory (if allocated) when the scope ends.
 
     try str.append("Hello 🌍!");    // 👉 "Hello 🌍!"
-    str.len();                      // 👉 8     All characters = 1.
-    str.bytes();                    // 👉 11    Normal characters = 1, Unicode characters = 4.
+    str.ubytes();                   // 👉 8     (Unicode characters are counted as regular characters).
+    str.bytes();                    // 👉 11    Regular characters = 1, Unicode characters = 4.
     str.size();                     // 👉 22    Total size of the allocated memory.
     str.src();                      // 👉 "Hello 🌍!"
     ```
