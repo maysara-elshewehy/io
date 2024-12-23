@@ -1,4 +1,4 @@
-# [←](../../readme.md) `io`.`utils`.`string`
+# [←](../../readme.md) `io`.`types`.`string`
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/logo/string/logo.png" alt="string" width="1000" />
