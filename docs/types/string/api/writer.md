@@ -50,7 +50,13 @@ pub fn writer(_self: *Self) writer
 
 - ##### Related
 
-  > [`io.types.string.Writer (Type)`](./Writer_t.md)
+    > [`io.types.string.Writer (Type)`](./Writer_t.md)
+
+    > [`io.types.string.write`](./write.md)
+
+    > [`io.types.string.writeStart`](./writeStart.md)
+
+    > [`io.types.string.writeAt`](./writeAt.md)
 
 
 <div align="center">

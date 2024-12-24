@@ -73,7 +73,7 @@ pub fn prepend(_self: *Self, _it: anytype) anyerror!void
 
 - ##### Related
 
-  > [`io.types.string.prependf`](./prependf.md)
+  > [`io.types.string.writeStart`](./writeStart.md)
 
   > [`io.types.string.append`](./append.md)
 

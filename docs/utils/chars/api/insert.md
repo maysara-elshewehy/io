@@ -79,7 +79,7 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
 
 - ##### Related
 
-  > [`io.utils.chars.insertReal`](./insertReal.md)
+  > [`io.utils.chars.writeAtReal`](./writeAtReal.md)
 
   > [`io.utils.chars.append`](./append.md)
 

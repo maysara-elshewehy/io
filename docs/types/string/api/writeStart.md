@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`prependf`
+# [←](../readme.md) `io`.`types`.`string`.`writeStart`
 
 > Inserts a _(`formatted string`)_ into the `beginning` of the string.
 
 ```zig
-pub fn prependf(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void
+pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void
 ```
 
 
@@ -47,10 +47,10 @@ pub fn prependf(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerro
     var str = string.init();
     defer str.deinit();
 
-    try str.prependf( "{c}", .{ '=' } );     // 👉 "="
-    try str.prependf( "{s}", .{ "🌍" } );    // 👉 "🌍="
-    try str.prependf( "{s}", .{ "🌟" } );    // 👉 "🌟🌍="
-    try str.prependf( "{d}", .{ 99 } );      // 👉 "99🌟🌍="
+    try str.writeStart( "{c}", .{ '=' } );     // 👉 "="
+    try str.writeStart( "{s}", .{ "🌍" } );    // 👉 "🌍="
+    try str.writeStart( "{s}", .{ "🌟" } );    // 👉 "🌟🌍="
+    try str.writeStart( "{d}", .{ 99 } );      // 👉 "99🌟🌍="
     ```
 
 
@@ -60,11 +60,9 @@ pub fn prependf(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerro
 
 - ##### Related
 
-  > [`io.types.string.prepend`](./prepend.md)
+  > [`io.types.string.write`](./write.md)
 
-  > [`io.types.string.appendf`](./appendf.md)
-
-  > [`io.types.string.insertf`](./insertf.md)
+  > [`io.types.string.writeAt`](./writeAt.md)
 
   > [`io.types.string.writer`](./writer.md)
 

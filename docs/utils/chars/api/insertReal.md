@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`utils`.`chars`.`insertReal`
+# [←](../readme.md) `io`.`utils`.`chars`.`writeAtReal`
 
 > Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string.
 
 ```zig
-pub inline fn insertReal(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void
+pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void
 ```
 
 
@@ -57,20 +57,20 @@ pub inline fn insertReal(_to: types.str, _len: types.unsigned, _it: anytype, _po
     > Insert using a `character`.
 
     ```zig
-    chars.insertReal(res[0..], 0, '=', 0);      // 👉 "="
+    chars.writeAtReal(res[0..], 0, '=', 0);      // 👉 "="
     ```
 
     > Insert using a `unicode`.
 
     ```zig
-    chars.insertReal(res[0..], 1, "🌍", 1);     // 👉 "=🌍"
-    chars.insertReal(res[0..], 5, "🌟", 5);     // 👉 "=🌟🌍"
+    chars.writeAtReal(res[0..], 1, "🌍", 1);     // 👉 "=🌍"
+    chars.writeAtReal(res[0..], 5, "🌟", 5);     // 👉 "=🌟🌍"
     ```
 
     > Insert using a `string`.
 
     ```zig
-    chars.insertReal(res[0..], 9, "!!", 9);     // 👉 "=🌟🌍!!"
+    chars.writeAtReal(res[0..], 9, "!!", 9);     // 👉 "=🌟🌍!!"
     ```
 
 <div align="center">

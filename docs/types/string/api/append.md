@@ -73,7 +73,7 @@ pub fn append(_self: *Self, _it: anytype) anyerror!void
 
 - ##### Related
 
-  > [`io.types.string.appendf`](./appendf.md)
+  > [`io.types.string.write`](./write.md)
 
   > [`io.types.string.prepend`](./prepend.md)
 

@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`appendf`
+# [←](../readme.md) `io`.`types`.`string`.`writeAt`
 
-> Inserts a _(`formatted string`)_ into the `end` of the string.
+> Inserts a _(`formatted string`)_ into a `specific position` in the string.
 
 ```zig
-pub fn appendf(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void
+pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void
 ```
 
 
@@ -24,6 +24,10 @@ pub fn appendf(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror
     - `_args` : `.{..}`
 
         > The arguments used to format the string
+
+    - `_pos` : `types.unsigned`
+
+        > The position in the string to insert at.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -47,10 +51,10 @@ pub fn appendf(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror
     var str = string.init();
     defer str.deinit();
 
-    try str.appendf( "{c}", .{ '=' } );     // 👉 "="
-    try str.appendf( "{s}", .{ "🌍" } );    // 👉 "=🌍"
-    try str.appendf( "{s}", .{ "🌟" } );    // 👉 "=🌍🌟"
-    try str.appendf( "{d}", .{ 99 } );      // 👉 "=🌍🌟99"
+    try str.writeAt( "{c}", .{ '='  }, 0 );     // 👉 "="
+    try str.writeAt( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
+    try str.writeAt( "{s}", .{ "🌟" }, 1 );     // 👉 "🌍🌟="
+    try str.writeAt( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
     ```
 
 
@@ -60,11 +64,9 @@ pub fn appendf(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror
 
 - ##### Related
 
-  > [`io.types.string.append`](./append.md)
+  > [`io.types.string.write`](./write.md)
 
-  > [`io.types.string.prependf`](./prependf.md)
-
-  > [`io.types.string.insertf`](./insertf.md)
+  > [`io.types.string.writeStart`](./writeStart.md)
 
   > [`io.types.string.writer`](./writer.md)
 

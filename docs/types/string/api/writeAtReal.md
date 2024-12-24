@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`insertf`
+# [←](../readme.md) `io`.`types`.`string`.`writeAtReal`
 
-> Inserts a _(`formatted string`)_ into a `specific position` in the string.
+> Inserts a _(`formatted string`)_ into a `specific position` _(The real position)_ in the string.
 
 ```zig
-pub fn insertf(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void
+pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void
 ```
 
 
@@ -27,7 +27,7 @@ pub fn insertf(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: ty
 
     - `_pos` : `types.unsigned`
 
-        > The position in the string to insert at.
+        > The real position in the string to insert at.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -51,10 +51,10 @@ pub fn insertf(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: ty
     var str = string.init();
     defer str.deinit();
 
-    try str.insertf( "{c}", .{ '='  }, 0 );     // 👉 "="
-    try str.insertf( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
-    try str.insertf( "{s}", .{ "🌟" }, 1 );     // 👉 "🌍🌟="
-    try str.insertf( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
+    try str.writeAtReal( "{c}", .{ '='  }, 0 );     // 👉 "="
+    try str.writeAtReal( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
+    try str.writeAtReal( "{s}", .{ "🌟" }, 4 );     // 👉 "🌍🌟="
+    try str.writeAtReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
     ```
 
 
@@ -64,11 +64,11 @@ pub fn insertf(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: ty
 
 - ##### Related
 
-  > [`io.types.string.insert`](./insert.md)
+  > [`io.types.string.writeAt`](./writeAt.md)
 
-  > [`io.types.string.appendf`](./appendf.md)
+  > [`io.types.string.write`](./write.md)
 
-  > [`io.types.string.prependf`](./prependf.md)
+  > [`io.types.string.writeStart`](./writeStart.md)
 
   > [`io.types.string.writer`](./writer.md)
 

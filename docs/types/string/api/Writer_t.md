@@ -48,7 +48,13 @@ pub const Writer = std.io.Writer(*Self, anyerror, write);
 
 - ##### Related
 
-  > [`io.types.string.writer`](./writer.md)
+    > [`io.types.string.writer`](./writer.md)
+
+    > [`io.types.string.write`](./write.md)
+
+    > [`io.types.string.writeStart`](./writeStart.md)
+
+    > [`io.types.string.writeAt`](./writeAt.md)
 
 
 <div align="center">

@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`insertfReal`
+# [←](../readme.md) `io`.`types`.`string`.`write`
 
-> Inserts a _(`formatted string`)_ into a `specific position` _(The real position)_ in the string.
+> Inserts a _(`formatted string`)_ into the `end` of the string.
 
 ```zig
-pub fn insertfReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void
+pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void
 ```
 
 
@@ -24,10 +24,6 @@ pub fn insertfReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos
     - `_args` : `.{..}`
 
         > The arguments used to format the string
-
-    - `_pos` : `types.unsigned`
-
-        > The real position in the string to insert at.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -51,10 +47,10 @@ pub fn insertfReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos
     var str = string.init();
     defer str.deinit();
 
-    try str.insertfReal( "{c}", .{ '='  }, 0 );     // 👉 "="
-    try str.insertfReal( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
-    try str.insertfReal( "{s}", .{ "🌟" }, 4 );     // 👉 "🌍🌟="
-    try str.insertfReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
+    try str.write( "{c}", .{ '=' } );     // 👉 "="
+    try str.write( "{s}", .{ "🌍" } );    // 👉 "=🌍"
+    try str.write( "{s}", .{ "🌟" } );    // 👉 "=🌍🌟"
+    try str.write( "{d}", .{ 99 } );      // 👉 "=🌍🌟99"
     ```
 
 
@@ -64,13 +60,9 @@ pub fn insertfReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos
 
 - ##### Related
 
-  > [`io.types.string.insertReal`](./insertReal.md)
+  > [`io.types.string.writeStart`](./writeStart.md)
 
-  > [`io.types.string.insertf`](./insertf.md)
-
-  > [`io.types.string.appendf`](./appendf.md)
-
-  > [`io.types.string.prependf`](./prependf.md)
+  > [`io.types.string.writeAt`](./writeAt.md)
 
   > [`io.types.string.writer`](./writer.md)
 

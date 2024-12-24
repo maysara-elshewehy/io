@@ -87,45 +87,45 @@
             var res = string.init();
 
             // Append a string.
-            try res.appendf("{s}", .{"Hello"});
+            try res.write("{s}", .{"Hello"});
             try EQL(12, res.size());
             try EQL(5,  res.bytes());
             try EQLS("Hello", res.src());
 
             // Append a character.
-            try res.appendf("{c}", .{' '});
+            try res.write("{c}", .{' '});
             try EQL(12, res.size());
             try EQL(6,  res.bytes());
             try EQLS("Hello ", res.src());
 
             // Append a string.
             // size 24 => 11*2
-            try res.appendf("{s}", .{"World"});
+            try res.write("{s}", .{"World"});
             try EQL(24, res.size());
             try EQL(11, res.bytes());
             try EQLS("Hello World", res.src());
 
             // Prepend a string.
-            try res.prependf("{s}", .{"--"});
+            try res.writeStart("{s}", .{"--"});
             try EQL(24, res.size());
             try EQL(13, res.bytes());
             try EQLS("--Hello World", res.src());
 
             // Prepend a character.
-            try res.prependf("{c}", .{'!'});
+            try res.writeStart("{c}", .{'!'});
             try EQL(24, res.size());
             try EQL(14, res.bytes());
             try EQLS("!--Hello World", res.src());
 
             // Insert a string.
-            try res.insertf("{s}", .{"^^"}, 1);
+            try res.writeAt("{s}", .{"^^"}, 1);
 
             try EQL(24, res.size());
             try EQL(16, res.bytes());
             try EQLS("!^^--Hello World", res.src());
 
             // Insert a character.
-            try res.insertf("{c}", .{' '}, 1);
+            try res.writeAt("{c}", .{' '}, 1);
             try EQL(24, res.size());
             try EQL(17, res.bytes());
             try EQLS("! ^^--Hello World", res.src());
@@ -534,55 +534,55 @@
             try EQLS("=🌟🌍!!", str.src());
         }
 
-        test "docs: appendf" {
+        test "docs: write" {
             var str = string.init(); defer str.deinit();
 
-            try str.appendf( "{c}", .{ '=' } );     // 👉 "="
+            try str.write( "{c}", .{ '=' } );     // 👉 "="
             try EQLS("=", str.src());
-            try str.appendf( "{s}", .{ "🌍" } );    // 👉 "=🌍"
+            try str.write( "{s}", .{ "🌍" } );    // 👉 "=🌍"
             try EQLS("=🌍", str.src());
-            try str.appendf( "{s}", .{ "🌟" } );    // 👉 "=🌍🌟"
+            try str.write( "{s}", .{ "🌟" } );    // 👉 "=🌍🌟"
             try EQLS("=🌍🌟", str.src());
-            try str.appendf( "{d}", .{ 99 } );      // 👉 "=🌍🌟99"
+            try str.write( "{d}", .{ 99 } );      // 👉 "=🌍🌟99"
             try EQLS("=🌍🌟99", str.src());
         }
 
-        test "docs: prependf" {
+        test "docs: writeStart" {
             var str = string.init(); defer str.deinit();
 
-            try str.prependf( "{c}", .{ '=' } );     // 👉 "="
+            try str.writeStart( "{c}", .{ '=' } );     // 👉 "="
             try EQLS("=", str.src());
-            try str.prependf( "{s}", .{ "🌍" } );    // 👉 "🌍="
+            try str.writeStart( "{s}", .{ "🌍" } );    // 👉 "🌍="
             try EQLS("🌍=", str.src());
-            try str.prependf( "{s}", .{ "🌟" } );    // 👉 "🌟🌍="
+            try str.writeStart( "{s}", .{ "🌟" } );    // 👉 "🌟🌍="
             try EQLS("🌟🌍=", str.src());
-            try str.prependf( "{d}", .{ 99 } );      // 👉 "99🌟🌍="
+            try str.writeStart( "{d}", .{ 99 } );      // 👉 "99🌟🌍="
             try EQLS("99🌟🌍=", str.src());
         }
 
-        test "docs: insertf" {
+        test "docs: writeAt" {
             var str = string.init(); defer str.deinit();
 
-            try str.insertf( "{c}", .{ '='  }, 0 );     // 👉 "="
+            try str.writeAt( "{c}", .{ '='  }, 0 );     // 👉 "="
             try EQLS("=", str.src());
-            try str.insertf( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
+            try str.writeAt( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
             try EQLS("🌍=", str.src());
-            try str.insertf( "{s}", .{ "🌟" }, 1 );     // 👉 "🌍🌟="
+            try str.writeAt( "{s}", .{ "🌟" }, 1 );     // 👉 "🌍🌟="
             try EQLS("🌍🌟=", str.src());
-            try str.insertf( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
+            try str.writeAt( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
             try EQLS("99🌍🌟=", str.src());
         }
 
-        test "docs: insertfReal" {
+        test "docs: writeAtReal" {
             var str = string.init(); defer str.deinit();
 
-            try str.insertfReal( "{c}", .{ '='  }, 0 );     // 👉 "="
+            try str.writeAtReal( "{c}", .{ '='  }, 0 );     // 👉 "="
             try EQLS("=", str.src());
-            try str.insertfReal( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
+            try str.writeAtReal( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
             try EQLS("🌍=", str.src());
-            try str.insertfReal( "{s}", .{ "🌟" }, 4 );     // 👉 "🌍🌟="
+            try str.writeAtReal( "{s}", .{ "🌟" }, 4 );     // 👉 "🌍🌟="
             try EQLS("🌍🌟=", str.src());
-            try str.insertfReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
+            try str.writeAtReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
             try EQLS("99🌍🌟=", str.src());
         }
 
