@@ -3,7 +3,7 @@
 > Returns a writer for the string.
 
 ```zig
-pub fn writer(_self: *Self) Writer
+pub fn writer(_self: *Self) writer
 ```
 
 
@@ -22,7 +22,7 @@ pub fn writer(_self: *Self) Writer
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : [`writerType`](./writerType.md)
+- #### Returns : [`Writer`](./writerType.md)
 
     > A writer for the string.
 
@@ -50,7 +50,7 @@ pub fn writer(_self: *Self) Writer
 
 - ##### Related
 
-  > [`io.types.string.writerType`](./writerType.md)
+  > [`io.types.string.Writer`](./writerType.md)
 
 
 <div align="center">

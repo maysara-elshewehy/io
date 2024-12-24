@@ -3,7 +3,7 @@
 > Returns an iterator for the string.
 
 ```zig
-pub fn iterator(_self: *const Self) Iterator
+pub fn iterator(_self: *const Self) iterator
 ```
 
 
@@ -22,7 +22,7 @@ pub fn iterator(_self: *const Self) Iterator
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : [`iteratorType`](./iteratorType.md)
+- #### Returns : [`Iterator`](./iteratorType.md)
 
     > An iterator for the string.
 
@@ -54,7 +54,7 @@ pub fn iterator(_self: *const Self) Iterator
 
 - ##### Related
 
-  > [`io.types.string.iteratorType`](./iteratorType.md)
+  > [`io.types.string.Iterator`](./iteratorType.md)
  
 
 <div align="center">
