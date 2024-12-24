@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`utils`.`chars`.`writeAtReal`
+# [←](../readme.md) `io`.`utils`.`chars`.`remove`
 
-> Inserts a _(`string` or `char`)_ into a `specific real  position` in the string.
+> Removes a _(`range` or `position`)_ from the string.
 
 ```zig
-pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void
+pub inline fn remove(_from: types.str, _it: anytype) void
 ```
 
 
@@ -13,24 +13,15 @@ pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _p
 
 - #### Parameters
 
-    - `_to` : `types.str`
+    - `_from` : `types.str`
 
-        > The string to insert into.
-
-
-    - `_len` : `types.unsigned`
-
-        > The length of string to insert into.
+        > The string to remove from.
 
 
-    - `_it` : `types.cstr` or `types.char`
+    - `_it` : `types.range` or `types.unsigned`
 
-        > The _(`string` or `char`)_ to be inserted into the string.
+        > The _(`range` or `position`)_ to be remove.
 
-
-    - `_pos` : `types.unsigned`
-
-        > The real position in the string to insert at.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -51,26 +42,20 @@ pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _p
     ```
 
     ```zig
-    const src = chars.make(64, null);
+    const src = chars.make(64, "=🌍🌟!");
     ```
 
-    > Insert using a `character`.
+    > Remove using a `position`.
 
     ```zig
-    chars.writeAtReal(res[0..], 0, '=', 0);      // 👉 "="
+    chars.remove(res[0..], 0);              // 👉 "🌍🌟!"
     ```
 
-    > Insert using a `unicode`.
+    > Remove using a `range`.
 
     ```zig
-    chars.writeAtReal(res[0..], 1, "🌍", 1);     // 👉 "=🌍"
-    chars.writeAtReal(res[0..], 5, "🌟", 5);     // 👉 "=🌟🌍"
-    ```
-
-    > Insert using a `string`.
-
-    ```zig
-    chars.writeAtReal(res[0..], 9, "!!", 9);     // 👉 "=🌟🌍!!"
+    chars.remove(res[0..], .{ 1, 2 });      // 👉 "🌍!"
+    chars.remove(res[0..], .{ 0, 1 });      // 👉 "!"
     ```
 
 <div align="center">
@@ -79,11 +64,14 @@ pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _p
 
 - ##### Related
 
-  > [`io.utils.chars.insert`](./insert.md)
+  > [`io.utils.chars.removeReal`](./removeReal.md)
 
-  > [`io.utils.chars.append`](./append.md)
+  > [`io.utils.chars.pop`](./pop.md)
 
-  > [`io.utils.chars.prepend`](./prepend.md)
+  > [`io.utils.chars.shift`](./shift.md)
+
+  > [`io.utils.chars.zeros`](./zeros.md)
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

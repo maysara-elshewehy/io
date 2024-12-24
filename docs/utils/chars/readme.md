@@ -47,7 +47,7 @@
     chars.remove(str[0..], 1);                          // 👉 "Hllo 🌍!"
 
     // Removes a range of string.
-    chars.remove(str[0..], .{ 0, 9 });                  // 👉 "!"
+    chars.remove(str[0..], .{ 0, 6 });                  // 👉 "!"
 
     // Replace a part of string with another
     chars.replace(str[0..], 1, "!", "Hello 🌍!", 1);    // 👉 "Hello 🌍!"
@@ -67,24 +67,25 @@
 
    - #### ➕ Insertion
 
-        | Method                              | Description                                                                                      |
-        | ----------------------------------- | ------------------------------------------------------------------------------------------------ |
-        | [`append`](./api/append.md)         | Inserts a _(`string` or `char`)_ into the `end` of the string.                                   |
-        | [`prepend`](./api/prepend.md)       | Inserts a _(`string` or `char`)_ into the `beg` of the string.                                   |
-        | [`insert`](./api/insert.md)         | Inserts a _(`string` or `char`)_ into a `specific position` in the string.                       |
-        | [`writeAtReal`](./api/writeAtReal.md) | Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string. |
+        | Method                                | Description                                                                      |
+        | ------------------------------------- | -------------------------------------------------------------------------------- |
+        | [`append`](./api/append.md)           | Inserts a _(`string` or `char`)_ into the `end` of the string.                   |
+        | [`prepend`](./api/prepend.md)         | Inserts a _(`string` or `char`)_ into the `beg` of the string.                   |
+        | [`insert`](./api/insert.md)           | Inserts a _(`string` or `char`)_ into a `specific position` in the string.       |
+        | [`writeAtReal`](./api/writeAtReal.md) | Inserts a _(`string` or `char`)_ into a `specific real  position` in the string. |
 
    - #### ➖ Deletion
 
-        | Method                            | Description                                                             |
-        | --------------------------------- | ----------------------------------------------------------------------- |
-        | [`remove`](./api/remove.md)       | Removes a _(`range` or `position`)_ from the string.                    |
-        | [`shift`](./api/shift.md)         | Removes a _(`N` bytes)_ from the beg of the string.                     |
-        | [`pop`](./api/pop.md)             | Removes a _(`N` bytes)_ from the end of the string _(using `/0`)_.      |
-        | [`trim`](./api/trim.md)           | Removes all matching characters fromt both start and end of the string. |
-        | [`trimEnd`](./api/trimEnd.md)     | Removes all matching characters at the end of the string.               |
-        | [`trimStart`](./api/trimStart.md) | Removes all matching characters at the beg of the string.               |
-        | [`zeros`](./api/zeros.md)         | Fills a string with _(`\0` character)_.                                 |
+        | Method                              | Description                                                             |
+        | ----------------------------------- | ----------------------------------------------------------------------- |
+        | [`remove`](./api/remove.md)         | Removes a _(`range` or `position`)_ from the string.                    |
+        | [`removeReal`](./api/removeReal.md) | Removes a _(`range` or `real position`)_ from the string.               |
+        | [`shift`](./api/shift.md)           | Removes a _(`N` bytes)_ from the beg of the string.                     |
+        | [`pop`](./api/pop.md)               | Removes a _(`N` bytes)_ from the end of the string _(using `/0`)_.      |
+        | [`trim`](./api/trim.md)             | Removes all matching characters fromt both start and end of the string. |
+        | [`trimEnd`](./api/trimEnd.md)       | Removes all matching characters at the end of the string.               |
+        | [`trimStart`](./api/trimStart.md)   | Removes all matching characters at the beg of the string.               |
+        | [`zeros`](./api/zeros.md)           | Fills a string with _(`\0` character)_.                                 |
 
     - #### ➷ Find
 

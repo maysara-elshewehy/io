@@ -86,7 +86,7 @@
                     if (_bytes < _self.m_size) _self.m_size = _bytes;
                     _self.m_buff = _self.m_alloc.realloc(m_buff, _bytes) catch { return error.OutOfMemory; };
                 } else {
-                    _self.m_buff = _self.m_alloc.alloc(u8, _bytes) catch { return error.OutOfMemory; };
+                    _self.m_buff = _self.m_alloc.alloc(types.char, _bytes) catch { return error.OutOfMemory; };
                 }
                 _self.m_size = _bytes;
             }
@@ -99,36 +99,18 @@
             /// Inserts a (`string` or `char`) into the `end` of the string.
             pub fn append(_self: *Self, _it: anytype) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.append(_it.src());
-                const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
+                const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
                 try _self.__alloc(l_count + _self.m_bytes);
                 chars.append(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it);
                 _self.m_bytes += l_count;
             }
 
-            /// Inserts a (`formatted string`) into the `end` of the string.
-            pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void {
-                const l_count = std.fmt.count(_fmt, _args);
-                try _self.__alloc(l_count + _self.m_bytes);
-                _self.writer().print(_fmt, _args) catch {};
-            }
-
             /// Inserts a (`string` or `char`) into the `beginning` of the string.
             pub fn prepend(_self: *Self, _it: anytype) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.prepend(_it.src());
-                const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
+                const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
                 try _self.__alloc(l_count + _self.m_bytes);
                 chars.prepend(_self.m_buff.?[0..], _self.m_bytes, _it);
-                _self.m_bytes += l_count;
-            }
-
-            /// Inserts a (`formatted string`) into the `beginning` of the string.
-            pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void {
-                const l_count = std.fmt.count(_fmt, _args);
-                try _self.__alloc(l_count + _self.m_bytes);
-                chars.utils.moveRight(_self.m_buff.?[0.._self.m_size], 0, _self.m_bytes, l_count);
-                var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[0..]);
-                const l_writer = l_fixedBufferStream.writer();
-                l_writer.print(_fmt, _args) catch {};
                 _self.m_bytes += l_count;
             }
 
@@ -138,7 +120,7 @@
                 if(_pos == _self.m_bytes) return _self.append(_it);
                 if(_pos == 0) return _self.prepend(_it);
 
-                const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
+                const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
                 try _self.__alloc(l_count + _pos);
                 chars.insert(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it, _pos);
                 _self.m_bytes += l_count;
@@ -150,37 +132,51 @@
                 if(_pos == _self.m_bytes) return _self.append(_it);
                 if(_pos == 0) return _self.prepend(_it);
 
-                const l_count = if(chars.utils.isCharType(@TypeOf(_it))) 1 else _it.len;
+                const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
                 try _self.__alloc(l_count + _pos);
                 chars.insertReal(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it, _pos);
                 _self.m_bytes += l_count;
             }
 
-            /// Inserts a (`formatted string`) into a `specific position` in the string.
-            pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void {
-                if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
-                if(_pos == 0) return _self.writeStart(_fmt, _args);
+        // └──────────────────────────────────────────────────────────────┘
 
-                try _self.__alloc(std.fmt.count(_fmt, _args) + _pos);
-                if(chars.utils.indexOf(_self.src(), _pos)) |l_pos| {
-                    return _self.writeAtReal(_fmt, _args, l_pos);
-                } else unreachable;
+
+        // ┌─────────────────────────── REMOVE ───────────────────────────┐
+
+            /// Removes a (`range` or `position`) from the string.
+            pub inline fn remove(_self: *Self, _it: anytype) void {
+                if(_self.m_buff) |m_buff| {
+                    if(chars.utils.isUtype(@TypeOf(_it))) {
+                        if(chars.utils.indexOf(m_buff[0.._self.m_bytes], _it)) |l_pos| {
+                            const l_beg = l_pos - chars.utils.begOf(m_buff[0..], l_pos);
+                            const l_count : types.unsigned = chars.utils.sizeOf(m_buff[l_beg]);
+                            chars.removeReal(m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
+                            _self.m_bytes -= l_count;
+                        } else unreachable;
+                    }
+                    else {
+                        const l_range = chars.utils.rangeOf(m_buff[0.._self.m_bytes], _it);
+                        chars.remove(m_buff[0.._self.m_bytes], _it);
+                        _self.m_bytes -= l_range[1] - l_range[0];
+                    }
+                }
             }
 
-            /// Inserts a (`formatted string`) into a `specific position` (The real position) in the string.
-            pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void {
-                if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
-                if(_pos == 0) return _self.writeStart(_fmt, _args);
-
-                const l_count = std.fmt.count(_fmt, _args);
-                try _self.__alloc(l_count + _pos);
-                const l_beg = _pos - chars.utils.begOf(_self.m_buff.?[0..], _pos);
-                chars.utils.moveRight(_self.m_buff.?[0..], l_beg, _self.m_bytes-l_beg, l_count);
-
-                var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[l_beg..]);
-                const l_writer = l_fixedBufferStream.writer();
-                l_writer.print(_fmt, _args) catch unreachable;
-                _self.m_bytes += l_count;
+            /// Removes a (`range` or `position` (The real position)) from the string.
+            pub inline fn removeReal(_self: *Self, _it: anytype) void {
+                if(_self.m_buff) |m_buff| {
+                    if(chars.utils.isUtype(@TypeOf(_it))) {
+                        const l_beg = _it - chars.utils.begOf(m_buff[0..], _it);
+                        const l_count : types.unsigned = chars.utils.sizeOf(m_buff[l_beg]);
+                        chars.removeReal(m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
+                        _self.m_bytes -= l_count;
+                    }
+                    else {
+                        const l_range = chars.utils.realRangeOf(m_buff[0.._self.m_bytes], _it);
+                        chars.removeReal(m_buff[0.._self.m_bytes], _it);
+                        _self.m_bytes -= l_range[1] - l_range[0];
+                    }
+                }
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -201,6 +197,51 @@
                 fn __write(_self: *Self, _it: types.cstr) !types.unsigned {
                     try _self.append(_it);
                     return _it.len;
+                }
+
+                /// Inserts a (`formatted string`) into the `end` of the string.
+                pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void {
+                    const l_count = std.fmt.count(_fmt, _args);
+                    try _self.__alloc(l_count + _self.m_bytes);
+                    _self.writer().print(_fmt, _args) catch {};
+                }
+
+                /// Inserts a (`formatted string`) into the `beginning` of the string.
+                pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void {
+                    const l_count = std.fmt.count(_fmt, _args);
+                    try _self.__alloc(l_count + _self.m_bytes);
+                    chars.utils.move_right(_self.m_buff.?[0.._self.m_size], 0, _self.m_bytes, l_count);
+                    var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[0..]);
+                    const l_writer = l_fixedBufferStream.writer();
+                    l_writer.print(_fmt, _args) catch {};
+                    _self.m_bytes += l_count;
+                }
+
+                /// Inserts a (`formatted string`) into a `specific position` in the string.
+                pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void {
+                    if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
+                    if(_pos == 0) return _self.writeStart(_fmt, _args);
+
+                    try _self.__alloc(std.fmt.count(_fmt, _args) + _pos);
+                    if(chars.utils.indexOf(_self.src(), _pos)) |l_pos| {
+                        return _self.writeAtReal(_fmt, _args, l_pos);
+                    } else unreachable;
+                }
+
+                /// Inserts a (`formatted string`) into a `specific position` (The real position) in the string.
+                pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void {
+                    if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
+                    if(_pos == 0) return _self.writeStart(_fmt, _args);
+
+                    const l_count = std.fmt.count(_fmt, _args);
+                    try _self.__alloc(l_count + _pos);
+                    const l_beg = _pos - chars.utils.begOf(_self.m_buff.?[0..], _pos);
+                    chars.utils.move_right(_self.m_buff.?[0..], l_beg, _self.m_bytes-l_beg, l_count);
+
+                    var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[l_beg..]);
+                    const l_writer = l_fixedBufferStream.writer();
+                    l_writer.print(_fmt, _args) catch unreachable;
+                    _self.m_bytes += l_count;
                 }
             };
 

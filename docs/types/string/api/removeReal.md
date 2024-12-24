@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`writeAtReal`
+# [←](../readme.md) `io`.`types`.`string`.`removeReal`
 
-> Inserts a _(`formatted string`)_ into a `specific real  position` in the string.
+> Removes a _(`range` or `real position`)_ from the string.
 
 ```zig
-pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void
+pub inline fn removeReal(_self: *Self, _it: anytype) void
 ```
 
 
@@ -17,17 +17,10 @@ pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos
 
         > The string structure to be used.
 
-    - `_fmt` : `types.cstr`
+    - `_it` : `types.range` or `types.unsigned` or `Self`
 
-        > A [fmt string](https://ziglang.org/documentation/master/std/#std.fmt) used to format the string.
+        > The _(`range` or `real position`)_ to be remove.
 
-    - `_args` : `.{..}`
-
-        > The arguments used to format the string
-
-    - `_pos` : `types.unsigned`
-
-        > The real position in the string to insert at.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -50,13 +43,20 @@ pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos
     ```zig
     var str = string.init();
     defer str.deinit();
-
-    try str.writeAtReal( "{c}", .{ '='  }, 0 );     // 👉 "="
-    try str.writeAtReal( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
-    try str.writeAtReal( "{s}", .{ "🌟" }, 4 );     // 👉 "🌍🌟="
-    try str.writeAtReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
     ```
 
+    > Remove using a `real position`.
+
+    ```zig
+    str.removeReal(0);              // 👉 "🌍🌟!"
+    ```
+
+    > Remove using a `real range`.
+
+    ```zig
+    str.removeReal(.{ 4, 8 });      // 👉 "🌍!"
+    str.removeReal(.{ 0, 4 });      // 👉 "!"
+    ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -64,13 +64,13 @@ pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos
 
 - ##### Related
 
-  > [`io.types.string.writeAt`](./writeAt.md)
+  > [`io.types.string.remove`](./remove.md)
 
-  > [`io.types.string.write`](./write.md)
+  > [`io.types.string.pop`](./pop.md)
 
-  > [`io.types.string.writeStart`](./writeStart.md)
+  > [`io.types.string.shift`](./shift.md)
 
-  > [`io.types.string.writer`](./writer.md)
+  > [`io.types.string.clear`](./clear.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

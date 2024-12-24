@@ -369,6 +369,201 @@
     // └──────────────────────────────────────────────────────────────┘
 
 
+    // ┌─────────────────────────── REMOVE ───────────────────────────┐
+
+        test "Remove a rang of string (single character)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append("Hello");
+            try EQLS("Hello", str.src());
+
+            str.remove(.{0, 1});
+            try EQLS("ello", str.src());
+
+            str.remove(.{0, 2});
+            try EQLS("lo", str.src());
+
+            str.remove(.{1, 2});
+            try EQLS("l", str.src());
+
+            str.remove(.{0, 1});
+            try EQLS("", str.src());
+        }
+
+        test "Remove a range of string (multiple characters)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append("Hello World");
+            try EQLS("Hello World", str.src());
+
+            str.remove(.{0, 6});
+            try EQLS("World", str.src());
+
+            str.remove(.{0, 5});
+            try EQLS("", str.src());
+        }
+
+        test "Remove a single character" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append("Hello");
+            try EQLS("Hello", str.src());
+
+            str.remove(0);
+            try EQLS("ello", str.src());
+
+            str.remove(2);
+            try EQLS("elo", str.src());
+
+            str.remove(2);
+            try EQLS("el", str.src());
+
+            str.remove(0);
+            try EQLS("l", str.src());
+
+            str.remove(0);
+            try EQLS("", str.src());
+        }
+
+        test "Remove a unicode character (fake position)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append("=🌍🌟!,=🌍🌟!");
+            try EQLS("=🌍🌟!,=🌍🌟!", str.src());
+
+            str.remove(0);
+            try EQLS("🌍🌟!,=🌍🌟!", str.src());
+
+            str.remove(4);
+            try EQLS("🌍🌟!,🌍🌟!", str.src());
+
+            str.remove(0);
+            try EQLS("🌟!,🌍🌟!", str.src());
+
+            str.remove(0);
+            try EQLS("!,🌍🌟!", str.src());
+
+            str.remove(0);
+            try EQLS(",🌍🌟!", str.src());
+
+            str.remove(2);
+            try EQLS(",🌍!", str.src());
+
+            str.remove(0);
+            try EQLS("🌍!", str.src());
+
+            str.remove(2);
+            try EQLS("🌍", str.src());
+
+            str.remove(0);
+            try EQLS("", str.src());
+        }
+
+        test "Remove a unicode character (fake range)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append("=🌍🌟!,=🌍🌟!");
+            try EQLS("=🌍🌟!,=🌍🌟!", str.src());
+
+            str.remove(.{0, 1});
+            try EQLS("🌍🌟!,=🌍🌟!", str.src());
+
+            str.remove(.{4, 5});
+            try EQLS("🌍🌟!,🌍🌟!", str.src());
+
+            str.remove(0);
+            try EQLS("🌟!,🌍🌟!", str.src());
+
+            str.remove(0);
+            try EQLS("!,🌍🌟!", str.src());
+
+            str.remove(0);
+            try EQLS(",🌍🌟!", str.src());
+
+            str.remove(2);
+            try EQLS(",🌍!", str.src());
+
+            str.remove(0);
+            try EQLS("🌍!", str.src());
+
+            str.remove(1);
+            try EQLS("🌍", str.src());
+
+            str.remove(0);
+            try EQLS("", str.src());
+        }
+
+        test "Remove a unicode character (real position)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append("=🌍🌟!,=🌍🌟!");
+            try EQLS("=🌍🌟!,=🌍🌟!", str.src());
+
+            str.removeReal(0);
+            try EQLS("🌍🌟!,=🌍🌟!", str.src());
+
+            str.removeReal(10);
+            try EQLS("🌍🌟!,🌍🌟!", str.src());
+
+            str.removeReal(0);
+            try EQLS("🌟!,🌍🌟!", str.src());
+
+            str.removeReal(0);
+            try EQLS("!,🌍🌟!", str.src());
+
+            str.removeReal(0);
+            try EQLS(",🌍🌟!", str.src());
+
+            str.removeReal(5);
+            try EQLS(",🌍!", str.src());
+
+            str.removeReal(0);
+            try EQLS("🌍!", str.src());
+
+            str.removeReal(4);
+            try EQLS("🌍", str.src());
+
+            str.removeReal(0);
+            try EQLS("", str.src());
+        }
+
+        test "Remove a unicode character (real range)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append("=🌍🌟!,=🌍🌟!");
+            try EQLS("=🌍🌟!,=🌍🌟!", str.src());
+
+            str.removeReal(.{0, 1});
+            try EQLS("🌍🌟!,=🌍🌟!", str.src());
+
+            str.removeReal(.{10, 11});
+            try EQLS("🌍🌟!,🌍🌟!", str.src());
+
+            str.removeReal(.{0, 4});
+            try EQLS("🌟!,🌍🌟!", str.src());
+
+            str.removeReal(.{0, 4});
+            try EQLS("!,🌍🌟!", str.src());
+
+            str.removeReal(.{0, 1});
+            try EQLS(",🌍🌟!", str.src());
+
+            str.removeReal(.{5, 9});
+            try EQLS(",🌍!", str.src());
+
+            str.removeReal(.{0, 1});
+            try EQLS("🌍!", str.src());
+
+            str.removeReal(.{4, 5});
+            try EQLS("🌍", str.src());
+
+            str.removeReal(.{0, 4});
+            try EQLS("", str.src());
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
     // ┌─────────────────────────── WRITER ───────────────────────────┐
 
         test "Make a writer for a string and write some string using print function (fmt)" {
@@ -585,6 +780,30 @@
             try str.writeAtReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
             try EQLS("99🌍🌟=", str.src());
         }
+
+        test "docs: remove" {
+            var str = try string.initWith("=🌍🌟!"); defer str.deinit();
+
+            str.remove(0);              // 👉 "🌍🌟!"
+            try EQLS("🌍🌟!", str.src());
+            str.remove(.{ 1, 2 });      // 👉 "🌍!"
+            try EQLS("🌍!", str.src());
+            str.remove(.{ 0, 1 });      // 👉 "!"
+            try EQLS("!", str.src());
+        }
+
+        test "docs: removeReal" {
+            var str = try string.initWith("=🌍🌟!"); defer str.deinit();
+
+            str.removeReal(0);          // 👉 "🌍🌟!"
+            try EQLS("🌍🌟!", str.src());
+            str.removeReal(.{ 4, 8 });  // 👉 "🌍!"
+            try EQLS("🌍!", str.src());
+            str.removeReal(.{ 0, 4 });  // 👉 "!"
+            try EQLS("!", str.src());
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
 
     // └──────────────────────────────────────────────────────────────┘
 

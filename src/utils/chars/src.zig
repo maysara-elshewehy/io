@@ -48,7 +48,7 @@
         /// Returns the size of the specified (array of characters : The actual size of the array)
         /// or (single character : Given the first byte of a UTF-8 codepoint, returns a number 1-4 indicating the total length of the codepoint in bytes).
         pub inline fn size(_it: anytype) types.unsigned {
-            if(utils.isCharType(@TypeOf(_it))) { return utils.sizeOf(_it); }
+            if(utils.isCtype(@TypeOf(_it))) { return utils.sizeOf(_it); }
             else { return _it.len; }
         }
 
@@ -68,7 +68,7 @@
 
         /// Inserts a (`string` or `char`) into the end of the string.
         pub inline fn append(_to: types.str, _len: types.unsigned, _it: anytype) void {
-            if (utils.isCharType(@TypeOf(_it))) {
+            if (utils.isCtype(@TypeOf(_it))) {
                 _to[_len] = _it;
             } else {
                 utils.copy(_to, _len, _it);
@@ -77,29 +77,18 @@
 
         /// Inserts a (`string` or `char`) into the beginning of the string.
         pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void {
-            if (utils.isCharType(@TypeOf(_it))) {
-                utils.moveRight(_to[0..], 0, _len, 1);
+            if (utils.isCtype(@TypeOf(_it))) {
+                utils.move_right(_to[0..], 0, _len, 1);
                 _to[0] = _it;
             } else {
-                utils.moveRight(_to[0..], 0, _len, _it.len);
+                utils.move_right(_to[0..], 0, _len, _it.len);
                 utils.copy(_to, 0, _it);
             }
         }
 
         /// Inserts a (`string` or `char`) into a specific position in the string.
         pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void {
-            if(_pos == _len) return append(_to, _len, _it);
-            if(_pos == 0) return prepend(_to, _len, _it);
-
-            if(utils.indexOf(_to, _pos)) |_i| {
-                if (utils.isCharType(@TypeOf(_it))) {
-                    utils.moveRight(_to[0..], _i, _len, 1);
-                    _to[_i] = _it;
-                } else {
-                    utils.moveRight(_to[0..], _i, _len-_i, _it.len);
-                    utils.copy(_to, _i, _it);
-                }
-            }
+            return insertReal(_to, _len, _it, utils.indexOf(_to, _pos) orelse unreachable);
         }
 
         /// Inserts a (`string` or `char`) into a specific position in the string.
@@ -108,11 +97,11 @@
             if(_pos == 0) return prepend(_to, _len, _it);
 
             const _i = _pos + utils.begOf(_to[0..], _pos);
-            if (utils.isCharType(@TypeOf(_it))) {
-                utils.moveRight(_to[0..], _i, _len, 1);
+            if (utils.isCtype(@TypeOf(_it))) {
+                utils.move_right(_to[0..], _i, _len, 1);
                 _to[_i] = _it;
             } else {
-                utils.moveRight(_to[0..], _i, _len-_i, _it.len);
+                utils.move_right(_to[0..], _i, _len-_i, _it.len);
                 utils.copy(_to, _i, _it);
             }
         }
@@ -124,21 +113,19 @@
 
         /// Removes a (`range` or `position`) from the string.
         pub inline fn remove(_from: types.str, _it: anytype) void {
-            const l_range = if(utils.isUnsignedType(@TypeOf(_it))) utils.rangeOf(_from, _it) else _it;
-            var i : types.unsigned = l_range[1];
-            while (i < _from.len) : (i += 1) { _from[i - (l_range[1] - l_range[0])] = _from[i]; }
+            return removeReal(_from, utils.rangeOf(_from, _it));
         }
 
         /// Removes a (`range` or `position`) from the string.
         pub inline fn removeReal(_from: types.str, _it: anytype) void {
-            const l_range = if(utils.isUnsignedType(@TypeOf(_it))) .{ _it, _it+1} else _it;
+            const l_range = utils.realRangeOf(_from, _it);
             var i : types.unsigned = l_range[1];
             while (i < _from.len) : (i += 1) { _from[i - (l_range[1] - l_range[0])] = _from[i]; }
         }
 
         /// Removes a (`N` bytes) from the beginning of the string.
         pub inline fn shift(_from: types.str, _len: types.unsigned, _bytes: types.unsigned) void {
-            utils.moveLeft(_from[0..], _bytes, _len-_bytes, _bytes);
+            utils.move_left(_from[0..], _bytes, _len-_bytes, _bytes);
             _from[_len - _bytes] = 0;
         }
 
@@ -189,7 +176,7 @@
 
         /// Returns the first occurrence of a (`string` or `char`) in the string.
         pub inline fn find(_in: types.cstr, _it: anytype) ?types.unsigned {
-            if (utils.isCharType(@TypeOf(_it))) {
+            if (utils.isCtype(@TypeOf(_it))) {
                 return std.mem.indexOf(types.char, _in[0.._in.len], &[_]types.char{_it});
             } else {
                 return std.mem.indexOf(types.char, _in[0.._in.len], _it);
@@ -198,7 +185,7 @@
 
         /// Returns the last occurrence of a (`string` or `char`) in the string.
         pub inline fn rfind(_in: types.cstr, _it: anytype) ?types.unsigned {
-            if (utils.isCharType(@TypeOf(_it))) {
+            if (utils.isCtype(@TypeOf(_it))) {
                 return std.mem.lastIndexOf(types.char, _in[0.._in.len], &[_]types.char{_it});
             } else {
                 return std.mem.lastIndexOf(types.char, _in[0.._in.len], _it);
@@ -279,7 +266,7 @@
         pub inline fn replace(_in: types.str, _len: types.unsigned, _it: anytype, _with: anytype, _count: types.unsigned) types.unsigned {
             var i = find(_in[0..], _it);
             var l_count: types.unsigned = 0;
-            const it_len = if(utils.isCharType(@TypeOf(_it))) 1 else _it.len;
+            const it_len = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
             while (i != null) {
                 removeReal(_in[0..], .{ i.?, i.? + it_len });
                 insertReal(_in[0..], _len-it_len, _with, i.?);
@@ -294,7 +281,7 @@
         pub inline fn rreplace(_in: types.str, _len: types.unsigned, _it: anytype, _with: anytype, _count: types.unsigned) types.unsigned {
             var i = rfind(_in[0..], _it);
             var l_count: types.unsigned = 0;
-            const it_len = if(utils.isCharType(@TypeOf(_it))) 1 else _it.len;
+            const it_len = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
             while (i != null) {
                 removeReal(_in[0..], .{ i.?, i.? + it_len });
                 insertReal(_in[0..], _len-it_len, _with, i.?);
@@ -313,7 +300,7 @@
         /// Repeats the (`string` or `char`) `N` times.
         pub inline fn repeat(_in: types.str, _len: types.unsigned, _it: anytype, _count: types.unsigned) void {
             var i: types.unsigned = 0;
-            const _itLen = if(utils.isCharType(@TypeOf(_it))) 1 else _it.len;
+            const _itLen = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
             while (i < _count) {
                 append(_in[0..], _len + (_itLen*i) , _it);
                 i += 1;

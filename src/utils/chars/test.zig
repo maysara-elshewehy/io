@@ -15,32 +15,32 @@
 
     // ┌──────────────────────────── UTILS ────────────────────────────┐
 
-        test "isCharType" {
-            try EQL(true,  chars.utils.isCharType(u8));
-            try EQL(true,  chars.utils.isCharType(comptime_int));
-            try EQL(false, chars.utils.isCharType([]u8));
-            try EQL(false, chars.utils.isCharType([]const u8));
+        test "isCtype" {
+            try EQL(true,  chars.utils.isCtype(u8));
+            try EQL(true,  chars.utils.isCtype(comptime_int));
+            try EQL(false, chars.utils.isCtype([]u8));
+            try EQL(false, chars.utils.isCtype([]const u8));
         }
 
-        test "isUnsignedType" {
-            try EQL(true,  chars.utils.isUnsignedType(chars.types.unsigned));
-            try EQL(true,  chars.utils.isUnsignedType(comptime_int));
-            try EQL(false, chars.utils.isUnsignedType([]u8));
-            try EQL(false, chars.utils.isUnsignedType([]const u8));
+        test "isUtype" {
+            try EQL(true,  chars.utils.isUtype(chars.types.unsigned));
+            try EQL(true,  chars.utils.isUtype(comptime_int));
+            try EQL(false, chars.utils.isUtype([]u8));
+            try EQL(false, chars.utils.isUtype([]const u8));
         }
 
-        test "isPart" {
+        test "isPartOfUTF8" {
             const str = "=🌍🌟!";
-            try EQL(false, chars.utils.isPart(str[0]));
-            try EQL(false, chars.utils.isPart(str[1]));
-            try EQL(true,  chars.utils.isPart(str[2]));
-            try EQL(true,  chars.utils.isPart(str[3]));
-            try EQL(true,  chars.utils.isPart(str[4]));
-            try EQL(false, chars.utils.isPart(str[5]));
-            try EQL(true,  chars.utils.isPart(str[6]));
-            try EQL(true,  chars.utils.isPart(str[7]));
-            try EQL(true,  chars.utils.isPart(str[8]));
-            try EQL(false, chars.utils.isPart(str[9]));
+            try EQL(false, chars.utils.isPartOfUTF8(str[0]));
+            try EQL(false, chars.utils.isPartOfUTF8(str[1]));
+            try EQL(true,  chars.utils.isPartOfUTF8(str[2]));
+            try EQL(true,  chars.utils.isPartOfUTF8(str[3]));
+            try EQL(true,  chars.utils.isPartOfUTF8(str[4]));
+            try EQL(false, chars.utils.isPartOfUTF8(str[5]));
+            try EQL(true,  chars.utils.isPartOfUTF8(str[6]));
+            try EQL(true,  chars.utils.isPartOfUTF8(str[7]));
+            try EQL(true,  chars.utils.isPartOfUTF8(str[8]));
+            try EQL(false, chars.utils.isPartOfUTF8(str[9]));
         }
 
         test "sizeOf" {
@@ -89,7 +89,7 @@
             try EQL(.{9, 10}, chars.utils.rangeOf(str, 3));
         }
 
-        test "moveRight" {
+        test "move_right" {
             var str : [64]chars.types.char = undefined;
             str[0] = 'H';
             str[1] = '-';
@@ -100,27 +100,27 @@
             try EQLS("H-ello", str[0..6]);
 
             // "H-ello" => "HHello"
-            chars.utils.moveRight(&str, 0, 1, 1);
+            chars.utils.move_right(&str, 0, 1, 1);
             try EQLS("HHello", str[0..6]);
 
             // "HHello" => "HHeHeo"
-            chars.utils.moveRight(&str, 1, 2, 2);
+            chars.utils.move_right(&str, 1, 2, 2);
             try EQLS("HHeHeo", str[0..6]);
 
             // "HHeHeo" => "HHHHeo"
-            chars.utils.moveRight(&str, 1, 1, 1);
+            chars.utils.move_right(&str, 1, 1, 1);
             try EQLS("HHHHeo", str[0..6]);
 
             // "HHHHeo" => "HHHHeH"
-            chars.utils.moveRight(&str, 3, 1, 2);
+            chars.utils.move_right(&str, 3, 1, 2);
             try EQLS("HHHHeH", str[0..6]);
 
             // "HHHHeH" => "HHHHHH"
-            chars.utils.moveRight(&str, 3, 1, 1);
+            chars.utils.move_right(&str, 3, 1, 1);
             try EQLS("HHHHHH", str[0..6]);
         }
 
-        test "moveLeft" {
+        test "move_left" {
             var str : [64]chars.types.char = undefined;
             str[0] = 'H';
             str[1] = '-';
@@ -131,11 +131,11 @@
             try EQLS("H-ello", str[0..6]);
 
             // "H-ello" => "Helllo"
-            chars.utils.moveLeft(&str, 2, 3, 1);
+            chars.utils.move_left(&str, 2, 3, 1);
             try EQLS("Helllo", str[0..6]);
 
             // "Helllo" => "Hello"
-            chars.utils.moveLeft(&str, 5, 1, 1);
+            chars.utils.move_left(&str, 5, 1, 1);
             try EQLS("Hello", str[0..5]);
         }
 
@@ -379,7 +379,7 @@
             try EQLS("", res[0..0]);
         }
 
-        test "Remove a unicode character" {
+        test "Remove a unicode character (fake position)" {
             var res = chars.make(64, null);
 
             chars.append(res[0..], 0, "=🌍🌟!,=🌍🌟!");
@@ -406,10 +406,112 @@
             chars.remove(res[0..], 0);
             try EQLS("🌍!", res[0..5]);
 
-            chars.remove(res[0..], 4);
+            chars.remove(res[0..], 1);
             try EQLS("🌍", res[0..4]);
 
             chars.remove(res[0..], 0);
+            try EQLS("", res[0..0]);
+        }
+
+        test "Remove a unicode character (fake range)" {
+            var res = chars.make(64, null);
+
+            chars.append(res[0..], 0, "=🌍🌟!,=🌍🌟!");
+            try EQLS("=🌍🌟!,=🌍🌟!", res[0..21]);
+
+            chars.remove(res[0..], .{0, 1});
+            try EQLS("🌍🌟!,=🌍🌟!", res[0..20]);
+
+            chars.remove(res[0..], .{4, 5});
+            try EQLS("🌍🌟!,🌍🌟!", res[0..19]);
+
+            chars.remove(res[0..], 0);
+            try EQLS("🌟!,🌍🌟!", res[0..15]);
+
+            chars.remove(res[0..], 0);
+            try EQLS("!,🌍🌟!", res[0..11]);
+
+            chars.remove(res[0..], 0);
+            try EQLS(",🌍🌟!", res[0..10]);
+
+            chars.remove(res[0..], 2);
+            try EQLS(",🌍!", res[0..6]);
+
+            chars.remove(res[0..], 0);
+            try EQLS("🌍!", res[0..5]);
+
+            chars.remove(res[0..], 1);
+            try EQLS("🌍", res[0..4]);
+
+            chars.remove(res[0..], 0);
+            try EQLS("", res[0..0]);
+        }
+
+        test "Remove a unicode character (real position)" {
+            var res = chars.make(64, null);
+
+            chars.append(res[0..], 0, "=🌍🌟!,=🌍🌟!");
+            try EQLS("=🌍🌟!,=🌍🌟!", res[0..21]);
+
+            chars.removeReal(res[0..], 0);
+            try EQLS("🌍🌟!,=🌍🌟!", res[0..20]);
+
+            chars.removeReal(res[0..], 10);
+            try EQLS("🌍🌟!,🌍🌟!", res[0..19]);
+
+            chars.removeReal(res[0..], 0);
+            try EQLS("🌟!,🌍🌟!", res[0..15]);
+
+            chars.removeReal(res[0..], 0);
+            try EQLS("!,🌍🌟!", res[0..11]);
+
+            chars.removeReal(res[0..], 0);
+            try EQLS(",🌍🌟!", res[0..10]);
+
+            chars.removeReal(res[0..], 5);
+            try EQLS(",🌍!", res[0..6]);
+
+            chars.removeReal(res[0..], 0);
+            try EQLS("🌍!", res[0..5]);
+
+            chars.removeReal(res[0..], 4);
+            try EQLS("🌍", res[0..4]);
+
+            chars.removeReal(res[0..], 0);
+            try EQLS("", res[0..0]);
+        }
+
+        test "Remove a unicode character (real range)" {
+            var res = chars.make(64, null);
+
+            chars.append(res[0..], 0, "=🌍🌟!,=🌍🌟!");
+            try EQLS("=🌍🌟!,=🌍🌟!", res[0..21]);
+
+            chars.removeReal(res[0..], .{0, 1});
+            try EQLS("🌍🌟!,=🌍🌟!", res[0..20]);
+
+            chars.removeReal(res[0..], .{10, 11});
+            try EQLS("🌍🌟!,🌍🌟!", res[0..19]);
+
+            chars.removeReal(res[0..], .{0, 4});
+            try EQLS("🌟!,🌍🌟!", res[0..15]);
+
+            chars.removeReal(res[0..], .{0, 4});
+            try EQLS("!,🌍🌟!", res[0..11]);
+
+            chars.removeReal(res[0..], .{0, 1});
+            try EQLS(",🌍🌟!", res[0..10]);
+
+            chars.removeReal(res[0..], .{5, 9});
+            try EQLS(",🌍!", res[0..6]);
+
+            chars.removeReal(res[0..], .{0, 1});
+            try EQLS("🌍!", res[0..5]);
+
+            chars.removeReal(res[0..], .{4, 5});
+            try EQLS("🌍", res[0..4]);
+
+            chars.removeReal(res[0..], .{0, 4});
             try EQLS("", res[0..0]);
         }
 
@@ -760,7 +862,7 @@
             try EQLS("Hello 🌍",str[0..10]);
 
             // Appends a character to the array.
-            chars.append(str[0..], 10, '!');                         // 👉 "Hello 🌍!"
+            chars.append(str[0..], 10, '!');                        // 👉 "Hello 🌍!"
             try EQLS("Hello 🌍!",str[0..11]);
 
             // Removes a character using its positions.
@@ -768,11 +870,11 @@
             try EQLS("Hllo 🌍!",str[0..10]);
 
             // Removes a range of string.
-            chars.remove(str[0..], .{ 0, 9});                       // 👉 "!"
+            chars.remove(str[0..], .{ 0, 6});                       // 👉 "!"
             try EQLS("!",str[0..1]);
 
             // Replace a part of string with another
-            _ = chars.replace(str[0..], 1, "!", "Hello 🌍!", 1);   // 👉 "Hello 🌍!"
+            _ = chars.replace(str[0..], 1, "!", "Hello 🌍!", 1);    // 👉 "Hello 🌍!"
             try EQLS("Hello 🌍!",str[0..11]);
         }
         test "docs: make" {
@@ -896,6 +998,28 @@
 
             chars.insert(res[0..], 9, "!!", 3);    // 👉 "=🌟🌍!!"
             try EQLS("=🌟🌍!!", res[0..11]);
+        }
+
+        test "docs: remove" {
+            var res = chars.make(64, "=🌍🌟!");
+
+            chars.remove(res[0..], 0);              // 👉 "🌍🌟!"
+            try EQLS("🌍🌟!", res[0..9]);
+            chars.remove(res[0..], .{ 1, 2 });      // 👉 "🌍!"
+            try EQLS("🌍!", res[0..5]);
+            chars.remove(res[0..], .{ 0, 1 });      // 👉 "!"
+            try EQLS("!", res[0..1]);
+        }
+
+        test "docs: removeReal" {
+            var res = chars.make(64, "=🌍🌟!");
+
+            chars.removeReal(res[0..], 0);          // 👉 "🌍🌟!"
+            try EQLS("🌍🌟!", res[0..9]);
+            chars.removeReal(res[0..], .{ 4, 8 });  // 👉 "🌍!"
+            try EQLS("🌍!", res[0..5]);
+            chars.removeReal(res[0..], .{ 0, 4 });  // 👉 "!"
+            try EQLS("!", res[0..1]);
         }
 
     // └──────────────────────────────────────────────────────────────┘

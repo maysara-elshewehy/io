@@ -70,7 +70,14 @@
         | [`append`](./api/append.md)         | Inserts a _(`string` or `char`)_ into the `end` of the string.                                   |
         | [`prepend`](./api/prepend.md)       | Inserts a _(`string` or `char`)_ into the `beg` of the string.                                   |
         | [`insert`](./api/insert.md)         | Inserts a _(`string` or `char`)_ into a `specific position` in the string.                       |
-        | [`insertReal`](./api/insertReal.md) | Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string. |
+        | [`insertReal`](./api/insertReal.md) | Inserts a _(`string` or `char`)_ into a `specific real  position` in the string. |
+
+   - #### ➖ Deletion
+
+        | Method                              | Description                                                                |
+        | ----------------------------------- | -------------------------------------------------------------------------- |
+        | [`remove`](./api/remove.md)         | Removes a _(`range` or `position`)_ from the string.                       |
+        | [`removeReal`](./api/removeReal.md) | Removes a _(`range` or `real position`)_ from the string. |
 
    - #### ✍️ Writer
 
@@ -81,7 +88,7 @@
         | [`write`](./api/write.md)             | Writes a _(`formatted string`)_ into the `end` of the string.                                   |
         | [`writeStart`](./api/writeStart.md)   | Writes a _(`formatted string`)_ into the `beg` of the string.                                   |
         | [`writeAt`](./api/writeAt.md)         | Writes a _(`formatted string`)_ into a `specific position` in the string.                       |
-        | [`writeAtReal`](./api/writeAtReal.md) | Writes a _(`formatted string`)_ into a `specific position` _(The real position)_ in the string. |
+        | [`writeAtReal`](./api/writeAtReal.md) | Writes a _(`formatted string`)_ into a `specific real  position` in the string. |
 
    - #### 🔄 Iterator
 

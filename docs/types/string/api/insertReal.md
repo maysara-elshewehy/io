@@ -1,6 +1,6 @@
 # [←](../readme.md) `io`.`types`.`string`.`insertReal`
 
-> Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string.
+> Inserts a _(`string` or `char`)_ into a `specific real  position` in the string.
 
 ```zig
 pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void
