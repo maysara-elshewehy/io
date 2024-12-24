@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`removeReal`
+# [←](../readme.md) `io`.`types`.`string`.`pop`
 
-> Removes a _(`range` or `real position`)_ from the string.
+> Removes a _(`N` bytes)_ from the end of the string.
 
 ```zig
-pub inline fn removeReal(_self: *Self, _it: anytype) void
+pub inline fn pop(_self: *Self, _count: types.unsigned) void
 ```
 
 
@@ -17,18 +17,18 @@ pub inline fn removeReal(_self: *Self, _it: anytype) void
 
         > The string structure to be used.
 
-    - `_it` : `types.range` or `types.unsigned` or `Self`
+    - `_count` : `types.unsigned`
 
-        > The _(`range` or `real position`)_ to be remove.
+        > The number of regular/unicode characters to remove.
 
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `anyerror` or `void`
+- #### Returns : `void`
 
-    > Modifies the string in place, returns an error if the memory allocation fails.
+    > Modifies the string in place.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -41,21 +41,11 @@ pub inline fn removeReal(_self: *Self, _it: anytype) void
     ```
 
     ```zig
-    var str = string.init();
+    var str = try string.initWith("=🌍🌟!");
     defer str.deinit();
-    ```
 
-    > Remove using a `real position`.
-
-    ```zig
-    str.removeReal(0);              // 👉 "🌍🌟!"
-    ```
-
-    > Remove using a `real range`.
-
-    ```zig
-    str.removeReal(.{ 4, 8 });      // 👉 "🌍!"
-    str.removeReal(.{ 0, 4 });      // 👉 "!"
+    str.pop(2);             // 👉 "=🌍" ("🌟!" removed)
+    str.pop(1);             // 👉 "="   ( "🌍" removed)
     ```
 
 <div align="center">
@@ -64,11 +54,9 @@ pub inline fn removeReal(_self: *Self, _it: anytype) void
 
 - ##### Related
 
-  > [`io.types.string.remove`](./remove.md)
-
-  > [`io.types.string.pop`](./pop.md)
-
   > [`io.types.string.shift`](./shift.md)
+
+  > [`io.types.string.remove`](./remove.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

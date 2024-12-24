@@ -667,32 +667,32 @@
 
     // ┌──────────────────────────── TRIM ────────────────────────────┐
 
-        // test "Trim start of string" {
-        //     var res = chars.make(64, null);
-        //     try EQL(0, chars.trimStart(res[0..], ' '));
+        test "Trim start of string" {
+            var res = chars.make(64, null);
+            try EQL(0, chars.trimStart(res[0..], ' '));
 
-        //     chars.append(res[0..], 0, "   !🌍🌟=   ");
-        //     try EQL(3, chars.trimStart(res[0..], ' '));
-        //     try EQLS("!🌍🌟=   ", res[0..13]);
-        // }
+            chars.append(res[0..], 0, "   !🌍🌟=   ");
+            try EQL(3, chars.trimStart(res[0..], ' '));
+            try EQLS("!🌍🌟=   ", res[0..13]);
+        }
 
-        // test "Trim end of string" {
-        //     var res = chars.make(64, null);
-        //     try EQL(0, chars.trimEnd(res[0..], ' '));
+        test "Trim end of string" {
+            var res = chars.make(64, null);
+            try EQL(0, chars.trimEnd(res[0..], ' '));
 
-        //     chars.append(res[0..], 0, "   !🌍🌟=   ");
-        //     try EQL(3, chars.trimEnd(res[0..16], ' '));
-        //     try EQLS("   !🌍🌟=", res[0..13]);
-        // }
+            chars.append(res[0..], 0, "   !🌍🌟=   ");
+            try EQL(3, chars.trimEnd(res[0..16], ' '));
+            try EQLS("   !🌍🌟=", res[0..13]);
+        }
 
-        // test "Trim start and end of string" {
-        //     var res = chars.make(64, null);
-        //     try EQL(0, chars.trimEnd(res[0..], ' '));
+        test "Trim start and end of string" {
+            var res = chars.make(64, null);
+            try EQL(0, chars.trimEnd(res[0..], ' '));
 
-        //     chars.append(res[0..], 0, "   !🌍🌟=   ");
-        //     try EQL(6, chars.trim(res[0..16], ' '));
-        //     try EQLS("!🌍🌟=", res[0..chars.bytes(res[0..])]);
-        // }
+            chars.append(res[0..], 0, "   !🌍🌟=   ");
+            try EQL(6, chars.trim(res[0..16], ' '));
+            try EQLS("!🌍🌟=", res[0..10]);
+        }
 
     // └──────────────────────────────────────────────────────────────┘
 

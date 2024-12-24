@@ -123,13 +123,15 @@
             while (i < _from.len) : (i += 1) { _from[i - (l_range[1] - l_range[0])] = _from[i]; }
         }
 
+        // TODO: shift and pop functions can be imroved, do it later.
+
         /// Removes a (`N` bytes) from the beginning of the string.
-        pub inline fn shift(_from: types.str, _len: types.unsigned, _bytes: types.unsigned) types.unsigned {
+        pub inline fn shift(_from: types.str, _len: types.unsigned, _count: types.unsigned) types.unsigned {
             var l_index: types.unsigned = 0;
             var l_times: types.unsigned = 0;
             var l_len: types.unsigned = _len;
 
-            while (l_times < _bytes and l_index < _len) {
+            while (l_times < _count and l_index < _len) {
                 const l_size = utils.sizeOf(_from[0]);
                 var j: types.unsigned = 0;
                 l_len -= l_size;
@@ -144,17 +146,14 @@
         }
 
         /// Removes a (`N` bytes) from the end of the string.
-        /// `_from`: Source string.
-        /// `_len`: Length of the string.
-        /// `_bytes`: Number of bytes to remove.
-        pub inline fn pop(_from: types.str, _bytes: types.unsigned) types.unsigned {
+        pub inline fn pop(_from: types.str, _count: types.unsigned) types.unsigned {
             const _len = _from.len;
-            if (_bytes == 0 or _len == 0) return _len;
+            if (_count == 0 or _len == 0) return _len;
 
             var l_index: types.unsigned = _len-1; // Start at the end of the string.
             var l_times: types.unsigned = 0;
             var l_ret: types.unsigned = 0;
-            while (l_times < _bytes and l_index > 0) {
+            while (l_times < _count and l_index > 0) {
                 l_index -= utils.begOf(_from[0..], l_index); // Get the beginning of the character.
                 const l_size = utils.sizeOf(_from[l_index]); // Get size of the last character.
                 // Avoid underflow for multi-byte characters.
@@ -172,7 +171,6 @@
             return l_ret; // Return the new length of the string.
         }
 
-
         /// Fills the string with (`\0` character).
         pub inline fn zeros(_it: types.str) void {
             for (_it) |*byte| { byte.* = 0; }
@@ -188,7 +186,7 @@
             const l_len = _it.len;
             var i: types.unsigned = 0;
             while (i < l_len) : (i += 1) { if (_it[i] != _char) break; }
-            if (i > 0) _ = shift(_it, l_len, i);
+            if (i > 0) _ = shift(_it[0..], l_len, i);
             return i;
         }
 
@@ -197,7 +195,7 @@
             const l_len = _it.len;
             var i: types.unsigned = l_len;
             while (i > 0) : (i -= 1) { if (_it[i-1] != _char) break; }
-            if (i < l_len) _ = pop(_it, l_len, l_len - i);
+            if (i < l_len) _ = pop(_it[0..l_len], l_len - i);
             return l_len - i;
         }
 

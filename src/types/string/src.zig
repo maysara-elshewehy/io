@@ -105,7 +105,7 @@
                 _self.m_bytes += l_count;
             }
 
-            /// Inserts a (`string` or `char`) into the `beginning` of the string.
+            /// Inserts a (`string` or `char`) into the `beg` of the string.
             pub fn prepend(_self: *Self, _it: anytype) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.prepend(_it.src());
                 const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
@@ -179,6 +179,22 @@
                 }
             }
 
+            /// Removes a (`N` bytes) from the beg of the string.
+            pub inline fn shift(_self: *Self, _count: types.unsigned) void {
+                if(_self.m_buff) |m_buff| {
+                    const l_count = chars.shift(m_buff[0.._self.m_bytes], _self.m_bytes, _count);
+                    _self.m_bytes -= if(_count == _self.m_bytes) _self.m_bytes else l_count;
+                }
+            }
+
+            /// Removes a (`N` bytes) from the end of the string.
+            pub inline fn pop(_self: *Self, _count: types.unsigned) void {
+                if(_self.m_buff) |m_buff| {
+                    const l_count = chars.pop(m_buff[0.._self.m_bytes], _count);
+                    _self.m_bytes -= if(_count == _self.m_bytes) _self.m_bytes else l_count;
+                }
+            }
+
         // └──────────────────────────────────────────────────────────────┘
 
 
@@ -206,7 +222,7 @@
                     _self.writer().print(_fmt, _args) catch {};
                 }
 
-                /// Inserts a (`formatted string`) into the `beginning` of the string.
+                /// Inserts a (`formatted string`) into the `beg` of the string.
                 pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void {
                     const l_count = std.fmt.count(_fmt, _args);
                     try _self.__alloc(l_count + _self.m_bytes);

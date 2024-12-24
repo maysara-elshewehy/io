@@ -70,8 +70,6 @@ pub inline fn remove(_self: *Self, _it: anytype) void
 
   > [`io.types.string.shift`](./shift.md)
 
-  > [`io.types.string.clear`](./clear.md)
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>

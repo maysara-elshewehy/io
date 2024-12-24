@@ -561,6 +561,54 @@
             try EQLS("", str.src());
         }
 
+        test "Remove N characters from the end of the string (using pop function)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append("Hello World!");
+            try EQLS("Hello World!", str.src());
+            try EQL(26, str.size());
+            try EQL(12, str.bytes());
+
+            str.pop(1);
+            try EQLS("Hello World", str.src());
+            try EQL(26, str.size());
+            try EQL(11, str.bytes());
+
+            str.pop(6);
+            try EQLS("Hello", str.src());
+            try EQL(26, str.size());
+            try EQL(5, str.bytes());
+
+            str.pop(5);
+            try EQLS("", str.src());
+            try EQL(26, str.size());
+            try EQL(0, str.bytes());
+        }
+
+        test "Remove N characters from the beginning of the string (using shift function)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.append("Hello World!");
+            try EQLS("Hello World!", str.src());
+            try EQL(26, str.size());
+            try EQL(12, str.bytes());
+
+            str.shift(1);
+            try EQLS("ello World!", str.src());
+            try EQL(26, str.size());
+            try EQL(11, str.bytes());
+
+            str.shift(5);
+            try EQLS("World!", str.src());
+            try EQL(26, str.size());
+            try EQL(6, str.bytes());
+
+            str.shift(6);
+            try EQLS("", str.src());
+            try EQL(26, str.size());
+            try EQL(0, str.bytes());
+        }
+
     // └──────────────────────────────────────────────────────────────┘
 
 
@@ -801,6 +849,30 @@
             try EQLS("🌍!", str.src());
             str.removeReal(.{ 0, 4 });  // 👉 "!"
             try EQLS("!", str.src());
+        }
+
+        test "docs: pop" {
+            var str = try string.initWith("=🌍🌟!"); defer str.deinit();
+
+            str.pop(1); // 👉 "=🌍🌟"
+            try EQLS("=🌍🌟", str.src());
+
+            str.pop(1); // 👉 "=🌍"
+            try EQLS("=🌍", str.src());
+
+            str.pop(1); // 👉 "="
+            try EQLS("=", str.src());
+        }
+
+        test "docs: shift" {
+            var str = try string.initWith("=🌍🌟!"); defer str.deinit();
+
+            str.shift(1); // 👉 "🌍🌟!"
+            try EQLS("🌍🌟!", str.src());
+            str.shift(1);  // 👉 "🌟!"
+            try EQLS("🌟!"  , str.src());
+            str.shift(1);  // 👉 "!"
+            try EQLS("!"    , str.src());
         }
 
     // └──────────────────────────────────────────────────────────────┘
