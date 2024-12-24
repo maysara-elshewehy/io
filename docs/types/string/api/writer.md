@@ -22,7 +22,7 @@ pub fn writer(_self: *Self) writer
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : [`Writer`](./writerType.md)
+- #### Returns : [`Writer`](./Writer_t.md)
 
     > A writer for the string.
 
@@ -50,7 +50,7 @@ pub fn writer(_self: *Self) writer
 
 - ##### Related
 
-  > [`io.types.string.Writer`](./writerType.md)
+  > [`io.types.string.Writer (Type)`](./Writer_t.md)
 
 
 <div align="center">

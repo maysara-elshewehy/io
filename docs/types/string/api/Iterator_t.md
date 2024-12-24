@@ -1,9 +1,14 @@
-# [←](../readme.md) `io`.`types`.`string`.`writerType`
+# [←](../readme.md) `io`.`types`.`string`.`Iterator`
 
-> The underlying type of the Writer returned by `writer()`.
+> The underlying type of the Iterator returned by `iterator()`.
 
 ```zig
-pub const Writer = std.io.Writer(*Self, anyerror, write);
+pub const Iterator = struct {
+    m_string: *const Self,
+    m_index: types.unsigned,
+
+    pub fn next(_it: *Iterator) ?types.cstr
+};
 ```
 
 
@@ -11,18 +16,22 @@ pub const Writer = std.io.Writer(*Self, anyerror, write);
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Parameters
+- #### Fields
 
-    - `self` : `*Self`
+    - `m_string` : `*const Self`
 
-        > The string structure to be used.
-    - `anyerror` : `anyerror`
+        > String to iterate.
 
-        > The error type of the Writer.
+    - `m_index` : `types.unsigned`
 
-    - `write` : `write`
+        > Current index.
 
-        > The write function of the Writer.
+- #### Methods
+
+    - `pub fn next(_it: *Iterator) ?types.cstr`
+
+        > Returns the next character in the string.
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -35,11 +44,15 @@ pub const Writer = std.io.Writer(*Self, anyerror, write);
     ```
 
     ```zig
-    var str = string.init();
+    var str = try string.initWith("Hello 🌍!");
     defer str.deinit();
 
-    var writer : str.Writer = str.writer();
-    try writer.print("Hello {s}!", .{"🌍"});  // 👉 "Hello 🌍!"
+    var i: usize = 0;
+    var iter : str.Iterator = str.iterator();
+    while (iter.next()) |c| {
+        if (i == 5) // 👉 "🌍"
+        i += 1;
+    }
     ```
 
 <div align="center">
@@ -48,7 +61,7 @@ pub const Writer = std.io.Writer(*Self, anyerror, write);
 
 - ##### Related
 
-  > [`io.types.string.writer`](./writer.md)
+  > [`io.types.string.iterator`](./iterator.md)
 
 
 <div align="center">

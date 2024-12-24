@@ -73,17 +73,18 @@
         | [`insertReal`](./api/insertReal.md) | Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string. |
    - #### ✍️ Writer
 
-        | Method                              | Description                                               |
-        | ----------------------------------- | --------------------------------------------------------- |
-        | [`writer`](./api/writer.md)         | Writer of string type.                                    |
-        | [`writerType`](./api/writerType.md) | The underlying type of the Writer returned by `writer()`. |
+        | Method                             | Description                                               |
+        | ---------------------------------- | --------------------------------------------------------- |
+        | [`writer`](./api/writer.md)        | Returns a writer for the string.                          |
+        | [`Writer (Type)`](./api/Writer.md) | The underlying type of the Writer returned by `writer()`. |
 
    - #### 🔄 Iterator
 
-        | Method                                  | Description                                                   |
-        | --------------------------------------- | ------------------------------------------------------------- |
-        | [`iterator`](./api/iterator.md)         | Iterator of string type.                                      |
-        | [`iteratorType`](./api/iteratorType.md) | The underlying type of the Iterator returned by `iterator()`. |
+        | Method                                 | Description                                                   |
+        | -------------------------------------- | ------------------------------------------------------------- |
+        | [`iterator`](./api/iterator.md)        | Returns an iterator for the string.                           |
+        | [`Iterator (Type)`](./api/Iterator.md) | The underlying type of the Iterator returned by `iterator()`. |
+
    - #### ⡾ Fields
 
         | Field     | Description                                        |

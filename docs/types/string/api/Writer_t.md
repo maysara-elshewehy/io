@@ -1,14 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`iteratorType`
+# [←](../readme.md) `io`.`types`.`string`.`Writer`
 
-> The underlying type of the Iterator returned by `iterator()`.
+> The underlying type of the Writer returned by `writer()`.
 
 ```zig
-pub const Iterator = struct {
-    m_string: *const Self,
-    m_index: types.unsigned,
-
-    pub fn next(_it: *Iterator) ?types.cstr
-};
+pub const Writer = std.io.Writer(*Self, anyerror, write);
 ```
 
 
@@ -16,22 +11,18 @@ pub const Iterator = struct {
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Fields
+- #### Parameters
 
-    - `m_string` : `*const Self`
+    - `self` : `*Self`
 
-        > String to iterate.
+        > The string structure to be used.
+    - `anyerror` : `anyerror`
 
-    - `m_index` : `types.unsigned`
+        > The error type of the Writer.
 
-        > Current index.
+    - `write` : `write`
 
-- #### Methods
-
-    - `pub fn next(_it: *Iterator) ?types.cstr`
-
-        > Returns the next character in the string.
-
+        > The write function of the Writer.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -44,15 +35,11 @@ pub const Iterator = struct {
     ```
 
     ```zig
-    var str = try string.initWith("Hello 🌍!");
+    var str = string.init();
     defer str.deinit();
 
-    var i: usize = 0;
-    var iter : str.Iterator = str.iterator();
-    while (iter.next()) |c| {
-        if (i == 5) // 👉 "🌍"
-        i += 1;
-    }
+    var writer : str.Writer = str.writer();
+    try writer.print("Hello {s}!", .{"🌍"});  // 👉 "Hello 🌍!"
     ```
 
 <div align="center">
@@ -61,7 +48,7 @@ pub const Iterator = struct {
 
 - ##### Related
 
-  > [`io.types.string.iterator`](./iterator.md)
+  > [`io.types.string.writer`](./writer.md)
 
 
 <div align="center">
