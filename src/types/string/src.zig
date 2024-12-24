@@ -176,46 +176,55 @@
         // └──────────────────────────────────────────────────────────────┘
 
 
-        // ┌──────────────────────────── SPACE ───────────────────────────┐
+        // ┌─────────────────────────── WRITER ───────────────────────────┐
 
-            /// Writer.
             pub usingnamespace struct {
-                pub const Writer = std.io.Writer(*Self, anyerror, appendWrite);
+                /// Base type of the writer.
+                pub const Writer = std.io.Writer(*Self, anyerror, write);
 
-                /// Writer of string type.
-                pub fn writer(self: *Self) Writer {
-                    return .{ .context = self };
+                /// Returns a writer for the string.
+                pub fn writer(_self: *Self) Writer {
+                    return .{ .context = _self };
                 }
 
-                fn appendWrite(self: *Self, m: []const u8) !usize {
-                    try self.append(m);
-                    return m.len;
+                /// Writes a string to the writer.
+                fn write(_self: *Self, _it: types.cstr) !types.unsigned {
+                    try _self.append(_it);
+                    return _it.len;
                 }
             };
 
-            /// Iterator.
-            pub usingnamespace struct {
-                pub const Iterator = struct {
-                    _string: *const Self,
-                    index: usize,
+        // └──────────────────────────────────────────────────────────────┘
 
-                    pub fn next(it: *Iterator) ?[]const u8 {
-                        if (it._string.m_buff) |m_buff| {
-                            if (it.index == it._string.m_size) return null;
-                            const i = it.index;
-                            it.index += chars.utils.sizeOf(m_buff[i]);
-                            return m_buff[i..it.index];
+
+        // ┌────────────────────────── ITERATOR ──────────────────────────┐
+
+            pub usingnamespace struct {
+                /// Iterator of the string type.
+                pub const Iterator = struct {
+                    /// String to iterate.
+                    m_string: *const Self,
+                    /// Current index.
+                    m_index: types.unsigned,
+
+                    /// Returns the next character in the string.
+                    pub fn next(_it: *Iterator) ?types.cstr {
+                        if (_it.m_string.m_buff) |m_buff| {
+                            if (_it.m_index == _it.m_string.m_size) return null;
+                            const i = _it.m_index;
+                            _it.m_index += chars.utils.sizeOf(m_buff[i]);
+                            return m_buff[i.._it.m_index];
                         } else {
                             return null;
                         }
                     }
                 };
 
-                /// Iterator of string type.
-                pub fn iterator(self: *const Self) Iterator {
+                /// Returns an iterator for the string.
+                pub fn iterator(_self: *const Self) Iterator {
                     return Iterator{
-                        ._string = self,
-                        .index = 0,
+                        .m_string = _self,
+                        .m_index = 0,
                     };
                 }
             };
@@ -223,7 +232,7 @@
         // └──────────────────────────────────────────────────────────────┘
 
 
-        // ┌──────────────────────────── MORE ────────────────────────────┐
+        // ┌────────────────────────── INTERNAL ──────────────────────────┐
 
             /// ..?
             inline fn __alloc(_self: *Self, _bytes: types.unsigned) anyerror!void {

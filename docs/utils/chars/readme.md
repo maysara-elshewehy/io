@@ -67,11 +67,12 @@
 
    - #### ➕ Insertion
 
-        | Method                        | Description                                                                |
-        | ----------------------------- | -------------------------------------------------------------------------- |
-        | [`append`](./api/append.md)   | Inserts a _(`string` or `char`)_ into the `end` of the string.             |
-        | [`prepend`](./api/prepend.md) | Inserts a _(`string` or `char`)_ into the `beg` of the string.             |
-        | [`insert`](./api/insert.md)   | Inserts a _(`string` or `char`)_ into a `specific position` in the string. |
+        | Method                              | Description                                                                                      |
+        | ----------------------------------- | ------------------------------------------------------------------------------------------------ |
+        | [`append`](./api/append.md)         | Inserts a _(`string` or `char`)_ into the `end` of the string.                                   |
+        | [`prepend`](./api/prepend.md)       | Inserts a _(`string` or `char`)_ into the `beg` of the string.                                   |
+        | [`insert`](./api/insert.md)         | Inserts a _(`string` or `char`)_ into a `specific position` in the string.                       |
+        | [`insertReal`](./api/insertReal.md) | Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string. |
 
    - #### ➖ Deletion
 

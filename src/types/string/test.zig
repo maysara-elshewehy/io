@@ -82,7 +82,7 @@
 
         }
 
-        test "Non-Empty mutable(fmt)" {
+        test "Non-Empty mutable (fmt)" {
             // size = 5*2
             var res = string.init();
 
@@ -131,7 +131,7 @@
             try EQLS("! ^^--Hello World", res.src());
 
             // Iterator
-            var i: usize = 0;
+            var i: chars.types.unsigned = 0;
             var iter = res.iterator();
             while (iter.next()) |ch| {
                 if (i == 0) {
@@ -344,6 +344,57 @@
             try EQLS("Hello 🌍!", str.src());
         }
 
+        test "Insert a character into a specifiec position (using insertReal function)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.insertReal('!', 0);
+            try str.insertReal('H', 0);
+            try str.insertReal(' ', 1);
+            try str.insertReal('W', 2);
+            try EQLS("H W!", str.src());
+        }
+
+        test "Insert a string into a specifiec position (using insertReal function)" {
+            var str = string.init(); defer str.deinit();
+
+            try str.insertReal("!", 0);
+            try str.insertReal("🌍", 0);
+            try str.insertReal("Hello", 0);
+            try str.insertReal(" ", 5);
+
+            try EQL(11, str.bytes());
+            try EQLS("Hello 🌍!", str.src());
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌─────────────────────────── WRITER ───────────────────────────┐
+
+        test "Make a writer for a string and write some string using print function (fmt)" {
+            var str = string.init(); defer str.deinit();
+
+            var writer = str.writer();
+            try writer.print("Hello {s}!", .{"🌍"});
+            try EQL(11, str.bytes());
+            try EQLS("Hello 🌍!", str.src());
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌────────────────────────── ITERATOR ──────────────────────────┐
+
+        test "Iterate over a string" {
+            var str = try string.initWith("Hello World"); defer str.deinit();
+            var i: chars.types.unsigned = 0;
+            var iter = str.iterator();
+            while (iter.next()) |c| {
+                if (i == 0) try EQLS("H", c);
+                i += 1;
+            }
+        }
+
     // └──────────────────────────────────────────────────────────────┘
 
 
@@ -445,6 +496,25 @@
             try EQLS("!!🌟🌍=", str.src());
         }
 
+        test "docs: insertReal" {
+            var str = string.init(); defer str.deinit();
+
+            try str.insertReal('=', 0);      // 👉 "="
+            try EQLS("=", str.src());
+
+            try str.insertReal("🌍", 1);    // 👉 "=🌍"
+            try EQLS("=🌍", str.src());
+
+            try str.insertReal("🌟", 1);    // 👉 "=🌟🌍"
+            try EQLS("=🌟🌍", str.src());
+
+            var other = try string.initWith("!!");
+            defer other.deinit();
+
+            try str.insertReal(other, 9);   // 👉 "=🌟🌍!!"
+            try EQLS("=🌟🌍!!", str.src());
+        }
+
         test "docs: insert" {
             var str = string.init(); defer str.deinit();
 
@@ -460,7 +530,7 @@
             var other = try string.initWith("!!");
             defer other.deinit();
 
-            try str.insert(other, 3);   // 👉 "!!🌟🌍="
+            try str.insert(other, 3);   // 👉 "=🌟🌍!!"
             try EQLS("=🌟🌍!!", str.src());
         }
 

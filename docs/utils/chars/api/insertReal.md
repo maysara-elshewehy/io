@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`utils`.`chars`.`insert`
+# [←](../readme.md) `io`.`utils`.`chars`.`insertReal`
 
-> Inserts a _(`string` or `char`)_ into a `specific position` in the string.
+> Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string.
 
 ```zig
-pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void
+pub inline fn insertReal(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void
 ```
 
 
@@ -30,7 +30,7 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
 
     - `_pos` : `types.unsigned`
 
-        > The position in the string to insert at.
+        > The real position in the string to insert at.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -57,20 +57,20 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
     > Insert using a `character`.
 
     ```zig
-    chars.insert(res[0..], 0, '=', 0);      // 👉 "="
+    chars.insertReal(res[0..], 0, '=', 0);      // 👉 "="
     ```
 
     > Insert using a `unicode`.
 
     ```zig
-    chars.insert(res[0..], 1, "🌍", 1);     // 👉 "=🌍"
-    chars.insert(res[0..], 5, "🌟", 1);     // 👉 "=🌟🌍"
+    chars.insertReal(res[0..], 1, "🌍", 1);     // 👉 "=🌍"
+    chars.insertReal(res[0..], 5, "🌟", 5);     // 👉 "=🌟🌍"
     ```
 
     > Insert using a `string`.
 
     ```zig
-    chars.insert(res[0..], 9, "!!", 3);     // 👉 "=🌟🌍!!"
+    chars.insertReal(res[0..], 9, "!!", 9);     // 👉 "=🌟🌍!!"
     ```
 
 <div align="center">
@@ -79,7 +79,7 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
 
 - ##### Related
 
-  > [`io.utils.chars.insertReal`](./insertReal.md)
+  > [`io.utils.chars.insert`](./insert.md)
 
   > [`io.utils.chars.append`](./append.md)
 

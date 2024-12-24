@@ -106,12 +106,14 @@
         pub inline fn insertReal(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void {
             if(_pos == _len) return append(_to, _len, _it);
             if(_pos == 0) return prepend(_to, _len, _it);
+
+            const _i = _pos + utils.begOf(_to[0..], _pos);
             if (utils.isCharType(@TypeOf(_it))) {
-                utils.moveRight(_to[0..], _pos, _len, 1);
-                _to[_pos] = _it;
+                utils.moveRight(_to[0..], _i, _len, 1);
+                _to[_i] = _it;
             } else {
-                utils.moveRight(_to[0..], _pos, _len, _it.len);
-                utils.copy(_to, _pos - utils.begOf(_to[0..], _pos), _it);
+                utils.moveRight(_to[0..], _i, _len-_i, _it.len);
+                utils.copy(_to, _i, _it);
             }
         }
 

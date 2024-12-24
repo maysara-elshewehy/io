@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`utils`.`chars`.`insert`
+# [←](../readme.md) `io`.`types`.`string`.`insertReal`
 
-> Inserts a _(`string` or `char`)_ into a `specific position` in the string.
+> Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string.
 
 ```zig
-pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void
+pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void
 ```
 
 
@@ -13,32 +13,25 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
 
 - #### Parameters
 
-    - `_to` : `types.str`
+    - `_self` : `*Self`
 
-        > The string to insert into.
+        > The string structure to be used.
 
+    - `_it` : `types.cstr` or `types.char` or `Self`
 
-    - `_len` : `types.unsigned`
-
-        > The length of string to insert into.
-
-
-    - `_it` : `types.cstr` or `types.char`
-
-        > The _(`string` or `char`)_ to be inserted into the string.
-
+        > The value to be inserted into the string.
 
     - `_pos` : `types.unsigned`
 
-        > The position in the string to insert at.
+        > The real position in the string to insert at.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `void`
+- #### Returns : `anyerror` or `void`
 
-    > Modifies the string in place, does not return a value.
+    > Modifies the string in place, returns an error if the memory allocation fails.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -47,30 +40,34 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
 - #### Example
 
     ```zig
-    const chars = @import("io").utils.chars;
+    const string = @import("io").types.string;
     ```
 
     ```zig
-    const src = chars.make(64, null);
+    var str = string.init();
+    defer str.deinit();
     ```
 
     > Insert using a `character`.
 
     ```zig
-    chars.insert(res[0..], 0, '=', 0);      // 👉 "="
+    try str.insertReal('=', 0);     // 👉 "="
     ```
 
     > Insert using a `unicode`.
 
     ```zig
-    chars.insert(res[0..], 1, "🌍", 1);     // 👉 "=🌍"
-    chars.insert(res[0..], 5, "🌟", 1);     // 👉 "=🌟🌍"
+    try str.insertReal("🌍", 1);    // 👉 "=🌍"
+    try str.insertReal("🌟", 5);    // 👉 "=🌍🌟"
     ```
 
     > Insert using a `string`.
 
     ```zig
-    chars.insert(res[0..], 9, "!!", 3);     // 👉 "=🌟🌍!!"
+    var other = try string.initWith("!!");
+    defer other.deinit();
+
+    try str.insertReal(other, 9);   // 👉 "=🌍🌟!!"
     ```
 
 <div align="center">
@@ -79,11 +76,11 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
 
 - ##### Related
 
-  > [`io.utils.chars.insertReal`](./insertReal.md)
+  > [`io.types.string.insert`](./insert.md)
 
-  > [`io.utils.chars.append`](./append.md)
+  > [`io.types.string.append`](./append.md)
 
-  > [`io.utils.chars.prepend`](./prepend.md)
+  > [`io.types.string.prepend`](./prepend.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
