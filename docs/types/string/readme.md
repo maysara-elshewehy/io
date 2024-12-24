@@ -71,14 +71,19 @@
         | [`prepend`](./api/prepend.md)       | Inserts a _(`string` or `char`)_ into the `beg` of the string.                                   |
         | [`insert`](./api/insert.md)         | Inserts a _(`string` or `char`)_ into a `specific position` in the string.                       |
         | [`insertReal`](./api/insertReal.md) | Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string. |
+   - #### ✍️ Writer
 
-   - #### ➕ Writer
+        | Method                              | Description                                               |
+        | ----------------------------------- | --------------------------------------------------------- |
+        | [`writer`](./api/writer.md)         | Writer of string type.                                    |
+        | [`writerType`](./api/writerType.md) | The underlying type of the Writer returned by `writer()`. |
 
-        | Method                          | Description                                              |
-        | ------------------------------- | -------------------------------------------------------- |
-        | [`writer`](./api/writer.md)     | Writer of string type.                                   |
-        | [`writerAt`](./api/writerAt.md) | Writer of string type (starts from `specific position`). |
+   - #### 🔄 Iterator
 
+        | Method                                  | Description                                                   |
+        | --------------------------------------- | ------------------------------------------------------------- |
+        | [`iterator`](./api/iterator.md)         | Iterator of string type.                                      |
+        | [`iteratorType`](./api/iteratorType.md) | The underlying type of the Iterator returned by `iterator()`. |
    - #### ⡾ Fields
 
         | Field     | Description                                        |

@@ -179,7 +179,7 @@
         // ┌─────────────────────────── WRITER ───────────────────────────┐
 
             pub usingnamespace struct {
-                /// Base type of the writer.
+                /// The underlying type of the Writer returned by `writer()`.
                 pub const Writer = std.io.Writer(*Self, anyerror, write);
 
                 /// Returns a writer for the string.

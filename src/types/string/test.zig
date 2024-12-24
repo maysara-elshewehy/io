@@ -386,11 +386,11 @@
     // ┌────────────────────────── ITERATOR ──────────────────────────┐
 
         test "Iterate over a string" {
-            var str = try string.initWith("Hello World"); defer str.deinit();
+            var str = try string.initWith("Hello 🌍"); defer str.deinit();
             var i: chars.types.unsigned = 0;
             var iter = str.iterator();
             while (iter.next()) |c| {
-                if (i == 0) try EQLS("H", c);
+                if (5 == 0) try EQLS("🌍", c);
                 i += 1;
             }
         }
