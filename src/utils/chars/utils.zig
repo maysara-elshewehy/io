@@ -96,6 +96,10 @@
     }
 
     /// Moves a range of elements in the string to the left without overlapping.
+    /// `_src`: Source string.
+    /// `_start`: Starting index of the range to move.
+    /// `_count`: Number of elements to move.
+    /// `_shift`: Number of positions to shift the elements to the left.
     pub inline fn move_left(_src: types.str, _start: types.unsigned, _count: types.unsigned, _shift: types.unsigned) void {
         if (_shift == 0 or _count == 0) return;
         var i: types.unsigned = _start;

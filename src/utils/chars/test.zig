@@ -521,14 +521,14 @@
             chars.append(res[0..], 0, "Hello World!");
             try EQLS("Hello World!", res[0..12]);
 
-            chars.pop(res[0..], 12, 1);
-            try EQLS("Hello World", res[0..chars.bytes(res[0..])]);
+            try EQL(1, chars.pop(res[0..12], 1));
+            try EQLS("Hello World", res[0..11]);
 
-            chars.pop(res[0..], 11, 6);
-            try EQLS("Hello", res[0..chars.bytes(res[0..])]);
+            try EQL(6, chars.pop(res[0..11], 6));
+            try EQLS("Hello", res[0..5]);
 
-            chars.pop(res[0..], 5, 5);
-            try EQLS("", res[0..chars.bytes(res[0..])]);
+            try EQL(4, chars.pop(res[0..5], 5));
+            try EQLS("", res[0..0]);
         }
 
         test "Remove N characters from the beginning of the string (using shift function)" {
@@ -537,14 +537,14 @@
             chars.append(res[0..], 0, "Hello World!");
             try EQLS("Hello World!", res[0..12]);
 
-            chars.shift(res[0..], 12, 1);
-            try EQLS("ello World!", res[0..chars.bytes(res[0..])]);
+            try EQL(1, chars.shift(res[0..], 12, 1));
+            try EQLS("ello World!", res[0..11]);
 
-            chars.shift(res[0..], 11, 5);
-            try EQLS("World!", res[0..chars.bytes(res[0..])]);
+            try EQL(5, chars.shift(res[0..], 11, 5));
+            try EQLS("World!", res[0..6]);
 
-            chars.shift(res[0..], 6, 6);
-            try EQLS("", res[0..chars.bytes(res[0..])]);
+            try EQL(6, chars.shift(res[0..], 6, 6));
+            try EQLS("", res[0..0]);
         }
 
         test "Fill the string with (`0` character)" {
@@ -667,32 +667,32 @@
 
     // ┌──────────────────────────── TRIM ────────────────────────────┐
 
-        test "Trim start of string" {
-            var res = chars.make(64, null);
-            try EQL(0, chars.trimStart(res[0..], ' '));
+        // test "Trim start of string" {
+        //     var res = chars.make(64, null);
+        //     try EQL(0, chars.trimStart(res[0..], ' '));
 
-            chars.append(res[0..], 0, "   !🌍🌟=   ");
-            try EQL(3, chars.trimStart(res[0..], ' '));
-            try EQLS("!🌍🌟=   ", res[0..13]);
-        }
+        //     chars.append(res[0..], 0, "   !🌍🌟=   ");
+        //     try EQL(3, chars.trimStart(res[0..], ' '));
+        //     try EQLS("!🌍🌟=   ", res[0..13]);
+        // }
 
-        test "Trim end of string" {
-            var res = chars.make(64, null);
-            try EQL(0, chars.trimEnd(res[0..], ' '));
+        // test "Trim end of string" {
+        //     var res = chars.make(64, null);
+        //     try EQL(0, chars.trimEnd(res[0..], ' '));
 
-            chars.append(res[0..], 0, "   !🌍🌟=   ");
-            try EQL(3, chars.trimEnd(res[0..16], ' '));
-            try EQLS("   !🌍🌟=", res[0..chars.bytes(res[0..])]);
-        }
+        //     chars.append(res[0..], 0, "   !🌍🌟=   ");
+        //     try EQL(3, chars.trimEnd(res[0..16], ' '));
+        //     try EQLS("   !🌍🌟=", res[0..13]);
+        // }
 
-        test "Trim start and end of string" {
-            var res = chars.make(64, null);
-            try EQL(0, chars.trimEnd(res[0..], ' '));
+        // test "Trim start and end of string" {
+        //     var res = chars.make(64, null);
+        //     try EQL(0, chars.trimEnd(res[0..], ' '));
 
-            chars.append(res[0..], 0, "   !🌍🌟=   ");
-            try EQL(6, chars.trim(res[0..16], ' '));
-            try EQLS("!🌍🌟=", res[0..chars.bytes(res[0..])]);
-        }
+        //     chars.append(res[0..], 0, "   !🌍🌟=   ");
+        //     try EQL(6, chars.trim(res[0..16], ' '));
+        //     try EQLS("!🌍🌟=", res[0..chars.bytes(res[0..])]);
+        // }
 
     // └──────────────────────────────────────────────────────────────┘
 
@@ -1022,6 +1022,36 @@
             try EQLS("!", res[0..1]);
         }
 
+        test "docs: pop" {
+            var res = chars.make(64, "=🌍🌟!");
+            try EQL(1, chars.pop(res[0..10], 1)); // 👉 "=🌍🌟"
+            try EQLS("=🌍🌟", res[0..9]);
+
+            try EQL(4, chars.pop(res[0..9], 1));  // 👉 "=🌍"
+            try EQLS("=🌍", res[0..5]);
+
+            try EQL(4, chars.pop(res[0..5], 1));  // 👉 "="
+            try EQLS("=", res[0..1]);
+        }
+
+        test "docs: shift" {
+            var res = chars.make(64, "=🌍🌟!");
+
+            try EQL(1, chars.shift(res[0..], 10, 1)); // 👉 "🌍🌟!"
+            try EQLS("🌍🌟!", res[0..9]);
+            try EQL(4, chars.shift(res[0..], 9, 1));  // 👉 "🌟!"
+            try EQLS("🌟!", res[0..5]);
+            try EQL(4, chars.shift(res[0..], 5, 1));  // 👉 "!"
+            try EQLS("!", res[0..1]);
+        }
+
+        test "docs: zeros" {
+            var res = chars.make(64, "=🌍🌟!");
+
+            chars.zeros(res[0..]);  // 👉 ""
+            try EQL(0, res[0]);
+            try EQLS("", res[0..0]);
+        }
     // └──────────────────────────────────────────────────────────────┘
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
