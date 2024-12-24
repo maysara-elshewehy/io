@@ -496,6 +496,25 @@
             try EQLS("!!🌟🌍=", str.src());
         }
 
+        test "docs: insert" {
+            var str = string.init(); defer str.deinit();
+
+            try str.insert('=', 0);      // 👉 "="
+            try EQLS("=", str.src());
+
+            try str.insert("🌍", 1);    // 👉 "=🌍"
+            try EQLS("=🌍", str.src());
+
+            try str.insert("🌟", 1);    // 👉 "=🌟🌍"
+            try EQLS("=🌟🌍", str.src());
+
+            var other = try string.initWith("!!");
+            defer other.deinit();
+
+            try str.insert(other, 3);   // 👉 "=🌟🌍!!"
+            try EQLS("=🌟🌍!!", str.src());
+        }
+
         test "docs: insertReal" {
             var str = string.init(); defer str.deinit();
 
@@ -515,23 +534,56 @@
             try EQLS("=🌟🌍!!", str.src());
         }
 
-        test "docs: insert" {
+        test "docs: appendf" {
             var str = string.init(); defer str.deinit();
 
-            try str.insert('=', 0);      // 👉 "="
+            try str.appendf( "{c}", .{ '=' } );     // 👉 "="
             try EQLS("=", str.src());
-
-            try str.insert("🌍", 1);    // 👉 "=🌍"
+            try str.appendf( "{s}", .{ "🌍" } );    // 👉 "=🌍"
             try EQLS("=🌍", str.src());
+            try str.appendf( "{s}", .{ "🌟" } );    // 👉 "=🌍🌟"
+            try EQLS("=🌍🌟", str.src());
+            try str.appendf( "{d}", .{ 99 } );      // 👉 "=🌍🌟99"
+            try EQLS("=🌍🌟99", str.src());
+        }
 
-            try str.insert("🌟", 1);    // 👉 "=🌟🌍"
-            try EQLS("=🌟🌍", str.src());
+        test "docs: prependf" {
+            var str = string.init(); defer str.deinit();
 
-            var other = try string.initWith("!!");
-            defer other.deinit();
+            try str.prependf( "{c}", .{ '=' } );     // 👉 "="
+            try EQLS("=", str.src());
+            try str.prependf( "{s}", .{ "🌍" } );    // 👉 "🌍="
+            try EQLS("🌍=", str.src());
+            try str.prependf( "{s}", .{ "🌟" } );    // 👉 "🌟🌍="
+            try EQLS("🌟🌍=", str.src());
+            try str.prependf( "{d}", .{ 99 } );      // 👉 "99🌟🌍="
+            try EQLS("99🌟🌍=", str.src());
+        }
 
-            try str.insert(other, 3);   // 👉 "=🌟🌍!!"
-            try EQLS("=🌟🌍!!", str.src());
+        test "docs: insertf" {
+            var str = string.init(); defer str.deinit();
+
+            try str.insertf( "{c}", .{ '='  }, 0 );     // 👉 "="
+            try EQLS("=", str.src());
+            try str.insertf( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
+            try EQLS("🌍=", str.src());
+            try str.insertf( "{s}", .{ "🌟" }, 1 );     // 👉 "🌍🌟="
+            try EQLS("🌍🌟=", str.src());
+            try str.insertf( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
+            try EQLS("99🌍🌟=", str.src());
+        }
+
+        test "docs: insertfReal" {
+            var str = string.init(); defer str.deinit();
+
+            try str.insertfReal( "{c}", .{ '='  }, 0 );     // 👉 "="
+            try EQLS("=", str.src());
+            try str.insertfReal( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
+            try EQLS("🌍=", str.src());
+            try str.insertfReal( "{s}", .{ "🌟" }, 4 );     // 👉 "🌍🌟="
+            try EQLS("🌍🌟=", str.src());
+            try str.insertfReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
+            try EQLS("99🌍🌟=", str.src());
         }
 
     // └──────────────────────────────────────────────────────────────┘

@@ -65,25 +65,29 @@
 
    - #### ➕ Insertion
 
-        | Method                              | Description                                                                                      |
-        | ----------------------------------- | ------------------------------------------------------------------------------------------------ |
-        | [`append`](./api/append.md)         | Inserts a _(`string` or `char`)_ into the `end` of the string.                                   |
-        | [`prepend`](./api/prepend.md)       | Inserts a _(`string` or `char`)_ into the `beg` of the string.                                   |
-        | [`insert`](./api/insert.md)         | Inserts a _(`string` or `char`)_ into a `specific position` in the string.                       |
-        | [`insertReal`](./api/insertReal.md) | Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string. |
-   
+        | Method                                | Description                                                                                      |
+        | ------------------------------------- | ------------------------------------------------------------------------------------------------ |
+        | [`append`](./api/append.md)           | Inserts a _(`string` or `char`)_ into the `end` of the string.                                   |
+        | [`appendf`](./api/appendf.md)         | Inserts a _(`formatted string`)_ into the `end` of the string.                                   |
+        | [`prepend`](./api/prepend.md)         | Inserts a _(`string` or `char`)_ into the `beg` of the string.                                   |
+        | [`prependf`](./api/prependf.md)       | Inserts a _(`formatted string`)_ into the `beg` of the string.                                   |
+        | [`insert`](./api/insert.md)           | Inserts a _(`string` or `char`)_ into a `specific position` in the string.                       |
+        | [`insertf`](./api/insertf.md)         | Inserts a _(`formatted string`)_ into a `specific position` in the string.                       |
+        | [`insertReal`](./api/insertReal.md)   | Inserts a _(`string` or `char`)_ into a `specific position` _(The real position)_ in the string. |
+        | [`insertfReal`](./api/insertfReal.md) | Inserts a _(`formatted string`)_ into a `specific position` _(The real position)_ in the string. |
+
    - #### ✍️ Writer
 
-        | Method                             | Description                                               |
-        | ---------------------------------- | --------------------------------------------------------- |
-        | [`writer`](./api/writer.md)        | Returns a writer for the string.                          |
+        | Method                               | Description                                               |
+        | ------------------------------------ | --------------------------------------------------------- |
+        | [`writer`](./api/writer.md)          | Returns a writer for the string.                          |
         | [`Writer (Type)`](./api/Writer_t.md) | The underlying type of the Writer returned by `writer()`. |
 
    - #### 🔄 Iterator
 
-        | Method                                 | Description                                                   |
-        | -------------------------------------- | ------------------------------------------------------------- |
-        | [`iterator`](./api/iterator.md)        | Returns an iterator for the string.                           |
+        | Method                                   | Description                                                   |
+        | ---------------------------------------- | ------------------------------------------------------------- |
+        | [`iterator`](./api/iterator.md)          | Returns an iterator for the string.                           |
         | [`Iterator (Type)`](./api/Iterator_t.md) | The underlying type of the Iterator returned by `iterator()`. |
 
    - #### ⡾ Fields

@@ -76,6 +76,8 @@ pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!voi
 
 - ##### Related
 
+  > [`io.types.string.insertfReal`](./insertfReal.md)
+
   > [`io.types.string.insert`](./insert.md)
 
   > [`io.types.string.append`](./append.md)

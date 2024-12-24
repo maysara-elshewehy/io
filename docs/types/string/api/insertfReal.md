@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`insert`
+# [←](../readme.md) `io`.`types`.`string`.`insertfReal`
 
-> Inserts a _(`string` or `char`)_ into a `specific position` in the string.
+> Inserts a _(`formatted string`)_ into a `specific position` _(The real position)_ in the string.
 
 ```zig
-pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void
+pub fn insertfReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void
 ```
 
 
@@ -17,13 +17,17 @@ pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void
 
         > The string structure to be used.
 
-    - `_it` : `types.cstr` or `types.char` or `Self`
+    - `_fmt` : `types.cstr`
 
-        > The value to be inserted into the string.
+        > A [fmt string](https://ziglang.org/documentation/master/std/#std.fmt) used to format the string.
+
+    - `_args` : `.{..}`
+
+        > The arguments used to format the string
 
     - `_pos` : `types.unsigned`
 
-        > The position in the string to insert at.
+        > The real position in the string to insert at.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -46,29 +50,13 @@ pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void
     ```zig
     var str = string.init();
     defer str.deinit();
+
+    try str.insertfReal( "{c}", .{ '='  }, 0 );     // 👉 "="
+    try str.insertfReal( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
+    try str.insertfReal( "{s}", .{ "🌟" }, 4 );     // 👉 "🌍🌟="
+    try str.insertfReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
     ```
 
-    > Insert using a `character`.
-
-    ```zig
-    try str.insert('=', 0);     // 👉 "="
-    ```
-
-    > Insert using a `unicode`.
-
-    ```zig
-    try str.insert("🌍", 1);    // 👉 "=🌍"
-    try str.insert("🌟", 1);    // 👉 "=🌍🌟"
-    ```
-
-    > Insert using a `string`.
-
-    ```zig
-    var other = try string.initWith("!!");
-    defer other.deinit();
-
-    try str.insert(other, 3);   // 👉 "=🌍🌟!!"
-    ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -80,9 +68,11 @@ pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void
 
   > [`io.types.string.insertf`](./insertf.md)
 
-  > [`io.types.string.append`](./append.md)
+  > [`io.types.string.appendf`](./appendf.md)
 
-  > [`io.types.string.prepend`](./prepend.md)
+  > [`io.types.string.prependf`](./prependf.md)
+
+  > [`io.types.string.writer`](./writer.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

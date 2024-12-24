@@ -106,7 +106,7 @@
             }
 
             /// Inserts a (`formatted string`) into the `end` of the string.
-            pub fn appendf(_self: *Self, comptime _fmt: anytype, _args: anytype) anyerror!void {
+            pub fn appendf(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void {
                 const l_count = std.fmt.count(_fmt, _args);
                 try _self.__alloc(l_count + _self.m_bytes);
                 _self.writer().print(_fmt, _args) catch {};
@@ -122,7 +122,7 @@
             }
 
             /// Inserts a (`formatted string`) into the `beginning` of the string.
-            pub fn prependf(_self: *Self, comptime _fmt: anytype, _args: anytype) anyerror!void {
+            pub fn prependf(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void {
                 const l_count = std.fmt.count(_fmt, _args);
                 try _self.__alloc(l_count + _self.m_bytes);
                 chars.utils.moveRight(_self.m_buff.?[0.._self.m_size], 0, _self.m_bytes, l_count);
@@ -144,7 +144,7 @@
                 _self.m_bytes += l_count;
             }
 
-            /// Inserts a (`string` or `char`) into a `specific position` in the string.
+            /// Inserts a (`string` or `char`) into a `specific position` (The real position) in the string.
             pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
                 if(@TypeOf(_it) == Self) return _self.insert(_it.src(), _pos);
                 if(_pos == _self.m_bytes) return _self.append(_it);
@@ -157,19 +157,29 @@
             }
 
             /// Inserts a (`formatted string`) into a `specific position` in the string.
-            pub fn insertf(_self: *Self, comptime _fmt: anytype, _args: anytype, _pos: types.unsigned) anyerror!void {
+            pub fn insertf(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void {
                 if(_pos == _self.m_bytes) return _self.appendf(_fmt, _args);
-                if(_pos == 0) return _self.appendf(_fmt, _args);
+                if(_pos == 0) return _self.prependf(_fmt, _args);
+
+                try _self.__alloc(std.fmt.count(_fmt, _args) + _pos);
+                if(chars.utils.indexOf(_self.src(), _pos)) |l_pos| {
+                    return _self.insertfReal(_fmt, _args, l_pos);
+                } else unreachable;
+            }
+
+            /// Inserts a (`formatted string`) into a `specific position` (The real position) in the string.
+            pub fn insertfReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void {
+                if(_pos == _self.m_bytes) return _self.appendf(_fmt, _args);
+                if(_pos == 0) return _self.prependf(_fmt, _args);
 
                 const l_count = std.fmt.count(_fmt, _args);
-                try _self.__alloc(l_count + _self.m_bytes);
-                if(chars.utils.indexOf(_self.src(), _pos)) |l_pos| {
-                    chars.utils.moveRight(_self.m_buff.?[0.._self.m_size], l_pos, _self.m_bytes, l_count);
-                }
+                try _self.__alloc(l_count + _pos);
+                const l_beg = _pos - chars.utils.begOf(_self.m_buff.?[0..], _pos);
+                chars.utils.moveRight(_self.m_buff.?[0..], l_beg, _self.m_bytes-l_beg, l_count);
 
-                var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[_pos..]);
+                var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[l_beg..]);
                 const l_writer = l_fixedBufferStream.writer();
-                l_writer.print(_fmt, _args) catch {};
+                l_writer.print(_fmt, _args) catch unreachable;
                 _self.m_bytes += l_count;
             }
 
