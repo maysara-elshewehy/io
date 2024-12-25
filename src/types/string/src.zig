@@ -231,6 +231,23 @@
         // └──────────────────────────────────────────────────────────────┘
 
 
+        // ┌──────────────────────────── FIND ────────────────────────────┐
+
+            /// Returns the first occurrence of a (`string` or `char`) in the string.
+            pub inline fn find(_self: *Self, _it: anytype) ?types.unsigned {
+                if(@TypeOf(_it) == Self) return _self.find(_it.src());
+                return chars.find(_self.src(), _it);
+            }
+
+            /// Returns the last occurrence of a (`string` or `char`) in the string.
+            pub inline fn rfind(_self: *Self, _it: anytype) ?types.unsigned {
+                if(@TypeOf(_it) == Self) return _self.rfind(_it.src());
+                return chars.rfind(_self.src(), _it);
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
+
         // ┌─────────────────────────── WRITER ───────────────────────────┐
 
             pub usingnamespace struct {

@@ -84,6 +84,13 @@
         | [`trimEnd`](./api/trimEnd.md)       | Removes all matching characters at the `end` of the string.                 |
         | [`trimStart`](./api/trimStart.md)   | Removes all matching characters at the `beg` of the string.                 |
 
+    - #### ➷ Find
+
+        | Method                    | Description                                                           |
+        | ------------------------- | --------------------------------------------------------------------- |
+        | [`find`](./api/find.md)   | Returns the first occurrence of a _(`string` or `char`)_ in a string. |
+        | [`rfind`](./api/rfind.md) | Returns the last occurrence of a _(`string` or `char`)_ in a string.  |
+
    - #### ✍️ Writer
 
         | Method                                | Description                                                                     |
