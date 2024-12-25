@@ -98,43 +98,36 @@
 
             /// Inserts a (`string` or `char`) into the `end` of the string.
             pub fn append(_self: *Self, _it: anytype) anyerror!void {
-                if(@TypeOf(_it) == Self) return _self.append(_it.src());
-                const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
-                try _self.__alloc(l_count + _self.m_bytes);
-                chars.append(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it);
-                _self.m_bytes += l_count;
+                return insertReal(_self, _it, _self.m_bytes);
             }
 
             /// Inserts a (`string` or `char`) into the `beg` of the string.
             pub fn prepend(_self: *Self, _it: anytype) anyerror!void {
-                if(@TypeOf(_it) == Self) return _self.prepend(_it.src());
-                const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
-                try _self.__alloc(l_count + _self.m_bytes);
-                chars.prepend(_self.m_buff.?[0..], _self.m_bytes, _it);
-                _self.m_bytes += l_count;
+                return insertReal(_self, _it, 0);
             }
 
             /// Inserts a (`string` or `char`) into a `specific position` in the string.
             pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
-                if(@TypeOf(_it) == Self) return _self.insert(_it.src(), _pos);
-                if(_pos == _self.m_bytes) return _self.append(_it);
-                if(_pos == 0) return _self.prepend(_it);
-
-                const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
-                try _self.__alloc(l_count + _pos);
-                chars.insert(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it, _pos);
-                _self.m_bytes += l_count;
+                return insertReal(_self, _it, chars.utils.indexOf(_self.src(), _pos) orelse unreachable);
             }
 
             /// Inserts a (`string` or `char`) into a `specific position` (The real position) in the string.
             pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
-                if(@TypeOf(_it) == Self) return _self.insert(_it.src(), _pos);
-                if(_pos == _self.m_bytes) return _self.append(_it);
-                if(_pos == 0) return _self.prepend(_it);
-
+                if(@TypeOf(_it) == Self) return _self.insertReal(_it.src(), _pos);
                 const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
-                try _self.__alloc(l_count + _pos);
-                chars.insertReal(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it, _pos);
+
+                if(_pos == _self.m_bytes) {
+                    try _self.__alloc(l_count + _self.m_bytes);
+                    chars.append(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it);
+                }
+                else if(_pos == 0) {
+                    try _self.__alloc(l_count + _self.m_bytes);
+                    chars.prepend(_self.m_buff.?[0..], _self.m_bytes, _it);
+                } else {
+                    try _self.__alloc(l_count + _pos);
+                    chars.insertReal(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it, _pos);
+                }
+
                 _self.m_bytes += l_count;
             }
 
@@ -142,6 +135,10 @@
 
 
         // ┌─────────────────────────── REMOVE ───────────────────────────┐
+
+            // This is a sensitive area for the library and everything else that will be built on it
+            // so I prefer to leave the instructions clear without shortcuts
+            // as I did for the insert functions above.
 
             /// Removes a (`range` or `position`) from the string.
             pub inline fn remove(_self: *Self, _it: anytype) void {
@@ -164,9 +161,10 @@
 
             /// Removes a (`range` or `position` (The real position)) from the string.
             pub inline fn removeReal(_self: *Self, _it: anytype) void {
+                const l_pos = _it;
                 if(_self.m_buff) |m_buff| {
                     if(chars.utils.isUtype(@TypeOf(_it))) {
-                        const l_beg = _it - chars.utils.begOf(m_buff[0..], _it);
+                        const l_beg = l_pos - chars.utils.begOf(m_buff[0..], l_pos);
                         const l_count : types.unsigned = chars.utils.sizeOf(m_buff[l_beg]);
                         chars.removeReal(m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
                         _self.m_bytes -= l_count;

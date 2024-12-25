@@ -65,29 +65,31 @@
 
    - #### ➕ Insertion
 
-        | Method                              | Description                                                                                      |
-        | ----------------------------------- | ------------------------------------------------------------------------------------------------ |
-        | [`append`](./api/append.md)         | Inserts a _(`string` or `char`)_ into the `end` of the string.                                   |
-        | [`prepend`](./api/prepend.md)       | Inserts a _(`string` or `char`)_ into the `beg` of the string.                                   |
-        | [`insert`](./api/insert.md)         | Inserts a _(`string` or `char`)_ into a `specific position` in the string.                       |
+        | Method                              | Description                                                                      |
+        | ----------------------------------- | -------------------------------------------------------------------------------- |
+        | [`append`](./api/append.md)         | Inserts a _(`string` or `char`)_ into the `end` of the string.                   |
+        | [`prepend`](./api/prepend.md)       | Inserts a _(`string` or `char`)_ into the `beg` of the string.                   |
+        | [`insert`](./api/insert.md)         | Inserts a _(`string` or `char`)_ into a `specific position` in the string.       |
         | [`insertReal`](./api/insertReal.md) | Inserts a _(`string` or `char`)_ into a `specific real  position` in the string. |
 
    - #### ➖ Deletion
 
-        | Method                              | Description                                                                |
-        | ----------------------------------- | -------------------------------------------------------------------------- |
-        | [`remove`](./api/remove.md)         | Removes a _(`range` or `position`)_ from the string.                       |
-        | [`removeReal`](./api/removeReal.md) | Removes a _(`range` or `real position`)_ from the string. |
+        | Method                              | Description                                                        |
+        | ----------------------------------- | ------------------------------------------------------------------ |
+        | [`remove`](./api/remove.md)         | Removes a _(`range` or `position`)_ from the string.               |
+        | [`removeReal`](./api/removeReal.md) | Removes a _(`range` or `real position`)_ from the string.          |
+        | [`shift`](./api/shift.md)           | Removes a _(`N` bytes)_ from the beg of the string.                |
+        | [`pop`](./api/pop.md)               | Removes a _(`N` bytes)_ from the end of the string _(using `/0`)_. |
 
    - #### ✍️ Writer
 
-        | Method                                | Description                                                                                     |
-        | ------------------------------------- | ----------------------------------------------------------------------------------------------- |
-        | [`Writer (Type)`](./api/Writer_t.md)  | The underlying type of the Writer returned by `writer()`.                                       |
-        | [`writer`](./api/writer.md)           | Returns a writer for the string.                                                                |
-        | [`write`](./api/write.md)             | Writes a _(`formatted string`)_ into the `end` of the string.                                   |
-        | [`writeStart`](./api/writeStart.md)   | Writes a _(`formatted string`)_ into the `beg` of the string.                                   |
-        | [`writeAt`](./api/writeAt.md)         | Writes a _(`formatted string`)_ into a `specific position` in the string.                       |
+        | Method                                | Description                                                                     |
+        | ------------------------------------- | ------------------------------------------------------------------------------- |
+        | [`Writer (Type)`](./api/Writer_t.md)  | The underlying type of the Writer returned by `writer()`.                       |
+        | [`writer`](./api/writer.md)           | Returns a writer for the string.                                                |
+        | [`write`](./api/write.md)             | Writes a _(`formatted string`)_ into the `end` of the string.                   |
+        | [`writeStart`](./api/writeStart.md)   | Writes a _(`formatted string`)_ into the `beg` of the string.                   |
+        | [`writeAt`](./api/writeAt.md)         | Writes a _(`formatted string`)_ into a `specific position` in the string.       |
         | [`writeAtReal`](./api/writeAtReal.md) | Writes a _(`formatted string`)_ into a `specific real  position` in the string. |
 
    - #### 🔄 Iterator
