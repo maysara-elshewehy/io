@@ -1065,7 +1065,7 @@
 
         test "docs: trim" {
             var res = chars.make(64, "  =🌍🌟!  ");
-            try EQL(4, chars.trim(res[0..14], ' ')); // 👉 (r = 4), "=🌍🌟!"
+            try EQL(4, chars.trim(res[0..14], ' '));    // 👉 (r = 4), "=🌍🌟!"
         }
 
         test "docs: find" {
@@ -1083,6 +1083,52 @@
             try EQL(6, chars.rfind(res[0..12], "🌟"));   // 👉 6   (beg of "🌟")
             try EQL(10, chars.rfind(res[0..12], "!!"));  // 👉 10  ("!!")
         }
+
+        test "docs: toLower" {
+            var res = chars.make(64, "HELLO 🌍!");
+            chars.toLower(res[0..11]); // 👉 "hello 🌍!"
+            try EQLS("hello 🌍!", res[0..11]);
+        }
+
+        test "docs: toUpper" {
+            var res = chars.make(64, "hello 🌍!");
+            chars.toUpper(res[0..11]); // 👉 "HELLO 🌍!"
+            try EQLS("HELLO 🌍!", res[0..11]);
+        }
+
+        test "docs: toTitle" {
+            var res = chars.make(64, "hello 🌍!");
+            chars.toTitle(res[0..11]); // 👉 "Hello 🌍!"
+            try EQLS("Hello 🌍!", res[0..11]);
+        }
+
+        test "docs: eql" {
+            try EQ(!chars.eql("", "!")); // 👉 false
+            try EQ(chars.eql("", ""));   // 👉 true
+            try EQ(chars.eql("!", "!")); // 👉 true
+            try EQ(chars.eql("Hello World!", "Hello World!")); // 👉 true
+            try EQ(chars.eql("!🌍🌟=", "!🌍🌟=")); // 👉 true
+        }
+
+        test "docs: startsWith" {
+            try EQ(chars.startsWith("!🌍🌟=", "!"));   // 👉 true
+            try EQ(!chars.startsWith("!🌍🌟=", "🌍")); // 👉 false
+        }
+
+        test "docs: endsWith" {
+            try EQ(chars.endsWith("!🌍🌟=", "="));   // 👉 true
+            try EQ(!chars.endsWith("!🌍🌟=", "🌍")); // 👉 false
+        }
+
+        test "docs: includes" {
+            var res = chars.make(64, "==🌍🌟!!");
+            try EQ(chars.includes(res[0..12], '='));    // 👉 true
+            try EQ(chars.includes(res[0..12], "🌍"));   // 👉 true
+            try EQ(chars.includes(res[0..12], "🌟"));   // 👉 true
+            try EQ(chars.includes(res[0..12], "!!"));   // 👉 true
+            try EQ(!chars.includes(res[0..12], '@'));   // 👉 false
+        }
+
 
     // └──────────────────────────────────────────────────────────────┘
 

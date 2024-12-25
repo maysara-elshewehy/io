@@ -91,6 +91,23 @@
         | [`find`](./api/find.md)   | Returns the first occurrence of a _(`string` or `char`)_ in a string. |
         | [`rfind`](./api/rfind.md) | Returns the last occurrence of a _(`string` or `char`)_ in a string.  |
 
+    - #### ℀ Case
+
+        | Method                        | Description                                     |
+        | ----------------------------- | ----------------------------------------------- |
+        | [`toLower`](./api/toLower.md) | Converts all (ASCII) letters to _`lower` case_. |
+        | [`toUpper`](./api/toUpper.md) | Converts all (ASCII) letters to _`upper` case_. |
+        | [`toTitle`](./api/toTitle.md) | Converts all (ASCII) words to _`title` case_.   |
+
+    - #### ⚌ Check
+
+        | Method                              | Description                                                   |
+        | ----------------------------------- | ------------------------------------------------------------- |
+        | [`eql`](./api/eql.md)               | Returns true if the given strings are equivalent.             |
+        | [`includes`](./api/includes.md)     | Returns true if the string contains a _(`string` or `char`)_. |
+        | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given substring.     |
+        | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given substring.   |
+
    - #### ✍️ Writer
 
         | Method                                | Description                                                                     |

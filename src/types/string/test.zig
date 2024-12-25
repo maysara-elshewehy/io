@@ -941,7 +941,52 @@
             try EQL(10, str.rfind("!!"));  // 👉 10  ("!!")
         }
 
-    // └──────────────────────────────────────────────────────────────┘
+        test "docs: toLower" {
+            var str = try string.initWith("HELLO 🌍!"); defer str.deinit();
+            str.toLower();    // 👉 "hello 🌍!"
+            try EQLS("hello 🌍!", str.src());
+        }
+
+        test "docs: toUpper" {
+            var str = try string.initWith("hello 🌍!"); defer str.deinit();
+            str.toUpper();    // 👉 "HELLO 🌍!"
+            try EQLS("HELLO 🌍!", str.src());
+        }
+
+        test "docs: toTitle" {
+            var str = try string.initWith("hello 🌍!"); defer str.deinit();
+            str.toTitle();    // 👉 "Hello 🌍!"
+            try EQLS("Hello 🌍!", str.src());
+        }
+
+        test "docs: eql" {
+            var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
+            try EQL(true, str.eql("==🌍🌟!!"));
+            try EQL(false, str.eql("==🌍🌟!"));
+            try EQL(false, str.eql("==🌍🌟!!!"));
+        }
+
+        test "docs: startsWith" {
+            var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
+            try EQL(true, str.startsWith("=="));
+            try EQL(false, str.startsWith("🌍"));
+        }
+
+        test "docs: endsWith" {
+            var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
+            try EQL(true, str.endsWith("!!"));
+            try EQL(false, str.endsWith("🌍"));
+        }
+
+
+        test "docs: includes" {
+            var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
+            try EQL(true, str.includes('='));
+            try EQL(true, str.includes("🌍"));
+            try EQL(true, str.includes("🌟"));
+            try EQL(true, str.includes("!!"));
+            try EQL(false, str.includes('@'));
+        }
 
     // └──────────────────────────────────────────────────────────────┘
 

@@ -112,7 +112,10 @@
             }
 
             /// Inserts a (`string` or `char`) into a `specific position` (The real position) in the string.
+            /// @Error: InvalidIndex (If the position is out of range).
             pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
+                if(_pos > _self.m_bytes) return error.InvalidIndex;
+
                 if(@TypeOf(_it) == Self) return _self.insertReal(_it.src(), _pos);
                 const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
 
@@ -142,6 +145,8 @@
 
             /// Removes a (`range` or `position`) from the string.
             pub inline fn remove(_self: *Self, _it: anytype) void {
+                if(_self.m_bytes == 0) return;
+
                 if(_self.m_buff) |m_buff| {
                     if(chars.utils.isUtype(@TypeOf(_it))) {
                         if(chars.utils.indexOf(m_buff[0.._self.m_bytes], _it)) |l_pos| {
@@ -161,6 +166,8 @@
 
             /// Removes a (`range` or `position` (The real position)) from the string.
             pub inline fn removeReal(_self: *Self, _it: anytype) void {
+                if(_self.m_bytes == 0) return;
+
                 const l_pos = _it;
                 if(_self.m_buff) |m_buff| {
                     if(chars.utils.isUtype(@TypeOf(_it))) {
@@ -179,6 +186,8 @@
 
             /// Removes a (`N` bytes) from the `beg` of the string.
             pub inline fn shift(_self: *Self, _count: types.unsigned) void {
+                if(_self.m_bytes == 0) return;
+
                 if(_self.m_buff) |m_buff| {
                     const l_count = chars.shift(m_buff[0.._self.m_bytes], _self.m_bytes, _count);
                     _self.m_bytes -= if(_count == _self.m_bytes) _self.m_bytes else l_count;
@@ -187,6 +196,8 @@
 
             /// Removes a (`N` bytes) from the `end` of the string.
             pub inline fn pop(_self: *Self, _count: types.unsigned) void {
+                if(_self.m_bytes == 0) return;
+
                 if(_self.m_buff) |m_buff| {
                     const l_count = chars.pop(m_buff[0.._self.m_bytes], _count);
                     _self.m_bytes -= if(_count == _self.m_bytes) _self.m_bytes else l_count;
@@ -235,14 +246,81 @@
 
             /// Returns the first occurrence of a (`string` or `char`) in the string.
             pub inline fn find(_self: *Self, _it: anytype) ?types.unsigned {
-                if(@TypeOf(_it) == Self) return _self.find(_it.src());
-                return chars.find(_self.src(), _it);
+                if(_self.m_bytes > 0) {
+                    if(@TypeOf(_it) == Self) return _self.find(_it.src());
+                    return chars.find(_self.src(), _it);
+                }
+                return null;
             }
 
             /// Returns the last occurrence of a (`string` or `char`) in the string.
             pub inline fn rfind(_self: *Self, _it: anytype) ?types.unsigned {
-                if(@TypeOf(_it) == Self) return _self.rfind(_it.src());
-                return chars.rfind(_self.src(), _it);
+                if(_self.m_bytes > 0) {
+                    if(@TypeOf(_it) == Self) return _self.rfind(_it.src());
+                    return chars.rfind(_self.src(), _it);
+                }
+                return null;
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌──────────────────────────── CASE ────────────────────────────┐
+
+            /// Converts all (ASCII) letters to lowercase.
+            pub inline fn toLower(_self: *Self) void {
+                if(_self.m_bytes == 0) return;
+
+                if(_self.m_buff) |m_buff| {
+                    chars.toLower(m_buff[0.._self.m_bytes]);
+                }
+            }
+
+            /// Converts all (ASCII) letters to uppercase.
+            pub inline fn toUpper(_self: *Self) void {
+                if(_self.m_bytes == 0) return;
+
+                if(_self.m_buff) |m_buff| {
+                    chars.toUpper(m_buff[0.._self.m_bytes]);
+                }
+            }
+
+            // Converts all (ASCII) words to titlecase.
+            pub inline fn toTitle(_self: *Self) void {
+                if(_self.m_bytes == 0) return;
+
+                if(_self.m_buff) |m_buff| {
+                    chars.toTitle(m_buff[0.._self.m_bytes]);
+                }
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌─────────────────────────── CHECKS ───────────────────────────┐
+
+            /// Returns true if the given strings are equivalent.
+            pub inline fn eql(_self: Self, _with: types.cstr) bool {
+                if(_self.m_bytes != _with.len) return false;
+                return chars.eql(_self.src(), _with);
+            }
+
+            /// Returns true if the string starts with the given substring.
+            pub inline fn startsWith(_self: Self, _with: types.cstr) bool {
+                if(_self.m_bytes < _with.len) return false;
+                return chars.startsWith(_self.src(), _with);
+            }
+
+            /// Returns true if the string ends with the given substring.
+            pub inline fn endsWith(_self: Self, _with: types.cstr) bool {
+                if(_self.m_bytes < _with.len) return false;
+                return chars.endsWith(_self.src(), _with);
+            }
+
+            /// Returns true if the string contains a (`string` or `char`).
+            pub inline fn includes(_self: Self, _it: anytype) bool {
+                if(@TypeOf(_it) == Self) return _self.includes(_it.src());
+                return chars.includes(_self.src(), _it);
             }
 
         // └──────────────────────────────────────────────────────────────┘

@@ -235,7 +235,7 @@
     // ┌──────────────────────────── CASE ────────────────────────────┐
 
         /// Converts all (ASCII) letters to lowercase.
-        pub inline fn toLower(_it: anytype) void {
+        pub inline fn toLower(_it: types.str) void {
             var i: types.unsigned = 0;
             while (i < _it.len) {
                 const l_size = utils.sizeOf(_it[i]);
@@ -245,7 +245,7 @@
         }
 
         /// Converts all (ASCII) letters to uppercase.
-        pub inline fn toUpper(_it: anytype) void {
+        pub inline fn toUpper(_it: types.str) void {
             var i: types.unsigned = 0;
             while (i < _it.len) {
                 const l_size = utils.sizeOf(_it[i]);
@@ -255,7 +255,7 @@
         }
 
         // Converts all (ASCII) words to titlecase.
-        pub inline fn toTitle(_it: anytype) void {
+        pub inline fn toTitle(_it: types.str) void {
             var l_isNew: bool = true;
             var i: types.unsigned = 0;
             while (i < _it.len) {
