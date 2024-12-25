@@ -612,6 +612,38 @@
     // └──────────────────────────────────────────────────────────────┘
 
 
+    // ┌──────────────────────────── TRIM ────────────────────────────┐
+
+        test "Trim start of string" {
+            var str = string.init(); defer str.deinit();
+            str.trimStart(' ');
+
+            try str.append("   !🌍🌟=   ");
+            str.trimStart(' ');
+            try EQLS("!🌍🌟=   ", str.src());
+        }
+
+        test "Trim end of string" {
+            var str = string.init(); defer str.deinit();
+            str.trimEnd(' ');
+
+            try str.append("   !🌍🌟=   ");
+            str.trimEnd(' ');
+            try EQLS("   !🌍🌟=", str.src());
+        }
+
+        test "Trim start and end of string" {
+            var str = string.init(); defer str.deinit();
+            str.trimEnd(' ');
+
+            try str.append("   !🌍🌟=   ");
+            str.trim(' ');
+            try EQLS("!🌍🌟=", str.src());
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
     // ┌─────────────────────────── WRITER ───────────────────────────┐
 
         test "Make a writer for a string and write some string using print function (fmt)" {
@@ -873,6 +905,24 @@
             try EQLS("🌟!"  , str.src());
             str.shift(1);  // 👉 "!"
             try EQLS("!"    , str.src());
+        }
+
+        test "docs: trimStart" {
+            var str = try string.initWith("  =🌍🌟!"); defer str.deinit();
+            str.trimStart(' '); // 👉 "=🌍🌟!"
+            try EQLS("=🌍🌟!", str.src());
+        }
+
+        test "docs: trimEnd" {
+            var str = try string.initWith("=🌍🌟!  "); defer str.deinit();
+            str.trimEnd(' '); // 👉 "=🌍🌟!"
+            try EQLS("=🌍🌟!", str.src());
+        }
+
+        test "docs: trim" {
+            var str = try string.initWith("  =🌍🌟!  "); defer str.deinit();
+            str.trim(' '); // 👉 "=🌍🌟!"
+            try EQLS("=🌍🌟!", str.src());
         }
 
     // └──────────────────────────────────────────────────────────────┘

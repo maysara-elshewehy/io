@@ -51,7 +51,7 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
     ```
 
     ```zig
-    const src = chars.make(64, null);
+    var src = chars.make(64, null);
     ```
 
     > Insert using a `character`.

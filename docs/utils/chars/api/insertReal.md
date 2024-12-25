@@ -51,7 +51,7 @@ pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _p
     ```
 
     ```zig
-    const src = chars.make(64, null);
+    var src = chars.make(64, null);
     ```
 
     > Insert using a `character`.

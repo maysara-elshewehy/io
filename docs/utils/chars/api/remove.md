@@ -42,7 +42,7 @@ pub inline fn remove(_from: types.str, _it: anytype) void
     ```
 
     ```zig
-    const src = chars.make(64, "=🌍🌟!");
+    var src = chars.make(64, "=🌍🌟!");
     ```
 
     > Remove using a `position`.

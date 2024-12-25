@@ -45,7 +45,7 @@ pub inline fn pop(_from: types.str, _len: types.unsigned, _bytes: types.unsigned
     ```
 
     ```zig
-    const src = chars.make(64, "=🌍🌟!");
+    var src = chars.make(64, "=🌍🌟!");
 
     const r1 = chars.pop(res[0..], 10, 1);  // 👉 r1 = 1, "=🌍🌟"
     const r2 = chars.pop(res[0..], 9,  1);  // 👉 r2 = 4, "=🌍"

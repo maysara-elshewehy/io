@@ -181,7 +181,7 @@
 
     // ┌──────────────────────────── TRIM ────────────────────────────┐
 
-        /// Removes all matching characters at the beginning of the string.
+        /// Removes all matching characters at the `beg` of the string.
         pub inline fn trimStart(_it: types.str, _char: types.char) types.unsigned {
             const l_len = _it.len;
             var i: types.unsigned = 0;
@@ -190,7 +190,7 @@
             return i;
         }
 
-        /// Removes all matching characters at the end of the string.
+        /// Removes all matching characters at the `end` of the string.
         pub inline fn trimEnd(_it: types.str, _char: types.char) types.unsigned {
             const l_len = _it.len;
             var i: types.unsigned = l_len;
@@ -199,7 +199,7 @@
             return l_len - i;
         }
 
-        /// Removes all matching characters fromt both start and end of the string.
+        /// Removes all matching characters fromt both `start` and `end` of the string.
         pub inline fn trim(_it: types.str, _char: types.char) types.unsigned {
             const l_beg = trimStart(_it[0.._it.len], _char);
             const l_end = trimEnd(_it[0.._it.len-l_beg], _char);

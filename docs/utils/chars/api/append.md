@@ -47,7 +47,7 @@ pub inline fn append(_to: types.str, _len: types.unsigned, _it: anytype) void
     ```
 
     ```zig
-    const src = chars.make(64, null);
+    var src = chars.make(64, null);
     ```
 
     > Append using a `character`.

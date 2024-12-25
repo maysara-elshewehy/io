@@ -74,12 +74,15 @@
 
    - #### ➖ Deletion
 
-        | Method                              | Description                                                        |
-        | ----------------------------------- | ------------------------------------------------------------------ |
-        | [`remove`](./api/remove.md)         | Removes a _(`range` or `position`)_ from the string.               |
-        | [`removeReal`](./api/removeReal.md) | Removes a _(`range` or `real position`)_ from the string.          |
-        | [`shift`](./api/shift.md)           | Removes a _(`N` bytes)_ from the beg of the string.                |
-        | [`pop`](./api/pop.md)               | Removes a _(`N` bytes)_ from the end of the string _(using `/0`)_. |
+        | Method                              | Description                                                                 |
+        | ----------------------------------- | --------------------------------------------------------------------------- |
+        | [`remove`](./api/remove.md)         | Removes a _(`range` or `position`)_ from the string.                        |
+        | [`removeReal`](./api/removeReal.md) | Removes a _(`range` or `real position`)_ from the string.                   |
+        | [`shift`](./api/shift.md)           | Removes a _(`N` bytes)_ from the beg of the string.                         |
+        | [`pop`](./api/pop.md)               | Removes a _(`N` bytes)_ from the end of the string _(using `/0`)_.          |
+        | [`trim`](./api/trim.md)             | Removes all matching characters fromt both `start` and `end` of the string. |
+        | [`trimEnd`](./api/trimEnd.md)       | Removes all matching characters at the `end` of the string.                 |
+        | [`trimStart`](./api/trimStart.md)   | Removes all matching characters at the `beg` of the string.                 |
 
    - #### ✍️ Writer
 

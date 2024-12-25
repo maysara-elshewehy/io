@@ -62,7 +62,7 @@
                     .m_buff  = null,
                     .m_alloc = std.testing.allocator, // Use testing allocator for simplicity.
                     .m_size  = 0,
-                    .m_bytes   = 0,
+                    .m_bytes = 0,
                 };
             }
 
@@ -177,7 +177,7 @@
                 }
             }
 
-            /// Removes a (`N` bytes) from the beg of the string.
+            /// Removes a (`N` bytes) from the `beg` of the string.
             pub inline fn shift(_self: *Self, _count: types.unsigned) void {
                 if(_self.m_buff) |m_buff| {
                     const l_count = chars.shift(m_buff[0.._self.m_bytes], _self.m_bytes, _count);
@@ -185,12 +185,47 @@
                 }
             }
 
-            /// Removes a (`N` bytes) from the end of the string.
+            /// Removes a (`N` bytes) from the `end` of the string.
             pub inline fn pop(_self: *Self, _count: types.unsigned) void {
                 if(_self.m_buff) |m_buff| {
                     const l_count = chars.pop(m_buff[0.._self.m_bytes], _count);
                     _self.m_bytes -= if(_count == _self.m_bytes) _self.m_bytes else l_count;
                 }
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌──────────────────────────── TRIM ────────────────────────────┐
+
+            /// Removes all matching characters at the `beg` of the string.
+            pub inline fn trimStart(_self: *Self, _char: types.char) void {
+                if(_self.m_bytes == 0) return;
+
+                if(_self.m_buff) |m_buff| {
+                    const l_count = chars.trimStart(m_buff[0.._self.m_bytes], _char);
+                    _self.m_bytes -= if(l_count == _self.m_bytes) _self.m_bytes else l_count;
+                } else unreachable;
+            }
+
+            /// Removes all matching characters at the `end` of the string.
+            pub inline fn trimEnd(_self: *Self, _char: types.char) void {
+                if(_self.m_bytes == 0) return;
+
+                if(_self.m_buff) |m_buff| {
+                    const l_count = chars.trimEnd(m_buff[0.._self.m_bytes], _char);
+                    _self.m_bytes -= if(l_count == _self.m_bytes) _self.m_bytes else l_count;
+                } else unreachable;
+            }
+
+            /// Removes all matching characters fromt both `beg` and `end` of the string.
+            pub inline fn trim(_self: *Self, _char: types.char) void {
+                if(_self.m_bytes == 0) return;
+
+                if(_self.m_buff) |m_buff| {
+                    const l_count = chars.trim(m_buff[0.._self.m_bytes], _char);
+                    _self.m_bytes -= if(l_count == _self.m_bytes) _self.m_bytes else l_count;
+                } else unreachable;
             }
 
         // └──────────────────────────────────────────────────────────────┘

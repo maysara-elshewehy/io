@@ -1,11 +1,10 @@
-# [←](../readme.md) `io`.`utils`.`chars`.`prepend`
+# [←](../readme.md) `io`.`utils`.`chars`.`trimStart`
 
-> Inserts a _(`string` or `char`)_ into the `beginning` of the string.
+> Removes all matching characters at the `beg` of the string.
 
 ```zig
-pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void
+pub inline fn trimStart(_it: types.str, _char: types.char) types.unsigned
 ```
-
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -13,28 +12,25 @@ pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void
 
 - #### Parameters
 
-    - `_to` : `types.str`
+    - `_it` : `types.str`
 
-        > The string to insert into.
-
-
-    - `_len` : `types.unsigned`
-
-        > The length of string to insert into.
+        > The string to remove from.
 
 
-    - `_it` : `types.cstr` or `types.char`
+    - `_char` : `types.char`
 
-        > The _(`string` or `char`)_ to be inserted into the string.
+        > The _(`character`)_ to remove with.
 
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `void`
+- #### Returns : `types.unsigned`
 
-    > Modifies the string in place, does not return a value.
+    - #### Returns : `types.unsigned`
+
+    > The number of characters removed from the `start` of the string.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -47,26 +43,9 @@ pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void
     ```
 
     ```zig
-    var src = chars.make(64, null);
-    ```
+    var src = chars.make(64, "  =🌍🌟!");
 
-    > Prepend using a `character`.
-
-    ```zig
-    chars.prepend(res[0..], 0, '=');     // 👉 "="
-    ```
-
-    > Prepend using a `unicode`.
-
-    ```zig
-    chars.prepend(res[0..], 1, "🌍");    // 👉 "🌍="
-    chars.prepend(res[0..], 5, "🌟");    // 👉 "🌟🌍="
-    ```
-
-    > Prepend using a `string`.
-
-    ```zig
-    chars.prepend(res[0..], 9, "!!");    // 👉 "!!🌟🌍="
+    const r = chars.trimStart(res[0..12], ' '); // 👉 (r = 2), "=🌍🌟!"
     ```
 
 <div align="center">
@@ -75,9 +54,16 @@ pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void
 
 - ##### Related
 
-  > [`io.utils.chars.append`](./append.md)
+  > [`io.utils.chars.trimEnd`](./trimEnd.md)
 
-  > [`io.utils.chars.insert`](./insert.md)
+  > [`io.utils.chars.trim`](./trim.md)
+
+  > [`io.utils.chars.pop`](./pop.md)
+
+  > [`io.utils.chars.shift`](./shift.md)
+
+  > [`io.utils.chars.remove`](./remove.md)
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

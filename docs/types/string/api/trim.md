@@ -1,9 +1,10 @@
-# [←](../readme.md) `io`.`utils`.`chars`.`removeReal`
+# [←](../readme.md) `io`.`types`.`string`.`trim`
 
-> Removes a _(`range` or `real position`)_ from the string.
+> Removes all matching characters fromt both `beg` and `end` of the string.
+
 
 ```zig
-pub inline fn removeReal(_from: types.str, _it: anytype) void
+pub inline fn trim(_self: *Self, _char: types.char) void
 ```
 
 
@@ -13,14 +14,13 @@ pub inline fn removeReal(_from: types.str, _it: anytype) void
 
 - #### Parameters
 
-    - `_from` : `types.str`
+    - `_self` : `*Self`
 
-        > The string to remove from.
+        > The string structure to be used.
 
+    - `_char` : `types.char`
 
-    - `_it` : `types.range` or `types.unsigned`
-
-        > The _(`range` or `real position`)_ to be remove.
+        > The _(`character`)_ to remove with.
 
 
 <div align="center">
@@ -29,7 +29,7 @@ pub inline fn removeReal(_from: types.str, _it: anytype) void
 
 - #### Returns : `void`
 
-    > Modifies the string in place, does not return a value.
+    > Modifies the string in place.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -38,24 +38,10 @@ pub inline fn removeReal(_from: types.str, _it: anytype) void
 - #### Example
 
     ```zig
-    const chars = @import("io").utils.chars;
-    ```
+    var str = try string.initWith("  =🌍🌟!  ");
+    defer str.deinit();
 
-    ```zig
-    var src = chars.make(64, "=🌍🌟!");
-    ```
-
-    > Remove using a `position`.
-
-    ```zig
-    chars.removeReal(res[0..], 0);          // 👉 "🌍🌟!"
-    ```
-
-    > Remove using a `range`.
-
-    ```zig
-    chars.removeReal(res[0..], .{ 4, 8 });  // 👉 "🌍!"
-    chars.removeReal(res[0..], .{ 0, 4 });  // 👉 "!"
+    str.trim(' '); // 👉 "=🌍🌟!"
     ```
 
 <div align="center">
@@ -64,13 +50,15 @@ pub inline fn removeReal(_from: types.str, _it: anytype) void
 
 - ##### Related
 
-  > [`io.utils.chars.remove`](./remove.md)
+  > [`io.types.string.trimStart`](./trimStart.md)
 
-  > [`io.utils.chars.pop`](./pop.md)
+  > [`io.types.string.trimEnd`](./trimEnd.md)
 
-  > [`io.utils.chars.shift`](./shift.md)
+  > [`io.types.string.pop`](./pop.md)
 
-  > [`io.utils.chars.zeros`](./zeros.md)
+  > [`io.types.string.shift`](./shift.md)
+
+  > [`io.types.string.remove`](./remove.md)
 
 
 <div align="center">
