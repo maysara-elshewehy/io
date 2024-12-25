@@ -61,7 +61,7 @@
         | [`trimStart`](./api/trimStart.md) | Removes all matching characters at the `beg` of the string.                 |
         | [`zeros`](./api/zeros.md)         | Fills a string with _(`\0` character)_.                                     |
 
-    - #### ➷ Find
+    - #### 🔍 Find
 
         | Method                    | Description                                                           |
         | ------------------------- | --------------------------------------------------------------------- |
@@ -76,7 +76,7 @@
         | [`toUpper`](./api/toUpper.md) | Converts all (ASCII) letters to _`upper` case_. |
         | [`toTitle`](./api/toTitle.md) | Converts all (ASCII) words to _`title` case_.   |
 
-    - #### ⚌ Check
+    - #### ❓ Check
 
         | Method                              | Description                                                   |
         | ----------------------------------- | ------------------------------------------------------------- |
@@ -85,20 +85,33 @@
         | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given substring.     |
         | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given substring.   |
 
-    - #### ⚌ Replace
+    - #### 🔄 Replace
 
         | Method                          | Description                                                                                                    |
         | ------------------------------- | -------------------------------------------------------------------------------------------------------------- |
         | [`replace`](./api/replace.md)   | Replaces the first `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements. |
         | [`rreplace`](./api/rreplace.md) | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
 
-    - #### ⚌ More
+    - #### ▧ More
 
         | Method                        | Description                                                                |
         | ----------------------------- | -------------------------------------------------------------------------- |
         | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times.                              |
         | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                     |
         | [`split`](./api/split.md)     | Splits the string into a slice based on a delimiter and a target position. |
+
+
+    - #### Types
+
+        > You can access to types using `io.utils.chars.types.typeName`
+
+        | Type       | Refer To     |
+        | ---------- | ------------ |
+        | `char`     | `u8`         |
+        | `str`      | `[]u8`       |
+        | `cstr`     | `[]const u8` |
+        | `unsigned` | `usize`      |
+        | `signed`   | `isize`      |
 
 <div align="center">
 <img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
