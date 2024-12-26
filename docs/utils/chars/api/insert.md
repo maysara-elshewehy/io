@@ -51,26 +51,26 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
     ```
 
     ```zig
-    var src = chars.make(64, null);
+    var str = chars.make(64, null);
     ```
 
     > Insert using a `character`.
 
     ```zig
-    chars.insert(res[0..], 0, '=', 0);      // 👉 "="
+    chars.insert(str[0..], 0, '=', 0);      // 👉 "="
     ```
 
     > Insert using a `unicode`.
 
     ```zig
-    chars.insert(res[0..], 1, "🌍", 1);     // 👉 "=🌍"
-    chars.insert(res[0..], 5, "🌟", 1);     // 👉 "=🌟🌍"
+    chars.insert(str[0..], 1, "🌍", 1);     // 👉 "=🌍"
+    chars.insert(str[0..], 5, "🌟", 1);     // 👉 "=🌟🌍"
     ```
 
     > Insert using a `string`.
 
     ```zig
-    chars.insert(res[0..], 9, "!!", 3);     // 👉 "=🌟🌍!!"
+    chars.insert(str[0..], 9, "!!", 3);     // 👉 "=🌟🌍!!"
     ```
 
 <div align="center">

@@ -37,9 +37,9 @@ pub inline fn toLower(_it: types.str) void
     ```
 
     ```zig
-    var res = chars.make(64, "HELLO 🌍!");
+    var str = chars.make(64, "HELLO 🌍!");
 
-    chars.toLower(res[0..11]); // 👉 "hello 🌍!"
+    chars.toLower(str[0..11]); // 👉 "hello 🌍!"
     ```
 
 <div align="center">

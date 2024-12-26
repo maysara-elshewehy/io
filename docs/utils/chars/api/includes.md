@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`utils`.`chars`.`shift`
+# [←](../readme.md) `io`.`utils`.`chars`.`includes`
 
-> Removes a _(`N` bytes)_ from the beg of the string.
+> Returns true if the string contains a _(`string` or `char`)_.
 
 ```zig
-pub inline fn shift(_from: types.str, _len: types.unsigned, _bytes: types.unsigned) types.unsigned
+pub inline fn includes(_in: types.cstr, _it: anytype) bool
 ```
 
 
@@ -13,27 +13,23 @@ pub inline fn shift(_from: types.str, _len: types.unsigned, _bytes: types.unsign
 
 - #### Parameters
 
-    - `_from` : `types.str`
+    - `_in` : `types.cstr`
 
-        > The string to remove from.
+        > The string to search inside.
 
 
-    - `_len` : `types.unsigned`
+    - `_it` : `types.cstr` or `types.char`
 
-        > The length of string to remove from.
-
-    - `_bytes` : `types.unsigned`
-
-        > The number of bytes to remove from the beg of the string.
+        > The value to search for.
 
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `types.unsigned`
+- #### Returns : `bool`
 
-    > The number of bytes removed.
+    > Returns true if `_in` includes `_it`.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -48,9 +44,11 @@ pub inline fn shift(_from: types.str, _len: types.unsigned, _bytes: types.unsign
     ```zig
     const str = chars.make(64, "=🌍🌟!");
 
-    const r1 = chars.shift(str[0..], 10, 1);  // 👉 r1 = 1, "🌍🌟!"
-    const r2 = chars.shift(str[0..], 9,  1);  // 👉 r2 = 4, "🌟!"
-    const r3 = chars.shift(str[0..], 5,  1);  // 👉 r3 = 4, "!"
+    chars.includes(str[0..10], '=');    // 👉 true
+    chars.includes(str[0..10], "🌍");   // 👉 true
+    chars.includes(str[0..10], "🌟");   // 👉 true
+    chars.includes(str[0..10], "!");    // 👉 true
+    chars.includes(str[0..10], '@');    // 👉 false
     ```
 
 <div align="center">
@@ -59,9 +57,11 @@ pub inline fn shift(_from: types.str, _len: types.unsigned, _bytes: types.unsign
 
 - ##### Related
 
-  > [`io.utils.chars.pop`](./pop.md)
+  > [`io.utils.chars.eql`](./eql.md)
 
-  > [`io.utils.chars.remove`](./remove.md)
+  > [`io.utils.chars.startsWith`](./startsWith.md)
+
+  > [`io.utils.chars.endsWith`](./endsWith.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

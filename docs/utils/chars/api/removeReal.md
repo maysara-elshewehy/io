@@ -42,20 +42,20 @@ pub inline fn removeReal(_from: types.str, _it: anytype) void
     ```
 
     ```zig
-    var src = chars.make(64, "=🌍🌟!");
+    var str = chars.make(64, "=🌍🌟!");
     ```
 
     > Remove using a `position`.
 
     ```zig
-    chars.removeReal(res[0..], 0);          // 👉 "🌍🌟!"
+    chars.removeReal(str[0..], 0);          // 👉 "🌍🌟!"
     ```
 
     > Remove using a `range`.
 
     ```zig
-    chars.removeReal(res[0..], .{ 4, 8 });  // 👉 "🌍!"
-    chars.removeReal(res[0..], .{ 0, 4 });  // 👉 "!"
+    chars.removeReal(str[0..], .{ 4, 8 });  // 👉 "🌍!"
+    chars.removeReal(str[0..], .{ 0, 4 });  // 👉 "!"
     ```
 
 <div align="center">

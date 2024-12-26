@@ -51,26 +51,26 @@ pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _p
     ```
 
     ```zig
-    var src = chars.make(64, null);
+    var str = chars.make(64, null);
     ```
 
     > Insert using a `character`.
 
     ```zig
-    chars.writeAtReal(res[0..], 0, '=', 0);      // 👉 "="
+    chars.writeAtReal(str[0..], 0, '=', 0);      // 👉 "="
     ```
 
     > Insert using a `unicode`.
 
     ```zig
-    chars.writeAtReal(res[0..], 1, "🌍", 1);     // 👉 "=🌍"
-    chars.writeAtReal(res[0..], 5, "🌟", 5);     // 👉 "=🌟🌍"
+    chars.writeAtReal(str[0..], 1, "🌍", 1);     // 👉 "=🌍"
+    chars.writeAtReal(str[0..], 5, "🌟", 5);     // 👉 "=🌟🌍"
     ```
 
     > Insert using a `string`.
 
     ```zig
-    chars.writeAtReal(res[0..], 9, "!!", 9);     // 👉 "=🌟🌍!!"
+    chars.writeAtReal(str[0..], 9, "!!", 9);     // 👉 "=🌟🌍!!"
     ```
 
 <div align="center">

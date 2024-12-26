@@ -36,9 +36,9 @@ pub inline fn zeros(_it: types.str) void
     ```
 
     ```zig
-    const src = chars.make(64, "=🌍🌟!");
+    const str = chars.make(64, "=🌍🌟!");
 
-    chars.zeros(res[0..]);  // 👉 ""
+    chars.zeros(str[0..]);  // 👉 ""
     ```
 
 <div align="center">

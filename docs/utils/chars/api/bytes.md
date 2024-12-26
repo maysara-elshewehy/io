@@ -37,19 +37,19 @@ pub inline fn bytes(_it: anytype) types.unsigned
     ```
 
     ```zig
-    var src = chars.make(64, null);
+    var str = chars.make(64, null);
 
     // non-terminated string.
-    _ = chars.bytes(src[0..]);  // 👉 64
+    _ = chars.bytes(str[0..]);  // 👉 64
 
     // append some string.
-    chars.append(src[0..], 0, "=🌍🌟!");
+    chars.append(str[0..], 0, "=🌍🌟!");
 
     // terminate the string
-    src[11] = 0;
+    str[11] = 0;
 
     // try again
-    _ = chars.bytes(src[0..]);  // 👉 11
+    _ = chars.bytes(str[0..]);  // 👉 11
     ```
 
 

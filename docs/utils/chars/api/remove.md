@@ -42,20 +42,20 @@ pub inline fn remove(_from: types.str, _it: anytype) void
     ```
 
     ```zig
-    var src = chars.make(64, "=🌍🌟!");
+    var str = chars.make(64, "=🌍🌟!");
     ```
 
     > Remove using a `position`.
 
     ```zig
-    chars.remove(res[0..], 0);              // 👉 "🌍🌟!"
+    chars.remove(str[0..], 0);              // 👉 "🌍🌟!"
     ```
 
     > Remove using a `range`.
 
     ```zig
-    chars.remove(res[0..], .{ 1, 2 });      // 👉 "🌍!"
-    chars.remove(res[0..], .{ 0, 1 });      // 👉 "!"
+    chars.remove(str[0..], .{ 1, 2 });      // 👉 "🌍!"
+    chars.remove(str[0..], .{ 0, 1 });      // 👉 "!"
     ```
 
 <div align="center">

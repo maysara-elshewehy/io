@@ -47,26 +47,26 @@ pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void
     ```
 
     ```zig
-    var src = chars.make(64, null);
+    var str = chars.make(64, null);
     ```
 
     > Prepend using a `character`.
 
     ```zig
-    chars.prepend(res[0..], 0, '=');     // 👉 "="
+    chars.prepend(str[0..], 0, '=');     // 👉 "="
     ```
 
     > Prepend using a `unicode`.
 
     ```zig
-    chars.prepend(res[0..], 1, "🌍");    // 👉 "🌍="
-    chars.prepend(res[0..], 5, "🌟");    // 👉 "🌟🌍="
+    chars.prepend(str[0..], 1, "🌍");    // 👉 "🌍="
+    chars.prepend(str[0..], 5, "🌟");    // 👉 "🌟🌍="
     ```
 
     > Prepend using a `string`.
 
     ```zig
-    chars.prepend(res[0..], 9, "!!");    // 👉 "!!🌟🌍="
+    chars.prepend(str[0..], 9, "!!");    // 👉 "!!🌟🌍="
     ```
 
 <div align="center">

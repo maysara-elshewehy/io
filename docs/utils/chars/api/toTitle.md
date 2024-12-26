@@ -37,9 +37,9 @@ pub inline fn toTitle(_it: types.str) void
     ```
 
     ```zig
-    var res = chars.make(64, "hello 🌍!");
+    var str = chars.make(64, "hello 🌍!");
 
-    chars.toTitle(res[0..11]); // 👉 "Hello 🌍!"
+    chars.toTitle(str[0..11]); // 👉 "Hello 🌍!"
     ```
 
 <div align="center">

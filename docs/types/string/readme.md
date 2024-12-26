@@ -84,7 +84,7 @@
         | [`trimEnd`](./api/trimEnd.md)       | Removes all matching characters at the `end` of the string.                 |
         | [`trimStart`](./api/trimStart.md)   | Removes all matching characters at the `beg` of the string.                 |
 
-    - #### ➷ Find
+    - #### 🔍 Find
 
         | Method                    | Description                                                           |
         | ------------------------- | --------------------------------------------------------------------- |

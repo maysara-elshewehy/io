@@ -82,8 +82,8 @@
         | ----------------------------------- | ------------------------------------------------------------- |
         | [`eql`](./api/eql.md)               | Returns true if the given strings are equivalent.             |
         | [`includes`](./api/includes.md)     | Returns true if the string contains a _(`string` or `char`)_. |
-        | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given substring.     |
         | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given substring.   |
+        | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given substring.     |
 
     - #### 🔄 Replace
 

@@ -41,26 +41,26 @@ pub inline fn rfind(_in: types.cstr, _it: anytype) ?types.unsigned
     ```
 
     ```zig
-    var src = chars.make(64, "==🌍🌟!!);
+    var str = chars.make(64, "==🌍🌟!!);
     ```
 
     > Find using a `character`.
 
     ```zig
-    chars.rfind(res[0..12], '=');    // 👉 1   ("=")
+    chars.rfind(str[0..12], '=');    // 👉 1   ("=")
     ```
 
     > Find using a `unicode`.
 
     ```zig
-    chars.rfind(res[0..12], "🌍");   // 👉 2   (beg of "🌍")
-    chars.rfind(res[0..12], "🌟");   // 👉 6   (beg of "🌟")
+    chars.rfind(str[0..12], "🌍");   // 👉 2   (beg of "🌍")
+    chars.rfind(str[0..12], "🌟");   // 👉 6   (beg of "🌟")
     ```
 
     > Find using a `string`.
 
     ```zig
-    chars.rfind(res[0..12], "!!");   // 👉 10  ("!!")
+    chars.rfind(str[0..12], "!!");   // 👉 10  ("!!")
     ```
 
 <div align="center">

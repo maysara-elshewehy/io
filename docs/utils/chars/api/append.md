@@ -47,26 +47,26 @@ pub inline fn append(_to: types.str, _len: types.unsigned, _it: anytype) void
     ```
 
     ```zig
-    var src = chars.make(64, null);
+    var str = chars.make(64, null);
     ```
 
     > Append using a `character`.
 
     ```zig
-    chars.append(res[0..], 0, '=');     // 👉 "="
+    chars.append(str[0..], 0, '=');     // 👉 "="
     ```
 
     > Append using a `unicode`.
 
     ```zig
-    chars.append(res[0..], 1, "🌍");    // 👉 "=🌍"
-    chars.append(res[0..], 5, "🌟");    // 👉 "=🌍🌟"
+    chars.append(str[0..], 1, "🌍");    // 👉 "=🌍"
+    chars.append(str[0..], 5, "🌟");    // 👉 "=🌍🌟"
     ```
 
     > Append using a `string`.
 
     ```zig
-    chars.append(res[0..], 9, "!!");    // 👉 "=🌍🌟!!"
+    chars.append(str[0..], 9, "!!");    // 👉 "=🌍🌟!!"
     ```
 
 <div align="center">

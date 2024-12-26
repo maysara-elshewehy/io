@@ -43,9 +43,9 @@ pub inline fn trimEnd(_it: types.str, _char: types.char) types.unsigned
     ```
 
     ```zig
-    var src = chars.make(64, "=🌍🌟!  ");
+    var str = chars.make(64, "=🌍🌟!  ");
 
-    const r = chars.trimEnd(res[0..12], ' '); // 👉 (r = 2), "=🌍🌟!"
+    const r = chars.trimEnd(str[0..12], ' '); // 👉 (r = 2), "=🌍🌟!"
     ```
 
 <div align="center">

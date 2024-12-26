@@ -43,9 +43,9 @@ pub inline fn trimStart(_it: types.str, _char: types.char) types.unsigned
     ```
 
     ```zig
-    var src = chars.make(64, "  =🌍🌟!");
+    var str = chars.make(64, "  =🌍🌟!");
 
-    const r = chars.trimStart(res[0..12], ' '); // 👉 (r = 2), "=🌍🌟!"
+    const r = chars.trimStart(str[0..12], ' '); // 👉 (r = 2), "=🌍🌟!"
     ```
 
 <div align="center">

@@ -37,9 +37,9 @@ pub inline fn toUpper(_it: types.str) void
     ```
 
     ```zig
-    var res = chars.make(64, "hello 🌍!");
+    var str = chars.make(64, "hello 🌍!");
 
-    chars.toUpper(res[0..11]); // 👉 "HELLO 🌍!"
+    chars.toUpper(str[0..11]); // 👉 "HELLO 🌍!"
     ```
 
 <div align="center">

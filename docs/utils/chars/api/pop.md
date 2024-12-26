@@ -45,11 +45,11 @@ pub inline fn pop(_from: types.str, _len: types.unsigned, _bytes: types.unsigned
     ```
 
     ```zig
-    var src = chars.make(64, "=🌍🌟!");
+    var str = chars.make(64, "=🌍🌟!");
 
-    const r1 = chars.pop(res[0..], 10, 1);  // 👉 r1 = 1, "=🌍🌟"
-    const r2 = chars.pop(res[0..], 9,  1);  // 👉 r2 = 4, "=🌍"
-    const r3 = chars.pop(res[0..], 5,  1);  // 👉 r3 = 4, "="
+    const r1 = chars.pop(str[0..], 10, 1);  // 👉 r1 = 1, "=🌍🌟"
+    const r2 = chars.pop(str[0..], 9,  1);  // 👉 r2 = 4, "=🌍"
+    const r3 = chars.pop(str[0..], 5,  1);  // 👉 r3 = 4, "="
     ```
 
 <div align="center">

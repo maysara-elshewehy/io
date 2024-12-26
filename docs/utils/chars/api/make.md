@@ -41,19 +41,19 @@ pub inline fn make(comptime _size: comptime_int, comptime _with :?types.cstr) [_
 
     ```zig
     // init with undefined.
-    var src = chars.make(64, null);
+    var str = chars.make(64, null);
 
     // equals to
-    // var src : [64]u8 = undefined;
+    // var str : [64]u8 = undefined;
     ```
 
     ```zig
     // init with value.
-    var src = chars.make(64, "=🌍🌟!");
+    var str = chars.make(64, "=🌍🌟!");
 
     // equals to
-    // var src : [64]u8 = undefined;
-    // chars.append(src[0..], 0, "=🌍🌟!");
+    // var str : [64]u8 = undefined;
+    // chars.append(str[0..], 0, "=🌍🌟!");
     ```
 
 <div align="center">
