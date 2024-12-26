@@ -80,7 +80,7 @@
 
         | Method                              | Description                                                   |
         | ----------------------------------- | ------------------------------------------------------------- |
-        | [`eql`](./api/eql.md)               | Returns true if the given strings are equivalent.             |
+        | [`eql`](./api/eql.md)               | Returns true if the given string are equal to the given _(`string` or `char`)_.             |
         | [`includes`](./api/includes.md)     | Returns true if the string contains a _(`string` or `char`)_. |
         | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given _(`string` or `char`)_.   |
         | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given _(`string` or `char`)_.     |

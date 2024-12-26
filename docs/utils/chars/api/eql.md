@@ -1,6 +1,6 @@
 # [←](../readme.md) `io`.`utils`.`chars`.`eql`
 
-> Returns true if the given strings are equivalent.
+> Returns true if the given string are equal to the given _(`string` or `char`)_.
 
 ```zig
 pub inline fn eql(_str1: types.cstr, _str2: types.cstr) bool

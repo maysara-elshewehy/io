@@ -299,30 +299,25 @@
 
         // ┌─────────────────────────── CHECKS ───────────────────────────┐
 
-            /// Returns true if the given strings are equivalent.
-            pub inline fn eql(_self: Self, _with: types.cstr) bool {
-                if(_self.m_bytes != _with.len) return false;
+            /// Returns true if the string are equal to the given (`string` or `char`).
+            pub inline fn eql(_self: Self, _with: anytype) bool {
+                if(@TypeOf(_with) == Self) return _self.eql(_with.src());
+
                 return chars.eql(_self.src(), _with);
             }
 
             /// Returns true if the string starts with the given _(`string` or `char`)_.
             pub inline fn startsWith(_self: Self, _with: anytype) bool {
-                if(chars.utils.isCtype(@TypeOf(_with))) {
-                    if(_self.m_bytes == 0) return false;
-                    return _self.src()[0] == _with;
-                } else {
-                    return chars.startsWith(_self.src(), _with);
-                }
+                if(@TypeOf(_with) == Self) return _self.startsWith(_with.src());
+
+                return chars.startsWith(_self.src(), _with);
             }
 
             /// Returns true if the string ends with the given _(`string` or `char`)_.
             pub inline fn endsWith(_self: Self, _with: anytype) bool {
-                if(chars.utils.isCtype(@TypeOf(_with))) {
-                    if(_self.m_bytes == 0) return false;
-                    return _self.src()[_self.m_bytes - 1] == _with;
-                } else {
-                    return chars.endsWith(_self.src(), _with);
-                }
+                if(@TypeOf(_with) == Self) return _self.startsWith(_with.src());
+
+                return chars.endsWith(_self.src(), _with);
             }
 
             /// Returns true if the string contains a (`string` or `char`).

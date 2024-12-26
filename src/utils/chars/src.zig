@@ -271,16 +271,25 @@
 
     // ┌─────────────────────────── CHECKS ───────────────────────────┐
 
-        /// Returns true if the given strings are equivalent.
-        pub inline fn eql(_str1: types.cstr, _str2: types.cstr) bool {
-            return std.mem.eql(u8, _str1[0..], _str2[0..]);
+        /// Returns true if the given string are equal to the given (`string` or `char`).
+        pub inline fn eql(_it: types.cstr, _with: anytype) bool {
+            if(utils.isCtype(@TypeOf(_with))) {
+                if (_it.len != 1) return false;
+                return _it[0] == _with;
+            } else {
+                if (_it.len != _with.len) return false;
+                return std.mem.eql(u8, _it[0..], _with[0..]);
+            }
         }
 
         /// Returns true if the string starts with the given (`string` or `char`).
         pub inline fn startsWith(_it: types.cstr, _with: anytype) bool {
             if(utils.isCtype(@TypeOf(_with))) {
+                if(_it.len == 0) return false;
                 return _it[0] == _with;
             } else {
+                if(_with.len == 0) return _with.len == _it.len;
+                if(_it.len == 0) return false;
                 const i = std.mem.indexOf(u8, _it[0.._it.len], _with);
                 return i == 0;
             }
@@ -289,8 +298,11 @@
         /// Returns true if the string ends with the given (`string` or `char`).
         pub inline fn endsWith(_it: types.cstr, _with: anytype) bool {
             if(utils.isCtype(@TypeOf(_with))) {
+                if(_it.len == 0) return false;
                 return _it[_it.len-1] == _with;
             } else {
+                if(_with.len == 0) return _with.len == _it.len;
+                if(_it.len == 0) return false;
                 const i = std.mem.lastIndexOf(u8, _it[0.._it.len], _with);
                 return i == _it.len - _with.len;
             }

@@ -46,9 +46,7 @@ pub inline fn endsWith(_it: types.cstr, _with: anytype) bool
 
     chars.endsWith(str[0..10], "🌟");  // 👉 false
     chars.endsWith(str[0..10], '!');   // 👉 true
-
-    // 👉 error, length must be > 0
-    // chars.endsWith(str[0..10], "");
+    chars.endsWith(str[0..10], "");    // 👉 false
     ```
 
 <div align="center">

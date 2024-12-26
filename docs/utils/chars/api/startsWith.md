@@ -46,9 +46,7 @@ pub inline fn startsWith(_it: types.cstr, _with: anytype) bool
 
     chars.startsWith(str[0..10], "🌍");  // 👉 false
     chars.startsWith(str[0..10], '=');   // 👉 true
-
-    // 👉 error, length must be > 0
-    // chars.startsWith(str[0..10], "");
+    chars.startsWith(str[0..10], "");   // 👉 false
     ```
 
 <div align="center">

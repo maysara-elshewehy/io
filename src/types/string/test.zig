@@ -967,16 +967,30 @@
         }
 
         test "docs: startsWith" {
-            var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
-            try EQL(true, str.startsWith("=="));
+            var str = try string.initWith("=🌍🌟!"); defer str.deinit();
+            try EQL(false, str.startsWith(""));
             try EQL(true, str.startsWith('='));
             try EQL(false, str.startsWith("🌍"));
         }
 
         test "docs: endsWith" {
-            var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
-            try EQL(true, str.endsWith("!!"));
+            var str = try string.initWith("=🌍🌟!"); defer str.deinit();
+            try EQL(false, str.endsWith(""));
             try EQL(true, str.endsWith('!'));
+            try EQL(false, str.endsWith("🌍"));
+        }
+
+        test "docs: startsWith Empty" {
+            var str = try string.initWith(""); defer str.deinit();
+            try EQL(true, str.startsWith(""));
+            try EQL(false, str.startsWith('='));
+            try EQL(false, str.startsWith("🌍"));
+        }
+
+        test "docs: endsWith Empty" {
+            var str = try string.initWith(""); defer str.deinit();
+            try EQL(true, str.endsWith(""));
+            try EQL(false, str.endsWith('!'));
             try EQL(false, str.endsWith("🌍"));
         }
 

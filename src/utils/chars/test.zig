@@ -1106,12 +1106,13 @@
             try EQ(chars.eql("", ""));               // 👉 true
             try EQ(chars.eql("=🌍🌟!", "=🌍🌟!"));   // 👉 true
             try EQ(!chars.eql("=🌍🌟!", "====="));   // 👉 false
+            try EQ(chars.eql("!", '!'));            // 👉 true
         }
 
         test "docs: startsWith" {
             const str = chars.make(64, "=🌍🌟!");
 
-            // try EQ(!chars.startsWith(str[0..10], "")); // 👉 error, length must be > 0
+            try EQ(!chars.startsWith(str[0..10], "")); // 👉 false
             try EQ(!chars.startsWith(str[0..10], "🌍"));  // 👉 false
             try EQ(chars.startsWith(str[0..10], '='));    // 👉 true
         }
@@ -1119,7 +1120,7 @@
         test "docs: endsWith" {
             const str = chars.make(64, "=🌍🌟!");
 
-            // try EQ(!chars.endsWith(str[0..10], "")); // 👉 error, length must be > 0
+            try EQ(!chars.endsWith(str[0..10], "")); // 👉 false
             try EQ(!chars.endsWith(str[0..10], "🌟"));  // 👉 false
             try EQ(chars.endsWith(str[0..10], '!'));    // 👉 true
         }
