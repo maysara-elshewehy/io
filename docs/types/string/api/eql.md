@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`utils`.`chars`.`get`
+# [←](../readme.md) `io`.`types`.`string`.`eql`
 
-> Returns the (`unicode` or `char`) at the specified position _(`non-real`)_ in the string.
+> Returns true if the string are equal to the given _(`string` or `char`)_.
 
 ```zig
-pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr
+pub inline fn eql(_self: Self, _with: anytype) bool
 ```
 
 
@@ -13,22 +13,22 @@ pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr
 
 - #### Parameters
 
-    - `_in` : `types.cstr`
+    - `_self` : `Self`
 
-        > desc.
+        > The source string to be used.
 
-    - `_pos` : `types.unsigned`
+    - `_with` : `types.cstr` or `types.char` or `Self`
 
-        > desc.
+        > The value to compare with.
 
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `?types.cstr`
+- #### Returns : `bool`
 
-    > Optional _`constant string`_ or _`null`_ if failed.
+    > Returns true if both values are exactly the same.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -37,18 +37,17 @@ pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr
 - #### Example
 
     ```zig
-    const chars = @import("io").utils.chars;
+    const string = @import("io").types.string;
     ```
 
     ```zig
-    const str = chars.make(64, "=🌍🌟!");
+    var str = try string.initWith("=🌍🌟!");
+    defer str.deinit();
 
-    _ = chars.get(str[0..], 0).?; // 👉 "="
-    _ = chars.get(str[0..], 1).?; // 👉 "🌍"
-    _ = chars.get(str[0..], 2).?; // 👉 "🌟"
-    _ = chars.get(str[0..], 3).?; // 👉 "!"
+    str.eql("");        // 👉 false
+    str.eql("=====");   // 👉 false
+    str.eql("=🌍🌟!");  // 👉 true
     ```
-
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -56,11 +55,11 @@ pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr
 
 - ##### Related
 
-  > [`io.utils.chars.make`](./make.md)
+  > [`io.types.string.includes`](./includes.md)
 
-  > [`io.utils.chars.bytes`](./bytes.md)
+  > [`io.types.string.startsWith`](./startsWith.md)
 
-  > [`io.utils.chars.size`](./size.md)
+  > [`io.types.string.endsWith`](./endsWith.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

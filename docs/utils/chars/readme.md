@@ -39,7 +39,7 @@
         | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_                                             |
         | [`calc`](./api/calc.md) | Returns the number of characters in the string.                                          |
         | [`make`](./api/make.md) | Returns a _(`fixed-string`)_ with specified size and content.                            |
-        | [`get`](./api/get.md)   | Returns the (`unicode` or `char`) at the specified position_(`non-real`)_ in the string. |
+        | [`get`](./api/get.md)   | Returns the (`unicode` or `char`) at the specified position _(`non-real`)_ in the string. |
 
    - #### ➕ Insertion
 

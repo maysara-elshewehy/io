@@ -306,14 +306,14 @@
                 return chars.eql(_self.src(), _with);
             }
 
-            /// Returns true if the string starts with the given _(`string` or `char`)_.
+            /// Returns true if the string starts with the given (`string` or `char`).
             pub inline fn startsWith(_self: Self, _with: anytype) bool {
                 if(@TypeOf(_with) == Self) return _self.startsWith(_with.src());
 
                 return chars.startsWith(_self.src(), _with);
             }
 
-            /// Returns true if the string ends with the given _(`string` or `char`)_.
+            /// Returns true if the string ends with the given (`string` or `char`).
             pub inline fn endsWith(_self: Self, _with: anytype) bool {
                 if(@TypeOf(_with) == Self) return _self.startsWith(_with.src());
 

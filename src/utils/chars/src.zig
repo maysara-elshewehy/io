@@ -52,7 +52,7 @@
             else { return _it.len; }
         }
 
-        /// Returns the (`unicode` or `char`) at the specified position(non-real) in the string.
+        /// Returns the (`unicode` or `char`) at the specified position (non-real) in the string.
         pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr {
             if (utils.indexOf(_in, _pos)) |i| {
                 const l_size = utils.sizeOf(_in[i]);

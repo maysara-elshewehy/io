@@ -960,47 +960,47 @@
         }
 
         test "docs: eql" {
-            var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
-            try EQL(true, str.eql("==🌍🌟!!"));
-            try EQL(false, str.eql("==🌍🌟!"));
-            try EQL(false, str.eql("==🌍🌟!!!"));
+            var str = try string.initWith("=🌍🌟!"); defer str.deinit();
+            try EQL(false, str.eql(""));
+            try EQL(false, str.eql("====="));
+            try EQL(true, str.eql("=🌍🌟!"));
         }
 
         test "docs: startsWith" {
             var str = try string.initWith("=🌍🌟!"); defer str.deinit();
             try EQL(false, str.startsWith(""));
-            try EQL(true, str.startsWith('='));
             try EQL(false, str.startsWith("🌍"));
+            try EQL(true, str.startsWith('='));
         }
 
         test "docs: endsWith" {
             var str = try string.initWith("=🌍🌟!"); defer str.deinit();
             try EQL(false, str.endsWith(""));
-            try EQL(true, str.endsWith('!'));
             try EQL(false, str.endsWith("🌍"));
+            try EQL(true, str.endsWith('!'));
         }
 
         test "docs: startsWith Empty" {
             var str = try string.initWith(""); defer str.deinit();
-            try EQL(true, str.startsWith(""));
             try EQL(false, str.startsWith('='));
             try EQL(false, str.startsWith("🌍"));
+            try EQL(true, str.startsWith(""));
         }
 
         test "docs: endsWith Empty" {
             var str = try string.initWith(""); defer str.deinit();
-            try EQL(true, str.endsWith(""));
             try EQL(false, str.endsWith('!'));
             try EQL(false, str.endsWith("🌍"));
+            try EQL(true, str.endsWith(""));
         }
 
 
         test "docs: includes" {
-            var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
+            var str = try string.initWith("=🌍🌟!"); defer str.deinit();
             try EQL(true, str.includes('='));
             try EQL(true, str.includes("🌍"));
             try EQL(true, str.includes("🌟"));
-            try EQL(true, str.includes("!!"));
+            try EQL(true, str.includes("!"));
             try EQL(false, str.includes('@'));
         }
 
