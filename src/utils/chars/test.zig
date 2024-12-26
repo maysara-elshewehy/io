@@ -1113,7 +1113,7 @@
 
             // try EQ(!chars.startsWith(str[0..10], "")); // 👉 error, length must be > 0
             try EQ(!chars.startsWith(str[0..10], "🌍"));  // 👉 false
-            try EQ(chars.startsWith(str[0..10], "="));    // 👉 true
+            try EQ(chars.startsWith(str[0..10], '='));    // 👉 true
         }
 
         test "docs: endsWith" {
@@ -1121,7 +1121,7 @@
 
             // try EQ(!chars.endsWith(str[0..10], "")); // 👉 error, length must be > 0
             try EQ(!chars.endsWith(str[0..10], "🌟"));  // 👉 false
-            try EQ(chars.endsWith(str[0..10], "!"));    // 👉 true
+            try EQ(chars.endsWith(str[0..10], '!'));    // 👉 true
         }
 
         test "docs: includes" {

@@ -1,9 +1,9 @@
 # [←](../readme.md) `io`.`utils`.`chars`.`startsWith`
 
-> Returns true if the string starts with the given substring.
+> Returns true if the string starts with the given _(`string` or `char`)_.
 
 ```zig
-pub inline fn startsWith(_it: types.cstr, _with: types.cstr) bool
+pub inline fn startsWith(_it: types.cstr, _with: anytype) bool
 ```
 
 
@@ -18,9 +18,9 @@ pub inline fn startsWith(_it: types.cstr, _with: types.cstr) bool
         > The string to search inside.
 
 
-    - `_with` : `types.cstr`
+    - `_with` : `types.cstr` or `types.char`
 
-        > The string to search for.
+        > The value to search for.
 
 
 <div align="center">
@@ -45,7 +45,7 @@ pub inline fn startsWith(_it: types.cstr, _with: types.cstr) bool
     const str = chars.make(64, "=🌍🌟!");
 
     chars.startsWith(str[0..10], "🌍");  // 👉 false
-    chars.startsWith(str[0..10], "=");   // 👉 true
+    chars.startsWith(str[0..10], '=');   // 👉 true
 
     // 👉 error, length must be > 0
     // chars.startsWith(str[0..10], "");

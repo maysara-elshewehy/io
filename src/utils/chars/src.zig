@@ -276,16 +276,24 @@
             return std.mem.eql(u8, _str1[0..], _str2[0..]);
         }
 
-        /// Returns true if the string starts with the given substring.
-        pub inline fn startsWith(_it: types.cstr, _with: types.cstr) bool {
-            const i = std.mem.indexOf(u8, _it[0.._it.len], _with);
-            return i == 0;
+        /// Returns true if the string starts with the given (`string` or `char`).
+        pub inline fn startsWith(_it: types.cstr, _with: anytype) bool {
+            if(utils.isCtype(@TypeOf(_with))) {
+                return _it[0] == _with;
+            } else {
+                const i = std.mem.indexOf(u8, _it[0.._it.len], _with);
+                return i == 0;
+            }
         }
 
-        /// Returns true if the string ends with the given substring.
-        pub inline fn endsWith(_it: types.cstr, _with: types.cstr) bool {
-            const i = std.mem.lastIndexOf(u8, _it[0.._it.len], _with);
-            return i == _it.len - _with.len;
+        /// Returns true if the string ends with the given (`string` or `char`).
+        pub inline fn endsWith(_it: types.cstr, _with: anytype) bool {
+            if(utils.isCtype(@TypeOf(_with))) {
+                return _it[_it.len-1] == _with;
+            } else {
+                const i = std.mem.lastIndexOf(u8, _it[0.._it.len], _with);
+                return i == _it.len - _with.len;
+            }
         }
 
         /// Returns true if the string contains a (`string` or `char`).

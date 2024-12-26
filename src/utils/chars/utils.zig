@@ -108,7 +108,7 @@
         }
     }
 
-    /// Appends a substring or character into the end of the string.
+    /// Copies the given string to another string.
     pub inline fn copy(_to: types.str, _len: types.unsigned, _from: types.cstr) void {
         var i: types.unsigned = 0;
         while (i < _from.len) : (i += 1) { _to[_len + i] = _from[i]; }

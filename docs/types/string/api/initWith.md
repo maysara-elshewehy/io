@@ -1,6 +1,6 @@
 # [←](../readme.md) `io`.`types`.`string`.`initWith`
 
-> Initialize a string with an allocator and a given substring.
+> Initialize a string with an allocator and a given _(`string` or `char`)_.
 
 ```zig
 pub fn initWith(_it: anytype) anyerror!Self

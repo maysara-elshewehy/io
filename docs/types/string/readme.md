@@ -50,7 +50,7 @@
         | Method                          | Description                                                  |
         | ------------------------------- | ------------------------------------------------------------ |
         | [`init`](./api/init.md)         | Initialize an empty string.                                  |
-        | [`initWith`](./api/initWith.md) | Initialize a string with an allocator and a given substring. |
+        | [`initWith`](./api/initWith.md) | Initialize a string with an allocator and a given _(`string` or `char`)_. |
         | [`deinit`](./api/initWith.md)   | Deallocate the string buffer.                                |
         | [`allocate`](./api/initWith.md) | Allocate or reallocate the string buffer to a new size.      |
 
@@ -105,8 +105,8 @@
         | ----------------------------------- | ------------------------------------------------------------- |
         | [`eql`](./api/eql.md)               | Returns true if the given strings are equivalent.             |
         | [`includes`](./api/includes.md)     | Returns true if the string contains a _(`string` or `char`)_. |
-        | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given substring.     |
-        | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given substring.   |
+        | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given _(`string` or `char`)_.     |
+        | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given _(`string` or `char`)_.   |
 
    - #### ✍️ Writer
 

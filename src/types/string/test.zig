@@ -969,12 +969,14 @@
         test "docs: startsWith" {
             var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
             try EQL(true, str.startsWith("=="));
+            try EQL(true, str.startsWith('='));
             try EQL(false, str.startsWith("🌍"));
         }
 
         test "docs: endsWith" {
             var str = try string.initWith("==🌍🌟!!"); defer str.deinit();
             try EQL(true, str.endsWith("!!"));
+            try EQL(true, str.endsWith('!'));
             try EQL(false, str.endsWith("🌍"));
         }
 

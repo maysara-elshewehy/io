@@ -66,7 +66,7 @@
                 };
             }
 
-            /// Initialize a string with an allocator and a given substring.
+            /// Initialize a string with an allocator and a given _(`string` or `char`)_.
             pub fn initWith(_it: anytype) anyerror!Self {
                 var l_str = init();
                 try l_str.append(_it);
@@ -305,16 +305,24 @@
                 return chars.eql(_self.src(), _with);
             }
 
-            /// Returns true if the string starts with the given substring.
-            pub inline fn startsWith(_self: Self, _with: types.cstr) bool {
-                if(_self.m_bytes < _with.len) return false;
-                return chars.startsWith(_self.src(), _with);
+            /// Returns true if the string starts with the given _(`string` or `char`)_.
+            pub inline fn startsWith(_self: Self, _with: anytype) bool {
+                if(chars.utils.isCtype(@TypeOf(_with))) {
+                    if(_self.m_bytes == 0) return false;
+                    return _self.src()[0] == _with;
+                } else {
+                    return chars.startsWith(_self.src(), _with);
+                }
             }
 
-            /// Returns true if the string ends with the given substring.
-            pub inline fn endsWith(_self: Self, _with: types.cstr) bool {
-                if(_self.m_bytes < _with.len) return false;
-                return chars.endsWith(_self.src(), _with);
+            /// Returns true if the string ends with the given _(`string` or `char`)_.
+            pub inline fn endsWith(_self: Self, _with: anytype) bool {
+                if(chars.utils.isCtype(@TypeOf(_with))) {
+                    if(_self.m_bytes == 0) return false;
+                    return _self.src()[_self.m_bytes - 1] == _with;
+                } else {
+                    return chars.endsWith(_self.src(), _with);
+                }
             }
 
             /// Returns true if the string contains a (`string` or `char`).
