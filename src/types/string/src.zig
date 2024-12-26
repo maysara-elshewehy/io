@@ -151,7 +151,7 @@
                     if(chars.utils.isUtype(@TypeOf(_it))) {
                         if(chars.utils.indexOf(m_buff[0.._self.m_bytes], _it)) |l_pos| {
                             const l_beg = l_pos - chars.utils.begOf(m_buff[0..], l_pos);
-                            const l_count : types.unsigned = chars.utils.sizeOf(m_buff[l_beg]);
+                            const l_count = chars.utils.sizeOf(m_buff[l_beg]);
                             chars.removeReal(m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
                             _self.m_bytes -= l_count;
                         } else unreachable;
@@ -168,11 +168,10 @@
             pub inline fn removeReal(_self: *Self, _it: anytype) void {
                 if(_self.m_bytes == 0) return;
 
-                const l_pos = _it;
                 if(_self.m_buff) |m_buff| {
                     if(chars.utils.isUtype(@TypeOf(_it))) {
-                        const l_beg = l_pos - chars.utils.begOf(m_buff[0..], l_pos);
-                        const l_count : types.unsigned = chars.utils.sizeOf(m_buff[l_beg]);
+                        const l_beg = _it - chars.utils.begOf(m_buff[0..], _it);
+                        const l_count = chars.utils.sizeOf(m_buff[l_beg]);
                         chars.removeReal(m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
                         _self.m_bytes -= l_count;
                     }
@@ -231,12 +230,8 @@
 
             /// Removes all matching characters fromt both `beg` and `end` of the string.
             pub inline fn trim(_self: *Self, _char: types.char) void {
-                if(_self.m_bytes == 0) return;
-
-                if(_self.m_buff) |m_buff| {
-                    const l_count = chars.trim(m_buff[0.._self.m_bytes], _char);
-                    _self.m_bytes -= if(l_count == _self.m_bytes) _self.m_bytes else l_count;
-                } else unreachable;
+                _self.trimStart(_char);
+                _self.trimEnd(_char);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -246,20 +241,16 @@
 
             /// Returns the first occurrence of a (`string` or `char`) in the string.
             pub inline fn find(_self: *Self, _it: anytype) ?types.unsigned {
-                if(_self.m_bytes > 0) {
-                    if(@TypeOf(_it) == Self) return _self.find(_it.src());
-                    return chars.find(_self.src(), _it);
-                }
-                return null;
+                if(@TypeOf(_it) == Self) return _self.find(_it.src());
+
+                return if(_self.m_bytes > 0) chars.find(_self.src(), _it) else null;
             }
 
             /// Returns the last occurrence of a (`string` or `char`) in the string.
             pub inline fn rfind(_self: *Self, _it: anytype) ?types.unsigned {
-                if(_self.m_bytes > 0) {
-                    if(@TypeOf(_it) == Self) return _self.rfind(_it.src());
-                    return chars.rfind(_self.src(), _it);
-                }
-                return null;
+                if(@TypeOf(_it) == Self) return _self.rfind(_it.src());
+
+                return if(_self.m_bytes > 0) chars.rfind(_self.src(), _it) else null;
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -270,28 +261,19 @@
             /// Converts all (ASCII) letters to lowercase.
             pub inline fn toLower(_self: *Self) void {
                 if(_self.m_bytes == 0) return;
-
-                if(_self.m_buff) |m_buff| {
-                    chars.toLower(m_buff[0.._self.m_bytes]);
-                }
+                if(_self.m_buff) |m_buff| { chars.toLower(m_buff[0.._self.m_bytes]); }
             }
 
             /// Converts all (ASCII) letters to uppercase.
             pub inline fn toUpper(_self: *Self) void {
                 if(_self.m_bytes == 0) return;
-
-                if(_self.m_buff) |m_buff| {
-                    chars.toUpper(m_buff[0.._self.m_bytes]);
-                }
+                if(_self.m_buff) |m_buff| { chars.toUpper(m_buff[0.._self.m_bytes]); }
             }
 
             // Converts all (ASCII) words to titlecase.
             pub inline fn toTitle(_self: *Self) void {
                 if(_self.m_bytes == 0) return;
-
-                if(_self.m_buff) |m_buff| {
-                    chars.toTitle(m_buff[0.._self.m_bytes]);
-                }
+                if(_self.m_buff) |m_buff| { chars.toTitle(m_buff[0.._self.m_bytes]); }
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -324,6 +306,45 @@
             pub inline fn includes(_self: Self, _it: anytype) bool {
                 if(@TypeOf(_it) == Self) return _self.includes(_it.src());
                 return chars.includes(_self.src(), _it);
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌─────────────────────────── REPLACE ──────────────────────────┐
+
+            /// Replaces the first `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
+            pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) anyerror!types.unsigned {
+                if(_self.m_bytes > 0) {
+                    if(_self.m_buff) |m_buff| {
+                        const l_size = chars.replacementSize(m_buff[0.._self.m_bytes], _it, _count);
+                        const l_withLen = chars.size(_with); // if char: 1, if unicode: 4, if string: size of array
+                        const l_newLen = _self.m_bytes + (if(_count > 0) l_withLen * _count else l_withLen) - l_size;
+                        try __alloc(_self, l_newLen);
+
+                        _ = chars.replace(m_buff[0..], _self.m_bytes, _it, _with, _count);
+                        _self.m_bytes = l_newLen;
+                        return l_size;
+                    }
+                }
+                return 0;
+            }
+
+            /// Replaces the last `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
+            pub inline fn rreplace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) anyerror!types.unsigned {
+                if(_self.m_bytes > 0) {
+                    if(_self.m_buff) |m_buff| {
+                        const l_size = chars.replacementSize(m_buff[0.._self.m_bytes], _it, _count);
+                        const l_withLen = chars.size(_with); // if char: 1, if unicode: 4, if string: size of array
+                        const l_newLen = _self.m_bytes + (if(_count > 0) l_withLen * _count else l_withLen) - l_size;
+                        try __alloc(_self, l_newLen);
+
+                        _ = chars.rreplace(m_buff[0..], _self.m_bytes, _it, _with, _count);
+                        _self.m_bytes = l_newLen;
+                        return l_size;
+                    }
+                }
+                return 0;
             }
 
         // └──────────────────────────────────────────────────────────────┘

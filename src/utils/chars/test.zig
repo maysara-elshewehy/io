@@ -725,8 +725,8 @@
             try EQLS("0011==11==11", res[0..12]);
 
             const r2 = chars.replace(res[0..], 12, "==", "00", 2);
-            try EQL(2, r2);
             try EQLS("001100110011", res[0..12]);
+            try EQL(2, r2);
 
             const r3 = chars.replace(res[0..], 12, "11", "==", 0);
             try EQL(3, r3);
@@ -738,11 +738,11 @@
             chars.append(res[0..], 0, "🌍🌟🌍🌟🌍🌟");
 
             const r1 = chars.replace(res[0..], 24, "🌍", "!", 1);
-            try EQL(1, r1);
+            try EQL(4, r1);
             try EQLS("!🌟🌍🌟🌍🌟", res[0..21]);
 
             const r2 = chars.replace(res[0..], 24, "🌍", "!", 2);
-            try EQL(2, r2);
+            try EQL(8, r2);
             try EQLS("!🌟!🌟!🌟", res[0..15]);
         }
 
@@ -785,11 +785,11 @@
             chars.append(res[0..], 0, "🌍🌟🌍🌟🌍🌟");
 
             const r1 = chars.rreplace(res[0..], 24, "🌍", "!", 1);
-            try EQL(1, r1);
+            try EQL(4, r1);
             try EQLS("🌍🌟🌍🌟!🌟", res[0..21]);
 
             const r2 = chars.rreplace(res[0..], 24, "🌍", "!", 2);
-            try EQL(2, r2);
+            try EQL(8, r2);
             try EQLS("!🌟!🌟!🌟", res[0..15]);
         }
 
@@ -1134,6 +1134,109 @@
             try EQ(!chars.includes(res[0..10], '@'));   // 👉 false
         }
 
+        test "docs: replace" {
+            var res = chars.make(64, "==🌍🌟!!");
+
+            // replace character.
+            try EQL(1, chars.replace(res[0..], 12, '=', '@', 1));    // 👉 (res = 1), "@=🌍🌟!!"
+            try EQLS("@=🌍🌟!!", res[0..12]);
+
+            // replace unicode.
+            try EQL(4, chars.replace(res[0..], 12, "🌍", '!', 1));   // 👉 (res = 4), "@=!🌟!!"
+            try EQLS("@=!🌟!!", res[0..9]);
+
+            // replace string.
+            try EQL(4, chars.replace(res[0..], 9, "🌟", '!', 1));    // 👉 (res = 4), "@=!!!!"
+            try EQLS("@=!!!!", res[0..6]);
+        }
+
+        test "docs: replace (just to be sure about somethings)" {
+            // replace a character with a character
+            {
+                var res = chars.make(64, "0123");
+
+                // replace a #1 character in a string with a character
+                try EQL(1, chars.replace(res[0..], 4, '0', 'A', 1)); // 👉 (res = 1), "A123"
+                try EQLS("A123", res[0..4]);
+
+                // replace a #2 character in a string with a character
+                try EQL(1, chars.replace(res[0..], 4, '1', 'B', 1)); // 👉 (res = 1), "AB23"
+                try EQLS("AB23", res[0..4]);
+
+                // replace a #3 character in a string with a character
+                try EQL(1, chars.replace(res[0..], 4, '2', 'C', 1)); // 👉 (res = 1), "ABC3"
+                try EQLS("ABC3", res[0..4]);
+
+                // replace a #4 character in a string with a character
+                try EQL(1, chars.replace(res[0..], 4, '3', 'D', 1)); // 👉 (res = 1), "ABCD"
+                try EQLS("ABCD", res[0..4]);
+            }
+
+            // replace a character with a string
+            {
+                var res = chars.make(64, "0123");
+                try EQL(1, chars.replace(res[0..], 4, '0', "A", 1)); // 👉 (res = 1), "A123"
+                try EQLS("A123", res[0..4]);
+            }
+
+            // replace a character with a long string
+            {
+                var res = chars.make(64, "0123");
+                try EQL(1, chars.replace(res[0..], 4, '0', "ABC", 1)); // 👉 (res = 1), "ABC123"
+                try EQLS("ABC123", res[0..6]);
+            }
+
+            // replace a string with a character
+            {
+                var res = chars.make(64, "0123");
+                try EQL(1, chars.replace(res[0..], 4, "0", 'A', 1)); // 👉 (res = 1), "A123"
+                try EQLS("A123", res[0..4]);
+            }
+
+            // replace a long string with a character
+            {
+                var res = chars.make(64, "0123");
+                try EQL(1, chars.replace(res[0..], 4, "012", 'A', 1)); // 👉 (res = 1), "A3"
+                try EQLS("A3", res[0..2]);
+            }
+
+            // replace a string with a string
+            {
+                var res = chars.make(64, "0123");
+                try EQL(1, chars.replace(res[0..], 4, "0", "A", 1)); // 👉 (res = 1), "A123"
+                try EQLS("A123", res[0..4]);
+            }
+
+            // replace a character with unicode
+            {
+                var res = chars.make(64, "0123");
+                try EQL(1, chars.replace(res[0..], 4, '0', "🌍", 1)); // 👉 (res = 1), "🌍123"
+                try EQLS("🌍123", res[0..7]);
+            }
+
+            // replace a unicode with character
+            {
+                var res = chars.make(64, "🌍123");
+                try EQL(4, chars.replace(res[0..], 7, "🌍", 'A', 1)); // 👉 (res = 1), "A123"
+                try EQLS("A123", res[0..4]);
+            }
+        }
+
+        test "docs: rreplace" {
+            var res = chars.make(64, "==🌍🌟!!");
+
+            // replace character.
+            try EQL(1, chars.rreplace(res[0..], 12, '=', '@', 1));    // 👉 (res = 1), "=@🌍🌟!!"
+            try EQLS("=@🌍🌟!!", res[0..12]);
+
+            // replace unicode.
+            try EQL(4, chars.rreplace(res[0..], 12, "🌍", '!', 1));   // 👉 (res = 4), "=@!🌟!!"
+            try EQLS("=@!🌟!!", res[0..9]);
+
+            // replace string.
+            try EQL(4, chars.rreplace(res[0..], 9, "🌟", '!', 1));    // 👉 (res = 4), "=@!!!!"
+            try EQLS("=@!!!!", res[0..6]);
+        }
 
     // └──────────────────────────────────────────────────────────────┘
 

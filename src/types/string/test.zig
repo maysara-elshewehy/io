@@ -1004,6 +1004,38 @@
             try EQL(false, str.includes('@'));
         }
 
+        test "docs: replace" {
+            var str = try string.initWith("==🌍🌍🌟!!"); defer str.deinit();
+
+            // replace character.
+            try EQL(1, try str.replace('=', '@', 1));    // 👉 (res = 1), "@=🌍🌍🌟!!"
+            try EQLS("@=🌍🌍🌟!!", str.src());
+
+            // replace unicode.
+            try EQL(8, try str.replace("🌍", '!', 2));   // 👉 (res = 1), "@=!!🌟!!"
+            try EQLS("@=!!🌟!!", str.src());
+
+            // replace string.
+            try EQL(4, try str.replace("🌟", '!', 1));    // 👉 (res = 1), "@=!!!!!"
+            try EQLS("@=!!!!!", str.src());
+        }
+
+        test "docs: rreplace" {
+            var str = try string.initWith("==🌍🌍🌟!!"); defer str.deinit();
+
+            // replace character.
+            try EQL(1, str.rreplace('=', '@', 1));    // 👉 (res = 1), "=@🌍🌍🌟!!"
+            try EQLS("=@🌍🌍🌟!!", str.src());
+
+            // replace unicode.
+            try EQL(8, str.rreplace("🌍", '!', 2));   // 👉 (res = 1), "=@!!🌟!!"
+            try EQLS("=@!!🌟!!", str.src());
+
+            // replace string.
+            try EQL(4, str.rreplace("🌟", '!', 1));    // 👉 (res = 1), "=@!!!!!"
+            try EQLS("=@!!!!!", str.src());
+        }
+
     // └──────────────────────────────────────────────────────────────┘
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

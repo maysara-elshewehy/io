@@ -19,6 +19,12 @@
         return T == types.unsigned or T == comptime_int;
     }
 
+    /// Returns true if the given argument is a valid solo type.
+    pub inline fn isSoloType(comptime T: type) bool {
+        const I = @typeInfo(T);
+        return I != .Struct and I != .Array;
+    }
+
     /// Returns true if a byte is part of a multi-byte Unicode character.
     pub inline fn isPartOfUTF8(_byte: types.char) bool {
         return ((_byte & 0x80) > 0) and (((_byte << 1) & 0x80) == 0);
@@ -51,11 +57,8 @@
 
     /// Returns the real range of the given position.
     pub inline fn rangeOf(_it: types.cstr, _pos: anytype) types.range {
-        if(isUtype(@TypeOf(_pos))) {
-            if(indexOf(_it, _pos)) |l_pos| { return realRangeOf(_it, l_pos); }
-            else unreachable;
-        }
-        else {
+        if(!isSoloType(@TypeOf(_pos))) {
+
             var l_range: types.range = _pos;
 
             // get beg of first elem
@@ -66,19 +69,24 @@
 
             return l_range;
         }
+        else {
+            if(indexOf(_it, _pos)) |l_pos| { return realRangeOf(_it, l_pos); }
+            else unreachable;
+        }
     }
 
     /// Returns the real range of the given position (The real position).
     pub inline fn realRangeOf(_it: types.cstr, _pos: anytype) types.range {
-        if(isUtype(@TypeOf(_pos))) {
+        if(!isSoloType(@TypeOf(_pos))) {
+            return _pos;
+        } else {
+
             var l_range: types.range = .{ _pos, _pos+1 };
             if(sizeOf(_it[_pos]) > 1) {
                 l_range[0] = _pos - begOf(_it[0..], _pos);
                 l_range[1] = _pos + sizeOf(_it[l_range[0]]);
             }
             return l_range;
-        } else {
-            return _pos;
         }
     }
 
@@ -117,6 +125,16 @@
     /// Prints the given string (followed by a newline) to the console.
     pub inline fn print(_str: types.cstr) void {
         std.debug.print("{s}\n", .{_str});
+    }
+
+    /// Changes the case of the given string.
+    pub inline fn changeCase(_it: types.str, func: fn (types.char) types.char) void {
+        var i: types.unsigned = 0;
+        while (i < _it.len) {
+            const l_size = sizeOf(_it[i]);
+            if (l_size == 1) _it[i] = func(_it[i]);
+            i += l_size;
+        }
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

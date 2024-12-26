@@ -236,22 +236,12 @@
 
         /// Converts all (ASCII) letters to lowercase.
         pub inline fn toLower(_it: types.str) void {
-            var i: types.unsigned = 0;
-            while (i < _it.len) {
-                const l_size = utils.sizeOf(_it[i]);
-                if (l_size == 1) _it[i] = std.ascii.toLower(_it[i]);
-                i += l_size;
-            }
+            return utils.changeCase(_it, std.ascii.toLower);
         }
 
         /// Converts all (ASCII) letters to uppercase.
         pub inline fn toUpper(_it: types.str) void {
-            var i: types.unsigned = 0;
-            while (i < _it.len) {
-                const l_size = utils.sizeOf(_it[i]);
-                if (l_size == 1) _it[i] = std.ascii.toUpper(_it[i]);
-                i += l_size;
-            }
+            return utils.changeCase(_it, std.ascii.toUpper);
         }
 
         // Converts all (ASCII) words to titlecase.
@@ -319,34 +309,56 @@
 
     // ┌─────────────────────────── REPLACE ──────────────────────────┐
 
+        /// This function calc how much bytes will be removed. (But not remove them)
+        pub inline fn replacementSize(_in: types.str, _it: anytype, _count: types.unsigned) types.unsigned {
+            var i = find(_in[0..], _it);
+            var l_bytes: types.unsigned = 0;
+            var l_count : types.unsigned = 0;
+            while (i != null) {
+                const l_size = utils.sizeOf(_in[i.?]);
+                l_bytes += l_size;
+                l_count += 1;
+                if(l_count == _count) break;
+                i = find(_in[0..], _it);
+            }
+            return l_bytes;
+        }
+
         /// Replaces the first `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
         pub inline fn replace(_in: types.str, _len: types.unsigned, _it: anytype, _with: anytype, _count: types.unsigned) types.unsigned {
             var i = find(_in[0..], _it);
             var l_count: types.unsigned = 0;
-            const it_len = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
+            var l_removedBytes: types.unsigned = 0;
+            const l_bytesOfIt = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
             while (i != null) {
-                removeReal(_in[0..], .{ i.?, i.? + it_len });
-                insertReal(_in[0..], _len-it_len, _with, i.?);
-                i = find(_in[0..], _it);
+                const l_size = utils.sizeOf(_in[i.?]);
+                removeReal(_in[0..], .{ i.?, i.? + l_bytesOfIt });
+                insertReal(_in[0..], _len-l_bytesOfIt, _with, i.?);
+                l_removedBytes += l_size;
                 l_count += 1;
-                if (l_count == _count) break;
+                if(l_count == _count) break;
+                i = find(_in[0..], _it);
+
             }
-            return l_count;
+            return l_removedBytes;
         }
 
         /// Replaces the last `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
         pub inline fn rreplace(_in: types.str, _len: types.unsigned, _it: anytype, _with: anytype, _count: types.unsigned) types.unsigned {
             var i = rfind(_in[0..], _it);
             var l_count: types.unsigned = 0;
-            const it_len = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
+            var l_removedBytes: types.unsigned = 0;
+            const l_bytesOfIt = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
             while (i != null) {
-                removeReal(_in[0..], .{ i.?, i.? + it_len });
-                insertReal(_in[0..], _len-it_len, _with, i.?);
-                i = rfind(_in[0..], _it);
+                const l_size = utils.sizeOf(_in[i.?]);
+                removeReal(_in[0..], .{ i.?, i.? + l_bytesOfIt });
+                insertReal(_in[0..], _len-l_bytesOfIt, _with, i.?);
+                l_removedBytes += l_size;
                 l_count += 1;
-                if (l_count == _count) break;
+                if(l_count == _count) break;
+                i = rfind(_in[0..], _it);
             }
-            return l_count;
+            return l_removedBytes;
         }
 
     // └──────────────────────────────────────────────────────────────┘
