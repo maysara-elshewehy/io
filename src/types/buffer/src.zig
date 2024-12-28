@@ -367,7 +367,6 @@
 
                     /// Returns a writer for the string.
                     pub fn writer(_self: *Self) Writer {
-                        std.debug.print("m_bytes: {d} \n", .{_self.m_bytes});
                         return .{ .context = _self };
                     }
 
