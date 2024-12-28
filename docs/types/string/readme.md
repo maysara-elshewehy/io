@@ -108,6 +108,13 @@
         | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given _(`string` or `char`)_.    |
         | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given _(`string` or `char`)_.  |
 
+    - #### 🔄 Replace
+
+        | Method                          | Description                                                                                                    |
+        | ------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+        | [`replace`](./api/replace.md)   | Replaces the first `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements. |
+        | [`rreplace`](./api/rreplace.md) | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
+
    - #### ✍️ Writer
 
         | Method                                | Description                                                                     |
@@ -118,13 +125,6 @@
         | [`writeStart`](./api/writeStart.md)   | Writes a _(`formatted string`)_ into the `beg` of the string.                   |
         | [`writeAt`](./api/writeAt.md)         | Writes a _(`formatted string`)_ into a `specific position` in the string.       |
         | [`writeAtReal`](./api/writeAtReal.md) | Writes a _(`formatted string`)_ into a `specific real  position` in the string. |
-
-    - #### 🔄 Replace
-
-        | Method                          | Description                                                                                                    |
-        | ------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-        | [`replace`](./api/replace.md)   | Replaces the first `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements. |
-        | [`rreplace`](./api/rreplace.md) | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
 
    - #### ➡️ Iterator
 
