@@ -160,14 +160,11 @@
             try str.insert("🌍", 6);
             try str.insert("!", 7);
             try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);
-            std.debug.print("={d}, {s} << \n", .{str.bytes(), str.m_buff[0..str.m_bytes]});
 
             try str.insert("🌟", 8);
-            std.debug.print("=={d}, {s} << \n", .{str.bytes(), str.m_buff[0..str.m_bytes]});
             try EQLS("Hello 🌍!🌟", str.m_buff[0..str.m_bytes]);
 
             try str.insert("🌍", 9);
-            std.debug.print("==={d}, {s} << \n", .{str.bytes(), str.m_buff[0..str.m_bytes]});
             try EQLS("Hello 🌍!🌟🌍", str.m_buff[0..str.m_bytes]);
 
             try str.insert("!", 10);
