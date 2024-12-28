@@ -393,7 +393,7 @@
                     pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) Error!void {
                         const l_count = std.fmt.count(_fmt, _args);
                         if ( (_self.m_bytes + l_count) > _self.m_size) { return Error.OutOfMemory; }
-                        chars.utils.move_right(_self.m_buff[0.._self.m_size], 0, _self.m_bytes, l_count);
+                        chars.utils.moveRight(_self.m_buff[0.._self.m_size], 0, _self.m_bytes, l_count);
                         var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff[0..]);
                         const l_writer = l_fixedBufferStream.writer();
                         l_writer.print(_fmt, _args) catch return Error.FmtError;
@@ -419,7 +419,7 @@
                         const l_count = std.fmt.count(_fmt, _args);
                         if ( (_pos + l_count) > _self.m_size) { return Error.OutOfMemory; }
                         const l_beg = _pos - chars.utils.begOf(_self.m_buff[0..], _pos);
-                        chars.utils.move_right(_self.m_buff[0..], l_beg, _self.m_bytes-l_beg, l_count);
+                        chars.utils.moveRight(_self.m_buff[0..], l_beg, _self.m_bytes-l_beg, l_count);
 
                         var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff[l_beg..]);
                         const l_writer = l_fixedBufferStream.writer();

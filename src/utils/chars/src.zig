@@ -79,10 +79,10 @@
         /// Inserts a (`string` or `char`) into the beginning of the string.
         pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void {
             if (utils.isCtype(_it)) {
-                utils.move_right(_to[0..], 0, _len, 1);
+                utils.moveRight(_to[0..], 0, _len, 1);
                 _to[0] = _it;
             } else {
-                utils.move_right(_to[0..], 0, _len, _it.len);
+                utils.moveRight(_to[0..], 0, _len, _it.len);
                 utils.copy(_to, 0, _it);
             }
         }
@@ -99,10 +99,10 @@
 
             const _i = _pos + utils.begOf(_to[0..], _pos);
             if (utils.isCtype(_it)) {
-                utils.move_right(_to[0..], _i, _len, 1);
+                utils.moveRight(_to[0..], _i, _len, 1);
                 _to[_i] = _it;
             } else {
-                utils.move_right(_to[0..], _i, _len-_i, _it.len);
+                utils.moveRight(_to[0..], _i, _len-_i, _it.len);
                 utils.copy(_to, _i, _it);
             }
         }

@@ -82,7 +82,6 @@
         if(!isSoloType(@TypeOf(_pos))) {
             return _pos;
         } else {
-
             var l_range: types.range = .{ _pos, _pos+1 };
             if(sizeOf(_it[_pos]) > 1) {
                 l_range[0] = _pos - begOf(_it[0..], _pos);
@@ -97,7 +96,7 @@
     /// `_start`: Starting index of the range to move.
     /// `_count`: Number of elements to move.
     /// `_shift`: Number of positions to shift the elements to the right.
-    pub inline fn move_right(_src: types.str, _start: types.unsigned, _count: types.unsigned, _shift: types.unsigned) void {
+    pub inline fn moveRight(_src: types.str, _start: types.unsigned, _count: types.unsigned, _shift: types.unsigned) void {
         if (_shift == 0 or _count == 0) return;
         var i: types.unsigned = _start + _count;
         while (i > _start) : (i -= 1) {
@@ -110,7 +109,7 @@
     /// `_start`: Starting index of the range to move.
     /// `_count`: Number of elements to move.
     /// `_shift`: Number of positions to shift the elements to the left.
-    pub inline fn move_left(_src: types.str, _start: types.unsigned, _count: types.unsigned, _shift: types.unsigned) void {
+    pub inline fn moveLeft(_src: types.str, _start: types.unsigned, _count: types.unsigned, _shift: types.unsigned) void {
         if (_shift == 0 or _count == 0) return;
         var i: types.unsigned = _start;
         while (i < _start + _count) : (i += 1) {

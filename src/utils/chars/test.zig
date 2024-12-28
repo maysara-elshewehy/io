@@ -95,7 +95,7 @@
             try EQL(.{9, 10}, chars.utils.rangeOf(str, 3));
         }
 
-        test "move_right" {
+        test "moveRight" {
             var str : [64]chars.types.char = undefined;
             str[0] = 'H';
             str[1] = '-';
@@ -106,27 +106,27 @@
             try EQLS("H-ello", str[0..6]);
 
             // "H-ello" => "HHello"
-            chars.utils.move_right(&str, 0, 1, 1);
+            chars.utils.moveRight(&str, 0, 1, 1);
             try EQLS("HHello", str[0..6]);
 
             // "HHello" => "HHeHeo"
-            chars.utils.move_right(&str, 1, 2, 2);
+            chars.utils.moveRight(&str, 1, 2, 2);
             try EQLS("HHeHeo", str[0..6]);
 
             // "HHeHeo" => "HHHHeo"
-            chars.utils.move_right(&str, 1, 1, 1);
+            chars.utils.moveRight(&str, 1, 1, 1);
             try EQLS("HHHHeo", str[0..6]);
 
             // "HHHHeo" => "HHHHeH"
-            chars.utils.move_right(&str, 3, 1, 2);
+            chars.utils.moveRight(&str, 3, 1, 2);
             try EQLS("HHHHeH", str[0..6]);
 
             // "HHHHeH" => "HHHHHH"
-            chars.utils.move_right(&str, 3, 1, 1);
+            chars.utils.moveRight(&str, 3, 1, 1);
             try EQLS("HHHHHH", str[0..6]);
         }
 
-        test "move_left" {
+        test "moveLeft" {
             var str : [64]chars.types.char = undefined;
             str[0] = 'H';
             str[1] = '-';
@@ -137,11 +137,11 @@
             try EQLS("H-ello", str[0..6]);
 
             // "H-ello" => "Helllo"
-            chars.utils.move_left(&str, 2, 3, 1);
+            chars.utils.moveLeft(&str, 2, 3, 1);
             try EQLS("Helllo", str[0..6]);
 
             // "Helllo" => "Hello"
-            chars.utils.move_left(&str, 5, 1, 1);
+            chars.utils.moveLeft(&str, 5, 1, 1);
             try EQLS("Hello", str[0..5]);
         }
 
