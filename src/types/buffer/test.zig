@@ -566,7 +566,7 @@
     // ┌─────────────────────────── WRITER ───────────────────────────┐
 
         test "Make a writer for a string and write some string using print function (fmt)" {
-            var _buf = chars.make(64, null); var str = buffer(&_buf);
+            var buf = chars.make(64, null); var str = buffer(&buf);
 
             try EQL(0, str.bytes());
             const writer = str.writer();
@@ -581,7 +581,7 @@
     // ┌────────────────────────── ITERATOR ──────────────────────────┐
 
         test "Iterate over a string" {
-            var _buf = chars.make(64, null); var str = buffer(&_buf); try str.append("Hello 🌍");
+            var buf = chars.make(64, "Hello 🌍"); var str = buffer(&buf);
 
             var i: chars.types.unsigned = 0;
             var iter = str.iterator();
@@ -597,13 +597,12 @@
     // ┌──────────────────────────── DOCS ────────────────────────────┐
 
         test "readme example" {
-            var _buf = chars.make(64, null);    // Creates a fixed array of characters.
-            var str = buffer(&_buf);            // Creates a new buffer structure.
+            var buf = chars.make(64, "Hello 🌍!"); // Creates a fixed array of characters.
+            var str = buffer(&buf);                // Creates a new buffer structure.
 
-            try str.append("Hello 🌍!");        // 👉 "Hello 🌍!"
-            try EQL(8, str.ubytes());           // 👉 8     (Unicode characters are counted as regular characters).
-            try EQL(11, str.bytes());           // 👉 11    Regular characters = 1, Unicode characters = 4.
-            try EQL(64, str.size());            // 👉 64    Total size of the array.
+            try EQL(8, str.ubytes());               // 👉 8     (Unicode characters are counted as regular characters).
+            try EQL(11, str.bytes());               // 👉 11    Regular characters = 1, Unicode characters = 4.
+            try EQL(64, str.size());                // 👉 64    Total size of the array.
             try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);   // 👉 "Hello 🌍!"
         }
 
@@ -870,7 +869,7 @@
 
 
         test "docs: includes" {
-            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+            var _buf = chars.make(64, "=🌍🌟!"); var str = buffer(&_buf);
             try EQL(true, str.includes('='));
             try EQL(true, str.includes("🌍"));
             try EQL(true, str.includes("🌟"));
@@ -879,7 +878,7 @@
         }
 
         test "docs: replace" {
-            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("==🌍🌍🌟!!");
+            var _buf = chars.make(64, "==🌍🌍🌟!!"); var str = buffer(&_buf);
 
             // replace character.
             try EQL(1, try str.replace('=', '@', 1));    // 👉 (res = 1), "@=🌍🌍🌟!!"
@@ -895,7 +894,7 @@
         }
 
         test "docs: rreplace" {
-            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("==🌍🌍🌟!!");
+            var _buf = chars.make(64, "==🌍🌍🌟!!"); var str = buffer(&_buf);
 
             // replace character.
             try EQL(1, str.rreplace('=', '@', 1));    // 👉 (res = 1), "=@🌍🌍🌟!!"
@@ -932,14 +931,14 @@
         }
 
         test "docs: reverse" {
-            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+            var _buf = chars.make(64, "=🌍🌟!"); var str = buffer(&_buf);
 
             str.reverse(); // 👉 "!🌟🌍="
             try EQLS("!🌟🌍=", str.m_buff[0..str.m_bytes]);
         }
 
         test "docs: split" {
-            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("🌍1🌍🌍2🌍🌍3🌍");
+            var _buf = chars.make(64, "🌍1🌍🌍2🌍🌍3🌍"); var str = buffer(&_buf);
 
             try EQLS(str.split("🌍", 0).?,  ""); // 👉 ""
             try EQLS(str.split("🌍", 1).?, "1"); // 👉 "1"
@@ -950,7 +949,7 @@
         }
 
         test "docs: split using character" {
-            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
+            var _buf = chars.make(64, ",1,,2,,3,"); var str = buffer(&_buf);
 
             try EQLS(str.split(',', 0).?,  ""); // 👉 ""
             try EQLS(str.split(',', 1).?, "1"); // 👉 "1"
@@ -961,7 +960,7 @@
         }
 
         test "docs: splitAll using character" {
-            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
+            var _buf = chars.make(64, ",1,,2,,3,"); var str = buffer(&_buf);
 
             const res = try str.splitAll(',');
 

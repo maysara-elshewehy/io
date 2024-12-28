@@ -1,6 +1,6 @@
 # [←](../readme.md) `io`.`utils`.`chars`.`make`
 
-> Returns a _(`fixed-string`)_ with specified size and content.
+> Returns an _(`array of characters`)_ with specified size and content _(terminated with `\0`)_.
 
 ```zig
 pub inline fn make(comptime _size: comptime_int, comptime _with :?types.cstr) [_size]types.char
@@ -44,7 +44,7 @@ pub inline fn make(comptime _size: comptime_int, comptime _with :?types.cstr) [_
     var str = chars.make(64, null);
 
     // equals to
-    // var str : [64]u8 = undefined;
+    // var str : [64]u8 = .{0} ** 64;
     ```
 
     ```zig
@@ -52,7 +52,7 @@ pub inline fn make(comptime _size: comptime_int, comptime _with :?types.cstr) [_
     var str = chars.make(64, "=🌍🌟!");
 
     // equals to
-    // var str : [64]u8 = undefined;
+    // var str : [64]u8 = .{0} ** 64;
     // chars.append(str[0..], 0, "=🌍🌟!");
     ```
 

@@ -994,7 +994,7 @@
             var src = chars.make(64, null);
 
             // non-terminated string.
-            try EQL(64,chars.bytes(src[0..])); // 👉 64
+            try EQL(0,chars.bytes(src[0..])); // 👉 64
 
             // append some string.
             chars.append(src[0..], 0, "=🌍🌟!");
@@ -1003,14 +1003,14 @@
             src[11] = 0;
 
             // try again
-            try EQL(11,chars.bytes(src[0..])); // 👉 11
+            try EQL(10,chars.bytes(src[0..])); // 👉 10
         }
 
         test "docs: ubytes" {
             var src = chars.make(64, null);
 
             // non-terminated string.
-            try EQL(64,chars.ubytes(src[0..])); // 👉 64
+            try EQL(0,chars.ubytes(src[0..])); // 👉 64
 
             // append some string.
             chars.append(src[0..], 0, "=🌍🌟!");

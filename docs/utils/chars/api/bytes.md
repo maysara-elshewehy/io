@@ -39,8 +39,8 @@ pub inline fn bytes(_it: anytype) types.unsigned
     ```zig
     var str = chars.make(64, null);
 
-    // non-terminated string.
-    _ = chars.bytes(str[0..]);  // 👉 64
+    // terminated string (by chars.make).
+    _ = chars.bytes(str[0..]);  // 👉 0
 
     // append some string.
     chars.append(str[0..], 0, "=🌍🌟!");

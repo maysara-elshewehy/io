@@ -39,8 +39,8 @@ pub inline fn ubytes(_it: anytype) types.unsigned
     ```zig
     var str = chars.make(64, null);
 
-    // non-terminated string.
-    _ = chars.ubytes(str[0..]); // 👉 64
+    // terminated string (by chars.make).
+    _ = chars.ubytes(str[0..]); // 👉 0
 
     // append some string.
     chars.append(str[0..], 0, "=🌍🌟!");
@@ -49,7 +49,7 @@ pub inline fn ubytes(_it: anytype) types.unsigned
     str[11] = 0;
 
     // try again
-    _ = chars.ubytes(str[0..]); // 👉 4
+    _ = chars.ubytes(str[0..]); // 👉 10
     ```
 
 

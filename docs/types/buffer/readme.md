@@ -33,14 +33,14 @@
     ```
 
     ```zig
-    var _buf = chars.make(64, null);    // Creates a fixed array of characters.
-    var str  = buffer(&_buf);           // Creates a new buffer structure.
+    var buf = chars.make(64, "Hello 🌍!");  // Creates a fixed array of characters.
+    var str = buffer(&buf);                 // Creates a new buffer structure.
 
-    try str.append("Hello 🌍!");        // 👉 "Hello 🌍!"
-    str.ubytes();                       // 👉 8     (Unicode characters are counted as regular characters).
-    str.bytes();                        // 👉 11    Regular characters = 1, Unicode characters = 4.
-    str.size();                         // 👉 64    Total size of the array.
-    str.str.m_buff[0..str.m_bytes];     // 👉 "Hello 🌍!"
+    try str.append("Hello 🌍!");            // 👉 "Hello 🌍!"
+    str.ubytes();                           // 👉 8     (Unicode characters are counted as regular characters).
+    str.bytes();                            // 👉 11    Regular characters = 1, Unicode characters = 4.
+    str.size();                             // 👉 64    Total size of the array.
+    str.str.m_buff[0..str.m_bytes];         // 👉 "Hello 🌍!"
     ```
 
 - ### API
