@@ -562,7 +562,7 @@
 
         // ┌────────────────────────── INTERNAL ──────────────────────────┐
 
-            /// ..?
+            /// Internal methods used by other methods in the string type to check and allocate/reallocate memory if necessary.
             inline fn __alloc(_self: *Self, _bytes: types.unsigned) anyerror!void {
                 if (_self.m_buff) |_| {
                     if (_self.m_size <= _bytes+1) {
@@ -571,11 +571,6 @@
                 } else {
                     try _self.allocate((_bytes+1) * 2);
                 }
-            }
-
-            /// ..?
-            inline fn __indexOf(_self: *Self, _pos: types.unsigned) ?types.unsigned {
-                return chars.utils.indexOf(_self.m_buff.?[0.._self.m_bytes], _pos).?;
             }
 
         // └──────────────────────────────────────────────────────────────┘
