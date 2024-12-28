@@ -63,7 +63,7 @@
             }
 
             /// Initialize a string with an allocator and a given _(`string` or `char`)_.
-            pub fn initWith(_it: anytype) anyerror!Self {
+            pub fn initWith(_it: anytype) !Self {
                 var l_str = init();
                 try l_str.append(_it);
                 return l_str;
@@ -77,7 +77,7 @@
             }
 
             /// Allocate or reallocate the string buffer to a new size.
-            pub fn allocate(_self: *Self, _bytes: types.unsigned) anyerror!void {
+            pub fn allocate(_self: *Self, _bytes: types.unsigned) !void {
                 if (_self.m_buff) |m_buff| {
                     if (_bytes < _self.m_size) _self.m_size = _bytes;
                     _self.m_buff = _self.m_alloc.realloc(m_buff, _bytes) catch { return error.OutOfMemory; };
@@ -93,23 +93,23 @@
         // ┌─────────────────────────── INSERT ───────────────────────────┐
 
             /// Inserts a (`string` or `char`) into the `end` of the string.
-            pub fn append(_self: *Self, _it: anytype) anyerror!void {
+            pub fn append(_self: *Self, _it: anytype) !void {
                 return insertReal(_self, _it, _self.m_bytes);
             }
 
             /// Inserts a (`string` or `char`) into the `beg` of the string.
-            pub fn prepend(_self: *Self, _it: anytype) anyerror!void {
+            pub fn prepend(_self: *Self, _it: anytype) !void {
                 return insertReal(_self, _it, 0);
             }
 
             /// Inserts a (`string` or `char`) into a `specific position` in the string.
-            pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
+            pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) !void {
                 return insertReal(_self, _it, chars.utils.indexOf(_self.src(), _pos) orelse unreachable);
             }
 
             /// Inserts a (`string` or `char`) into a `specific position` (The real position) in the string.
             /// @Error: InvalidIndex (If the position is out of range).
-            pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void {
+            pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) !void {
                 if(_pos > _self.m_bytes) return error.InvalidIndex;
 
                 if(@TypeOf(_it) == Self) return _self.insertReal(_it.src(), _pos);
@@ -132,7 +132,7 @@
 
             /// Copies this String into a new one
             /// User is responsible for managing the new String
-            pub inline fn clone(_self: Self) anyerror!Self {
+            pub inline fn clone(_self: Self) !Self {
                 return try Self.initWith(_self.src());
             }
 
@@ -316,7 +316,7 @@
         // ┌─────────────────────────── REPLACE ──────────────────────────┐
 
             /// Replaces the first `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
-            pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) anyerror!types.unsigned {
+            pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) !types.unsigned {
                 if(@TypeOf(_it) == Self) return _self.replace(_it.src(), _with, _count);
                 if(@TypeOf(_with) == Self) return _self.replace(_it, _with.src(), _count);
 
@@ -336,7 +336,7 @@
             }
 
             /// Replaces the last `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
-            pub inline fn rreplace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) anyerror!types.unsigned {
+            pub inline fn rreplace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) !types.unsigned {
                 if(@TypeOf(_it) == Self) return _self.rreplace(_it.src(), _with, _count);
                 if(@TypeOf(_with) == Self) return _self.rreplace(_it, _with.src(), _count);
 
@@ -361,7 +361,7 @@
         // ┌──────────────────────────── MORE ────────────────────────────┐
 
             /// Repeats the (`string` or `char`) `N` times.
-            pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) anyerror!void {
+            pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) !void {
                 if(_count == 0) return;
                 if(@TypeOf(_it) == Self) return _self.repeat(_it.src(), _count);
 
@@ -414,7 +414,7 @@
             }
 
             /// Returns a slice of the string as (`string` type) split by the separator (`string` or `char`) at the specified position, or null if failed.
-            pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) anyerror!?Self {
+            pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) !?Self {
                 if(@TypeOf(_sep) == Self) return _self.splitToString(_sep.src(), index);
 
                 if (_self.split(_sep, index)) |block| {
@@ -473,14 +473,14 @@
                 }
 
                 /// Inserts a (`formatted string`) into the `end` of the string.
-                pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void {
+                pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) !void {
                     const l_count = std.fmt.count(_fmt, _args);
                     try _self.__alloc(l_count + _self.m_bytes);
                     _self.writer().print(_fmt, _args) catch {};
                 }
 
                 /// Inserts a (`formatted string`) into the `beg` of the string.
-                pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void {
+                pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) !void {
                     const l_count = std.fmt.count(_fmt, _args);
                     try _self.__alloc(l_count + _self.m_bytes);
                     chars.utils.move_right(_self.m_buff.?[0.._self.m_size], 0, _self.m_bytes, l_count);
@@ -491,7 +491,7 @@
                 }
 
                 /// Inserts a (`formatted string`) into a `specific position` in the string.
-                pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void {
+                pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) !void {
                     if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
                     if(_pos == 0) return _self.writeStart(_fmt, _args);
 
@@ -502,7 +502,7 @@
                 }
 
                 /// Inserts a (`formatted string`) into a `specific position` (The real position) in the string.
-                pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) anyerror!void {
+                pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) !void {
                     if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
                     if(_pos == 0) return _self.writeStart(_fmt, _args);
 
@@ -559,7 +559,7 @@
         // ┌────────────────────────── INTERNAL ──────────────────────────┐
 
             /// Internal methods used by other methods in the string type to check and allocate/reallocate memory if necessary.
-            inline fn __alloc(_self: *Self, _bytes: types.unsigned) anyerror!void {
+            inline fn __alloc(_self: *Self, _bytes: types.unsigned) !void {
                 if (_self.m_buff) |_| {
                     if (_self.m_size <= _bytes+1) {
                         try _self.allocate((_bytes+1) * 2);

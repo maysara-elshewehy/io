@@ -3,7 +3,7 @@
 > Inserts a _(`formatted string`)_ into the `end` of the string.
 
 ```zig
-pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void
+pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) !void
 ```
 
 

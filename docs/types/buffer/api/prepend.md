@@ -3,7 +3,7 @@
 > Inserts a _(`string` or `char`)_ into the `beginning` of the string.
 
 ```zig
-pub fn prepend(_self: *Self, _it: anytype) anyerror!void
+pub fn prepend(_self: *Self, _it: anytype) !void
 ```
 
 

@@ -3,7 +3,7 @@
 > Repeats the _(`string` or `char`)_ `N` times.
 
 ```zig
-pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) anyerror!void
+pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) !void
 ```
 
 

@@ -3,7 +3,7 @@
 > Inserts a _(`formatted string`)_ into the `beginning` of the string.
 
 ```zig
-pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!void
+pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) !void
 ```
 
 

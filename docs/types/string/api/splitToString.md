@@ -3,7 +3,7 @@
 > Returns a slice of the `io.types.string` split by the separator _(`string` or `char`)_ at the specified position, or null if failed.
 
 ```zig
-pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) anyerror!?Self
+pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) !?Self
 ```
 
 <div align="center">

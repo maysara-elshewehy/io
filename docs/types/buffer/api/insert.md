@@ -3,7 +3,7 @@
 > Inserts a _(`string` or `char`)_ into a `specific position` in the string.
 
 ```zig
-pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void
+pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) !void
 ```
 
 

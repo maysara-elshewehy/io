@@ -3,7 +3,7 @@
 > Inserts a _(`string` or `char`)_ into the `end` of the string.
 
 ```zig
-pub fn append(_self: *Self, _it: anytype) anyerror!void
+pub fn append(_self: *Self, _it: anytype) !void
 ```
 
 
