@@ -34,11 +34,11 @@
 
    - #### ❱ Basics
 
-        | Method                  | Description                                                                              |
-        | ----------------------- | ---------------------------------------------------------------------------------------- |
-        | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_                                             |
-        | [`calc`](./api/calc.md) | Returns the number of characters in the string.                                          |
-        | [`make`](./api/make.md) | Returns a _(`fixed-string`)_ with specified size and content.                            |
+        | Method                  | Description                                                                               |
+        | ----------------------- | ----------------------------------------------------------------------------------------- |
+        | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_                                              |
+        | [`calc`](./api/calc.md) | Returns the number of characters in the string.                                           |
+        | [`make`](./api/make.md) | Returns a _(`fixed-string`)_ with specified size and content.                             |
         | [`get`](./api/get.md)   | Returns the (`unicode` or `char`) at the specified position _(`non-real`)_ in the string. |
 
    - #### ➕ Insertion
@@ -78,19 +78,20 @@
 
     - #### ❓ Check
 
-        | Method                              | Description                                                   |
-        | ----------------------------------- | ------------------------------------------------------------- |
-        | [`eql`](./api/eql.md)               | Returns true if the given string are equal to the given _(`string` or `char`)_.             |
-        | [`includes`](./api/includes.md)     | Returns true if the string contains a _(`string` or `char`)_. |
-        | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given _(`string` or `char`)_.   |
-        | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given _(`string` or `char`)_.     |
+        | Method                              | Description                                                                     |
+        | ----------------------------------- | ------------------------------------------------------------------------------- |
+        | [`eql`](./api/eql.md)               | Returns true if the given string are equal to the given _(`string` or `char`)_. |
+        | [`includes`](./api/includes.md)     | Returns true if the string contains a _(`string` or `char`)_.                   |
+        | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given _(`string` or `char`)_.        |
+        | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given _(`string` or `char`)_.          |
 
     - #### 🔄 Replace
 
-        | Method                          | Description                                                                                                    |
-        | ------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-        | [`replace`](./api/replace.md)   | Replaces the first `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements. |
-        | [`rreplace`](./api/rreplace.md) | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
+        | Method                                        | Description                                                                                                    |
+        | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+        | [`replace`](./api/replace.md)                 | Replaces the first `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements. |
+        | [`rreplace`](./api/rreplace.md)               | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
+        | [`replacementSize`](./api/replacementSize.md) | Calculates how much bytes will be removed.                                                                     |
 
     - #### ▧ More
 

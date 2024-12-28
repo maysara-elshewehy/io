@@ -47,12 +47,12 @@
 
    - #### ☵ Init
 
-        | Method                          | Description                                                  |
-        | ------------------------------- | ------------------------------------------------------------ |
-        | [`init`](./api/init.md)         | Initialize an empty string.                                  |
+        | Method                          | Description                                                               |
+        | ------------------------------- | ------------------------------------------------------------------------- |
+        | [`init`](./api/init.md)         | Initialize an empty string.                                               |
         | [`initWith`](./api/initWith.md) | Initialize a string with an allocator and a given _(`string` or `char`)_. |
-        | [`deinit`](./api/initWith.md)   | Deallocate the string buffer.                                |
-        | [`allocate`](./api/initWith.md) | Allocate or reallocate the string buffer to a new size.      |
+        | [`deinit`](./api/initWith.md)   | Deallocate the string buffer.                                             |
+        | [`allocate`](./api/initWith.md) | Allocate or reallocate the string buffer to a new size.                   |
 
    - #### ❱ Basics
 
@@ -101,12 +101,12 @@
 
     - #### ⚌ Check
 
-        | Method                              | Description                                                   |
-        | ----------------------------------- | ------------------------------------------------------------- |
-        | [`eql`](./api/eql.md)               | Returns true if the string are equal to the given _(`string` or `char`)_.             |
-        | [`includes`](./api/includes.md)     | Returns true if the string contains a _(`string` or `char`)_. |
-        | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given _(`string` or `char`)_.     |
-        | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given _(`string` or `char`)_.   |
+        | Method                              | Description                                                               |
+        | ----------------------------------- | ------------------------------------------------------------------------- |
+        | [`eql`](./api/eql.md)               | Returns true if the string are equal to the given _(`string` or `char`)_. |
+        | [`includes`](./api/includes.md)     | Returns true if the string contains a _(`string` or `char`)_.             |
+        | [`endsWith`](./api/endsWith.md)     | Returns true if the string ends with the given _(`string` or `char`)_.    |
+        | [`startsWith`](./api/startsWith.md) | Returns true if the string starts with the given _(`string` or `char`)_.  |
 
    - #### ✍️ Writer
 
@@ -119,7 +119,14 @@
         | [`writeAt`](./api/writeAt.md)         | Writes a _(`formatted string`)_ into a `specific position` in the string.       |
         | [`writeAtReal`](./api/writeAtReal.md) | Writes a _(`formatted string`)_ into a `specific real  position` in the string. |
 
-   - #### 🔄 Iterator
+    - #### 🔄 Replace
+
+        | Method                          | Description                                                                                                    |
+        | ------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+        | [`replace`](./api/replace.md)   | Replaces the first `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements. |
+        | [`rreplace`](./api/rreplace.md) | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
+
+   - #### ➡️ Iterator
 
         | Method                                   | Description                                                   |
         | ---------------------------------------- | ------------------------------------------------------------- |

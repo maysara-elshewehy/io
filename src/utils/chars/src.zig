@@ -309,7 +309,7 @@
 
     // ┌─────────────────────────── REPLACE ──────────────────────────┐
 
-        /// This function calc how much bytes will be removed. (But not remove them)
+        /// Calculates how much bytes will be removed.
         pub inline fn replacementSize(_in: types.str, _it: anytype, _count: types.unsigned) types.unsigned {
             var i = find(_in[0..], _it);
             var l_bytes: types.unsigned = 0;
