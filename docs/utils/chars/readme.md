@@ -1,4 +1,4 @@
-# [←](../../readme.md) `io`.`utils`.`chars`
+# [←](../readme.md) `io`.`utils`.`chars`
 
 <p align="center">
   <img src="../../dist/img/logo/chars/logo.png" alt="chars" width="1000" />
