@@ -606,465 +606,416 @@
             try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);   // 👉 "Hello 🌍!"
         }
 
-//         test "docs: allocate" {
-//             var str = buffer.init(); defer str.deinit();
+        test "docs: bytes" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
 
-//             try EQL(0, str.size());     // 👉 0
-//             try str.allocate(10);
-//             try EQL(10, str.size());    // 👉 10
-//         }
+            try EQL(0, str.bytes());    // 👉 0
+            try str.append("Hello 🌍!");
+            try EQL(11, str.bytes());   // 👉 11
+        }
 
-//         test "docs: init" {
-//             var str = buffer.init(); defer str.deinit();
-//             try EQL(0, str.size());     // 👉 0
-//             try EQL(0, str.bytes());    // 👉 0
-//             try EQLS("", str.m_buff[0..str.m_bytes]);    // 👉 ""
-//         }
-
-//         test "docs: initWith" {
-//             var str = try buffer.initWith("Hello 🌍!"); defer str.deinit();
-//             try EQL(24, str.size());     // 👉 24
-//             try EQL(11, str.bytes());    // 👉 11
-//             try EQL(8, str.ubytes());    // 👉 8
-//             try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);    // 👉 "Hello 🌍!"
-//         }
-
-//         test "docs: bytes" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try EQL(0, str.bytes());    // 👉 0
-//             try str.append("Hello 🌍!");
-//             try EQL(11, str.bytes());   // 👉 11
-//         }
-
-//         test "docs: ubytes" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try EQL(0, str.ubytes());   // 👉 0
-//             try str.append("Hello 🌍!");
-//             try EQL(8, str.ubytes());   // 👉 8
-//         }
-
-//         test "docs: src" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try EQLS("", str.m_buff[0..str.m_bytes]);            // 👉 ""
-//             try str.append("Hello 🌍!");
-//             try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);   // 👉 "Hello 🌍!"
-//         }
-
-//         test "docs: append" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try str.append('=');    // 👉 "="
-//             try EQLS("=", str.m_buff[0..str.m_bytes]);
-
-//             try str.append("🌍");   // 👉 "=🌍"
-//             try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
-
-//             try str.append("🌟");   // 👉 "=🌍🌟"
-//             try EQLS("=🌍🌟", str.m_buff[0..str.m_bytes]);
-
-//             var other = try buffer.initWith("!!");
-//             defer other.deinit();
-
-//             try str.append(other);  // 👉 "=🌍🌟!!"
-//             try EQLS("=🌍🌟!!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: prepend" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try str.prepend('=');
-//             try EQLS("=", str.m_buff[0..str.m_bytes]);   // 👉 "="
-
-//             try str.prepend("🌍");      // 👉 "🌍="
-//             try EQLS("🌍=", str.m_buff[0..str.m_bytes]);
-
-//             try str.prepend("🌟");      // 👉 "🌟🌍="
-//             try EQLS("🌟🌍=", str.m_buff[0..str.m_bytes]);
-
-//             var other = try buffer.initWith("!!");
-//             defer other.deinit();
-
-//             try str.prepend(other);     // 👉 "!!🌟🌍="
-//             try EQLS("!!🌟🌍=", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: insert" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try str.insert('=', 0);      // 👉 "="
-//             try EQLS("=", str.m_buff[0..str.m_bytes]);
-
-//             try str.insert("🌍", 1);    // 👉 "=🌍"
-//             try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
-
-//             try str.insert("🌟", 1);    // 👉 "=🌟🌍"
-//             try EQLS("=🌟🌍", str.m_buff[0..str.m_bytes]);
-
-//             var other = try buffer.initWith("!!");
-//             defer other.deinit();
-
-//             try str.insert(other, 3);   // 👉 "=🌟🌍!!"
-//             try EQLS("=🌟🌍!!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: insertReal" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try str.insertReal('=', 0);      // 👉 "="
-//             try EQLS("=", str.m_buff[0..str.m_bytes]);
-
-//             try str.insertReal("🌍", 1);    // 👉 "=🌍"
-//             try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
-
-//             try str.insertReal("🌟", 1);    // 👉 "=🌟🌍"
-//             try EQLS("=🌟🌍", str.m_buff[0..str.m_bytes]);
-
-//             var other = try buffer.initWith("!!");
-//             defer other.deinit();
-
-//             try str.insertReal(other, 9);   // 👉 "=🌟🌍!!"
-//             try EQLS("=🌟🌍!!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: write" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try str.write( "{c}", .{ '=' } );     // 👉 "="
-//             try EQLS("=", str.m_buff[0..str.m_bytes]);
-//             try str.write( "{s}", .{ "🌍" } );    // 👉 "=🌍"
-//             try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
-//             try str.write( "{s}", .{ "🌟" } );    // 👉 "=🌍🌟"
-//             try EQLS("=🌍🌟", str.m_buff[0..str.m_bytes]);
-//             try str.write( "{d}", .{ 99 } );      // 👉 "=🌍🌟99"
-//             try EQLS("=🌍🌟99", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: writeStart" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try str.writeStart( "{c}", .{ '=' } );     // 👉 "="
-//             try EQLS("=", str.m_buff[0..str.m_bytes]);
-//             try str.writeStart( "{s}", .{ "🌍" } );    // 👉 "🌍="
-//             try EQLS("🌍=", str.m_buff[0..str.m_bytes]);
-//             try str.writeStart( "{s}", .{ "🌟" } );    // 👉 "🌟🌍="
-//             try EQLS("🌟🌍=", str.m_buff[0..str.m_bytes]);
-//             try str.writeStart( "{d}", .{ 99 } );      // 👉 "99🌟🌍="
-//             try EQLS("99🌟🌍=", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: writeAt" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try str.writeAt( "{c}", .{ '='  }, 0 );     // 👉 "="
-//             try EQLS("=", str.m_buff[0..str.m_bytes]);
-//             try str.writeAt( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
-//             try EQLS("🌍=", str.m_buff[0..str.m_bytes]);
-//             try str.writeAt( "{s}", .{ "🌟" }, 1 );     // 👉 "🌍🌟="
-//             try EQLS("🌍🌟=", str.m_buff[0..str.m_bytes]);
-//             try str.writeAt( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
-//             try EQLS("99🌍🌟=", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: writeAtReal" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             try str.writeAtReal( "{c}", .{ '='  }, 0 );     // 👉 "="
-//             try EQLS("=", str.m_buff[0..str.m_bytes]);
-//             try str.writeAtReal( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
-//             try EQLS("🌍=", str.m_buff[0..str.m_bytes]);
-//             try str.writeAtReal( "{s}", .{ "🌟" }, 4 );     // 👉 "🌍🌟="
-//             try EQLS("🌍🌟=", str.m_buff[0..str.m_bytes]);
-//             try str.writeAtReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
-//             try EQLS("99🌍🌟=", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: remove" {
-//             var str = try buffer.initWith("=🌍🌟!"); defer str.deinit();
-
-//             try str.remove(0);              // 👉 "🌍🌟!"
-//             try EQLS("🌍🌟!", str.m_buff[0..str.m_bytes]);
-//             try str.remove(.{ 1, 2 });      // 👉 "🌍!"
-//             try EQLS("🌍!", str.m_buff[0..str.m_bytes]);
-//             try str.remove(.{ 0, 1 });      // 👉 "!"
-//             try EQLS("!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: removeReal" {
-//             var str = try buffer.initWith("=🌍🌟!"); defer str.deinit();
-
-//             str.removeReal(0);          // 👉 "🌍🌟!"
-//             try EQLS("🌍🌟!", str.m_buff[0..str.m_bytes]);
-//             str.removeReal(.{ 4, 8 });  // 👉 "🌍!"
-//             try EQLS("🌍!", str.m_buff[0..str.m_bytes]);
-//             str.removeReal(.{ 0, 4 });  // 👉 "!"
-//             try EQLS("!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: pop" {
-//             var str = try buffer.initWith("=🌍🌟!"); defer str.deinit();
-
-//             str.pop(1); // 👉 "=🌍🌟"
-//             try EQLS("=🌍🌟", str.m_buff[0..str.m_bytes]);
-
-//             str.pop(1); // 👉 "=🌍"
-//             try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
-
-//             str.pop(1); // 👉 "="
-//             try EQLS("=", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: shift" {
-//             var str = try buffer.initWith("=🌍🌟!"); defer str.deinit();
-
-//             str.shift(1); // 👉 "🌍🌟!"
-//             try EQLS("🌍🌟!", str.m_buff[0..str.m_bytes]);
-//             str.shift(1);  // 👉 "🌟!"
-//             try EQLS("🌟!"  , str.m_buff[0..str.m_bytes]);
-//             str.shift(1);  // 👉 "!"
-//             try EQLS("!"    , str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: trimStart" {
-//             var str = try buffer.initWith("  =🌍🌟!"); defer str.deinit();
-//             str.trimStart(' '); // 👉 "=🌍🌟!"
-//             try EQLS("=🌍🌟!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: trimEnd" {
-//             var str = try buffer.initWith("=🌍🌟!  "); defer str.deinit();
-//             str.trimEnd(' '); // 👉 "=🌍🌟!"
-//             try EQLS("=🌍🌟!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: trim" {
-//             var str = try buffer.initWith("  =🌍🌟!  "); defer str.deinit();
-//             str.trim(' '); // 👉 "=🌍🌟!"
-//             try EQLS("=🌍🌟!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: find" {
-//             var str = try buffer.initWith("==🌍🌟!!"); defer str.deinit();
-//             try EQL(0, str.find('='));    // 👉 0   ("=")
-//             try EQL(2, str.find("🌍"));   // 👉 2   (beg of "🌍")
-//             try EQL(6, str.find("🌟"));   // 👉 6   (beg of "🌟")
-//             try EQL(10, str.find("!!"));  // 👉 10  ("!!")
-//         }
-
-//         test "docs: rfind" {
-//             var str = try buffer.initWith("==🌍🌟!!"); defer str.deinit();
-//             try EQL(1, str.rfind('='));    // 👉 1   ("=")
-//             try EQL(2, str.rfind("🌍"));   // 👉 2   (beg of "🌍")
-//             try EQL(6, str.rfind("🌟"));   // 👉 6   (beg of "🌟")
-//             try EQL(10, str.rfind("!!"));  // 👉 10  ("!!")
-//         }
-
-//         test "docs: toLower" {
-//             var str = try buffer.initWith("HELLO 🌍!"); defer str.deinit();
-//             str.toLower();    // 👉 "hello 🌍!"
-//             try EQLS("hello 🌍!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: toUpper" {
-//             var str = try buffer.initWith("hello 🌍!"); defer str.deinit();
-//             str.toUpper();    // 👉 "HELLO 🌍!"
-//             try EQLS("HELLO 🌍!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: toTitle" {
-//             var str = try buffer.initWith("hello 🌍!"); defer str.deinit();
-//             str.toTitle();    // 👉 "Hello 🌍!"
-//             try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: eql" {
-//             var str = try buffer.initWith("=🌍🌟!"); defer str.deinit();
-//             try EQL(false, str.eql(""));
-//             try EQL(false, str.eql("====="));
-//             try EQL(true, str.eql("=🌍🌟!"));
-//         }
-
-//         test "docs: startsWith" {
-//             var str = try buffer.initWith("=🌍🌟!"); defer str.deinit();
-//             try EQL(false, str.startsWith(""));
-//             try EQL(false, str.startsWith("🌍"));
-//             try EQL(true, str.startsWith('='));
-//         }
-
-//         test "docs: endsWith" {
-//             var str = try buffer.initWith("=🌍🌟!"); defer str.deinit();
-//             try EQL(false, str.endsWith(""));
-//             try EQL(false, str.endsWith("🌍"));
-//             try EQL(true, str.endsWith('!'));
-//         }
-
-//         test "docs: startsWith Empty" {
-//             var str = try buffer.initWith(""); defer str.deinit();
-//             try EQL(false, str.startsWith('='));
-//             try EQL(false, str.startsWith("🌍"));
-//             try EQL(true, str.startsWith(""));
-//         }
-
-//         test "docs: endsWith Empty" {
-//             var str = try buffer.initWith(""); defer str.deinit();
-//             try EQL(false, str.endsWith('!'));
-//             try EQL(false, str.endsWith("🌍"));
-//             try EQL(true, str.endsWith(""));
-//         }
-
-
-//         test "docs: includes" {
-//             var str = try buffer.initWith("=🌍🌟!"); defer str.deinit();
-//             try EQL(true, str.includes('='));
-//             try EQL(true, str.includes("🌍"));
-//             try EQL(true, str.includes("🌟"));
-//             try EQL(true, str.includes("!"));
-//             try EQL(false, str.includes('@'));
-//         }
-
-//         test "docs: replace" {
-//             var str = try buffer.initWith("==🌍🌍🌟!!"); defer str.deinit();
-
-//             // replace character.
-//             try EQL(1, try str.replace('=', '@', 1));    // 👉 (res = 1), "@=🌍🌍🌟!!"
-//             try EQLS("@=🌍🌍🌟!!", str.m_buff[0..str.m_bytes]);
-
-//             // replace unicode.
-//             try EQL(8, try str.replace("🌍", '!', 2));   // 👉 (res = 1), "@=!!🌟!!"
-//             try EQLS("@=!!🌟!!", str.m_buff[0..str.m_bytes]);
-
-//             // replace string.
-//             try EQL(4, try str.replace("🌟", '!', 1));    // 👉 (res = 1), "@=!!!!!"
-//             try EQLS("@=!!!!!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: rreplace" {
-//             var str = try buffer.initWith("==🌍🌍🌟!!"); defer str.deinit();
-
-//             // replace character.
-//             try EQL(1, str.rreplace('=', '@', 1));    // 👉 (res = 1), "=@🌍🌍🌟!!"
-//             try EQLS("=@🌍🌍🌟!!", str.m_buff[0..str.m_bytes]);
-
-//             // replace unicode.
-//             try EQL(8, str.rreplace("🌍", '!', 2));   // 👉 (res = 1), "=@!!🌟!!"
-//             try EQLS("=@!!🌟!!", str.m_buff[0..str.m_bytes]);
-
-//             // replace string.
-//             try EQL(4, str.rreplace("🌟", '!', 1));    // 👉 (res = 1), "=@!!!!!"
-//             try EQLS("=@!!!!!", str.m_buff[0..str.m_bytes]);
-//         }
-
-//          test "docs: repeat" {
-//             var str = buffer.init(); defer str.deinit();
-
-//             // repeat character.
-//             try str.repeat('0', 1); // 👉 "0"
-//             try EQL(1, str.bytes());
-//             try EQL(4, str.size());
-//             try EQLS("0", str.m_buff[0..str.m_bytes]);
-
-//             try str.repeat('0', 2); // 👉 "000"
-//             try EQLS("000", str.m_buff[0..str.m_bytes]);
-
-//             // repeat string.
-//             try str.repeat("@#", 2); // 👉 "000@#@#"
-//             try EQLS("000@#@#", str.m_buff[0..str.m_bytes]);
-
-//             // repeat unicode.
-//             try str.repeat("🌍", 2); // 👉 "000@#@#🌍🌍"
-//             try EQLS("000@#@#🌍🌍", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: reverse" {
-//             var str = try buffer.initWith("=🌍🌟!"); defer str.deinit();
-
-//             str.reverse(); // 👉 "!🌟🌍="
-//             try EQLS("!🌟🌍=", str.m_buff[0..str.m_bytes]);
-//         }
-
-//         test "docs: split" {
-//             var str = try buffer.initWith("🌍1🌍🌍2🌍🌍3🌍");
-//             defer str.deinit();
-
-//             try EQLS(str.split("🌍", 0).?,  ""); // 👉 ""
-//             try EQLS(str.split("🌍", 1).?, "1"); // 👉 "1"
-//             try EQLS(str.split("🌍", 2).?,  ""); // 👉 ""
-//             try EQLS(str.split("🌍", 3).?, "2"); // 👉 "2"
-//             try EQLS(str.split("🌍", 5).?, "3"); // 👉 "3"
-//             try EQLS(str.split("🌍", 6).?,  ""); // 👉 ""
-//         }
-
-//         test "docs: split using character" {
-//             var str = try buffer.initWith(",1,,2,,3,");
-//             defer str.deinit();
-
-//             try EQLS(str.split(',', 0).?,  ""); // 👉 ""
-//             try EQLS(str.split(',', 1).?, "1"); // 👉 "1"
-//             try EQLS(str.split(',', 2).?,  ""); // 👉 ""
-//             try EQLS(str.split(',', 3).?, "2"); // 👉 "2"
-//             try EQLS(str.split(',', 5).?, "3"); // 👉 "3"
-//             try EQLS(str.split(',', 6).?,  ""); // 👉 ""
-//         }
-
-//         test "docs: splitAll using character" {
-//             var str = try buffer.initWith(",1,,2,,3,");
-//             defer str.deinit();
-
-//             const res = try str.splitAll(',');
-
-//             try EQL(7, res.len);
-//             try EQLS("", res[0]);
-//             try EQLS("1", res[1]);
-//             try EQLS("", res[2]);
-//             try EQLS("2", res[3]);
-//             try EQLS("", res[4]);
-//             try EQLS("3", res[5]);
-//             try EQLS("", res[6]);
-//         }
-
-//         test "docs: splitToString using character" {
-//             var str = try buffer.initWith(",1,,2,,3,");
-//             defer str.deinit();
-
-//             if(try str.splitToString(',', 0)) |res| { try EQLS("", str.m_buff[0..str.m_bytes]); }
-//             if(try str.splitToString(',', 1)) |res| { try EQLS("1", str.m_buff[0..str.m_bytes]); }
-//             if(try str.splitToString(',', 2)) |res| { try EQLS("", str.m_buff[0..str.m_bytes]); }
-//             if(try str.splitToString(',', 3)) |res| { try EQLS("2", str.m_buff[0..str.m_bytes]); }
-//             if(try str.splitToString(',', 5)) |res| { try EQLS("3", str.m_buff[0..str.m_bytes]); }
-//             if(try str.splitToString(',', 6)) |res| { try EQLS("", str.m_buff[0..str.m_bytes]); }
-//         }
-
-//         test "docs: splitAllToStrings using character" {
-//             var str = try buffer.initWith(",1,,2,,3,");
-//             defer str.deinit();
-
-//             const res = try str.splitAllToStrings(',');
-//             try EQL(7, res.len);
-//             try EQLS("", res[0].src());
-//             try EQLS("1", res[1].src());
-//             try EQLS("", res[2].src());
-//             try EQLS("2", res[3].src());
-//             try EQLS("", res[4].src());
-//             try EQLS("3", res[5].src());
-//             try EQLS("", res[6].src());
-//         }
-
-//         test "docs: lines" {
-//             var str = try buffer.initWith("\n1\n\n2\n\n3\n");
-//             defer str.deinit();
-
-//             const res = try str.lines();
-//             try EQL(7, res.len);
-//             try EQLS("", res[0].src());
-//             try EQLS("1", res[1].src());
-//             try EQLS("", res[2].src());
-//             try EQLS("2", res[3].src());
-//             try EQLS("", res[4].src());
-//             try EQLS("3", res[5].src());
-//         }
-
-//     // └──────────────────────────────────────────────────────────────┘
-
-// // ╚══════════════════════════════════════════════════════════════════════════════════╝
+        test "docs: ubytes" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try EQL(0, str.ubytes());   // 👉 0
+            try str.append("Hello 🌍!");
+            try EQL(8, str.ubytes());   // 👉 8
+        }
+
+        test "docs: src" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try EQLS("", str.m_buff[0..str.m_bytes]);            // 👉 ""
+            try str.append("Hello 🌍!");
+            try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);   // 👉 "Hello 🌍!"
+        }
+
+        test "docs: append" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try str.append('=');    // 👉 "="
+            try EQLS("=", str.m_buff[0..str.m_bytes]);
+
+            try str.append("🌍");   // 👉 "=🌍"
+            try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
+
+            try str.append("🌟");   // 👉 "=🌍🌟"
+            try EQLS("=🌍🌟", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: prepend" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try str.prepend('=');
+            try EQLS("=", str.m_buff[0..str.m_bytes]);   // 👉 "="
+
+            try str.prepend("🌍");      // 👉 "🌍="
+            try EQLS("🌍=", str.m_buff[0..str.m_bytes]);
+
+            try str.prepend("🌟");      // 👉 "🌟🌍="
+            try EQLS("🌟🌍=", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: insert" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try str.insert('=', 0);      // 👉 "="
+            try EQLS("=", str.m_buff[0..str.m_bytes]);
+
+            try str.insert("🌍", 1);    // 👉 "=🌍"
+            try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
+
+            try str.insert("🌟", 1);    // 👉 "=🌟🌍"
+            try EQLS("=🌟🌍", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: insertReal" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try str.insertReal('=', 0);      // 👉 "="
+            try EQLS("=", str.m_buff[0..str.m_bytes]);
+
+            try str.insertReal("🌍", 1);    // 👉 "=🌍"
+            try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
+
+            try str.insertReal("🌟", 1);    // 👉 "=🌟🌍"
+            try EQLS("=🌟🌍", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: write" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try str.write( "{c}", .{ '=' } );     // 👉 "="
+            try EQLS("=", str.m_buff[0..str.m_bytes]);
+            try str.write( "{s}", .{ "🌍" } );    // 👉 "=🌍"
+            try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
+            try str.write( "{s}", .{ "🌟" } );    // 👉 "=🌍🌟"
+            try EQLS("=🌍🌟", str.m_buff[0..str.m_bytes]);
+            try str.write( "{d}", .{ 99 } );      // 👉 "=🌍🌟99"
+            try EQLS("=🌍🌟99", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: writeStart" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try str.writeStart( "{c}", .{ '=' } );     // 👉 "="
+            try EQLS("=", str.m_buff[0..str.m_bytes]);
+            try str.writeStart( "{s}", .{ "🌍" } );    // 👉 "🌍="
+            try EQLS("🌍=", str.m_buff[0..str.m_bytes]);
+            try str.writeStart( "{s}", .{ "🌟" } );    // 👉 "🌟🌍="
+            try EQLS("🌟🌍=", str.m_buff[0..str.m_bytes]);
+            try str.writeStart( "{d}", .{ 99 } );      // 👉 "99🌟🌍="
+            try EQLS("99🌟🌍=", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: writeAt" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try str.writeAt( "{c}", .{ '='  }, 0 );     // 👉 "="
+            try EQLS("=", str.m_buff[0..str.m_bytes]);
+            try str.writeAt( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
+            try EQLS("🌍=", str.m_buff[0..str.m_bytes]);
+            try str.writeAt( "{s}", .{ "🌟" }, 1 );     // 👉 "🌍🌟="
+            try EQLS("🌍🌟=", str.m_buff[0..str.m_bytes]);
+            try str.writeAt( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
+            try EQLS("99🌍🌟=", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: writeAtReal" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            try str.writeAtReal( "{c}", .{ '='  }, 0 );     // 👉 "="
+            try EQLS("=", str.m_buff[0..str.m_bytes]);
+            try str.writeAtReal( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
+            try EQLS("🌍=", str.m_buff[0..str.m_bytes]);
+            try str.writeAtReal( "{s}", .{ "🌟" }, 4 );     // 👉 "🌍🌟="
+            try EQLS("🌍🌟=", str.m_buff[0..str.m_bytes]);
+            try str.writeAtReal( "{d}", .{ 99 }  , 0 );     // 👉 "99🌍🌟="
+            try EQLS("99🌍🌟=", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: remove" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+
+            try str.remove(0);              // 👉 "🌍🌟!"
+            try EQLS("🌍🌟!", str.m_buff[0..str.m_bytes]);
+            try str.remove(.{ 1, 2 });      // 👉 "🌍!"
+            try EQLS("🌍!", str.m_buff[0..str.m_bytes]);
+            try str.remove(.{ 0, 1 });      // 👉 "!"
+            try EQLS("!", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: removeReal" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+
+            str.removeReal(0);          // 👉 "🌍🌟!"
+            try EQLS("🌍🌟!", str.m_buff[0..str.m_bytes]);
+            str.removeReal(.{ 4, 8 });  // 👉 "🌍!"
+            try EQLS("🌍!", str.m_buff[0..str.m_bytes]);
+            str.removeReal(.{ 0, 4 });  // 👉 "!"
+            try EQLS("!", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: pop" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+
+            str.pop(1); // 👉 "=🌍🌟"
+            try EQLS("=🌍🌟", str.m_buff[0..str.m_bytes]);
+
+            str.pop(1); // 👉 "=🌍"
+            try EQLS("=🌍", str.m_buff[0..str.m_bytes]);
+
+            str.pop(1); // 👉 "="
+            try EQLS("=", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: shift" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+
+            str.shift(1); // 👉 "🌍🌟!"
+            try EQLS("🌍🌟!", str.m_buff[0..str.m_bytes]);
+            str.shift(1);  // 👉 "🌟!"
+            try EQLS("🌟!"  , str.m_buff[0..str.m_bytes]);
+            str.shift(1);  // 👉 "!"
+            try EQLS("!"    , str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: trimStart" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("  =🌍🌟!");
+            str.trimStart(' '); // 👉 "=🌍🌟!"
+            try EQLS("=🌍🌟!", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: trimEnd" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!  ");
+            str.trimEnd(' '); // 👉 "=🌍🌟!"
+            try EQLS("=🌍🌟!", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: trim" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("  =🌍🌟!  ");
+            str.trim(' '); // 👉 "=🌍🌟!"
+            try EQLS("=🌍🌟!", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: find" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("==🌍🌟!!");
+            try EQL(0, str.find('='));    // 👉 0   ("=")
+            try EQL(2, str.find("🌍"));   // 👉 2   (beg of "🌍")
+            try EQL(6, str.find("🌟"));   // 👉 6   (beg of "🌟")
+            try EQL(10, str.find("!!"));  // 👉 10  ("!!")
+        }
+
+        test "docs: rfind" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("==🌍🌟!!");
+            try EQL(1, str.rfind('='));    // 👉 1   ("=")
+            try EQL(2, str.rfind("🌍"));   // 👉 2   (beg of "🌍")
+            try EQL(6, str.rfind("🌟"));   // 👉 6   (beg of "🌟")
+            try EQL(10, str.rfind("!!"));  // 👉 10  ("!!")
+        }
+
+        test "docs: toLower" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("HELLO 🌍!");
+            str.toLower();    // 👉 "hello 🌍!"
+            try EQLS("hello 🌍!", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: toUpper" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("hello 🌍!");
+            str.toUpper();    // 👉 "HELLO 🌍!"
+            try EQLS("HELLO 🌍!", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: toTitle" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("hello 🌍!");
+            str.toTitle();    // 👉 "Hello 🌍!"
+            try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: eql" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+            try EQL(false, str.eql(""));
+            try EQL(false, str.eql("====="));
+            try EQL(true, str.eql("=🌍🌟!"));
+        }
+
+        test "docs: startsWith" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+            try EQL(false, str.startsWith(""));
+            try EQL(false, str.startsWith("🌍"));
+            try EQL(true, str.startsWith('='));
+        }
+
+        test "docs: endsWith" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+            try EQL(false, str.endsWith(""));
+            try EQL(false, str.endsWith("🌍"));
+            try EQL(true, str.endsWith('!'));
+        }
+
+        test "docs: startsWith Empty" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+            try EQL(false, str.startsWith('='));
+            try EQL(false, str.startsWith("🌍"));
+            try EQL(true, str.startsWith(""));
+        }
+
+        test "docs: endsWith Empty" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+            try EQL(false, str.endsWith('!'));
+            try EQL(false, str.endsWith("🌍"));
+            try EQL(true, str.endsWith(""));
+        }
+
+
+        test "docs: includes" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+            try EQL(true, str.includes('='));
+            try EQL(true, str.includes("🌍"));
+            try EQL(true, str.includes("🌟"));
+            try EQL(true, str.includes("!"));
+            try EQL(false, str.includes('@'));
+        }
+
+        test "docs: replace" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("==🌍🌍🌟!!");
+
+            // replace character.
+            try EQL(1, try str.replace('=', '@', 1));    // 👉 (res = 1), "@=🌍🌍🌟!!"
+            try EQLS("@=🌍🌍🌟!!", str.m_buff[0..str.m_bytes]);
+
+            // replace unicode.
+            try EQL(8, try str.replace("🌍", '!', 2));   // 👉 (res = 1), "@=!!🌟!!"
+            try EQLS("@=!!🌟!!", str.m_buff[0..str.m_bytes]);
+
+            // replace string.
+            try EQL(4, try str.replace("🌟", '!', 1));    // 👉 (res = 1), "@=!!!!!"
+            try EQLS("@=!!!!!", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: rreplace" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("==🌍🌍🌟!!");
+
+            // replace character.
+            try EQL(1, str.rreplace('=', '@', 1));    // 👉 (res = 1), "=@🌍🌍🌟!!"
+            try EQLS("=@🌍🌍🌟!!", str.m_buff[0..str.m_bytes]);
+
+            // replace unicode.
+            try EQL(8, str.rreplace("🌍", '!', 2));   // 👉 (res = 1), "=@!!🌟!!"
+            try EQLS("=@!!🌟!!", str.m_buff[0..str.m_bytes]);
+
+            // replace string.
+            try EQL(4, str.rreplace("🌟", '!', 1));    // 👉 (res = 1), "=@!!!!!"
+            try EQLS("=@!!!!!", str.m_buff[0..str.m_bytes]);
+        }
+
+         test "docs: repeat" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);
+
+            // repeat character.
+            try str.repeat('0', 1); // 👉 "0"
+            try EQL(1, str.bytes());
+            try EQL(64, str.size());
+            try EQLS("0", str.m_buff[0..str.m_bytes]);
+
+            try str.repeat('0', 2); // 👉 "000"
+            try EQLS("000", str.m_buff[0..str.m_bytes]);
+
+            // repeat string.
+            try str.repeat("@#", 2); // 👉 "000@#@#"
+            try EQLS("000@#@#", str.m_buff[0..str.m_bytes]);
+
+            // repeat unicode.
+            try str.repeat("🌍", 2); // 👉 "000@#@#🌍🌍"
+            try EQLS("000@#@#🌍🌍", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: reverse" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("=🌍🌟!");
+
+            str.reverse(); // 👉 "!🌟🌍="
+            try EQLS("!🌟🌍=", str.m_buff[0..str.m_bytes]);
+        }
+
+        test "docs: split" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("🌍1🌍🌍2🌍🌍3🌍");
+
+
+            try EQLS(str.split("🌍", 0).?,  ""); // 👉 ""
+            try EQLS(str.split("🌍", 1).?, "1"); // 👉 "1"
+            try EQLS(str.split("🌍", 2).?,  ""); // 👉 ""
+            try EQLS(str.split("🌍", 3).?, "2"); // 👉 "2"
+            try EQLS(str.split("🌍", 5).?, "3"); // 👉 "3"
+            try EQLS(str.split("🌍", 6).?,  ""); // 👉 ""
+        }
+
+        test "docs: split using character" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
+
+
+
+            try EQLS(str.split(',', 0).?,  ""); // 👉 ""
+            try EQLS(str.split(',', 1).?, "1"); // 👉 "1"
+            try EQLS(str.split(',', 2).?,  ""); // 👉 ""
+            try EQLS(str.split(',', 3).?, "2"); // 👉 "2"
+            try EQLS(str.split(',', 5).?, "3"); // 👉 "3"
+            try EQLS(str.split(',', 6).?,  ""); // 👉 ""
+        }
+
+        test "docs: splitAll using character" {
+            var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
+
+
+            const res = try str.splitAll(',');
+
+            try EQL(7, res.len);
+            try EQLS("", res[0]);
+            try EQLS("1", res[1]);
+            try EQLS("", res[2]);
+            try EQLS("2", res[3]);
+            try EQLS("", res[4]);
+            try EQLS("3", res[5]);
+            try EQLS("", res[6]);
+        }
+
+        // test "docs: splitToString using character" {
+        //     var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
+
+        //     if(try str.splitToString(',', 0)) |_| { try EQLS("", str.m_buff[0..str.m_bytes]); }
+        //     if(try str.splitToString(',', 1)) |_| { try EQLS("1", str.m_buff[0..str.m_bytes]); }
+        //     if(try str.splitToString(',', 2)) |_| { try EQLS("", str.m_buff[0..str.m_bytes]); }
+        //     if(try str.splitToString(',', 3)) |_| { try EQLS("2", str.m_buff[0..str.m_bytes]); }
+        //     if(try str.splitToString(',', 5)) |_| { try EQLS("3", str.m_buff[0..str.m_bytes]); }
+        //     if(try str.splitToString(',', 6)) |_| { try EQLS("", str.m_buff[0..str.m_bytes]); }
+        // }
+
+        // test "docs: splitAllToStrings using character" {
+        //     var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
+
+        //     const res = try str.splitAllToStrings(',');
+        //     try EQL(7, res.len);
+        //     try EQLS("", res[0].src());
+        //     try EQLS("1", res[1].src());
+        //     try EQLS("", res[2].src());
+        //     try EQLS("2", res[3].src());
+        //     try EQLS("", res[4].src());
+        //     try EQLS("3", res[5].src());
+        //     try EQLS("", res[6].src());
+        // }
+
+        // test "docs: lines" {
+        //     var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("\n1\n\n2\n\n3\n");
+
+        //     const res = try str.lines();
+        //     try EQL(7, res.len);
+        //     try EQLS("", res[0].src());
+        //     try EQLS("1", res[1].src());
+        //     try EQLS("", res[2].src());
+        //     try EQLS("2", res[3].src());
+        //     try EQLS("", res[4].src());
+        //     try EQLS("3", res[5].src());
+        // }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+// ╚══════════════════════════════════════════════════════════════════════════════════╝

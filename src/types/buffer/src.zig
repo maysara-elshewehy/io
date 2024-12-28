@@ -89,11 +89,11 @@
                     _self.m_bytes += l_count;
                 }
 
-                /// Copies this String into a new one
-                /// User is responsible for managing the new String
-                pub inline fn clone(_self: Self) anyerror!Self {
-                    return try Self.initWith(_self.m_buff[0.._self.m_bytes]);
-                }
+                // /// Copies this String into a new one
+                // /// User is responsible for managing the new String
+                // pub inline fn clone(_self: Self) anyerror!Self {
+                    
+                // }
 
             // └──────────────────────────────────────────────────────────────┘
 
@@ -353,44 +353,44 @@
                     return try l_arr.toOwnedSlice();
                 }
 
-                /// Returns a slice of the string as (`string` type) split by the separator (`string` or `char`) at the specified position, or null if failed.
-                pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) anyerror!?Self {
-                    if(@TypeOf(_sep) == Self) return _self.splitToString(_sep.src(), index);
+                // /// Returns a slice of the string as (`string` type) split by the separator (`string` or `char`) at the specified position, or null if failed.
+                // pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) anyerror!?Self {
+                //     if(@TypeOf(_sep) == Self) return _self.splitToString(_sep.src(), index);
 
-                    if (_self.split(_sep, index)) |block| {
-                        var l_str = Self.init();
-                        try l_str.append(block);
-                        return l_str;
-                    }
+                //     if (_self.split(_sep, index)) |block| {
+                //         var l_str = Self.init();
+                //         try l_str.append(block);
+                //         return l_str;
+                //     }
 
-                    return null;
-                }
+                //     return null;
+                // }
 
-                /// Returns an array of slices of the string as (`string` type) split by the separator (`string` or `char`).
-                pub inline fn splitAllToStrings(_self: Self, _sep: anytype) anyerror![]Self {
-                    if(@TypeOf(_sep) == Self) return _self.splitAllToStrings(_sep.src());
+                // /// Returns an array of slices of the string as (`string` type) split by the separator (`string` or `char`).
+                // pub inline fn splitAllToStrings(_self: Self, _sep: anytype) anyerror![]Self {
+                //     if(@TypeOf(_sep) == Self) return _self.splitAllToStrings(_sep.src());
 
-                    var l_arr = std.ArrayList(Self).init(std.heap.page_allocator);
-                    defer l_arr.deinit();
+                //     var l_arr = std.ArrayList(Self).init(std.heap.page_allocator);
+                //     defer l_arr.deinit();
 
-                    var i: usize = 0;
-                    while (try _self.splitToString(_sep, i)) |splitStr| : (i += 1) { try l_arr.append(splitStr); }
+                //     var i: usize = 0;
+                //     while (try _self.splitToString(_sep, i)) |splitStr| : (i += 1) { try l_arr.append(splitStr); }
 
-                    return try l_arr.toOwnedSlice();
-                }
+                //     return try l_arr.toOwnedSlice();
+                // }
 
-                /// Returns an array of slices of the string split by the separator (`\r\n` or `\n`).
-                pub inline fn lines(_self: Self) anyerror![]Self {
-                    var l_arr = std.ArrayList(Self).init(std.heap.page_allocator);
-                    defer l_arr.deinit();
+                // /// Returns an array of slices of the string split by the separator (`\r\n` or `\n`).
+                // pub inline fn lines(_self: Self) anyerror![]Self {
+                //     var l_arr = std.ArrayList(Self).init(std.heap.page_allocator);
+                //     defer l_arr.deinit();
 
-                    var l_str = try _self.clone();
-                    defer l_str.deinit();
+                //     var l_str = try _self.clone();
+                //     defer l_str.deinit();
 
-                    _ = try l_str.replace("\r\n", "\n", 0);
+                //     _ = try l_str.replace("\r\n", "\n", 0);
 
-                    return try l_str.splitAllToStrings("\n");
-                }
+                //     return try l_str.splitAllToStrings("\n");
+                // }
 
             // └──────────────────────────────────────────────────────────────┘
 
