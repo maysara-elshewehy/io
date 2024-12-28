@@ -89,17 +89,17 @@
                     _self.m_bytes += l_count;
                 }
 
-                /// Copies this String into a new one
-                /// User is responsible for managing the new String
-                pub inline fn clone(_self: Self) anyerror!Self {
-                    var l_ret = Self.init();
-                    l_ret.m_size = _self.m_size;
-                    l_ret.m_bytes = _self.m_bytes;
-                    if (_self.m_bytes > 0) {
-                        chars.utils.copy(l_ret.m_buff[0..l_ret.m_size], l_ret.m_bytes, _self.m_buff[0.._self.m_bytes]);
-                    }
-                    return l_ret;
-                }
+                // /// Copies this String into a new one
+                // /// User is responsible for managing the new String
+                // pub inline fn clone(_self: Self) anyerror!Self {
+                //     var l_ret = Self.init();
+                //     l_ret.m_size = _self.m_size;
+                //     l_ret.m_bytes = _self.m_bytes;
+                //     if (_self.m_bytes > 0) {
+                //         chars.utils.copy(l_ret.m_buff[0..l_ret.m_size], l_ret.m_bytes, _self.m_buff[0.._self.m_bytes]);
+                //     }
+                //     return l_ret;
+                // }
 
 
                 /// Creates a new empty buffer.
