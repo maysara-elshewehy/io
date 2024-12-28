@@ -93,14 +93,18 @@
         | [`rreplace`](./api/rreplace.md)               | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
         | [`replacementSize`](./api/replacementSize.md) | Calculates how much bytes will be removed.                                                                     |
 
+    - #### ✂️ Split
+
+        | Method                        | Description                                                                                        |
+        | ----------------------------- | -------------------------------------------------------------------------------------------------- |
+        | [`split`](./api/split.md)     | Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed. |
+
     - #### ▧ More
 
         | Method                        | Description                                                                                        |
         | ----------------------------- | -------------------------------------------------------------------------------------------------- |
         | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times.                                                      |
         | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                                             |
-        | [`split`](./api/split.md)     | Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed. |
-
 
     - #### Types
 

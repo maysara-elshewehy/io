@@ -1085,9 +1085,65 @@
             try EQLS(str.split(',', 2).?,  ""); // 👉 ""
             try EQLS(str.split(',', 3).?, "2"); // 👉 "2"
             try EQLS(str.split(',', 5).?, "3"); // 👉 "3"
-            try EQLS(str.split(',', 6).?,  ""); // 👉 ","
+            try EQLS(str.split(',', 6).?,  ""); // 👉 ""
         }
 
+        test "docs: splitAll using character" {
+            var str = try string.initWith(",1,,2,,3,");
+            defer str.deinit();
+
+            const res = try str.splitAll(',');
+
+            try EQL(7, res.len);
+            try EQLS("", res[0]);
+            try EQLS("1", res[1]);
+            try EQLS("", res[2]);
+            try EQLS("2", res[3]);
+            try EQLS("", res[4]);
+            try EQLS("3", res[5]);
+            try EQLS("", res[6]);
+        }
+
+        test "docs: splitToString using character" {
+            var str = try string.initWith(",1,,2,,3,");
+            defer str.deinit();
+
+            if(try str.splitToString(',', 0)) |res| { try EQLS("", res.src()); }
+            if(try str.splitToString(',', 1)) |res| { try EQLS("1", res.src()); }
+            if(try str.splitToString(',', 2)) |res| { try EQLS("", res.src()); }
+            if(try str.splitToString(',', 3)) |res| { try EQLS("2", res.src()); }
+            if(try str.splitToString(',', 5)) |res| { try EQLS("3", res.src()); }
+            if(try str.splitToString(',', 6)) |res| { try EQLS("", res.src()); }
+        }
+
+        test "docs: splitAllToStrings using character" {
+            var str = try string.initWith(",1,,2,,3,");
+            defer str.deinit();
+
+            const res = try str.splitAllToStrings(',');
+            try EQL(7, res.len);
+            try EQLS("", res[0].src());
+            try EQLS("1", res[1].src());
+            try EQLS("", res[2].src());
+            try EQLS("2", res[3].src());
+            try EQLS("", res[4].src());
+            try EQLS("3", res[5].src());
+            try EQLS("", res[6].src());
+        }
+
+        test "docs: lines" {
+            var str = try string.initWith("\n1\n\n2\n\n3\n");
+            defer str.deinit();
+
+            const res = try str.lines();
+            try EQL(7, res.len);
+            try EQLS("", res[0].src());
+            try EQLS("1", res[1].src());
+            try EQLS("", res[2].src());
+            try EQLS("2", res[3].src());
+            try EQLS("", res[4].src());
+            try EQLS("3", res[5].src());
+        }
 
     // └──────────────────────────────────────────────────────────────┘
 

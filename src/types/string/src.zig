@@ -60,7 +60,7 @@
 
                 return .{
                     .m_buff  = null,
-                    .m_alloc = std.testing.allocator, // Use testing allocator for simplicity.
+                    .m_alloc = std.heap.page_allocator,
                     .m_size  = 0,
                     .m_bytes = 0,
                 };
@@ -132,6 +132,12 @@
                 }
 
                 _self.m_bytes += l_count;
+            }
+
+            /// Copies this String into a new one
+            /// User is responsible for managing the new String
+            pub inline fn clone(_self: Self) anyerror!Self {
+                return try Self.initWith(_self.src());
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -315,7 +321,6 @@
 
             /// Replaces the first `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
             pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) anyerror!types.unsigned {
-                if(_count == 0) return;
                 if(@TypeOf(_it) == Self) return _self.replace(_it.src(), _with, _count);
                 if(@TypeOf(_with) == Self) return _self.replace(_it, _with.src(), _count);
 
@@ -336,7 +341,6 @@
 
             /// Replaces the last `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
             pub inline fn rreplace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) anyerror!types.unsigned {
-                if(_count == 0) return;
                 if(@TypeOf(_it) == Self) return _self.rreplace(_it.src(), _with, _count);
                 if(@TypeOf(_with) == Self) return _self.rreplace(_it, _with.src(), _count);
 
@@ -383,16 +387,73 @@
                 }
             }
 
+        // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌──────────────────────────── SPLIT ───────────────────────────┐
+
             /// Returns a slice of the string split by the separator (`string` or `char`) at the specified position, or null if failed.
             pub inline fn split(_self: Self, _sep: anytype, _pos: types.unsigned) ?types.cstr {
                 if(@TypeOf(_sep) == Self) return _self.split(_sep.src(), _pos);
 
                 if(_self.m_bytes > 0 and _pos < _self.m_bytes) {
-                    if(_self.m_buff) |m_buff| {
-                        return chars.split(m_buff[0.._self.m_bytes], _sep, _pos);
-                    }
+                    if(_self.m_buff) |m_buff| { return chars.split(m_buff[0.._self.m_bytes], _sep, _pos); }
                 }
                 return null;
+            }
+
+            /// Returns an array of slices of the string split by the separator (`string` or `char`).
+            pub inline fn splitAll(_self: Self, _sep: anytype) ![]types.cstr {
+                if(@TypeOf(_sep) == Self) return _self.splitAll(_sep.src());
+
+                var l_arr = std.ArrayList(types.cstr).init(std.heap.page_allocator);
+                defer l_arr.deinit();
+
+                var i: usize = 0;
+                while (_self.split(_sep, i)) |slice| : (i += 1) {
+                    try l_arr.append(slice);
+                }
+
+                return try l_arr.toOwnedSlice();
+            }
+
+            /// Returns a slice of the string as (`string` type) split by the separator (`string` or `char`) at the specified position, or null if failed.
+            pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) anyerror!?Self {
+                if(@TypeOf(_sep) == Self) return _self.splitToString(_sep.src(), index);
+
+                if (_self.split(_sep, index)) |block| {
+                    var l_str = Self.init();
+                    try l_str.append(block);
+                    return l_str;
+                }
+
+                return null;
+            }
+
+            /// Returns an array of slices of the string as (`string` type) split by the separator (`string` or `char`).
+            pub inline fn splitAllToStrings(_self: Self, _sep: anytype) ![]Self {
+                if(@TypeOf(_sep) == Self) return _self.splitAllToStrings(_sep.src());
+
+                var l_arr = std.ArrayList(Self).init(std.heap.page_allocator);
+                defer l_arr.deinit();
+
+                var i: usize = 0;
+                while (try _self.splitToString(_sep, i)) |splitStr| : (i += 1) { try l_arr.append(splitStr); }
+
+                return try l_arr.toOwnedSlice();
+            }
+
+            /// Returns an array of slices of the string split by the separator (`\r\n` or `\n`).
+            pub inline fn lines(_self: Self) ![]Self {
+                var l_arr = std.ArrayList(Self).init(std.heap.page_allocator);
+                defer l_arr.deinit();
+
+                var l_str = try _self.clone();
+                defer l_str.deinit();
+
+                _ = try l_str.replace("\r\n", "\n", 0);
+
+                return try l_str.splitAllToStrings("\n");
             }
 
         // └──────────────────────────────────────────────────────────────┘

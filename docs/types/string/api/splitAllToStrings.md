@@ -1,9 +1,9 @@
-# [←](../readme.md) `io`.`types`.`string`.`split`
+# [←](../readme.md) `io`.`types`.`string`.`splitAllToStrings`
 
-> Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed.
+> Returns an array of slices of the `io.types.string` split by the separator _(`string` or `char`)_.
 
 ```zig
-pub inline fn split(_self: Self, _sep: anytype, _pos: types.unsigned) ?types.cstr
+pub inline fn splitAllToStrings(_self: Self, _sep: anytype) ![]Self
 ```
 
 <div align="center">
@@ -20,17 +20,13 @@ pub inline fn split(_self: Self, _sep: anytype, _pos: types.unsigned) ?types.cst
 
         > The separator to split with.
 
-    - `_pos` : `types.unsigned`
-
-        > The position to split at.
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `null` or `types.cstr`
+- #### Returns : `anyerror` or `[]Self`
 
-    > The resulting slice of the string split by the separator _(`string` or `char`)_ at the specified position, or `null` if failed.
+    > An array of slices of the _(`string` type)_ split by the separator, or `anyerror` if failed.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -44,15 +40,19 @@ pub inline fn split(_self: Self, _sep: anytype, _pos: types.unsigned) ?types.cst
     ```
 
     ```zig
-    var str = try string.initWith("🌍1🌍🌍2🌍🌍3🌍");
-    defer str.deinit()
+    var str = try string.initWith(",1,,2,,3,");
+    defer str.deinit();
 
-    str.split("🌍", 0).?; // 👉 ""
-    str.split("🌍", 1).?; // 👉 "1"
-    str.split("🌍", 2).?; // 👉 ""
-    str.split("🌍", 3).?; // 👉 "2"
-    str.split("🌍", 5).?; // 👉 "3"
-    str.split("🌍", 6).?; // 👉 ""
+    const res = try str.splitAllToStrings(',');
+
+    res.len;        // 👉 7
+    res[0].src();   // 👉 ""
+    res[1].src();   // 👉 "1"
+    res[2].src();   // 👉 ""
+    res[3].src();   // 👉 "2"
+    res[4].src();   // 👉 ""
+    res[5].src();   // 👉 "3"
+    res[6].src();   // 👉 ""
     ```
 
 <div align="center">
@@ -61,11 +61,11 @@ pub inline fn split(_self: Self, _sep: anytype, _pos: types.unsigned) ?types.cst
 
 - ##### Related
 
-  > [`io.types.string.splitAll`](./splitAll.md)
-
   > [`io.types.string.splitToString`](./splitToString.md)
 
-  > [`io.types.string.splitAllToStrings`](./splitAllToStrings.md)
+  > [`io.types.string.split`](./split.md)
+
+  > [`io.types.string.splitAll`](./splitAll.md)
 
   > [`io.types.string.lines`](./lines.md)
 

@@ -115,13 +115,23 @@
         | [`replace`](./api/replace.md)   | Replaces the first `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements. |
         | [`rreplace`](./api/rreplace.md) | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
 
+    - #### ✂️ Split
+
+        | Method                                            | Description                                                                                                                                  |
+        | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+        | [`split`](./api/split.md)                         | Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed.                    |
+        | [`splitAll`](./api/splitAll.md)                   | Returns an array of slices of the string split by the separator _(`string` or `char`)_.                                   |
+        | [`splitToString`](./api/splitToString.md)         | Returns a slice of the string as `io.types.string` split by the separator _(`string` or `char`)_ at the specified position, or null if failed. |
+        | [`splitAllToStrings`](./api/splitAllToStrings.md) | Returns an array of slices of `io.types.string` split by the separator _(`string` or `char`)_.              |
+        | [`lines`](./api/lines.md)                         | Returns an array of slices of the string split by the separator _(`\r\n` or `\n`)_.                                       |
+
+
     - #### ▧ More
 
-        | Method                        | Description                                                                |
-        | ----------------------------- | -------------------------------------------------------------------------- |
-        | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times.                              |
-        | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                     |
-        | [`split`](./api/split.md)     | Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed. |
+        | Method                        | Description                                   |
+        | ----------------------------- | --------------------------------------------- |
+        | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times. |
+        | [`reverse`](./api/reverse.md) | Reverses the characters in the string.        |
 
    - #### ✍️ Writer
 
