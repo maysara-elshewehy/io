@@ -19,8 +19,9 @@
         /// Returns a fixed-sized array of characters depending on the specified size and value (at compile-time).
         pub inline fn make(comptime _size: comptime_int, comptime _with :? types.cstr) [_size]types.char {
             if(_with) |_src| {
-                var t_res : [_size]types.char = undefined;
+                var t_res : [_size]types.char = .{0} ** _size;
                 append(t_res[0..], 0, _src);
+                append(t_res[0..], _with.?.len, 0);
                 return t_res;
             }
             return undefined;

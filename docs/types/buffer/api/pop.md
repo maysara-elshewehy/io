@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`pop`
+# [←](../readme.md) `io`.`types`.`buffer`.`pop`
 
 > Removes a _(`N` bytes)_ from the end of the string.
 
@@ -37,7 +37,7 @@ pub inline fn pop(_self: *Self, _count: types.unsigned) void
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -54,9 +54,9 @@ pub inline fn pop(_self: *Self, _count: types.unsigned) void
 
 - ##### Related
 
-  > [`io.types.string.shift`](./shift.md)
+  > [`io.types.buffer.shift`](./shift.md)
 
-  > [`io.types.string.remove`](./remove.md)
+  > [`io.types.buffer.remove`](./remove.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

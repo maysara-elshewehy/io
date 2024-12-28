@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`repeat`
+# [←](../readme.md) `io`.`types`.`buffer`.`repeat`
 
 > Repeats the _(`string` or `char`)_ `N` times.
 
@@ -40,12 +40,12 @@ pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) anyerro
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
     ```
 
     > Repeat a `character`.
@@ -73,7 +73,7 @@ pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) anyerro
 
 - ##### Related
 
-  > [`io.types.string.reverse`](./reverse.md)
+  > [`io.types.buffer.reverse`](./reverse.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

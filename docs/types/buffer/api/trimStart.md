@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`trimStart`
+# [←](../readme.md) `io`.`types`.`buffer`.`trimStart`
 
 > Removes all matching characters at the `beg` of the string.
 
@@ -50,15 +50,15 @@ pub inline fn trimStart(_self: *Self, _char: types.char) void
 
 - ##### Related
 
-  > [`io.types.string.trimEnd`](./trimEnd.md)
+  > [`io.types.buffer.trimEnd`](./trimEnd.md)
 
-  > [`io.types.string.trim`](./trim.md)
+  > [`io.types.buffer.trim`](./trim.md)
 
-  > [`io.types.string.pop`](./pop.md)
+  > [`io.types.buffer.pop`](./pop.md)
 
-  > [`io.types.string.shift`](./shift.md)
+  > [`io.types.buffer.shift`](./shift.md)
 
-  > [`io.types.string.remove`](./remove.md)
+  > [`io.types.buffer.remove`](./remove.md)
 
 
 <div align="center">

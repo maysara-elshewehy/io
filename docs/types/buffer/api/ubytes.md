@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`ubytes`
+# [←](../readme.md) `io`.`types`.`buffer`.`ubytes`
 
 > Returns the number of characters in the string (Unicode characters are counted as regular characters).
 
@@ -37,8 +37,8 @@ pub fn ubytes(_self: Self) types.unsigned
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
 
     _ = str.ubytes(); // 👉 0
 
@@ -55,11 +55,11 @@ pub fn ubytes(_self: Self) types.unsigned
 
 - ##### Related
 
-  > [`io.types.string.bytes`](./bytes.md)
+  > [`io.types.buffer.bytes`](./bytes.md)
 
-  > [`io.types.string.size`](./size.md)
+  > [`io.types.buffer.size`](./size.md)
 
-  > [`io.types.string.src`](./src.md)
+  > [`io.types.buffer.src`](./src.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

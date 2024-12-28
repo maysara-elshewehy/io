@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`writeAt`
+# [←](../readme.md) `io`.`types`.`buffer`.`writeAt`
 
 > Inserts a _(`formatted string`)_ into a `specific position` in the string.
 
@@ -44,12 +44,12 @@ pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: ty
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
 
     try str.writeAt( "{c}", .{ '='  }, 0 );     // 👉 "="
     try str.writeAt( "{s}", .{ "🌍" }, 0 );     // 👉 "🌍="
@@ -64,11 +64,11 @@ pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: ty
 
 - ##### Related
 
-  > [`io.types.string.write`](./write.md)
+  > [`io.types.buffer.write`](./write.md)
 
-  > [`io.types.string.writeStart`](./writeStart.md)
+  > [`io.types.buffer.writeStart`](./writeStart.md)
 
-  > [`io.types.string.writer`](./writer.md)
+  > [`io.types.buffer.writer`](./writer.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

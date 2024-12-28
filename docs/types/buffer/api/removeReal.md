@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`removeReal`
+# [←](../readme.md) `io`.`types`.`buffer`.`removeReal`
 
 > Removes a _(`range` or `real position`)_ from the string.
 
@@ -37,12 +37,12 @@ pub inline fn removeReal(_self: *Self, _it: anytype) void
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
     ```
 
     > Remove using a `real position`.
@@ -64,11 +64,11 @@ pub inline fn removeReal(_self: *Self, _it: anytype) void
 
 - ##### Related
 
-  > [`io.types.string.remove`](./remove.md)
+  > [`io.types.buffer.remove`](./remove.md)
 
-  > [`io.types.string.pop`](./pop.md)
+  > [`io.types.buffer.pop`](./pop.md)
 
-  > [`io.types.string.shift`](./shift.md)
+  > [`io.types.buffer.shift`](./shift.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

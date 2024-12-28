@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`find`
+# [←](../readme.md) `io`.`types`.`buffer`.`find`
 
 > Returns the first occurrence of a _(`string` or `char`)_ in a string.
 
@@ -37,7 +37,7 @@ pub inline fn find(_self: *Self, _it: anytype) ?types.unsigned
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -70,7 +70,7 @@ pub inline fn find(_self: *Self, _it: anytype) ?types.unsigned
 
 - ##### Related
 
-  > [`io.types.string.rfind`](./rfind.md)
+  > [`io.types.buffer.rfind`](./rfind.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

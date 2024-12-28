@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`shift`
+# [←](../readme.md) `io`.`types`.`buffer`.`shift`
 
 > Removes a _(`N` bytes)_ from the beg of the string.
 
@@ -37,7 +37,7 @@ pub inline fn shift(_self: *Self, _count: types.unsigned) void
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -54,9 +54,9 @@ pub inline fn shift(_self: *Self, _count: types.unsigned) void
 
 - ##### Related
 
-  > [`io.types.string.pop`](./pop.md)
+  > [`io.types.buffer.pop`](./pop.md)
 
-  > [`io.types.string.remove`](./remove.md)
+  > [`io.types.buffer.remove`](./remove.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

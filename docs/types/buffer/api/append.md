@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`append`
+# [←](../readme.md) `io`.`types`.`buffer`.`append`
 
 > Inserts a _(`string` or `char`)_ into the `end` of the string.
 
@@ -37,12 +37,12 @@ pub fn append(_self: *Self, _it: anytype) anyerror!void
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
     ```
 
     > Append using a `character`.
@@ -61,8 +61,8 @@ pub fn append(_self: *Self, _it: anytype) anyerror!void
     > Append using a `string`.
 
     ```zig
-    var other = try string.initWith("!!");
-    defer other.deinit();
+    var otherBuf = chars.make(64, null);
+    var other = buffer(&otherBuf).with("!!");
 
     try str.append(other);   // 👉 "=🌍🌟!!"
     ```
@@ -73,11 +73,11 @@ pub fn append(_self: *Self, _it: anytype) anyerror!void
 
 - ##### Related
 
-  > [`io.types.string.write`](./write.md)
+  > [`io.types.buffer.write`](./write.md)
 
-  > [`io.types.string.prepend`](./prepend.md)
+  > [`io.types.buffer.prepend`](./prepend.md)
 
-  > [`io.types.string.insert`](./insert.md)
+  > [`io.types.buffer.insert`](./insert.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

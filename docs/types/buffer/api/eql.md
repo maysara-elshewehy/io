@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`eql`
+# [←](../readme.md) `io`.`types`.`buffer`.`eql`
 
 > Returns true if the string are equal to the given _(`string` or `char`)_.
 
@@ -37,7 +37,7 @@ pub inline fn eql(_self: Self, _with: anytype) bool
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -55,11 +55,11 @@ pub inline fn eql(_self: Self, _with: anytype) bool
 
 - ##### Related
 
-  > [`io.types.string.includes`](./includes.md)
+  > [`io.types.buffer.includes`](./includes.md)
 
-  > [`io.types.string.startsWith`](./startsWith.md)
+  > [`io.types.buffer.startsWith`](./startsWith.md)
 
-  > [`io.types.string.endsWith`](./endsWith.md)
+  > [`io.types.buffer.endsWith`](./endsWith.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

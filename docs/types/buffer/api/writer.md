@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`writer`
+# [←](../readme.md) `io`.`types`.`buffer`.`writer`
 
 > Returns a writer for the string.
 
@@ -33,12 +33,12 @@ pub fn writer(_self: *Self) writer
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
 
     var writer = str.writer();
     try writer.print("Hello {s}!", .{"🌍"});  // 👉 "Hello 🌍!"
@@ -50,13 +50,13 @@ pub fn writer(_self: *Self) writer
 
 - ##### Related
 
-    > [`io.types.string.Writer (Type)`](./Writer_t.md)
+    > [`io.types.buffer.writer (Type)`](./Writer_t.md)
 
-    > [`io.types.string.write`](./write.md)
+    > [`io.types.buffer.write`](./write.md)
 
-    > [`io.types.string.writeStart`](./writeStart.md)
+    > [`io.types.buffer.writeStart`](./writeStart.md)
 
-    > [`io.types.string.writeAt`](./writeAt.md)
+    > [`io.types.buffer.writeAt`](./writeAt.md)
 
 
 <div align="center">

@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`Writer`
+# [←](../readme.md) `io`.`types`.`buffer`.`Writer`
 
 > The underlying type of the Writer returned by `writer()`.
 
@@ -31,12 +31,12 @@ pub const Writer = std.io.Writer(*Self, anyerror, write);
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
 
     var writer : str.Writer = str.writer();
     try writer.print("Hello {s}!", .{"🌍"});  // 👉 "Hello 🌍!"
@@ -48,13 +48,13 @@ pub const Writer = std.io.Writer(*Self, anyerror, write);
 
 - ##### Related
 
-    > [`io.types.string.writer`](./writer.md)
+    > [`io.types.buffer.writer`](./writer.md)
 
-    > [`io.types.string.write`](./write.md)
+    > [`io.types.buffer.write`](./write.md)
 
-    > [`io.types.string.writeStart`](./writeStart.md)
+    > [`io.types.buffer.writeStart`](./writeStart.md)
 
-    > [`io.types.string.writeAt`](./writeAt.md)
+    > [`io.types.buffer.writeAt`](./writeAt.md)
 
 
 <div align="center">

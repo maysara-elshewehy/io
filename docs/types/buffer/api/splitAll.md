@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`splitAll`
+# [←](../readme.md) `io`.`types`.`buffer`.`splitAll`
 
 > Returns an array of slices of the string split by the separator _(`string` or `char`)_.
 
@@ -36,7 +36,7 @@ pub inline fn splitAll(_self: Self, _sep: anytype) ![]types.cstr
 
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -61,13 +61,13 @@ pub inline fn splitAll(_self: Self, _sep: anytype) ![]types.cstr
 
 - ##### Related
 
-  > [`io.types.string.split`](./split.md)
+  > [`io.types.buffer.split`](./split.md)
 
-  > [`io.types.string.splitToString`](./splitToString.md)
+  > [`io.types.buffer.splitToString`](./splitToString.md)
 
-  > [`io.types.string.splitAllToStrings`](./splitAllToStrings.md)
+  > [`io.types.buffer.splitAllToStrings`](./splitAllToStrings.md)
 
-  > [`io.types.string.lines`](./lines.md)
+  > [`io.types.buffer.lines`](./lines.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

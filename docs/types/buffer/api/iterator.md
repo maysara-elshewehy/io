@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`iterator`
+# [←](../readme.md) `io`.`types`.`buffer`.`iterator`
 
 > Returns an iterator for the string.
 
@@ -33,7 +33,7 @@ pub fn iterator(_self: *const Self) iterator
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -54,7 +54,7 @@ pub fn iterator(_self: *const Self) iterator
 
 - ##### Related
 
-  > [`io.types.string.Iterator (Type)`](./Iterator_t.md)
+  > [`io.types.buffer.Iterator (Type)`](./Iterator_t.md)
  
 
 <div align="center">

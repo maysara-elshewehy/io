@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`Iterator`
+# [←](../readme.md) `io`.`types`.`buffer`.`Iterator`
 
 > The underlying type of the Iterator returned by `iterator()`.
 
@@ -40,7 +40,7 @@ pub const Iterator = struct {
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -61,7 +61,7 @@ pub const Iterator = struct {
 
 - ##### Related
 
-  > [`io.types.string.iterator`](./iterator.md)
+  > [`io.types.buffer.iterator`](./iterator.md)
 
 
 <div align="center">

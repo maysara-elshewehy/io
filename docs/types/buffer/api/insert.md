@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`insert`
+# [←](../readme.md) `io`.`types`.`buffer`.`insert`
 
 > Inserts a _(`string` or `char`)_ into a `specific position` in the string.
 
@@ -40,12 +40,12 @@ pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
     ```
 
     > Insert using a `character`.
@@ -76,13 +76,13 @@ pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) anyerror!void
 
 - ##### Related
 
-  > [`io.types.string.writeAtReal`](./writeAtReal.md)
+  > [`io.types.buffer.writeAtReal`](./writeAtReal.md)
 
-  > [`io.types.string.writeAt`](./writeAt.md)
+  > [`io.types.buffer.writeAt`](./writeAt.md)
 
-  > [`io.types.string.append`](./append.md)
+  > [`io.types.buffer.append`](./append.md)
 
-  > [`io.types.string.prepend`](./prepend.md)
+  > [`io.types.buffer.prepend`](./prepend.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

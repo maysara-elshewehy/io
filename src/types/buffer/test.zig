@@ -568,7 +568,8 @@
         test "Make a writer for a string and write some string using print function (fmt)" {
             var _buf = chars.make(64, null); var str = buffer(&_buf);
 
-            var writer = str.writer();
+            try EQL(0, str.bytes());
+            const writer = str.writer();
             try writer.print("Hello {s}!", .{"🌍"});
             try EQL(11, str.bytes());
             try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);
@@ -973,44 +974,6 @@
             try EQLS("3", res[5]);
             try EQLS("", res[6]);
         }
-
-        // test "docs: splitToString using character" {
-        //     var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
-
-        //     if(try str.splitToString(',', 0)) |_| { try EQLS("", str.m_buff[0..str.m_bytes]); }
-        //     if(try str.splitToString(',', 1)) |_| { try EQLS("1", str.m_buff[0..str.m_bytes]); }
-        //     if(try str.splitToString(',', 2)) |_| { try EQLS("", str.m_buff[0..str.m_bytes]); }
-        //     if(try str.splitToString(',', 3)) |_| { try EQLS("2", str.m_buff[0..str.m_bytes]); }
-        //     if(try str.splitToString(',', 5)) |_| { try EQLS("3", str.m_buff[0..str.m_bytes]); }
-        //     if(try str.splitToString(',', 6)) |_| { try EQLS("", str.m_buff[0..str.m_bytes]); }
-        // }
-
-        // test "docs: splitAllToStrings using character" {
-        //     var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
-
-        //     const res = try str.splitAllToStrings(',');
-        //     try EQL(7, res.len);
-        //     try EQLS("", res[0].src());
-        //     try EQLS("1", res[1].src());
-        //     try EQLS("", res[2].src());
-        //     try EQLS("2", res[3].src());
-        //     try EQLS("", res[4].src());
-        //     try EQLS("3", res[5].src());
-        //     try EQLS("", res[6].src());
-        // }
-
-        // test "docs: lines" {
-        //     var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("\n1\n\n2\n\n3\n");
-
-        //     const res = try str.lines();
-        //     try EQL(7, res.len);
-        //     try EQLS("", res[0].src());
-        //     try EQLS("1", res[1].src());
-        //     try EQLS("", res[2].src());
-        //     try EQLS("2", res[3].src());
-        //     try EQLS("", res[4].src());
-        //     try EQLS("3", res[5].src());
-        // }
 
     // └──────────────────────────────────────────────────────────────┘
 

@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`toUpper`
+# [←](../readme.md) `io`.`types`.`buffer`.`toUpper`
 
 > Converts all (ASCII) letters to uppercase.
 
@@ -33,7 +33,7 @@ pub inline fn toUpper(_self: *Self) void
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -49,9 +49,9 @@ pub inline fn toUpper(_self: *Self) void
 
 - ##### Related
 
-  > [`io.types.string.toLower`](./toLower.md)
+  > [`io.types.buffer.toLower`](./toLower.md)
 
-  > [`io.types.string.toTitle`](./toTitle.md)
+  > [`io.types.buffer.toTitle`](./toTitle.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

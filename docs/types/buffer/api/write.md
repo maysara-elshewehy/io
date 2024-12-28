@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`write`
+# [←](../readme.md) `io`.`types`.`buffer`.`write`
 
 > Inserts a _(`formatted string`)_ into the `end` of the string.
 
@@ -40,12 +40,12 @@ pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!v
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
 
     try str.write( "{c}", .{ '=' } );     // 👉 "="
     try str.write( "{s}", .{ "🌍" } );    // 👉 "=🌍"
@@ -60,11 +60,11 @@ pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyerror!v
 
 - ##### Related
 
-  > [`io.types.string.writeStart`](./writeStart.md)
+  > [`io.types.buffer.writeStart`](./writeStart.md)
 
-  > [`io.types.string.writeAt`](./writeAt.md)
+  > [`io.types.buffer.writeAt`](./writeAt.md)
 
-  > [`io.types.string.writer`](./writer.md)
+  > [`io.types.buffer.writer`](./writer.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

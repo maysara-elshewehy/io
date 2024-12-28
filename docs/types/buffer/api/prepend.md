@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`prepend`
+# [←](../readme.md) `io`.`types`.`buffer`.`prepend`
 
 > Inserts a _(`string` or `char`)_ into the `beginning` of the string.
 
@@ -37,12 +37,12 @@ pub fn prepend(_self: *Self, _it: anytype) anyerror!void
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
     ```
 
     > Prepend using a `character`.
@@ -73,11 +73,11 @@ pub fn prepend(_self: *Self, _it: anytype) anyerror!void
 
 - ##### Related
 
-  > [`io.types.string.writeStart`](./writeStart.md)
+  > [`io.types.buffer.writeStart`](./writeStart.md)
 
-  > [`io.types.string.append`](./append.md)
+  > [`io.types.buffer.append`](./append.md)
 
-  > [`io.types.string.insert`](./insert.md)
+  > [`io.types.buffer.insert`](./insert.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

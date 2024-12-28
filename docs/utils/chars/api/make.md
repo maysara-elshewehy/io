@@ -19,7 +19,7 @@ pub inline fn make(comptime _size: comptime_int, comptime _with :?types.cstr) [_
 
     - `comptime` `_with` : `?types.cstr`
 
-        > The `string` to initialize with or `null` for an undefined value.
+        > The `string` to initialize with or `null` for an `zeros` value.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

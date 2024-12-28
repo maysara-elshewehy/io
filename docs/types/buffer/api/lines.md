@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`lines`
+# [←](../readme.md) `io`.`types`.`buffer`.`lines`
 
 > Returns an array of slices of the string split by the separator (`\r\n` or `\n`).
 
@@ -32,7 +32,7 @@ pub inline fn lines(_self: Self) ![]Self
 
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -55,13 +55,13 @@ pub inline fn lines(_self: Self) ![]Self
 
 - ##### Related
 
-  > [`io.types.string.split`](./split.md)
+  > [`io.types.buffer.split`](./split.md)
 
-  > [`io.types.string.splitAll`](./splitAll.md)
+  > [`io.types.buffer.splitAll`](./splitAll.md)
 
-  > [`io.types.string.splitToString`](./splitToString.md)
+  > [`io.types.buffer.splitToString`](./splitToString.md)
 
-  > [`io.types.string.splitAllToStrings`](./splitAllToStrings.md)
+  > [`io.types.buffer.splitAllToStrings`](./splitAllToStrings.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

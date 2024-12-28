@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`trimEnd`
+# [←](../readme.md) `io`.`types`.`buffer`.`trimEnd`
 
 > Removes all matching characters at the `end` of the string.
 
@@ -50,15 +50,15 @@ pub inline fn trimEnd(_self: *Self, _char: types.char) void
 
 - ##### Related
 
-  > [`io.types.string.trimStart`](./trimStart.md)
+  > [`io.types.buffer.trimStart`](./trimStart.md)
 
-  > [`io.types.string.trim`](./trim.md)
+  > [`io.types.buffer.trim`](./trim.md)
 
-  > [`io.types.string.pop`](./pop.md)
+  > [`io.types.buffer.pop`](./pop.md)
 
-  > [`io.types.string.shift`](./shift.md)
+  > [`io.types.buffer.shift`](./shift.md)
 
-  > [`io.types.string.remove`](./remove.md)
+  > [`io.types.buffer.remove`](./remove.md)
 
 
 <div align="center">

@@ -38,7 +38,7 @@ pub inline fn includes(_self: Self, _it: anytype) bool
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -58,11 +58,11 @@ pub inline fn includes(_self: Self, _it: anytype) bool
 
 - ##### Related
 
-  > [`io.types.string.eql`](./eql.md)
+  > [`io.types.buffer.eql`](./eql.md)
 
-  > [`io.types.string.startsWith`](./startsWith.md)
+  > [`io.types.buffer.startsWith`](./startsWith.md)
 
-  > [`io.types.string.endsWith`](./endsWith.md)
+  > [`io.types.buffer.endsWith`](./endsWith.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

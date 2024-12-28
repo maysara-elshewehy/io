@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`startsWith`
+# [←](../readme.md) `io`.`types`.`buffer`.`startsWith`
 
 > Returns true if the string starts with the given _(`string` or `char`)_.
 
@@ -38,7 +38,7 @@ pub inline fn startsWith(_self: Self, _with: anytype) bool
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -57,11 +57,11 @@ pub inline fn startsWith(_self: Self, _with: anytype) bool
 
 - ##### Related
 
-  > [`io.types.string.endsWith`](./endsWith.md)
+  > [`io.types.buffer.endsWith`](./endsWith.md)
 
-  > [`io.types.string.eql`](./eql.md)
+  > [`io.types.buffer.eql`](./eql.md)
 
-  > [`io.types.string.includes`](./includes.md)
+  > [`io.types.buffer.includes`](./includes.md)
 
 
 <div align="center">

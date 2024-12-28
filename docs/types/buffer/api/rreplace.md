@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`rreplace`
+# [←](../readme.md) `io`.`types`.`buffer`.`rreplace`
 
 > Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.
 
@@ -44,7 +44,7 @@ pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
@@ -82,7 +82,7 @@ pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.
 
 - ##### Related
 
-  > [`io.types.string.replace`](./replace.md)
+  > [`io.types.buffer.replace`](./replace.md)
 
 
 <div align="center">

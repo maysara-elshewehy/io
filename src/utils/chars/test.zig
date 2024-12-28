@@ -184,7 +184,7 @@
             // size > 0
             const res = chars.make(64, "Hello");
             try EQL(64, chars.size(res));
-            try EQL(64,  chars.bytes(res[0..])); // zig by default doesn't add '/0' character.
+            try EQL(5,  chars.bytes(res[0..])); // cuz, make method adds '\0' after appending the string.
         }
 
         test "Get the character/unicode at the non-real position" {

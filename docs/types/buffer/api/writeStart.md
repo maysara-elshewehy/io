@@ -1,4 +1,4 @@
-# [←](../readme.md) `io`.`types`.`string`.`writeStart`
+# [←](../readme.md) `io`.`types`.`buffer`.`writeStart`
 
 > Inserts a _(`formatted string`)_ into the `beginning` of the string.
 
@@ -40,12 +40,12 @@ pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyer
 - #### Example
 
     ```zig
-    const string = @import("io").types.string;
+    const buffer = @import("io").types.buffer;
     ```
 
     ```zig
-    var str = string.init();
-    defer str.deinit();
+    var buf = chars.make(64, null);
+    var str = buffer(&buf);
 
     try str.writeStart( "{c}", .{ '=' } );     // 👉 "="
     try str.writeStart( "{s}", .{ "🌍" } );    // 👉 "🌍="
@@ -60,11 +60,11 @@ pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) anyer
 
 - ##### Related
 
-  > [`io.types.string.write`](./write.md)
+  > [`io.types.buffer.write`](./write.md)
 
-  > [`io.types.string.writeAt`](./writeAt.md)
+  > [`io.types.buffer.writeAt`](./writeAt.md)
 
-  > [`io.types.string.writer`](./writer.md)
+  > [`io.types.buffer.writer`](./writer.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
