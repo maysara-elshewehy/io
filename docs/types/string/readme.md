@@ -121,7 +121,7 @@
         | ----------------------------- | -------------------------------------------------------------------------- |
         | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times.                              |
         | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                     |
-        | [`split`](./api/split.md)     | Returns a slice of the string split by the separator at the specified position, or null if failed. |
+        | [`split`](./api/split.md)     | Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed. |
 
    - #### ✍️ Writer
 

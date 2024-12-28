@@ -1067,12 +1067,25 @@
         test "docs: split" {
             var str = try string.initWith("🌍1🌍🌍2🌍🌍3🌍");
             defer str.deinit();
+
             try EQLS(str.split("🌍", 0).?,  ""); // 👉 ""
             try EQLS(str.split("🌍", 1).?, "1"); // 👉 "1"
             try EQLS(str.split("🌍", 2).?,  ""); // 👉 ""
             try EQLS(str.split("🌍", 3).?, "2"); // 👉 "2"
             try EQLS(str.split("🌍", 5).?, "3"); // 👉 "3"
             try EQLS(str.split("🌍", 6).?,  ""); // 👉 ""
+        }
+
+        test "docs: split using character" {
+            var str = try string.initWith(",1,,2,,3,");
+            defer str.deinit();
+
+            try EQLS(str.split(',', 0).?,  ""); // 👉 ""
+            try EQLS(str.split(',', 1).?, "1"); // 👉 "1"
+            try EQLS(str.split(',', 2).?,  ""); // 👉 ""
+            try EQLS(str.split(',', 3).?, "2"); // 👉 "2"
+            try EQLS(str.split(',', 5).?, "3"); // 👉 "3"
+            try EQLS(str.split(',', 6).?,  ""); // 👉 ","
         }
 
 

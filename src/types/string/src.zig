@@ -117,7 +117,7 @@
                 if(_pos > _self.m_bytes) return error.InvalidIndex;
 
                 if(@TypeOf(_it) == Self) return _self.insertReal(_it.src(), _pos);
-                const l_count = if(chars.utils.isCtype(@TypeOf(_it))) 1 else _it.len;
+                const l_count = if(chars.utils.isCtype(_it)) 1 else _it.len;
 
                 if(_pos == _self.m_bytes) {
                     try _self.__alloc(l_count + _self.m_bytes);
@@ -148,7 +148,7 @@
                 if(_self.m_bytes == 0) return;
 
                 if(_self.m_buff) |m_buff| {
-                    if(chars.utils.isUtype(@TypeOf(_it))) {
+                    if(chars.utils.isUtype(_it)) {
                         if(chars.utils.indexOf(m_buff[0.._self.m_bytes], _it)) |l_pos| {
                             const l_beg = l_pos - chars.utils.begOf(m_buff[0..], l_pos);
                             const l_count = chars.utils.sizeOf(m_buff[l_beg]);
@@ -169,7 +169,7 @@
                 if(_self.m_bytes == 0) return;
 
                 if(_self.m_buff) |m_buff| {
-                    if(chars.utils.isUtype(@TypeOf(_it))) {
+                    if(chars.utils.isUtype(_it)) {
                         const l_beg = _it - chars.utils.begOf(m_buff[0..], _it);
                         const l_count = chars.utils.sizeOf(m_buff[l_beg]);
                         chars.removeReal(m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
@@ -383,11 +383,13 @@
                 }
             }
 
-            /// Returns a slice of the string split by the separator at the specified position, or null if failed.
-            pub inline fn split(_self: Self, _by: types.cstr, _pos: types.unsigned) ?types.cstr {
+            /// Returns a slice of the string split by the separator (`string` or `char`) at the specified position, or null if failed.
+            pub inline fn split(_self: Self, _sep: anytype, _pos: types.unsigned) ?types.cstr {
+                if(@TypeOf(_sep) == Self) return _self.split(_sep.src(), _pos);
+
                 if(_self.m_bytes > 0 and _pos < _self.m_bytes) {
                     if(_self.m_buff) |m_buff| {
-                        return chars.split(m_buff[0.._self.m_bytes], _by, _pos);
+                        return chars.split(m_buff[0.._self.m_bytes], _sep, _pos);
                     }
                 }
                 return null;

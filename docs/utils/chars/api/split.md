@@ -1,9 +1,9 @@
 # [←](../readme.md) `io`.`utils`.`chars`.`split`
 
-> Returns a slice of the string split by the separator at the specified position, or null if failed.
+> Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed.
 
 ```zig
-pub inline fn split(_it: types.cstr, _by: types.cstr, _pos: types.unsigned) ?types.cstr
+pub inline fn split(_it: types.cstr, _sep: anytype, _pos: types.unsigned) ?types.cstr
 ```
 
 <div align="center">
@@ -16,9 +16,9 @@ pub inline fn split(_it: types.cstr, _by: types.cstr, _pos: types.unsigned) ?typ
 
         > The string to used.
 
-    - `_by` : `types.cstr`
+    - `_sep` : `types.cstr` or `types.char`
 
-        > The string to split with.
+        > The separator to split with.
 
     - `_pos` : `types.unsigned`
 
@@ -30,7 +30,7 @@ pub inline fn split(_it: types.cstr, _by: types.cstr, _pos: types.unsigned) ?typ
 
 - #### Returns : `null` or `types.cstr`
 
-    > The resulting slice of the string split by the separator at the specified position, or `null` if failed.
+    > The resulting slice of the string split by the separator _(`string` or `char`)_ at the specified position, or `null` if failed.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

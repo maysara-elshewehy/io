@@ -1,9 +1,9 @@
 # [←](../readme.md) `io`.`utils`.`chars`.`eql`
 
-> Returns true if the given string are equal to the given _(`string` or `char`)_.
+> Returns true if the given _(`string` or `char`)_ are equal to the given _(`string` or `char`)_.
 
 ```zig
-pub inline fn eql(_str1: types.cstr, _str2: types.cstr) bool
+pub inline fn eql(_it: anytype, _with: anytype) bool
 ```
 
 
@@ -13,14 +13,14 @@ pub inline fn eql(_str1: types.cstr, _str2: types.cstr) bool
 
 - #### Parameters
 
-    - `_str1` : `types.cstr`
+    - `_it` : `types.cstr` or `types.char`
 
-        > The first string to compare.
+        > The first value to compare.
 
 
-    - `_str2` : `types.cstr`
+    - `_with` : `types.cstr` or `types.char`
 
-        > The second string to compare.
+        > The second value to compare.
 
 
 <div align="center">
@@ -29,7 +29,7 @@ pub inline fn eql(_str1: types.cstr, _str2: types.cstr) bool
 
 - #### Returns : `bool`
 
-    > Returns true if both input strings are exactly the same.
+    > Returns true if both input values are exactly the same.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -41,11 +41,22 @@ pub inline fn eql(_str1: types.cstr, _str2: types.cstr) bool
     const chars = @import("io").utils.chars;
     ```
 
+
     ```zig
     chars.eql("", "");              // 👉 true
     chars.eql("=🌍🌟!", "=🌍🌟!");  // 👉 true
     chars.eql("=🌍🌟!", "=====");   // 👉 false
+
+    // two characters
+    chars.eql('@', '@');            // 👉 true
+
+    // string and character
+    chars.eql("@", '@');            // 👉 true
+
+    // character and string
+    chars.eql('@', "@");            // 👉 true
     ```
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

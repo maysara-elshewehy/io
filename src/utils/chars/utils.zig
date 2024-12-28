@@ -10,12 +10,14 @@
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
     /// Returns true if the given argument is a valid single character type.
-    pub inline fn isCtype(comptime T: type) bool {
+    pub inline fn isCtype(arg: anytype) bool {
+        const T = @TypeOf(arg);
         return T == types.char or T == comptime_int;
     }
 
     /// Returns true if the given argument is a valid unsigned type.
-    pub inline fn isUtype(comptime T: type) bool {
+    pub inline fn isUtype(arg: anytype) bool {
+        const T = @TypeOf(arg);
         return T == types.unsigned or T == comptime_int;
     }
 

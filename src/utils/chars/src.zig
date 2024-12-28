@@ -48,7 +48,7 @@
         /// Returns the size of the specified (array of characters : The actual size of the array)
         /// or (single character : Given the first byte of a UTF-8 codepoint, returns a number 1-4 indicating the total length of the codepoint in bytes).
         pub inline fn size(_it: anytype) types.unsigned {
-            if(utils.isCtype(@TypeOf(_it))) { return utils.sizeOf(_it); }
+            if(utils.isCtype(_it)) { return utils.sizeOf(_it); }
             else { return _it.len; }
         }
 
@@ -68,7 +68,7 @@
 
         /// Inserts a (`string` or `char`) into the end of the string.
         pub inline fn append(_to: types.str, _len: types.unsigned, _it: anytype) void {
-            if (utils.isCtype(@TypeOf(_it))) {
+            if (utils.isCtype(_it)) {
                 _to[_len] = _it;
             } else {
                 utils.copy(_to, _len, _it);
@@ -77,7 +77,7 @@
 
         /// Inserts a (`string` or `char`) into the beginning of the string.
         pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void {
-            if (utils.isCtype(@TypeOf(_it))) {
+            if (utils.isCtype(_it)) {
                 utils.move_right(_to[0..], 0, _len, 1);
                 _to[0] = _it;
             } else {
@@ -97,7 +97,7 @@
             if(_pos == 0) return prepend(_to, _len, _it);
 
             const _i = _pos + utils.begOf(_to[0..], _pos);
-            if (utils.isCtype(@TypeOf(_it))) {
+            if (utils.isCtype(_it)) {
                 utils.move_right(_to[0..], _i, _len, 1);
                 _to[_i] = _it;
             } else {
@@ -213,7 +213,7 @@
 
         /// Returns the first occurrence of a (`string` or `char`) in the string.
         pub inline fn find(_in: types.cstr, _it: anytype) ?types.unsigned {
-            if (utils.isCtype(@TypeOf(_it))) {
+            if (utils.isCtype(_it)) {
                 return std.mem.indexOf(types.char, _in[0.._in.len], &[_]types.char{_it});
             } else {
                 return std.mem.indexOf(types.char, _in[0.._in.len], _it);
@@ -222,7 +222,7 @@
 
         /// Returns the last occurrence of a (`string` or `char`) in the string.
         pub inline fn rfind(_in: types.cstr, _it: anytype) ?types.unsigned {
-            if (utils.isCtype(@TypeOf(_it))) {
+            if (utils.isCtype(_it)) {
                 return std.mem.lastIndexOf(types.char, _in[0.._in.len], &[_]types.char{_it});
             } else {
                 return std.mem.lastIndexOf(types.char, _in[0.._in.len], _it);
@@ -261,20 +261,37 @@
 
     // ┌─────────────────────────── CHECKS ───────────────────────────┐
 
-        /// Returns true if the given string are equal to the given (`string` or `char`).
-        pub inline fn eql(_it: types.cstr, _with: anytype) bool {
-            if(utils.isCtype(@TypeOf(_with))) {
-                if (_it.len != 1) return false;
-                return _it[0] == _with;
-            } else {
-                if (_it.len != _with.len) return false;
-                return std.mem.eql(u8, _it[0..], _with[0..]);
+        /// Returns true if the given (`string` or `char`) are equal to the given (`string` or `char`).
+        pub inline fn eql(_it: anytype, _with: anytype) bool {
+            const isWithChar = utils.isCtype(_with);
+
+            // is it a char?
+            if(utils.isCtype(_it)) {
+                // is with a char?
+                if(isWithChar) {
+                    return _it == _with;
+                }
+                else {
+                    return _with.len == 1 and _with[0] == _it;
+                }
+            }
+
+            // is it a string?
+            else {
+                // is with a char?
+                if(isWithChar) {
+                    return _it.len == 1 and _it[0] == _with;
+                }
+                else {
+                    if (_it.len != _with.len) return false;
+                    return std.mem.eql(u8, _it[0..], _with[0..]);
+                }
             }
         }
 
         /// Returns true if the string starts with the given (`string` or `char`).
         pub inline fn startsWith(_it: types.cstr, _with: anytype) bool {
-            if(utils.isCtype(@TypeOf(_with))) {
+            if(utils.isCtype(_with)) {
                 if(_it.len == 0) return false;
                 return _it[0] == _with;
             } else {
@@ -287,7 +304,7 @@
 
         /// Returns true if the string ends with the given (`string` or `char`).
         pub inline fn endsWith(_it: types.cstr, _with: anytype) bool {
-            if(utils.isCtype(@TypeOf(_with))) {
+            if(utils.isCtype(_with)) {
                 if(_it.len == 0) return false;
                 return _it[_it.len-1] == _with;
             } else {
@@ -329,7 +346,7 @@
             var i = find(_in[0..], _it);
             var l_count: types.unsigned = 0;
             var l_removedBytes: types.unsigned = 0;
-            const l_bytesOfIt = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
+            const l_bytesOfIt = if(utils.isCtype(_it)) 1 else _it.len;
             while (i != null) {
                 const l_size = utils.sizeOf(_in[i.?]);
                 removeReal(_in[0..], .{ i.?, i.? + l_bytesOfIt });
@@ -348,7 +365,7 @@
             var i = rfind(_in[0..], _it);
             var l_count: types.unsigned = 0;
             var l_removedBytes: types.unsigned = 0;
-            const l_bytesOfIt = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
+            const l_bytesOfIt = if(utils.isCtype(_it)) 1 else _it.len;
             while (i != null) {
                 const l_size = utils.sizeOf(_in[i.?]);
                 removeReal(_in[0..], .{ i.?, i.? + l_bytesOfIt });
@@ -369,7 +386,7 @@
         /// Repeats the (`string` or `char`) `N` times.
         pub inline fn repeat(_in: types.str, _len: types.unsigned, _it: anytype, _count: types.unsigned) void {
             var i: types.unsigned = 0;
-            const _itLen = if(utils.isCtype(@TypeOf(_it))) 1 else _it.len;
+            const _itLen = if(utils.isCtype(_it)) 1 else _it.len;
             while (i < _count) {
                 append(_in[0..], _len + (_itLen*i) , _it);
                 i += 1;
@@ -388,15 +405,16 @@
             std.mem.reverse(u8, _it[0..l_len]);
         }
 
-        /// Returns a slice of the string split by the separator at the specified position, or null if failed.
-        pub inline fn split(_it: types.cstr, _by: types.cstr, _pos: types.unsigned) ?types.cstr {
+        /// Returns a slice of the string split by the separator (`string` or `char`) at the specified position, or null if failed.
+        pub inline fn split(_it: types.cstr, _sep: anytype, _pos: types.unsigned) ?types.cstr {
             var i: types.unsigned = 0;
             var l_block: types.unsigned = 0;
             var l_start: types.unsigned = 0;
+            const l_sepLen = size(_sep);
             while (i < _it.len) {
                 const l_size = utils.sizeOf(_it[i]);
-                if (l_size == _by.len) {
-                    if (std.mem.eql(u8, _by, _it[i..(i + l_size)])) {
+                if (l_size == l_sepLen) {
+                    if (eql(_sep, _it[i..(i + l_size)])) {
                         if (l_block == _pos) return _it[l_start..i];
                         l_start = i + l_size;
                         l_block += 1;
