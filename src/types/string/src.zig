@@ -3,7 +3,6 @@
     const std = @import("std");
     const chars = @import("../../utils/chars/src.zig");
     const types = chars.types;
-    const builtin = @import("builtin");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -55,9 +54,6 @@
 
             /// Initialize an empty string.
             pub fn init() Self {
-                // set the console output to UTF-8 encoding for Windows.
-                if (builtin.os.tag == .windows) { _ = std.os.windows.kernel32.SetConsoleOutputCP(65001); }
-
                 return .{
                     .m_buff  = null,
                     .m_alloc = std.heap.page_allocator,
