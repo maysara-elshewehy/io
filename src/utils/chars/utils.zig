@@ -35,7 +35,7 @@
     /// Returns the size (in bytes) of the Unicode character.
     /// Given the first byte of a UTF-8 codepoint, returns a number 1-4 indicating the total length of the codepoint in bytes.
     pub inline fn sizeOf(_char: types.char) types.unsigned {
-        return std.unicode.utf8ByteSequenceLength(_char) catch { return 1; };
+        return std.unicode.utf8ByteSequenceLength(_char) catch 1;
     }
 
     /// Returns the real index of a Unicode character.
