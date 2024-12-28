@@ -4,6 +4,12 @@
     const chars = @import("../../utils/chars/src.zig");
     const types = chars.types;
 
+    pub const Error = error {
+        OutOfMemory,
+        InvalidIndex,
+        FmtError,
+    };
+
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
 
@@ -63,7 +69,7 @@
             }
 
             /// Initialize a string with an allocator and a given _(`string` or `char`)_.
-            pub fn initWith(_it: anytype) !Self {
+            pub fn initWith(_it: anytype) Error!Self {
                 var l_str = init();
                 try l_str.append(_it);
                 return l_str;
@@ -77,12 +83,12 @@
             }
 
             /// Allocate or reallocate the string buffer to a new size.
-            pub fn allocate(_self: *Self, _bytes: types.unsigned) !void {
+            pub fn allocate(_self: *Self, _bytes: types.unsigned) Error!void {
                 if (_self.m_buff) |m_buff| {
                     if (_bytes < _self.m_size) _self.m_size = _bytes;
-                    _self.m_buff = _self.m_alloc.realloc(m_buff, _bytes) catch { return error.OutOfMemory; };
+                    _self.m_buff = _self.m_alloc.realloc(m_buff, _bytes) catch { return Error.OutOfMemory; };
                 } else {
-                    _self.m_buff = _self.m_alloc.alloc(types.char, _bytes) catch { return error.OutOfMemory; };
+                    _self.m_buff = _self.m_alloc.alloc(types.char, _bytes) catch { return Error.OutOfMemory; };
                 }
                 _self.m_size = _bytes;
             }
@@ -93,24 +99,24 @@
         // ┌─────────────────────────── INSERT ───────────────────────────┐
 
             /// Inserts a (`string` or `char`) into the `end` of the string.
-            pub fn append(_self: *Self, _it: anytype) !void {
+            pub fn append(_self: *Self, _it: anytype) Error!void {
                 return insertReal(_self, _it, _self.m_bytes);
             }
 
             /// Inserts a (`string` or `char`) into the `beg` of the string.
-            pub fn prepend(_self: *Self, _it: anytype) !void {
+            pub fn prepend(_self: *Self, _it: anytype) Error!void {
                 return insertReal(_self, _it, 0);
             }
 
             /// Inserts a (`string` or `char`) into a `specific position` in the string.
-            pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) !void {
+            pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) Error!void {
                 return insertReal(_self, _it, chars.utils.indexOf(_self.src(), _pos) orelse unreachable);
             }
 
             /// Inserts a (`string` or `char`) into a `specific position` (The real position) in the string.
             /// @Error: InvalidIndex (If the position is out of range).
-            pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) !void {
-                if(_pos > _self.m_bytes) return error.InvalidIndex;
+            pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) Error!void {
+                if(_pos > _self.m_bytes) return Error.InvalidIndex;
 
                 if(@TypeOf(_it) == Self) return _self.insertReal(_it.src(), _pos);
                 const l_count = if(chars.utils.isCtype(_it)) 1 else _it.len;
@@ -316,7 +322,7 @@
         // ┌─────────────────────────── REPLACE ──────────────────────────┐
 
             /// Replaces the first `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
-            pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) !types.unsigned {
+            pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) Error!types.unsigned {
                 if(@TypeOf(_it) == Self) return _self.replace(_it.src(), _with, _count);
                 if(@TypeOf(_with) == Self) return _self.replace(_it, _with.src(), _count);
 
@@ -336,7 +342,7 @@
             }
 
             /// Replaces the last `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
-            pub inline fn rreplace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) !types.unsigned {
+            pub inline fn rreplace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) Error!types.unsigned {
                 if(@TypeOf(_it) == Self) return _self.rreplace(_it.src(), _with, _count);
                 if(@TypeOf(_with) == Self) return _self.rreplace(_it, _with.src(), _count);
 
@@ -361,7 +367,7 @@
         // ┌──────────────────────────── MORE ────────────────────────────┐
 
             /// Repeats the (`string` or `char`) `N` times.
-            pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) !void {
+            pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) Error!void {
                 if(_count == 0) return;
                 if(@TypeOf(_it) == Self) return _self.repeat(_it.src(), _count);
 
@@ -399,7 +405,7 @@
             }
 
             /// Returns an array of slices of the string split by the separator (`string` or `char`).
-            pub inline fn splitAll(_self: Self, _sep: anytype) ![]types.cstr {
+            pub inline fn splitAll(_self: Self, _sep: anytype) Error![]types.cstr {
                 if(@TypeOf(_sep) == Self) return _self.splitAll(_sep.src());
 
                 var l_arr = std.ArrayList(types.cstr).init(std.heap.page_allocator);
@@ -410,11 +416,11 @@
                     try l_arr.append(slice);
                 }
 
-                return try l_arr.toOwnedSlice();
+                return l_arr.toOwnedSlice() catch return Error.OutOfMemory;
             }
 
             /// Returns a slice of the string as (`string` type) split by the separator (`string` or `char`) at the specified position, or null if failed.
-            pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) !?Self {
+            pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) Error!?Self {
                 if(@TypeOf(_sep) == Self) return _self.splitToString(_sep.src(), index);
 
                 if (_self.split(_sep, index)) |block| {
@@ -427,7 +433,7 @@
             }
 
             /// Returns an array of slices of the string as (`string` type) split by the separator (`string` or `char`).
-            pub inline fn splitAllToStrings(_self: Self, _sep: anytype) ![]Self {
+            pub inline fn splitAllToStrings(_self: Self, _sep: anytype) Error![]Self {
                 if(@TypeOf(_sep) == Self) return _self.splitAllToStrings(_sep.src());
 
                 var l_arr = std.ArrayList(Self).init(std.heap.page_allocator);
@@ -436,11 +442,11 @@
                 var i: usize = 0;
                 while (try _self.splitToString(_sep, i)) |splitStr| : (i += 1) { try l_arr.append(splitStr); }
 
-                return try l_arr.toOwnedSlice();
+                return l_arr.toOwnedSlice() catch return Error.OutOfMemory;
             }
 
             /// Returns an array of slices of the string split by the separator (`\r\n` or `\n`).
-            pub inline fn lines(_self: Self) ![]Self {
+            pub inline fn lines(_self: Self) Error![]Self {
                 var l_arr = std.ArrayList(Self).init(std.heap.page_allocator);
                 defer l_arr.deinit();
 
@@ -467,42 +473,42 @@
                 }
 
                 /// Writes a string to the writer.
-                fn __write(_self: *Self, _it: types.cstr) !types.unsigned {
+                fn __write(_self: *Self, _it: types.cstr) Error!types.unsigned {
                     try _self.append(_it);
                     return _it.len;
                 }
 
                 /// Inserts a (`formatted string`) into the `end` of the string.
-                pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) !void {
+                pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) Error!void {
                     const l_count = std.fmt.count(_fmt, _args);
                     try _self.__alloc(l_count + _self.m_bytes);
-                    _self.writer().print(_fmt, _args) catch {};
+                    _self.writer().print(_fmt, _args) catch return Error.FmtError;
                 }
 
                 /// Inserts a (`formatted string`) into the `beg` of the string.
-                pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) !void {
+                pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) Error!void {
                     const l_count = std.fmt.count(_fmt, _args);
                     try _self.__alloc(l_count + _self.m_bytes);
                     chars.utils.move_right(_self.m_buff.?[0.._self.m_size], 0, _self.m_bytes, l_count);
                     var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[0..]);
                     const l_writer = l_fixedBufferStream.writer();
-                    l_writer.print(_fmt, _args) catch {};
+                    l_writer.print(_fmt, _args) catch return Error.FmtError;
                     _self.m_bytes += l_count;
                 }
 
                 /// Inserts a (`formatted string`) into a `specific position` in the string.
-                pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) !void {
+                pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) Error!void {
                     if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
                     if(_pos == 0) return _self.writeStart(_fmt, _args);
 
                     try _self.__alloc(std.fmt.count(_fmt, _args) + _pos);
                     if(chars.utils.indexOf(_self.src(), _pos)) |l_pos| {
                         return _self.writeAtReal(_fmt, _args, l_pos);
-                    } else unreachable;
+                    } else return Error.InvalidIndex;
                 }
 
                 /// Inserts a (`formatted string`) into a `specific position` (The real position) in the string.
-                pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) !void {
+                pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) Error!void {
                     if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
                     if(_pos == 0) return _self.writeStart(_fmt, _args);
 
@@ -513,7 +519,7 @@
 
                     var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[l_beg..]);
                     const l_writer = l_fixedBufferStream.writer();
-                    l_writer.print(_fmt, _args) catch unreachable;
+                    l_writer.print(_fmt, _args) catch return Error.FmtError;
                     _self.m_bytes += l_count;
                 }
             };
@@ -559,13 +565,13 @@
         // ┌────────────────────────── INTERNAL ──────────────────────────┐
 
             /// Internal methods used by other methods in the string type to check and allocate/reallocate memory if necessary.
-            inline fn __alloc(_self: *Self, _bytes: types.unsigned) !void {
+            inline fn __alloc(_self: *Self, _bytes: types.unsigned) Error!void {
                 if (_self.m_buff) |_| {
                     if (_self.m_size <= _bytes+1) {
-                        try _self.allocate((_bytes+1) * 2);
+                        _self.allocate((_bytes+1) * 2) catch { return Error.OutOfMemory; };
                     }
                 } else {
-                    try _self.allocate((_bytes+1) * 2);
+                    _self.allocate((_bytes+1) * 2) catch { return Error.OutOfMemory; };
                 }
             }
 
