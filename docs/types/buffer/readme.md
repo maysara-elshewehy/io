@@ -39,6 +39,7 @@
     str.ubytes();                           // 👉 8     (Unicode characters are counted as regular characters).
     str.bytes();                            // 👉 11    Regular characters = 1, Unicode characters = 4.
     str.size();                             // 👉 64    Total size of the array.
+    str.str.m_buff[0..str.m_bytes];         // 👉 "Hello 🌍!"
     ```
 
 - ### API
