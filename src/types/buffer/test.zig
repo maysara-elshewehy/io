@@ -596,18 +596,18 @@
     // └──────────────────────────────────────────────────────────────┘
 
 
-//     // ┌──────────────────────────── DOCS ────────────────────────────┐
+    // ┌──────────────────────────── DOCS ────────────────────────────┐
 
-//         test "readme example" {
-//             var str = buffer.init();            // Creates a new string structure.
-//             defer str.deinit();                 // Cleans up the allocated memory (if allocated) when the scope ends.
+        test "readme example" {
+            var _buf = chars.make(64, null);    // Creates a fixed array of characters.
+            var str = buffer(&_buf);            // Creates a new buffer structure.
 
-//             try str.append("Hello 🌍!");        // 👉 "Hello 🌍!"
-//             try EQL(8, str.ubytes());           // 👉 8     (Unicode characters are counted as regular characters).
-//             try EQL(11, str.bytes());           // 👉 11    Regular characters = 1, Unicode characters = 4.
-//             try EQL(24, str.size());            // 👉 24    Total size of the allocated memory.
-//             try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);   // 👉 "Hello 🌍!"
-//         }
+            try str.append("Hello 🌍!");        // 👉 "Hello 🌍!"
+            try EQL(8, str.ubytes());           // 👉 8     (Unicode characters are counted as regular characters).
+            try EQL(11, str.bytes());           // 👉 11    Regular characters = 1, Unicode characters = 4.
+            try EQL(64, str.size());            // 👉 64    Total size of the array.
+            try EQLS("Hello 🌍!", str.m_buff[0..str.m_bytes]);   // 👉 "Hello 🌍!"
+        }
 
 //         test "docs: allocate" {
 //             var str = buffer.init(); defer str.deinit();
