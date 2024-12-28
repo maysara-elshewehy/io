@@ -40,7 +40,7 @@
             var j: types.unsigned = 0;
             while (i < _it.len) {
                 if(_it[i] == 0) break;
-                i += utils.sizeOf(_it[i]);
+                i += utils.sizeOf(_it[i]); // TODO: handle more cases like: "☹️", "🚵🏻‍♀️". (https://ziggit.dev/t/dynamic-string-done-right/7554/6)
                 j += 1;
             }
             return j;

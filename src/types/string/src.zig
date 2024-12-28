@@ -19,7 +19,7 @@
     /// Dynamic array of characters.
     pub const string = struct {
         const Self = @This();
-        /// Nullable array of characters to store the content.
+        /// Array of characters to store the content.
         m_buff: types.str = &.{},
         /// Allocator used for memory management.
         m_alloc: std.mem.Allocator,
@@ -545,7 +545,7 @@
             inline fn __alloc(_self: *Self, _bytes: types.unsigned) Error!void {
                 // std.debug.print("allocating {d} bytes\n", .{_bytes});
                 if (_self.m_size <= _bytes+1) {
-                    _self.allocate((_bytes+1) * 2) catch { return Error.OutOfMemory; };
+                    _self.allocate((_bytes+1) * 2) catch return Error.OutOfMemory;
                 }
             }
 

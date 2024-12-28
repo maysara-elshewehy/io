@@ -117,13 +117,13 @@
 
     - #### ✂️ Split
 
-        | Method                                            | Description                                                                                                                                  |
-        | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-        | [`split`](./api/split.md)                         | Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed.                    |
-        | [`splitAll`](./api/splitAll.md)                   | Returns an array of slices of the string split by the separator _(`string` or `char`)_.                                   |
+        | Method                                            | Description                                                                                                                                    |
+        | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+        | [`split`](./api/split.md)                         | Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed.                      |
+        | [`splitAll`](./api/splitAll.md)                   | Returns an array of slices of the string split by the separator _(`string` or `char`)_.                                                        |
         | [`splitToString`](./api/splitToString.md)         | Returns a slice of the string as `io.types.string` split by the separator _(`string` or `char`)_ at the specified position, or null if failed. |
-        | [`splitAllToStrings`](./api/splitAllToStrings.md) | Returns an array of slices of `io.types.string` split by the separator _(`string` or `char`)_.              |
-        | [`lines`](./api/lines.md)                         | Returns an array of slices of the string split by the separator _(`\r\n` or `\n`)_.                                       |
+        | [`splitAllToStrings`](./api/splitAllToStrings.md) | Returns an array of slices of `io.types.string` split by the separator _(`string` or `char`)_.                                                 |
+        | [`lines`](./api/lines.md)                         | Returns an array of slices of the string split by the separator _(`\r\n` or `\n`)_.                                                            |
 
 
     - #### ▧ More
@@ -153,12 +153,12 @@
 
    - #### ⡾ Fields
 
-        | Field     | Description                                        |
-        | --------- | -------------------------------------------------- |
-        | `m_buff`  | Nullable array of characters to store the content. |
-        | `m_alloc` | Allocator used for memory management.              |
-        | `m_size`  | Size of the string.                                |
-        | `m_bytes` | Length of the string.                              |
+        | Field     | Description                               |
+        | --------- | ----------------------------------------- |
+        | `m_buff`  | Array of characters to store the content. |
+        | `m_alloc` | Allocator used for memory management.     |
+        | `m_size`  | Size of the string.                       |
+        | `m_bytes` | Length of the string.                     |
 
 
     - #### ⠟ Types
