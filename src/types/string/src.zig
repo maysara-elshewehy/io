@@ -20,7 +20,7 @@
     pub const string = struct {
         const Self = @This();
         /// Nullable array of characters to store the content.
-        m_buff: ?types.str,
+        m_buff: types.str = &.{},
         /// Allocator used for memory management.
         m_alloc: std.mem.Allocator,
         /// Size of the string.
@@ -38,7 +38,7 @@
 
             /// Returns the number of characters in the string (Unicode characters are counted as regular characters).
             pub fn ubytes(_self: Self) types.unsigned {
-                if(_self.m_buff) |m_buff| return chars.ubytes(m_buff[0.._self.m_bytes]);
+                if(_self.m_bytes > 0) return chars.ubytes(_self.m_buff[0.._self.m_bytes]);
                 return 0;
             }
 
@@ -49,7 +49,7 @@
 
             /// Returns the source of the string.
             pub fn src(_self: Self) types.cstr {
-                if (_self.m_buff) |m_buff| return m_buff[0.._self.m_bytes];
+                if (_self.m_bytes > 0) return _self.m_buff[0.._self.m_bytes];
                 return "";
             }
 
@@ -61,9 +61,9 @@
             /// Initialize an empty string.
             pub fn init() Self {
                 return .{
-                    .m_buff  = null,
-                    .m_alloc = std.heap.page_allocator, // TODO: Replace it.
-                    .m_size  = 0,
+                    .m_buff = &.{},
+                    .m_alloc = std.heap.page_allocator, // TODO: change this allocator.
+                    .m_size = 0,
                     .m_bytes = 0,
                 };
             }
@@ -77,16 +77,17 @@
 
             /// Deallocate the string buffer.
             pub fn deinit(_self: *Self) void {
-                if (_self.m_buff) |m_buff| _self.m_alloc.free(m_buff);
+                _self.m_alloc.free(_self.m_buff);
                 _self.m_size = 0;
                 _self.m_bytes = 0;
+                _self.m_buff = &.{};
             }
 
             /// Allocate or reallocate the string buffer to a new size.
             pub fn allocate(_self: *Self, _bytes: types.unsigned) Error!void {
-                if (_self.m_buff) |m_buff| {
+                if (_self.m_bytes > 0) {
                     if (_bytes < _self.m_size) _self.m_size = _bytes;
-                    _self.m_buff = _self.m_alloc.realloc(m_buff, _bytes) catch { return Error.OutOfMemory; };
+                    _self.m_buff = _self.m_alloc.realloc(_self.m_buff, _bytes) catch { return Error.OutOfMemory; };
                 } else {
                     _self.m_buff = _self.m_alloc.alloc(types.char, _bytes) catch { return Error.OutOfMemory; };
                 }
@@ -123,14 +124,14 @@
 
                 if(_pos == _self.m_bytes) {
                     try _self.__alloc(l_count + _self.m_bytes);
-                    chars.append(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it);
+                    chars.append(_self.m_buff[0.._self.m_size], _self.m_bytes, _it);
                 }
                 else if(_pos == 0) {
                     try _self.__alloc(l_count + _self.m_bytes);
-                    chars.prepend(_self.m_buff.?[0..], _self.m_bytes, _it);
+                    chars.prepend(_self.m_buff[0..], _self.m_bytes, _it);
                 } else {
                     try _self.__alloc(l_count + _pos);
-                    chars.insertReal(_self.m_buff.?[0.._self.m_size], _self.m_bytes, _it, _pos);
+                    chars.insertReal(_self.m_buff[0.._self.m_size], _self.m_bytes, _it, _pos);
                 }
 
                 _self.m_bytes += l_count;
@@ -155,20 +156,18 @@
             pub inline fn remove(_self: *Self, _it: anytype) void {
                 if(_self.m_bytes == 0) return;
 
-                if(_self.m_buff) |m_buff| {
-                    if(chars.utils.isUtype(_it)) {
-                        if(chars.utils.indexOf(m_buff[0.._self.m_bytes], _it)) |l_pos| {
-                            const l_beg = l_pos - chars.utils.begOf(m_buff[0..], l_pos);
-                            const l_count = chars.utils.sizeOf(m_buff[l_beg]);
-                            chars.removeReal(m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
-                            _self.m_bytes -= l_count;
-                        } else unreachable;
-                    }
-                    else {
-                        const l_range = chars.utils.rangeOf(m_buff[0.._self.m_bytes], _it);
-                        chars.remove(m_buff[0.._self.m_bytes], _it);
-                        _self.m_bytes -= l_range[1] - l_range[0];
-                    }
+                if(chars.utils.isUtype(_it)) {
+                    if(chars.utils.indexOf(_self.m_buff[0.._self.m_bytes], _it)) |l_pos| {
+                        const l_beg = l_pos - chars.utils.begOf(_self.m_buff[0..], l_pos);
+                        const l_count = chars.utils.sizeOf(_self.m_buff[l_beg]);
+                        chars.removeReal(_self.m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
+                        _self.m_bytes -= l_count;
+                    } else unreachable;
+                }
+                else {
+                    const l_range = chars.utils.rangeOf(_self.m_buff[0.._self.m_bytes], _it);
+                    chars.remove(_self.m_buff[0.._self.m_bytes], _it);
+                    _self.m_bytes -= l_range[1] - l_range[0];
                 }
             }
 
@@ -176,18 +175,16 @@
             pub inline fn removeReal(_self: *Self, _it: anytype) void {
                 if(_self.m_bytes == 0) return;
 
-                if(_self.m_buff) |m_buff| {
-                    if(chars.utils.isUtype(_it)) {
-                        const l_beg = _it - chars.utils.begOf(m_buff[0..], _it);
-                        const l_count = chars.utils.sizeOf(m_buff[l_beg]);
-                        chars.removeReal(m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
-                        _self.m_bytes -= l_count;
-                    }
-                    else {
-                        const l_range = chars.utils.realRangeOf(m_buff[0.._self.m_bytes], _it);
-                        chars.removeReal(m_buff[0.._self.m_bytes], _it);
-                        _self.m_bytes -= l_range[1] - l_range[0];
-                    }
+                if(chars.utils.isUtype(_it)) {
+                    const l_beg = _it - chars.utils.begOf(_self.m_buff[0..], _it);
+                    const l_count = chars.utils.sizeOf(_self.m_buff[l_beg]);
+                    chars.removeReal(_self.m_buff[0.._self.m_bytes], .{l_beg, l_beg+l_count});
+                    _self.m_bytes -= l_count;
+                }
+                else {
+                    const l_range = chars.utils.realRangeOf(_self.m_buff[0.._self.m_bytes], _it);
+                    chars.removeReal(_self.m_buff[0.._self.m_bytes], _it);
+                    _self.m_bytes -= l_range[1] - l_range[0];
                 }
             }
 
@@ -195,20 +192,16 @@
             pub inline fn shift(_self: *Self, _count: types.unsigned) void {
                 if(_self.m_bytes == 0) return;
 
-                if(_self.m_buff) |m_buff| {
-                    const l_count = chars.shift(m_buff[0.._self.m_bytes], _self.m_bytes, _count);
-                    _self.m_bytes -= if(_count == _self.m_bytes) _self.m_bytes else l_count;
-                }
+                const l_count = chars.shift(_self.m_buff[0.._self.m_bytes], _self.m_bytes, _count);
+                _self.m_bytes -= if(_count == _self.m_bytes) _self.m_bytes else l_count;
             }
 
             /// Removes a (`N` bytes) from the `end` of the string.
             pub inline fn pop(_self: *Self, _count: types.unsigned) void {
                 if(_self.m_bytes == 0) return;
 
-                if(_self.m_buff) |m_buff| {
-                    const l_count = chars.pop(m_buff[0.._self.m_bytes], _count);
-                    _self.m_bytes -= if(_count == _self.m_bytes) _self.m_bytes else l_count;
-                }
+                const l_count = chars.pop(_self.m_buff[0.._self.m_bytes], _count);
+                _self.m_bytes -= if(_count == _self.m_bytes) _self.m_bytes else l_count;
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -220,20 +213,16 @@
             pub inline fn trimStart(_self: *Self, _char: types.char) void {
                 if(_self.m_bytes == 0) return;
 
-                if(_self.m_buff) |m_buff| {
-                    const l_count = chars.trimStart(m_buff[0.._self.m_bytes], _char);
-                    _self.m_bytes -= if(l_count == _self.m_bytes) _self.m_bytes else l_count;
-                } else unreachable;
+                const l_count = chars.trimStart(_self.m_buff[0.._self.m_bytes], _char);
+                _self.m_bytes -= if(l_count == _self.m_bytes) _self.m_bytes else l_count;
             }
 
             /// Removes all matching characters at the `end` of the string.
             pub inline fn trimEnd(_self: *Self, _char: types.char) void {
                 if(_self.m_bytes == 0) return;
 
-                if(_self.m_buff) |m_buff| {
-                    const l_count = chars.trimEnd(m_buff[0.._self.m_bytes], _char);
-                    _self.m_bytes -= if(l_count == _self.m_bytes) _self.m_bytes else l_count;
-                } else unreachable;
+                const l_count = chars.trimEnd(_self.m_buff[0.._self.m_bytes], _char);
+                _self.m_bytes -= if(l_count == _self.m_bytes) _self.m_bytes else l_count;
             }
 
             /// Removes all matching characters fromt both `beg` and `end` of the string.
@@ -269,19 +258,19 @@
             /// Converts all (ASCII) letters to lowercase.
             pub inline fn toLower(_self: *Self) void {
                 if(_self.m_bytes == 0) return;
-                if(_self.m_buff) |m_buff| { chars.toLower(m_buff[0.._self.m_bytes]); }
+                chars.toLower(_self.m_buff[0.._self.m_bytes]);
             }
 
             /// Converts all (ASCII) letters to uppercase.
             pub inline fn toUpper(_self: *Self) void {
                 if(_self.m_bytes == 0) return;
-                if(_self.m_buff) |m_buff| { chars.toUpper(m_buff[0.._self.m_bytes]); }
+                chars.toUpper(_self.m_buff[0.._self.m_bytes]);
             }
 
             // Converts all (ASCII) words to titlecase.
             pub inline fn toTitle(_self: *Self) void {
                 if(_self.m_bytes == 0) return;
-                if(_self.m_buff) |m_buff| { chars.toTitle(m_buff[0.._self.m_bytes]); }
+                chars.toTitle(_self.m_buff[0.._self.m_bytes]);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -327,16 +316,14 @@
                 if(@TypeOf(_with) == Self) return _self.replace(_it, _with.src(), _count);
 
                 if(_self.m_bytes > 0) {
-                    if(_self.m_buff) |m_buff| {
-                        const l_size = chars.replacementSize(m_buff[0.._self.m_bytes], _it, _count);
-                        const l_withLen = chars.size(_with); // if char: 1, if unicode: 4, if string: size of array
-                        const l_newLen = _self.m_bytes + (if(_count > 0) l_withLen * _count else l_withLen) - l_size;
-                        try __alloc(_self, l_newLen);
+                    const l_size = chars.replacementSize(_self.m_buff[0.._self.m_bytes], _it, _count);
+                    const l_withLen = chars.size(_with); // if char: 1, if unicode: 4, if string: size of array
+                    const l_newLen = _self.m_bytes + (if(_count > 0) l_withLen * _count else l_withLen) - l_size;
+                    try __alloc(_self, l_newLen);
 
-                        _ = chars.replace(m_buff[0..], _self.m_bytes, _it, _with, _count);
-                        _self.m_bytes = l_newLen;
-                        return l_size;
-                    }
+                    _ = chars.replace(_self.m_buff[0..], _self.m_bytes, _it, _with, _count);
+                    _self.m_bytes = l_newLen;
+                    return l_size;
                 }
                 return 0;
             }
@@ -347,16 +334,14 @@
                 if(@TypeOf(_with) == Self) return _self.rreplace(_it, _with.src(), _count);
 
                 if(_self.m_bytes > 0) {
-                    if(_self.m_buff) |m_buff| {
-                        const l_size = chars.replacementSize(m_buff[0.._self.m_bytes], _it, _count);
-                        const l_withLen = chars.size(_with); // if char: 1, if unicode: 4, if string: size of array
-                        const l_newLen = _self.m_bytes + (if(_count > 0) l_withLen * _count else l_withLen) - l_size;
-                        try __alloc(_self, l_newLen);
+                    const l_size = chars.replacementSize(_self.m_buff[0.._self.m_bytes], _it, _count);
+                    const l_withLen = chars.size(_with); // if char: 1, if unicode: 4, if string: size of array
+                    const l_newLen = _self.m_bytes + (if(_count > 0) l_withLen * _count else l_withLen) - l_size;
+                    try __alloc(_self, l_newLen);
 
-                        _ = chars.rreplace(m_buff[0..], _self.m_bytes, _it, _with, _count);
-                        _self.m_bytes = l_newLen;
-                        return l_size;
-                    }
+                    _ = chars.rreplace(_self.m_buff[0..], _self.m_bytes, _it, _with, _count);
+                    _self.m_bytes = l_newLen;
+                    return l_size;
                 }
                 return 0;
             }
@@ -374,18 +359,14 @@
                 const l_size =  chars.size(_it) * _count;
                 try __alloc(_self, _self.m_bytes + l_size);
 
-                if(_self.m_buff) |m_buff| {
-                    _ = chars.repeat(m_buff[0.._self.m_size], _self.m_bytes, _it, _count);
-                    _self.m_bytes += l_size;
-                }
+                _ = chars.repeat(_self.m_buff[0.._self.m_size], _self.m_bytes, _it, _count);
+                _self.m_bytes += l_size;
             }
 
             /// Reverses the characters in the string.
             pub inline fn reverse(_self: *Self) void {
                 if(_self.m_bytes > 0) {
-                    if(_self.m_buff) |m_buff| {
-                        chars.reverse(m_buff[0.._self.m_bytes]);
-                    }
+                    chars.reverse(_self.m_buff[0.._self.m_bytes]);
                 }
             }
 
@@ -399,7 +380,7 @@
                 if(@TypeOf(_sep) == Self) return _self.split(_sep.src(), _pos);
 
                 if(_self.m_bytes > 0 and _pos < _self.m_bytes) {
-                    if(_self.m_buff) |m_buff| { return chars.split(m_buff[0.._self.m_bytes], _sep, _pos); }
+                    return chars.split(_self.m_buff[0.._self.m_bytes], _sep, _pos);
                 }
                 return null;
             }
@@ -489,8 +470,8 @@
                 pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) Error!void {
                     const l_count = std.fmt.count(_fmt, _args);
                     try _self.__alloc(l_count + _self.m_bytes);
-                    chars.utils.move_right(_self.m_buff.?[0.._self.m_size], 0, _self.m_bytes, l_count);
-                    var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[0..]);
+                    chars.utils.move_right(_self.m_buff[0.._self.m_size], 0, _self.m_bytes, l_count);
+                    var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff[0..]);
                     const l_writer = l_fixedBufferStream.writer();
                     l_writer.print(_fmt, _args) catch return Error.FmtError;
                     _self.m_bytes += l_count;
@@ -514,10 +495,10 @@
 
                     const l_count = std.fmt.count(_fmt, _args);
                     try _self.__alloc(l_count + _pos);
-                    const l_beg = _pos - chars.utils.begOf(_self.m_buff.?[0..], _pos);
-                    chars.utils.move_right(_self.m_buff.?[0..], l_beg, _self.m_bytes-l_beg, l_count);
+                    const l_beg = _pos - chars.utils.begOf(_self.m_buff[0..], _pos);
+                    chars.utils.move_right(_self.m_buff[0..], l_beg, _self.m_bytes-l_beg, l_count);
 
-                    var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff.?[l_beg..]);
+                    var l_fixedBufferStream = std.io.fixedBufferStream(_self.m_buff[l_beg..]);
                     const l_writer = l_fixedBufferStream.writer();
                     l_writer.print(_fmt, _args) catch return Error.FmtError;
                     _self.m_bytes += l_count;
@@ -539,14 +520,10 @@
 
                     /// Returns the next character in the string.
                     pub fn next(_it: *Iterator) ?types.cstr {
-                        if (_it.m_string.m_buff) |m_buff| {
-                            if (_it.m_index == _it.m_string.m_size) return null;
-                            const i = _it.m_index;
-                            _it.m_index += chars.utils.sizeOf(m_buff[i]);
-                            return m_buff[i.._it.m_index];
-                        } else {
-                            return null;
-                        }
+                        if (_it.m_index == _it.m_string.m_size) return null;
+                        const i = _it.m_index;
+                        _it.m_index += chars.utils.sizeOf(_it.m_string.m_buff[i]);
+                        return _it.m_string.m_buff[i.._it.m_index];
                     }
                 };
 
@@ -566,11 +543,8 @@
 
             /// Internal methods used by other methods in the string type to check and allocate/reallocate memory if necessary.
             inline fn __alloc(_self: *Self, _bytes: types.unsigned) Error!void {
-                if (_self.m_buff) |_| {
-                    if (_self.m_size <= _bytes+1) {
-                        _self.allocate((_bytes+1) * 2) catch { return Error.OutOfMemory; };
-                    }
-                } else {
+                // std.debug.print("allocating {d} bytes\n", .{_bytes});
+                if (_self.m_size <= _bytes+1) {
                     _self.allocate((_bytes+1) * 2) catch { return Error.OutOfMemory; };
                 }
             }
