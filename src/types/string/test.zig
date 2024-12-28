@@ -1036,6 +1036,46 @@
             try EQLS("=@!!!!!", str.src());
         }
 
+         test "docs: repeat" {
+            var str = string.init(); defer str.deinit();
+
+            // repeat character.
+            try str.repeat('0', 1); // 👉 "0"
+            try EQL(1, str.bytes());
+            try EQL(4, str.size());
+            try EQLS("0", str.src());
+
+            try str.repeat('0', 2); // 👉 "000"
+            try EQLS("000", str.src());
+
+            // repeat string.
+            try str.repeat("@#", 2); // 👉 "000@#@#"
+            try EQLS("000@#@#", str.src());
+
+            // repeat unicode.
+            try str.repeat("🌍", 2); // 👉 "000@#@#🌍🌍"
+            try EQLS("000@#@#🌍🌍", str.src());
+        }
+
+        test "docs: reverse" {
+            var str = try string.initWith("=🌍🌟!"); defer str.deinit();
+
+            str.reverse(); // 👉 "!🌟🌍="
+            try EQLS("!🌟🌍=", str.src());
+        }
+
+        test "docs: split" {
+            var str = try string.initWith("🌍1🌍🌍2🌍🌍3🌍");
+            defer str.deinit();
+            try EQLS(str.split("🌍", 0).?,  ""); // 👉 ""
+            try EQLS(str.split("🌍", 1).?, "1"); // 👉 "1"
+            try EQLS(str.split("🌍", 2).?,  ""); // 👉 ""
+            try EQLS(str.split("🌍", 3).?, "2"); // 👉 "2"
+            try EQLS(str.split("🌍", 5).?, "3"); // 👉 "3"
+            try EQLS(str.split("🌍", 6).?,  ""); // 👉 ""
+        }
+
+
     // └──────────────────────────────────────────────────────────────┘
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

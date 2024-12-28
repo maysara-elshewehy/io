@@ -315,6 +315,10 @@
 
             /// Replaces the first `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
             pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) anyerror!types.unsigned {
+                if(_count == 0) return;
+                if(@TypeOf(_it) == Self) return _self.replace(_it.src(), _with, _count);
+                if(@TypeOf(_with) == Self) return _self.replace(_it, _with.src(), _count);
+
                 if(_self.m_bytes > 0) {
                     if(_self.m_buff) |m_buff| {
                         const l_size = chars.replacementSize(m_buff[0.._self.m_bytes], _it, _count);
@@ -332,6 +336,10 @@
 
             /// Replaces the last `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
             pub inline fn rreplace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) anyerror!types.unsigned {
+                if(_count == 0) return;
+                if(@TypeOf(_it) == Self) return _self.rreplace(_it.src(), _with, _count);
+                if(@TypeOf(_with) == Self) return _self.rreplace(_it, _with.src(), _count);
+
                 if(_self.m_bytes > 0) {
                     if(_self.m_buff) |m_buff| {
                         const l_size = chars.replacementSize(m_buff[0.._self.m_bytes], _it, _count);
@@ -345,6 +353,44 @@
                     }
                 }
                 return 0;
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌──────────────────────────── MORE ────────────────────────────┐
+
+            /// Repeats the (`string` or `char`) `N` times.
+            pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) anyerror!void {
+                if(_count == 0) return;
+                if(@TypeOf(_it) == Self) return _self.repeat(_it.src(), _count);
+
+                const l_size =  chars.size(_it) * _count;
+                try __alloc(_self, _self.m_bytes + l_size);
+
+                if(_self.m_buff) |m_buff| {
+                    _ = chars.repeat(m_buff[0.._self.m_size], _self.m_bytes, _it, _count);
+                    _self.m_bytes += l_size;
+                }
+            }
+
+            /// Reverses the characters in the string.
+            pub inline fn reverse(_self: *Self) void {
+                if(_self.m_bytes > 0) {
+                    if(_self.m_buff) |m_buff| {
+                        chars.reverse(m_buff[0.._self.m_bytes]);
+                    }
+                }
+            }
+
+            /// Returns a slice of the string split by the separator at the specified position, or null if failed.
+            pub inline fn split(_self: Self, _by: types.cstr, _pos: types.unsigned) ?types.cstr {
+                if(_self.m_bytes > 0 and _pos < _self.m_bytes) {
+                    if(_self.m_buff) |m_buff| {
+                        return chars.split(m_buff[0.._self.m_bytes], _by, _pos);
+                    }
+                }
+                return null;
             }
 
         // └──────────────────────────────────────────────────────────────┘

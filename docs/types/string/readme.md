@@ -115,6 +115,14 @@
         | [`replace`](./api/replace.md)   | Replaces the first `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements. |
         | [`rreplace`](./api/rreplace.md) | Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.  |
 
+    - #### ▧ More
+
+        | Method                        | Description                                                                |
+        | ----------------------------- | -------------------------------------------------------------------------- |
+        | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times.                              |
+        | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                     |
+        | [`split`](./api/split.md)     | Returns a slice of the string split by the separator at the specified position, or null if failed. |
+
    - #### ✍️ Writer
 
         | Method                                | Description                                                                     |

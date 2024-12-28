@@ -95,11 +95,11 @@
 
     - #### ▧ More
 
-        | Method                        | Description                                                                |
-        | ----------------------------- | -------------------------------------------------------------------------- |
-        | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times.                              |
-        | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                     |
-        | [`split`](./api/split.md)     | Splits the string into a slice based on a delimiter and a target position. |
+        | Method                        | Description                                                                                        |
+        | ----------------------------- | -------------------------------------------------------------------------------------------------- |
+        | [`repeat`](./api/repeat.md)   | Repeats the _(`string` or `char`)_ `N` times.                                                      |
+        | [`reverse`](./api/reverse.md) | Reverses the characters in the string.                                                             |
+        | [`split`](./api/split.md)     | Returns a slice of the string split by the separator at the specified position, or null if failed. |
 
 
     - #### Types

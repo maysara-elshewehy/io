@@ -388,7 +388,7 @@
             std.mem.reverse(u8, _it[0..l_len]);
         }
 
-        /// Splits the string into a slice based on a delimiter and a target position.
+        /// Returns a slice of the string split by the separator at the specified position, or null if failed.
         pub inline fn split(_it: types.cstr, _by: types.cstr, _pos: types.unsigned) ?types.cstr {
             var i: types.unsigned = 0;
             var l_block: types.unsigned = 0;
