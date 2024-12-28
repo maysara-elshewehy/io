@@ -62,7 +62,7 @@
             pub fn init() Self {
                 return .{
                     .m_buff  = null,
-                    .m_alloc = std.heap.page_allocator,
+                    .m_alloc = std.heap.page_allocator, // TODO: Replace it.
                     .m_size  = 0,
                     .m_bytes = 0,
                 };
