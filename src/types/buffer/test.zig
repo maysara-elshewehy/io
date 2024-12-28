@@ -940,7 +940,6 @@
         test "docs: split" {
             var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append("🌍1🌍🌍2🌍🌍3🌍");
 
-
             try EQLS(str.split("🌍", 0).?,  ""); // 👉 ""
             try EQLS(str.split("🌍", 1).?, "1"); // 👉 "1"
             try EQLS(str.split("🌍", 2).?,  ""); // 👉 ""
@@ -952,8 +951,6 @@
         test "docs: split using character" {
             var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
 
-
-
             try EQLS(str.split(',', 0).?,  ""); // 👉 ""
             try EQLS(str.split(',', 1).?, "1"); // 👉 "1"
             try EQLS(str.split(',', 2).?,  ""); // 👉 ""
@@ -964,7 +961,6 @@
 
         test "docs: splitAll using character" {
             var _buf = chars.make(64, null); var str = buffer(&_buf);  try str.append(",1,,2,,3,");
-
 
             const res = try str.splitAll(',');
 
