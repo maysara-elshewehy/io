@@ -51,7 +51,6 @@
         | [`bytes`](./api/bytes.md)   | Returns the number of characters in the string.                                                        |
         | [`ubytes`](./api/ubytes.md) | Returns the number of characters in the string (Unicode characters are counted as regular characters). |
         | [`size`](./api/size.md)     | Returns the size of the string.                                                                        |
-        | <!--                        | [`src`](./api/src.md)                                                                                  | Returns the source of the string. | --> |
 
    - #### ➕ Insertion
 
