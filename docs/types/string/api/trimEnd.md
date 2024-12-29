@@ -38,6 +38,10 @@ pub inline fn trimEnd(_self: *Self, _char: types.char) void
 - #### Example
 
     ```zig
+    const string = @import("io").utils.string;
+    ```
+
+    ```zig
     var str = try string.initWith(<yourAllocator>, "=🌍🌟!  ");
     defer str.deinit();
 

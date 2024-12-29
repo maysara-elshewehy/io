@@ -38,6 +38,10 @@ pub inline fn trim(_self: *Self, _char: types.char) void
 - #### Example
 
     ```zig
+    const buffer = @import("io").utils.buffer;
+    ```
+
+    ```zig
     var buf = chars.make(64, "  =🌍🌟!  ");
     var str = buffer(&buf);
 

@@ -33,7 +33,7 @@ pub fn bytes(_self: Self) types.len
 - #### Example
 
     ```zig
-    const string = @import("io").utils.string;
+    const buffer = @import("io").utils.buffer;
     ```
 
     ```zig
