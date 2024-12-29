@@ -54,8 +54,8 @@
 
         | Method                          | Description                                                               |
         | ------------------------------- | ------------------------------------------------------------------------- |
-        | [`init`](./api/init.md)         | Initialize an empty string.                                               |
-        | [`initWith`](./api/initWith.md) | Initialize a string with an allocator and a given _(`string` or `char`)_. |
+        | [`init`](./api/init.md)         | Initialize an empty string using a _(custom `allocator`)_.                 |
+        | [`initWith`](./api/initWith.md) | Initialize a string using a _(custom `allocator`)_ and a given _(`string` or `char`)_. |
         | [`deinit`](./api/initWith.md)   | Deallocate the string buffer.                                             |
         | [`allocate`](./api/initWith.md) | Allocate or reallocate the string buffer to a new size.                   |
 

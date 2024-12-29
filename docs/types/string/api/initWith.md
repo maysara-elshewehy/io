@@ -1,6 +1,6 @@
 # [←](../readme.md) `io`.`types`.`string`.`initWith`
 
-> Initialize a string with an allocator and a given _(`string` or `char`)_.
+> Initialize a string using a _(custom `allocator`)_ and a given _(`string` or `char`)_.
 
 ```zig
 pub fn initWith(_alloc: std.mem.Allocator, _it: anytype) Error!Self

@@ -45,7 +45,7 @@
             alloc.deinit();
         }
 
-        test "Non-Empty" {
+        test "Non-Empty mutable" {
             var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
 
             // size = 5*2
@@ -169,8 +169,8 @@
         test "Init empty string" {
             var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
 
-            var str = string.init(alloc.allocator());    // Creates a new string structure.
-            defer str.deinit();         // Cleans up the allocated memory (if allocated) when the scope ends.
+            var str = string.init(alloc.allocator());   // Creates a new string structure.
+            defer str.deinit();                         // Cleans up the allocated memory (if allocated) when the scope ends.
 
             try EQL(0, str.size());     // 👉 0
             try EQL(0, str.bytes());    // 👉 0

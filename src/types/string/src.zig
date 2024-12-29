@@ -58,7 +58,7 @@
 
         // ┌──────────────────────────── INIT ────────────────────────────┐
 
-            /// Initialize an empty string.
+            /// Initialize an empty string using a _(custom `allocator`)_.
             pub fn init(_alloc: std.mem.Allocator) Self {
                 return .{
                     .m_buff = &.{},
@@ -68,7 +68,7 @@
                 };
             }
 
-            /// Initialize a string with an allocator and a given _(`string` or `char`)_.
+            /// Initialize a string using a _(custom `allocator`)_ and a given _(`string` or `char`)_.
             pub fn initWith(_alloc: std.mem.Allocator, _it: anytype) Error!Self {
                 var l_str = init(_alloc);
                 try l_str.append(_it);

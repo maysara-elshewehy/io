@@ -1,6 +1,6 @@
 # [←](../readme.md) `io`.`types`.`string`.`init`
 
-> Initialize an empty string.
+> Initialize an empty string using a _(custom `allocator`)_.
 
 ```zig
 pub fn init(_alloc: std.mem.Allocator) Self
