@@ -41,7 +41,7 @@ pub inline fn eql(_self: Self, _with: anytype) bool
     ```
 
     ```zig
-    var str = try string.initWith(alloc, "=🌍🌟!");
+    var str = try string.initWith(<yourAllocator>, "=🌍🌟!");
     defer str.deinit();
 
     str.eql("");        // 👉 false

@@ -37,7 +37,7 @@ pub fn deinit(_self: *Self) void
     ```
 
     ```zig
-    var str = string.initWith(alloc, "Hello 🌍!");
+    var str = string.initWith(<yourAllocator>, "Hello 🌍!");
 
     str.size();  // 👉 22
     str.bytes(); // 👉 11

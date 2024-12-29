@@ -37,7 +37,7 @@ pub fn writer(_self: *Self) writer
     ```
 
     ```zig
-    var str = string.init(alloc);
+    var str = string.init(<yourAllocator>);
     defer str.deinit();
 
     var writer = str.writer();

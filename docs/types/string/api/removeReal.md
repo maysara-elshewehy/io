@@ -41,7 +41,7 @@ pub inline fn removeReal(_self: *Self, _it: anytype) void
     ```
 
     ```zig
-    var str = string.init(alloc);
+    var str = string.init(<yourAllocator>);
     defer str.deinit();
     ```
 

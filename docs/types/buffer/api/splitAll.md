@@ -40,7 +40,7 @@ pub inline fn splitAll(_self: Self, _sep: anytype) Error![]types.cstr
     ```
 
     ```zig
-    var str = try string.initWith(alloc, ",1,,2,,3,");
+    var str = try string.initWith(<yourAllocator>, ",1,,2,,3,");
     defer str.deinit();
 
     const res = try str.splitAll(',');

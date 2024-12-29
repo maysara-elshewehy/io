@@ -48,7 +48,7 @@ pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.
     ```
 
     ```zig
-    var str = try string.initWith(alloc, "==🌍🌟!!");
+    var str = try string.initWith(<yourAllocator>, "==🌍🌟!!");
     defer str.deinit();
     ```
 

@@ -37,7 +37,7 @@ pub fn size(_self: Self) types.len
     ```
 
     ```zig
-    var str = string.init(alloc);
+    var str = string.init(<yourAllocator>);
     defer str.deinit();
 
     _ = str.size(); // 👉 0

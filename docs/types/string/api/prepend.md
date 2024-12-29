@@ -41,7 +41,7 @@ pub fn prepend(_self: *Self, _it: anytype) Error!void
     ```
 
     ```zig
-    var str = string.init(alloc);
+    var str = string.init(<yourAllocator>);
     defer str.deinit();
     ```
 
@@ -61,7 +61,7 @@ pub fn prepend(_self: *Self, _it: anytype) Error!void
     > Prepend using a `string`.
 
     ```zig
-    var other = try string.initWith(alloc, "!!");
+    var other = try string.initWith(<yourAllocator>, "!!");
     defer other.deinit();
 
     try str.prepend(other);   // 👉 "!!🌍🌟="

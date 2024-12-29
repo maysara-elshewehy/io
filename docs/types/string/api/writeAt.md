@@ -48,7 +48,7 @@ pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: ty
     ```
 
     ```zig
-    var str = string.init(alloc);
+    var str = string.init(<yourAllocator>);
     defer str.deinit();
 
     try str.writeAt( "{c}", .{ '='  }, 0 );     // 👉 "="

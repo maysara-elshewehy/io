@@ -37,11 +37,11 @@ pub fn init(_alloc: std.mem.Allocator) Self
     ```
 
     ```zig
-    var str = string.init(alloc);    // Creates a new string structure.
-    defer str.deinit();         // Cleans up the allocated memory (if allocated) when the scope ends.
-    str.size();                 // 👉 0
-    str.bytes();                // 👉 0
-    str.src();                  // 👉 ""
+    var str = string.init(<yourAllocator>);     // Creates a new string structure.
+    defer str.deinit();                         // Cleans up the allocated memory (if allocated) when the scope ends.
+    str.size();                                 // 👉 0
+    str.bytes();                                // 👉 0
+    str.src();                                  // 👉 ""
     ```
 
 

@@ -42,7 +42,7 @@ pub inline fn endsWith(_self: Self, _with: anytype) bool
     ```
 
     ```zig
-    var str = try string.initWith(alloc, "=🌍🌟!");
+    var str = try string.initWith(<yourAllocator>, "=🌍🌟!");
     defer str.deinit();
 
     str.endsWith("");   // 👉 false

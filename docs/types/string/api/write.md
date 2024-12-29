@@ -44,7 +44,7 @@ pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) Error!void
     ```
 
     ```zig
-    var str = string.init(alloc);
+    var str = string.init(<yourAllocator>);
     defer str.deinit();
 
     try str.write( "{c}", .{ '=' } );     // 👉 "="

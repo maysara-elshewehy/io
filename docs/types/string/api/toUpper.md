@@ -37,7 +37,7 @@ pub inline fn toUpper(_self: *Self) void
     ```
 
     ```zig
-    var str = try string.initWith(alloc, "hello 🌍!");
+    var str = try string.initWith(<yourAllocator>, "hello 🌍!");
     defer str.deinit();
 
     src.toUpper(); // 👉 "HELLO 🌍!"

@@ -44,7 +44,7 @@ pub fn insert(_self: *Self, _it: anytype, _pos: types.len) Error!void
     ```
 
     ```zig
-    var str = string.init(alloc);
+    var str = string.init(<yourAllocator>);
     defer str.deinit();
     ```
 
@@ -64,7 +64,7 @@ pub fn insert(_self: *Self, _it: anytype, _pos: types.len) Error!void
     > Insert using a `string`.
 
     ```zig
-    var other = try string.initWith(alloc, "!!");
+    var other = try string.initWith(<yourAllocator>, "!!");
     defer other.deinit();
 
     try str.insert(other, 3);   // 👉 "=🌍🌟!!"
