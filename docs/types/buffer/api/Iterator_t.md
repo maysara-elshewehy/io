@@ -4,7 +4,7 @@
 
 ```zig
 pub const Iterator = struct {
-    m_string: *const Self,
+    m_buffer: *const Self,
     m_index: types.len,
 
     pub fn next(_it: *Iterator) ?types.cstr
@@ -18,7 +18,7 @@ pub const Iterator = struct {
 
 - #### Fields
 
-    - `m_string` : `*const Self`
+    - `m_buffer` : `*const Self`
 
         > String to iterate.
 

@@ -437,23 +437,23 @@
                     /// Iterator of the string type.
                     pub const Iterator = struct {
                         /// String to iterate.
-                        m_string: *const Self,
+                        m_buffer: *const Self,
                         /// Current index.
                         m_index: types.len,
 
                         /// Returns the next character in the string.
                         pub fn next(_it: *Iterator) ?types.cstr {
-                            if (_it.m_index == _it.m_string.m_size) return null;
+                            if (_it.m_index == _it.m_buffer.m_size) return null;
                             const i = _it.m_index;
-                            _it.m_index += chars.utils.sizeOf(_it.m_string.m_buff[i]);
-                            return _it.m_string.m_buff[i.._it.m_index];
+                            _it.m_index += chars.utils.sizeOf(_it.m_buffer.m_buff[i]);
+                            return _it.m_buffer.m_buff[i.._it.m_index];
                         }
                     };
 
                     /// Returns an iterator for the string.
                     pub fn iterator(_self: *const Self) Iterator {
                         return Iterator{
-                            .m_string = _self,
+                            .m_buffer = _self,
                             .m_index = 0,
                         };
                     }
