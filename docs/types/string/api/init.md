@@ -3,7 +3,7 @@
 > Initialize an empty string.
 
 ```zig
-pub fn init() Self
+pub fn init(_alloc: std.mem.Allocator) Self
 ```
 
 
@@ -13,7 +13,9 @@ pub fn init() Self
 
 - #### Parameters
 
-    - None.
+    - `_alloc` : `std.mem.Allocator`
+
+        > The allocator to be used for allocating the string's buffer.
 
 
 <div align="center">

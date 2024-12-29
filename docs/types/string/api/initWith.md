@@ -3,7 +3,7 @@
 > Initialize a string with an allocator and a given _(`string` or `char`)_.
 
 ```zig
-pub fn initWith(_it: anytype) Error!Self
+pub fn initWith(_alloc: std.mem.Allocator, _it: anytype) Error!Self
 ```
 
 
@@ -16,6 +16,10 @@ pub fn initWith(_it: anytype) Error!Self
     - `_it` : `types.cstr` or `types.char` or `Self`
 
         > The initial value to be used for creating the string.
+
+    - `_alloc` : `std.mem.Allocator`
+
+        > The allocator to be used for allocating the string's buffer.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
