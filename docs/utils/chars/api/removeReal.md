@@ -18,7 +18,7 @@ pub inline fn removeReal(_from: types.str, _it: anytype) void
         > The string to remove from.
 
 
-    - `_it` : `types.range` or `types.unsigned`
+    - `_it` : `types.range` or `types.len`
 
         > The _(`range` or `real position`)_ to be remove.
 

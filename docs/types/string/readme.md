@@ -163,13 +163,12 @@
 
     - #### ⠟ Types
 
-        | Type       | Refer To                                                             |
-        | ---------- | -------------------------------------------------------------------- |
-        | `char`     | [`io.utils.chars.types.char`](../../utils/chars/readme.md#types)     |
-        | `str`      | [`io.utils.chars.types.str`](../../utils/chars/readme.md#types)      |
-        | `cstr`     | [`io.utils.chars.types.cstr`](../../utils/chars/readme.md#types)     |
-        | `unsigned` | [`io.utils.chars.types.unsigned`](../../utils/chars/readme.md#types) |
-        | `signed`   | [`io.utils.chars.types.signed`](../../utils/chars/readme.md#types)   |
+        | Type     | Refer To                                                           |
+        | -------- | ------------------------------------------------------------------ |
+        | `char`   | [`io.utils.chars.types.char`](../../utils/chars/readme.md#types)   |
+        | `str`    | [`io.utils.chars.types.str`](../../utils/chars/readme.md#types)    |
+        | `cstr`   | [`io.utils.chars.types.cstr`](../../utils/chars/readme.md#types)   |
+        | `len`    | [`io.utils.chars.types.len`](../../utils/chars/readme.md#types)    |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

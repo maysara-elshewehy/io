@@ -3,7 +3,7 @@
 > Inserts a _(`string` or `char`)_ into a `specific position` in the string.
 
 ```zig
-pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void
+pub inline fn insert(_to: types.str, _len: types.len, _it: anytype, _pos: types.len) void
 ```
 
 
@@ -18,7 +18,7 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
         > The string to insert into.
 
 
-    - `_len` : `types.unsigned`
+    - `_len` : `types.len`
 
         > The length of string to insert into.
 
@@ -28,7 +28,7 @@ pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: t
         > The _(`string` or `char`)_ to be inserted into the string.
 
 
-    - `_pos` : `types.unsigned`
+    - `_pos` : `types.len`
 
         > The position in the string to insert at.
 

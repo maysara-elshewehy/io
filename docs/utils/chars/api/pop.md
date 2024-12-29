@@ -3,7 +3,7 @@
 >  Removes a _(`N` bytes)_ from the end of the string _(using `/0`)_.
 
 ```zig
-pub inline fn pop(_from: types.str, _len: types.unsigned, _bytes: types.unsigned) types.unsigned
+pub inline fn pop(_from: types.str, _len: types.len, _bytes: types.len) types.len
 ```
 
 
@@ -18,11 +18,11 @@ pub inline fn pop(_from: types.str, _len: types.unsigned, _bytes: types.unsigned
         > The string to remove from.
 
 
-    - `_len` : `types.unsigned`
+    - `_len` : `types.len`
 
         > The length of string to remove from.
 
-    - `_bytes` : `types.unsigned`
+    - `_bytes` : `types.len`
 
         > The number of bytes to remove from the end of the string.
 
@@ -30,7 +30,7 @@ pub inline fn pop(_from: types.str, _len: types.unsigned, _bytes: types.unsigned
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `types.unsigned`
+- #### Returns : `types.len`
 
     > The number of bytes removed.
 

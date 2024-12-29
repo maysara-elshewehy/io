@@ -3,7 +3,7 @@
 > Repeats the _(`string` or `char`)_ `N` times.
 
 ```zig
-pub inline fn repeat(_in: types.str, _len: types.unsigned, _it: anytype, _count: types.unsigned) void
+pub inline fn repeat(_in: types.str, _len: types.len, _it: anytype, _count: types.len) void
 ```
 
 
@@ -17,7 +17,7 @@ pub inline fn repeat(_in: types.str, _len: types.unsigned, _it: anytype, _count:
 
         > The string to used.
 
-    - `_len` : `types.unsigned`
+    - `_len` : `types.len`
 
         > The length of `_in` in bytes.
 
@@ -25,7 +25,7 @@ pub inline fn repeat(_in: types.str, _len: types.unsigned, _it: anytype, _count:
 
         > The _(`string` or `char`)_ to repeat.
 
-    - `_count` : `types.unsigned`
+    - `_count` : `types.len`
 
         > The number of repeats.
 

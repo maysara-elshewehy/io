@@ -28,16 +28,16 @@
         }
 
         /// Returns the number of characters in the string.
-        pub inline fn bytes(_it: types.cstr) types.unsigned {
-            var i: types.unsigned = 0;
+        pub inline fn bytes(_it: types.cstr) types.len {
+            var i: types.len = 0;
             while (i < _it.len) { if(_it[i] == 0) break; i += 1; }
             return i;
         }
 
         /// Returns the number of characters in the string (Unicode characters are counted as regular characters).
-        pub inline fn ubytes(_it: types.cstr) types.unsigned {
-            var i: types.unsigned = 0;
-            var j: types.unsigned = 0;
+        pub inline fn ubytes(_it: types.cstr) types.len {
+            var i: types.len = 0;
+            var j: types.len = 0;
             while (i < _it.len) {
                 if(_it[i] == 0) break;
                 i += utils.sizeOf(_it[i]); // TODO: handle more cases like: "☹️", "🚵🏻‍♀️". (https://tonsky.me/blog/unicode/)
@@ -48,13 +48,13 @@
 
         /// Returns the size of the specified (array of characters : The actual size of the array)
         /// or (single character : Given the first byte of a UTF-8 codepoint, returns a number 1-4 indicating the total length of the codepoint in bytes).
-        pub inline fn size(_it: anytype) types.unsigned {
+        pub inline fn size(_it: anytype) types.len {
             if(utils.isCtype(_it)) { return utils.sizeOf(_it); }
             else { return _it.len; }
         }
 
         /// Returns the (`unicode` or `char`) at the specified position (non-real) in the string.
-        pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr {
+        pub inline fn get(_in: types.cstr, _pos: types.len) ?types.cstr {
             if (utils.indexOf(_in, _pos)) |i| {
                 const l_size = utils.sizeOf(_in[i]);
                 return _in[i..(i + l_size)];
@@ -68,7 +68,7 @@
     // ┌─────────────────────────── INSERT ───────────────────────────┐
 
         /// Inserts a (`string` or `char`) into the end of the string.
-        pub inline fn append(_to: types.str, _len: types.unsigned, _it: anytype) void {
+        pub inline fn append(_to: types.str, _len: types.len, _it: anytype) void {
             if (utils.isCtype(_it)) {
                 _to[_len] = _it;
             } else {
@@ -77,7 +77,7 @@
         }
 
         /// Inserts a (`string` or `char`) into the beginning of the string.
-        pub inline fn prepend(_to: types.str, _len: types.unsigned, _it: anytype) void {
+        pub inline fn prepend(_to: types.str, _len: types.len, _it: anytype) void {
             if (utils.isCtype(_it)) {
                 utils.moveRight(_to[0..], 0, _len, 1);
                 _to[0] = _it;
@@ -88,12 +88,12 @@
         }
 
         /// Inserts a (`string` or `char`) into a specific position in the string.
-        pub inline fn insert(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void {
+        pub inline fn insert(_to: types.str, _len: types.len, _it: anytype, _pos: types.len) void {
             return insertReal(_to, _len, _it, utils.indexOf(_to, _pos) orelse unreachable);
         }
 
         /// Inserts a (`string` or `char`) into a specific position in the string.
-        pub inline fn insertReal(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void {
+        pub inline fn insertReal(_to: types.str, _len: types.len, _it: anytype, _pos: types.len) void {
             if(_pos == _len) return append(_to, _len, _it);
             if(_pos == 0) return prepend(_to, _len, _it);
 
@@ -120,21 +120,21 @@
         /// Removes a (`range` or `position`) from the string.
         pub inline fn removeReal(_from: types.str, _it: anytype) void {
             const l_range = utils.realRangeOf(_from, _it);
-            var i : types.unsigned = l_range[1];
+            var i : types.len = l_range[1];
             while (i < _from.len) : (i += 1) { _from[i - (l_range[1] - l_range[0])] = _from[i]; }
         }
 
         // TODO: shift and pop functions can be imroved, do it later.
 
         /// Removes a (`N` bytes) from the beginning of the string.
-        pub inline fn shift(_from: types.str, _len: types.unsigned, _count: types.unsigned) types.unsigned {
-            var l_index: types.unsigned = 0;
-            var l_times: types.unsigned = 0;
-            var l_len: types.unsigned = _len;
+        pub inline fn shift(_from: types.str, _len: types.len, _count: types.len) types.len {
+            var l_index: types.len = 0;
+            var l_times: types.len = 0;
+            var l_len: types.len = _len;
 
             while (l_times < _count and l_index < _len) {
                 const l_size = utils.sizeOf(_from[0]);
-                var j: types.unsigned = 0;
+                var j: types.len = 0;
                 l_len -= l_size;
                 while (j < l_len) : (j += 1) {
                     _from[j] = _from[j + l_size];
@@ -147,13 +147,13 @@
         }
 
         /// Removes a (`N` bytes) from the end of the string.
-        pub inline fn pop(_from: types.str, _count: types.unsigned) types.unsigned {
+        pub inline fn pop(_from: types.str, _count: types.len) types.len {
             const _len = _from.len;
             if (_count == 0 or _len == 0) return _len;
 
-            var l_index: types.unsigned = _len-1; // Start at the end of the string.
-            var l_times: types.unsigned = 0;
-            var l_ret: types.unsigned = 0;
+            var l_index: types.len = _len-1; // Start at the end of the string.
+            var l_times: types.len = 0;
+            var l_ret: types.len = 0;
             while (l_times < _count and l_index > 0) {
                 l_index -= utils.begOf(_from[0..], l_index); // Get the beginning of the character.
                 const l_size = utils.sizeOf(_from[l_index]); // Get size of the last character.
@@ -183,25 +183,25 @@
     // ┌──────────────────────────── TRIM ────────────────────────────┐
 
         /// Removes all matching characters at the `beg` of the string.
-        pub inline fn trimStart(_it: types.str, _char: types.char) types.unsigned {
+        pub inline fn trimStart(_it: types.str, _char: types.char) types.len {
             const l_len = _it.len;
-            var i: types.unsigned = 0;
+            var i: types.len = 0;
             while (i < l_len) : (i += 1) { if (_it[i] != _char) break; }
             if (i > 0) _ = shift(_it[0..], l_len, i);
             return i;
         }
 
         /// Removes all matching characters at the `end` of the string.
-        pub inline fn trimEnd(_it: types.str, _char: types.char) types.unsigned {
+        pub inline fn trimEnd(_it: types.str, _char: types.char) types.len {
             const l_len = _it.len;
-            var i: types.unsigned = l_len;
+            var i: types.len = l_len;
             while (i > 0) : (i -= 1) { if (_it[i-1] != _char) break; }
             if (i < l_len) _ = pop(_it[0..l_len], l_len - i);
             return l_len - i;
         }
 
         /// Removes all matching characters fromt both `start` and `end` of the string.
-        pub inline fn trim(_it: types.str, _char: types.char) types.unsigned {
+        pub inline fn trim(_it: types.str, _char: types.char) types.len {
             const l_beg = trimStart(_it[0.._it.len], _char);
             const l_end = trimEnd(_it[0.._it.len-l_beg], _char);
             return l_beg + l_end;
@@ -213,7 +213,7 @@
     // ┌──────────────────────────── FIND ────────────────────────────┐
 
         /// Returns the first occurrence of a (`string` or `char`) in the string.
-        pub inline fn find(_in: types.cstr, _it: anytype) ?types.unsigned {
+        pub inline fn find(_in: types.cstr, _it: anytype) ?types.len {
             if (utils.isCtype(_it)) {
                 return std.mem.indexOf(types.char, _in[0.._in.len], &[_]types.char{_it});
             } else {
@@ -222,7 +222,7 @@
         }
 
         /// Returns the last occurrence of a (`string` or `char`) in the string.
-        pub inline fn rfind(_in: types.cstr, _it: anytype) ?types.unsigned {
+        pub inline fn rfind(_in: types.cstr, _it: anytype) ?types.len {
             if (utils.isCtype(_it)) {
                 return std.mem.lastIndexOf(types.char, _in[0.._in.len], &[_]types.char{_it});
             } else {
@@ -248,7 +248,7 @@
         // Converts all (ASCII) words to titlecase.
         pub inline fn toTitle(_it: types.str) void {
             var l_isNew: bool = true;
-            var i: types.unsigned = 0;
+            var i: types.len = 0;
             while (i < _it.len) {
                 const char = _it[i];
                 if (std.ascii.isWhitespace(char)) { l_isNew = true; i += 1; continue; }
@@ -285,7 +285,7 @@
                 }
                 else {
                     if (_it.len != _with.len) return false;
-                    return std.mem.eql(u8, _it[0..], _with[0..]);
+                    return std.mem.eql(types.char, _it[0..], _with[0..]);
                 }
             }
         }
@@ -298,7 +298,7 @@
             } else {
                 if(_with.len == 0) return _with.len == _it.len;
                 if(_it.len == 0) return false;
-                const i = std.mem.indexOf(u8, _it[0.._it.len], _with);
+                const i = std.mem.indexOf(types.char, _it[0.._it.len], _with);
                 return i == 0;
             }
         }
@@ -311,7 +311,7 @@
             } else {
                 if(_with.len == 0) return _with.len == _it.len;
                 if(_it.len == 0) return false;
-                const i = std.mem.lastIndexOf(u8, _it[0.._it.len], _with);
+                const i = std.mem.lastIndexOf(types.char, _it[0.._it.len], _with);
                 return i == _it.len - _with.len;
             }
         }
@@ -328,10 +328,10 @@
     // ┌─────────────────────────── REPLACE ──────────────────────────┐
 
         /// Calculates how much bytes will be removed.
-        pub inline fn replacementSize(_in: types.str, _it: anytype, _count: types.unsigned) types.unsigned {
+        pub inline fn replacementSize(_in: types.str, _it: anytype, _count: types.len) types.len {
             var i = find(_in[0..], _it);
-            var l_bytes: types.unsigned = 0;
-            var l_count : types.unsigned = 0;
+            var l_bytes: types.len = 0;
+            var l_count : types.len = 0;
             while (i != null) {
                 const l_size = utils.sizeOf(_in[i.?]);
                 l_bytes += l_size;
@@ -342,11 +342,13 @@
             return l_bytes;
         }
 
+        // TODO: replace and rreplace functions can be imroved, do it later.
+
         /// Replaces the first `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
-        pub inline fn replace(_in: types.str, _len: types.unsigned, _it: anytype, _with: anytype, _count: types.unsigned) types.unsigned {
+        pub inline fn replace(_in: types.str, _len: types.len, _it: anytype, _with: anytype, _count: types.len) types.len {
             var i = find(_in[0..], _it);
-            var l_count: types.unsigned = 0;
-            var l_removedBytes: types.unsigned = 0;
+            var l_count: types.len = 0;
+            var l_removedBytes: types.len = 0;
             const l_bytesOfIt = if(utils.isCtype(_it)) 1 else _it.len;
             while (i != null) {
                 const l_size = utils.sizeOf(_in[i.?]);
@@ -362,10 +364,10 @@
         }
 
         /// Replaces the last `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
-        pub inline fn rreplace(_in: types.str, _len: types.unsigned, _it: anytype, _with: anytype, _count: types.unsigned) types.unsigned {
+        pub inline fn rreplace(_in: types.str, _len: types.len, _it: anytype, _with: anytype, _count: types.len) types.len {
             var i = rfind(_in[0..], _it);
-            var l_count: types.unsigned = 0;
-            var l_removedBytes: types.unsigned = 0;
+            var l_count: types.len = 0;
+            var l_removedBytes: types.len = 0;
             const l_bytesOfIt = if(utils.isCtype(_it)) 1 else _it.len;
             while (i != null) {
                 const l_size = utils.sizeOf(_in[i.?]);
@@ -385,8 +387,8 @@
     // ┌──────────────────────────── MORE ────────────────────────────┐
 
         /// Repeats the (`string` or `char`) `N` times.
-        pub inline fn repeat(_in: types.str, _len: types.unsigned, _it: anytype, _count: types.unsigned) void {
-            var i: types.unsigned = 0;
+        pub inline fn repeat(_in: types.str, _len: types.len, _it: anytype, _count: types.len) void {
+            var i: types.len = 0;
             const _itLen = if(utils.isCtype(_it)) 1 else _it.len;
             while (i < _count) {
                 append(_in[0..], _len + (_itLen*i) , _it);
@@ -397,20 +399,20 @@
         /// Reverses the characters in the string.
         pub inline fn reverse(_it: types.str) void {
             const l_len = _it.len;
-            var i: types.unsigned = 0;
+            var i: types.len = 0;
             while (i < l_len) {
                 const t_size = utils.sizeOf(_it[i]);
-                if (t_size > 1) std.mem.reverse(u8, _it[i..(i + t_size)]);
+                if (t_size > 1) std.mem.reverse(types.char, _it[i..(i + t_size)]);
                 i += t_size;
             }
-            std.mem.reverse(u8, _it[0..l_len]);
+            std.mem.reverse(types.char, _it[0..l_len]);
         }
 
         /// Returns a slice of the string split by the separator (`string` or `char`) at the specified position, or null if failed.
-        pub inline fn split(_it: types.cstr, _sep: anytype, _pos: types.unsigned) ?types.cstr {
-            var i: types.unsigned = 0;
-            var l_block: types.unsigned = 0;
-            var l_start: types.unsigned = 0;
+        pub inline fn split(_it: types.cstr, _sep: anytype, _pos: types.len) ?types.cstr {
+            var i: types.len = 0;
+            var l_block: types.len = 0;
+            var l_start: types.len = 0;
             const l_sepLen = size(_sep);
             while (i < _it.len) {
                 const l_size = utils.sizeOf(_it[i]);

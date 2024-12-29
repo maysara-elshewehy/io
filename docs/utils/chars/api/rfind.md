@@ -3,7 +3,7 @@
 > Returns the last occurrence of a _(`string` or `char`)_ in a string.
 
 ```zig
-pub inline fn rfind(_in: types.cstr, _it: anytype) ?types.unsigned
+pub inline fn rfind(_in: types.cstr, _it: anytype) ?types.len
 ```
 
 
@@ -26,7 +26,7 @@ pub inline fn rfind(_in: types.cstr, _it: anytype) ?types.unsigned
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `types.unsigned` or `null`
+- #### Returns : `types.len` or `null`
 
     > The position of the first occurrence of `_it` in the string `_in`, or `null` if not found.
 

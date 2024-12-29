@@ -23,26 +23,26 @@
             /// Array of characters to store the content.
             m_buff:  [SIZE]TYPE,
             /// Size of the string.
-            m_size: types.unsigned,
+            m_size: types.len,
             /// Length of the string.
-            m_bytes: types.unsigned,
+            m_bytes: types.len,
 
 
             // ┌─────────────────────────── BASICS ───────────────────────────┐
 
                 /// Returns the number of characters in the string.
-                pub fn bytes(_self: Self) types.unsigned {
+                pub fn bytes(_self: Self) types.len {
                     return _self.m_bytes;
                 }
 
                 /// Returns the number of characters in the string (Unicode characters are counted as regular characters).
-                pub fn ubytes(_self: Self) types.unsigned {
+                pub fn ubytes(_self: Self) types.len {
                     if (_self.m_bytes > 0) return chars.ubytes(_self.m_buff[0.._self.m_bytes]);
                     return 0;
                 }
 
                 /// Returns the size of the string.
-                pub fn size(_self: Self) types.unsigned {
+                pub fn size(_self: Self) types.len {
                     return _self.m_size;
                 }
 
@@ -68,13 +68,13 @@
                 }
 
                 /// Inserts a (`string` or `char`) into a `specific position` in the string.
-                pub fn insert(_self: *Self, _it: anytype, _pos: types.unsigned) Error!void {
+                pub fn insert(_self: *Self, _it: anytype, _pos: types.len) Error!void {
                     return insertReal(_self, _it, chars.utils.indexOf(_self.m_buff[0.._self.m_bytes], _pos) orelse return Error.InvalidIndex);
                 }
 
                 /// Inserts a (`string` or `char`) into a `specific position` (The real position) in the string.
                 /// @Error: InvalidIndex (If the position is out of range).
-                pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) Error!void {
+                pub fn insertReal(_self: *Self, _it: anytype, _pos: types.len) Error!void {
                     if(_pos > _self.m_bytes) return Error.InvalidIndex;
 
                     if(@TypeOf(_it) == Self) return _self.insertReal(_it.src(), _pos);
@@ -150,7 +150,7 @@
                 }
 
                 /// Removes a (`N` bytes) from the `beg` of the string.
-                pub inline fn shift(_self: *Self, _count: types.unsigned) void {
+                pub inline fn shift(_self: *Self, _count: types.len) void {
                     if(_self.m_bytes == 0) return;
 
                     const l_count = chars.shift(_self.m_buff[0.._self.m_bytes], _self.m_bytes, _count);
@@ -158,7 +158,7 @@
                 }
 
                 /// Removes a (`N` bytes) from the `end` of the string.
-                pub inline fn pop(_self: *Self, _count: types.unsigned) void {
+                pub inline fn pop(_self: *Self, _count: types.len) void {
                     if(_self.m_bytes == 0) return;
 
                     const l_count = chars.pop(_self.m_buff[0.._self.m_bytes], _count);
@@ -198,14 +198,14 @@
             // ┌──────────────────────────── FIND ────────────────────────────┐
 
                 /// Returns the first occurrence of a (`string` or `char`) in the string.
-                pub inline fn find(_self: *Self, _it: anytype) ?types.unsigned {
+                pub inline fn find(_self: *Self, _it: anytype) ?types.len {
                     if(@TypeOf(_it) == Self) return _self.find(_it.src());
 
                     return if(_self.m_bytes > 0) chars.find(_self.m_buff[0.._self.m_bytes], _it) else null;
                 }
 
                 /// Returns the last occurrence of a (`string` or `char`) in the string.
-                pub inline fn rfind(_self: *Self, _it: anytype) ?types.unsigned {
+                pub inline fn rfind(_self: *Self, _it: anytype) ?types.len {
                     if(@TypeOf(_it) == Self) return _self.rfind(_it.src());
 
                     return if(_self.m_bytes > 0) chars.rfind(_self.m_buff[0.._self.m_bytes], _it) else null;
@@ -272,7 +272,7 @@
             // ┌─────────────────────────── REPLACE ──────────────────────────┐
 
                 /// Replaces the first `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
-                pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) Error!types.unsigned {
+                pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.len) Error!types.len {
                     if(@TypeOf(_it) == Self) return _self.replace(_it.src(), _with, _count);
                     if(@TypeOf(_with) == Self) return _self.replace(_it, _with.src(), _count);
 
@@ -290,7 +290,7 @@
                 }
 
                 /// Replaces the last `N` occurrences of (`string` or `char`) with another, Returns the number of replacements.
-                pub inline fn rreplace(_self: *Self, _it: anytype, _with: anytype, _count: types.unsigned) Error!types.unsigned {
+                pub inline fn rreplace(_self: *Self, _it: anytype, _with: anytype, _count: types.len) Error!types.len {
                     if(@TypeOf(_it) == Self) return _self.rreplace(_it.src(), _with, _count);
                     if(@TypeOf(_with) == Self) return _self.rreplace(_it, _with.src(), _count);
 
@@ -313,7 +313,7 @@
             // ┌──────────────────────────── MORE ────────────────────────────┐
 
                 /// Repeats the (`string` or `char`) `N` times.
-                pub inline fn repeat(_self: *Self, _it: anytype, _count: types.unsigned) Error!void {
+                pub inline fn repeat(_self: *Self, _it: anytype, _count: types.len) Error!void {
                     if(_count == 0) return;
                     if(@TypeOf(_it) == Self) return _self.repeat(_it.src(), _count);
 
@@ -337,7 +337,7 @@
             // ┌──────────────────────────── SPLIT ───────────────────────────┐
 
                 /// Returns a slice of the string split by the separator (`string` or `char`) at the specified position, or null if failed.
-                pub inline fn split(_self: Self, _sep: anytype, _pos: types.unsigned) ?types.cstr {
+                pub inline fn split(_self: Self, _sep: anytype, _pos: types.len) ?types.cstr {
                     if(@TypeOf(_sep) == Self) return _self.split(_sep.src(), _pos);
 
                     if(_self.m_bytes > 0 and _pos < _self.m_bytes) {
@@ -377,7 +377,7 @@
                     }
 
                     /// Writes a string to the writer.
-                    fn __write(_self: *Self, _it: types.cstr) Error!types.unsigned {
+                    fn __write(_self: *Self, _it: types.cstr) Error!types.len {
                         try _self.append(_it);
                         return _it.len;
                     }
@@ -401,7 +401,7 @@
                     }
 
                     /// Inserts a (`formatted string`) into a `specific position` in the string.
-                    pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) Error!void {
+                    pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.len) Error!void {
                         if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
                         if(_pos == 0) return _self.writeStart(_fmt, _args);
 
@@ -412,7 +412,7 @@
                     }
 
                     /// Inserts a (`formatted string`) into a `specific position` (The real position) in the string.
-                    pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) Error!void {
+                    pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.len) Error!void {
                         if(_pos == _self.m_bytes) return _self.write(_fmt, _args);
                         if(_pos == 0) return _self.writeStart(_fmt, _args);
 
@@ -439,7 +439,7 @@
                         /// String to iterate.
                         m_string: *const Self,
                         /// Current index.
-                        m_index: types.unsigned,
+                        m_index: types.len,
 
                         /// Returns the next character in the string.
                         pub fn next(_it: *Iterator) ?types.cstr {

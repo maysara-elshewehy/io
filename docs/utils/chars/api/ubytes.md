@@ -3,7 +3,7 @@
 > Returns the number of characters in the string (Unicode characters are counted as regular characters).
 
 ```zig
-pub inline fn ubytes(_it: anytype) types.unsigned
+pub inline fn ubytes(_it: anytype) types.len
 ```
 
 

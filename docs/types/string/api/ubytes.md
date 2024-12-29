@@ -3,7 +3,7 @@
 > Returns the number of characters in the string (Unicode characters are counted as regular characters).
 
 ```zig
-pub fn ubytes(_self: Self) types.unsigned
+pub fn ubytes(_self: Self) types.len
 ```
 
 
@@ -22,7 +22,7 @@ pub fn ubytes(_self: Self) types.unsigned
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `types.unsigned`
+- #### Returns : `types.len`
 
     > The number of characters in the string (Unicode characters are counted as regular characters).
 

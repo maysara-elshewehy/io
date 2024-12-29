@@ -3,7 +3,7 @@
 > Returns the size of the string.
 
 ```zig
-pub fn size(_self: Self) types.unsigned
+pub fn size(_self: Self) types.len
 ```
 
 
@@ -22,7 +22,7 @@ pub fn size(_self: Self) types.unsigned
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `types.unsigned`
+- #### Returns : `types.len`
 
     > The size of string (`_self.m_size`).
 

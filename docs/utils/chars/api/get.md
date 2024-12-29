@@ -3,7 +3,7 @@
 > Returns the (`unicode` or `char`) at the specified position _(`non-real`)_ in the string.
 
 ```zig
-pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr
+pub inline fn get(_in: types.cstr, _pos: types.len) ?types.cstr
 ```
 
 
@@ -17,7 +17,7 @@ pub inline fn get(_in: types.cstr, _pos: types.unsigned) ?types.cstr
 
         > desc.
 
-    - `_pos` : `types.unsigned`
+    - `_pos` : `types.len`
 
         > desc.
 

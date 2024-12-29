@@ -20,7 +20,7 @@ pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) !?Self
 
         > The separator to split with.
 
-    - `_pos` : `types.unsigned`
+    - `_pos` : `types.len`
 
         > The position to split at.
 

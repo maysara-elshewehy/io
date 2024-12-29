@@ -3,7 +3,7 @@
 > Removes all matching characters fromt both `start` and `end` of the string.
 
 ```zig
-pub inline fn trim(_it: types.str, _char: types.char) types.unsigned
+pub inline fn trim(_it: types.str, _char: types.char) types.len
 ```
 
 <div align="center">
@@ -26,9 +26,9 @@ pub inline fn trim(_it: types.str, _char: types.char) types.unsigned
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `types.unsigned`
+- #### Returns : `types.len`
 
-    - #### Returns : `types.unsigned`
+    - #### Returns : `types.len`
 
     > The number of characters removed from the string.
 

@@ -3,7 +3,7 @@
 > Allocate or reallocate the string buffer to a new size.
 
 ```zig
-pub fn allocate(_self: *Self, _bytes: types.unsigned) !void
+pub fn allocate(_self: *Self, _bytes: types.len) !void
 ```
 
 
@@ -17,7 +17,7 @@ pub fn allocate(_self: *Self, _bytes: types.unsigned) !void
 
         > The string structure to be used.
 
-    - `_bytes` : `types.unsigned`
+    - `_bytes` : `types.len`
 
         > The number of bytes to allocate for the string buffer.
 

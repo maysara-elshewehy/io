@@ -131,7 +131,7 @@
             try EQLS("! ^^--Hello World", res.src());
 
             // Iterator
-            var i: chars.types.unsigned = 0;
+            var i: chars.types.len = 0;
             var iter = res.iterator();
             while (iter.next()) |ch| {
                 if (i == 0) {
@@ -662,7 +662,7 @@
 
         test "Iterate over a string" {
             var str = try string.initWith("Hello 🌍"); defer str.deinit();
-            var i: chars.types.unsigned = 0;
+            var i: chars.types.len = 0;
             var iter = str.iterator();
             while (iter.next()) |c| {
                 if (5 == 0) try EQLS("🌍", c);

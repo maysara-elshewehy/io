@@ -9,6 +9,8 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
+    // Everything here are used [ONLY] internally.
+
     /// Returns true if the given argument is a valid single character type.
     pub inline fn isCtype(arg: anytype) bool {
         const T = @TypeOf(arg);
@@ -18,7 +20,7 @@
     /// Returns true if the given argument is a valid unsigned type.
     pub inline fn isUtype(arg: anytype) bool {
         const T = @TypeOf(arg);
-        return T == types.unsigned or T == comptime_int;
+        return T == types.len or T == comptime_int;
     }
 
     /// Returns true if the given argument is a valid solo type.
@@ -34,14 +36,14 @@
 
     /// Returns the size (in bytes) of the Unicode character.
     /// Given the first byte of a UTF-8 codepoint, returns a number 1-4 indicating the total length of the codepoint in bytes.
-    pub inline fn sizeOf(_char: types.char) types.unsigned {
+    pub inline fn sizeOf(_char: types.char) types.len {
         return std.unicode.utf8ByteSequenceLength(_char) catch 1;
     }
 
     /// Returns the real index of a Unicode character.
-    pub inline fn indexOf(_str: types.cstr, _pos: types.unsigned) ?types.unsigned {
-        var i: types.unsigned = 0; // index
-        var j: types.unsigned = 0; // sub index
+    pub inline fn indexOf(_str: types.cstr, _pos: types.len) ?types.len {
+        var i: types.len = 0; // index
+        var j: types.len = 0; // sub index
         while (i < _str.len and j < _pos) {
             i += sizeOf(_str[i]);
             j += 1;
@@ -51,8 +53,8 @@
 
     /// Returns the starting byte position of the Unicode character at a given index
     /// if the character is a part of a multi-byte character.
-    pub inline fn begOf(_str: types.cstr, _pos: types.unsigned) types.unsigned {
-        var i: types.unsigned = _pos;
+    pub inline fn begOf(_str: types.cstr, _pos: types.len) types.len {
+        var i: types.len = _pos;
         while(i > 0 and isPartOfUTF8(_str[i])) : (i -= 1) {}
         return _pos - i;
     }
@@ -96,9 +98,9 @@
     /// `_start`: Starting index of the range to move.
     /// `_count`: Number of elements to move.
     /// `_shift`: Number of positions to shift the elements to the right.
-    pub inline fn moveRight(_src: types.str, _start: types.unsigned, _count: types.unsigned, _shift: types.unsigned) void {
+    pub inline fn moveRight(_src: types.str, _start: types.len, _count: types.len, _shift: types.len) void {
         if (_shift == 0 or _count == 0) return;
-        var i: types.unsigned = _start + _count;
+        var i: types.len = _start + _count;
         while (i > _start) : (i -= 1) {
             _src[i + _shift - 1] = _src[i - 1];
         }
@@ -109,17 +111,17 @@
     /// `_start`: Starting index of the range to move.
     /// `_count`: Number of elements to move.
     /// `_shift`: Number of positions to shift the elements to the left.
-    pub inline fn moveLeft(_src: types.str, _start: types.unsigned, _count: types.unsigned, _shift: types.unsigned) void {
+    pub inline fn moveLeft(_src: types.str, _start: types.len, _count: types.len, _shift: types.len) void {
         if (_shift == 0 or _count == 0) return;
-        var i: types.unsigned = _start;
+        var i: types.len = _start;
         while (i < _start + _count) : (i += 1) {
             _src[i - _shift] = _src[i];
         }
     }
 
     /// Copies the given string to another string.
-    pub inline fn copy(_to: types.str, _len: types.unsigned, _from: types.cstr) void {
-        var i: types.unsigned = 0;
+    pub inline fn copy(_to: types.str, _len: types.len, _from: types.cstr) void {
+        var i: types.len = 0;
         while (i < _from.len) : (i += 1) { _to[_len + i] = _from[i]; }
     }
 
@@ -130,7 +132,7 @@
 
     /// Changes the case of the given string.
     pub inline fn changeCase(_it: types.str, func: fn (types.char) types.char) void {
-        var i: types.unsigned = 0;
+        var i: types.len = 0;
         while (i < _it.len) {
             const l_size = sizeOf(_it[i]);
             if (l_size == 1) _it[i] = func(_it[i]);

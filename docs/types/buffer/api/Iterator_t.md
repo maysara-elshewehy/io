@@ -5,7 +5,7 @@
 ```zig
 pub const Iterator = struct {
     m_string: *const Self,
-    m_index: types.unsigned,
+    m_index: types.len,
 
     pub fn next(_it: *Iterator) ?types.cstr
 };
@@ -22,7 +22,7 @@ pub const Iterator = struct {
 
         > String to iterate.
 
-    - `m_index` : `types.unsigned`
+    - `m_index` : `types.len`
 
         > Current index.
 

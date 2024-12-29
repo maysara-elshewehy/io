@@ -3,7 +3,7 @@
 > Inserts a _(`string` or `char`)_ into a `specific real  position` in the string.
 
 ```zig
-pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _pos: types.unsigned) void
+pub inline fn writeAtReal(_to: types.str, _len: types.len, _it: anytype, _pos: types.len) void
 ```
 
 
@@ -18,7 +18,7 @@ pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _p
         > The string to insert into.
 
 
-    - `_len` : `types.unsigned`
+    - `_len` : `types.len`
 
         > The length of string to insert into.
 
@@ -28,7 +28,7 @@ pub inline fn writeAtReal(_to: types.str, _len: types.unsigned, _it: anytype, _p
         > The _(`string` or `char`)_ to be inserted into the string.
 
 
-    - `_pos` : `types.unsigned`
+    - `_pos` : `types.len`
 
         > The real position in the string to insert at.
 

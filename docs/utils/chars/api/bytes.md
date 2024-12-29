@@ -3,7 +3,7 @@
 > Returns the number of characters in the string.
 
 ```zig
-pub inline fn bytes(_it: anytype) types.unsigned
+pub inline fn bytes(_it: anytype) types.len
 ```
 
 

@@ -3,7 +3,7 @@
 > Inserts a _(`string` or `char`)_ into a `specific real  position` in the string.
 
 ```zig
-pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) !void
+pub fn insertReal(_self: *Self, _it: anytype, _pos: types.len) !void
 ```
 
 
@@ -21,7 +21,7 @@ pub fn insertReal(_self: *Self, _it: anytype, _pos: types.unsigned) !void
 
         > The value to be inserted into the string.
 
-    - `_pos` : `types.unsigned`
+    - `_pos` : `types.len`
 
         > The real position in the string to insert at.
 

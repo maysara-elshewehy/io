@@ -107,7 +107,7 @@
             try EQLS("! ^^--Hello World", str.m_buff[0..str.m_bytes]);
 
             // Iterator
-            var i: chars.types.unsigned = 0;
+            var i: chars.types.len = 0;
             var iter = str.iterator();
             while (iter.next()) |ch| {
                 if (i == 0) {
@@ -583,7 +583,7 @@
         test "Iterate over a string" {
             var buf = chars.make(64, "Hello 🌍"); var str = buffer(&buf);
 
-            var i: chars.types.unsigned = 0;
+            var i: chars.types.len = 0;
             var iter = str.iterator();
             while (iter.next()) |c| {
                 if (5 == 0) try EQLS("🌍", c);

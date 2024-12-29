@@ -3,7 +3,7 @@
 > Replaces the last `N` occurrences of _(`string` or `char`)_ with another, Returns the number of replacements.
 
 ```zig
-pub inline fn rreplace(_in: types.str, _len: types.unsigned, _it: anytype, _with: anytype, _count: types.unsigned) types.unsigned
+pub inline fn rreplace(_in: types.str, _len: types.len, _it: anytype, _with: anytype, _count: types.len) types.len
 ```
 
 
@@ -17,7 +17,7 @@ pub inline fn rreplace(_in: types.str, _len: types.unsigned, _it: anytype, _with
 
         > The string to used.
 
-    - `_len` : `types.unsigned`
+    - `_len` : `types.len`
 
         > The length of `_in` in bytes.
 
@@ -29,7 +29,7 @@ pub inline fn rreplace(_in: types.str, _len: types.unsigned, _it: anytype, _with
 
         > The _(`string` or `char`)_ to replace with.
 
-    - `_count` : `types.unsigned`
+    - `_count` : `types.len`
 
         > The number of replacements.
 
@@ -37,7 +37,7 @@ pub inline fn rreplace(_in: types.str, _len: types.unsigned, _it: anytype, _with
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `types.unsigned`
+- #### Returns : `types.len`
 
     > The number of replacements.
 

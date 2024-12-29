@@ -3,7 +3,7 @@
 > Removes a _(`N` bytes)_ from the beg of the string.
 
 ```zig
-pub inline fn shift(_self: *Self, _count: types.unsigned) void
+pub inline fn shift(_self: *Self, _count: types.len) void
 ```
 
 
@@ -17,7 +17,7 @@ pub inline fn shift(_self: *Self, _count: types.unsigned) void
 
         > The string structure to be used.
 
-    - `_count` : `types.unsigned`
+    - `_count` : `types.len`
 
         > The number of regular/unicode characters to remove.
 

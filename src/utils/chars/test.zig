@@ -20,7 +20,7 @@
             const _cstr : []const u8 = undefined;
             const _u8 : u8 = undefined;
             const _comptime_int : comptime_int = undefined;
-            const _unsigned : chars.types.unsigned = undefined;
+            const _unsigned : chars.types.len = undefined;
 
             // isCtype
             try EQL(true,  chars.utils.isCtype(_u8));

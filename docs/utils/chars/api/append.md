@@ -3,7 +3,7 @@
 > Inserts a _(`string` or `char`)_ into the `end` of the string.
 
 ```zig
-pub inline fn append(_to: types.str, _len: types.unsigned, _it: anytype) void
+pub inline fn append(_to: types.str, _len: types.len, _it: anytype) void
 ```
 
 
@@ -18,7 +18,7 @@ pub inline fn append(_to: types.str, _len: types.unsigned, _it: anytype) void
         > The string to insert into.
 
 
-    - `_len` : `types.unsigned`
+    - `_len` : `types.len`
 
         > The length of string to insert into.
 

@@ -3,7 +3,7 @@
 > Calculates how much bytes will be removed.
 
 ```zig
-pub inline fn replacementSize(_in: types.str, _it: anytype, _count: types.unsigned) types.unsigned
+pub inline fn replacementSize(_in: types.str, _it: anytype, _count: types.len) types.len
 ```
 
 
@@ -21,7 +21,7 @@ pub inline fn replacementSize(_in: types.str, _it: anytype, _count: types.unsign
 
         > The _(`string` or `char`)_ to replace.
 
-    - `_count` : `types.unsigned`
+    - `_count` : `types.len`
 
         > The number of replacements to calculate the size for.
 
@@ -29,7 +29,7 @@ pub inline fn replacementSize(_in: types.str, _it: anytype, _count: types.unsign
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `types.unsigned`
+- #### Returns : `types.len`
 
     > The number of bytes that will be removed.
 

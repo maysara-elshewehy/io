@@ -3,7 +3,7 @@
 > Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed.
 
 ```zig
-pub inline fn split(_it: types.cstr, _sep: anytype, _pos: types.unsigned) ?types.cstr
+pub inline fn split(_it: types.cstr, _sep: anytype, _pos: types.len) ?types.cstr
 ```
 
 <div align="center">
@@ -20,7 +20,7 @@ pub inline fn split(_it: types.cstr, _sep: anytype, _pos: types.unsigned) ?types
 
         > The separator to split with.
 
-    - `_pos` : `types.unsigned`
+    - `_pos` : `types.len`
 
         > The position to split at.
 

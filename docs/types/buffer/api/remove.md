@@ -17,7 +17,7 @@ pub inline fn remove(_self: *Self, _it: anytype) void
 
         > The string structure to be used.
 
-    - `_it` : `types.range` or `types.unsigned` or `Self`
+    - `_it` : `types.range` or `types.len` or `Self`
 
         > The _(`range` or `position`)_ to be remove.
 

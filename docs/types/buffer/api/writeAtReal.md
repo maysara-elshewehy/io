@@ -3,7 +3,7 @@
 > Inserts a _(`formatted string`)_ into a `specific real  position` in the string.
 
 ```zig
-pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.unsigned) !void
+pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: types.len) !void
 ```
 
 
@@ -25,7 +25,7 @@ pub fn writeAtReal(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos
 
         > The arguments used to format the string
 
-    - `_pos` : `types.unsigned`
+    - `_pos` : `types.len`
 
         > The real position in the string to insert at.
 

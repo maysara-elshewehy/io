@@ -51,7 +51,7 @@
         | [`bytes`](./api/bytes.md)   | Returns the number of characters in the string.                                                        |
         | [`ubytes`](./api/ubytes.md) | Returns the number of characters in the string (Unicode characters are counted as regular characters). |
         | [`size`](./api/size.md)     | Returns the size of the string.                                                                        |
-        <!-- | [`src`](./api/src.md)       | Returns the source of the string.                                                                      | -->
+        | <!--                        | [`src`](./api/src.md)                                                                                  | Returns the source of the string. | --> |
 
    - #### ➕ Insertion
 
@@ -107,13 +107,13 @@
 
     - #### ✂️ Split
 
-        | Method                                            | Description                                                                                                                                  |
-        | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-        | [`split`](./api/split.md)                         | Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed.                    |
-        | [`splitAll`](./api/splitAll.md)                   | Returns an array of slices of the string split by the separator _(`string` or `char`)_.                                   |
+        | Method                                            | Description                                                                                                                                    |
+        | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+        | [`split`](./api/split.md)                         | Returns a slice of the string split by the separator _(`string` or `char`)_ at the specified position, or null if failed.                      |
+        | [`splitAll`](./api/splitAll.md)                   | Returns an array of slices of the string split by the separator _(`string` or `char`)_.                                                        |
         | [`splitToString`](./api/splitToString.md)         | Returns a slice of the string as `io.types.string` split by the separator _(`string` or `char`)_ at the specified position, or null if failed. |
-        | [`splitAllToStrings`](./api/splitAllToStrings.md) | Returns an array of slices of `io.types.string` split by the separator _(`string` or `char`)_.              |
-        | [`lines`](./api/lines.md)                         | Returns an array of slices of the string split by the separator _(`\r\n` or `\n`)_.                                       |
+        | [`splitAllToStrings`](./api/splitAllToStrings.md) | Returns an array of slices of `io.types.string` split by the separator _(`string` or `char`)_.                                                 |
+        | [`lines`](./api/lines.md)                         | Returns an array of slices of the string split by the separator _(`\r\n` or `\n`)_.                                                            |
 
 
     - #### ▧ More
@@ -143,22 +143,21 @@
 
    - #### ⡾ Fields
 
-        | Field     | Description                                        |
-        | --------- | -------------------------------------------------- |
+        | Field     | Description                               |
+        | --------- | ----------------------------------------- |
         | `m_buff`  | Array of characters to store the content. |
-        | `m_size`  | Size of the string.                                |
-        | `m_bytes` | Length of the string.                              |
+        | `m_size`  | Size of the string.                       |
+        | `m_bytes` | Length of the string.                     |
 
 
     - #### ⠟ Types
 
-        | Type       | Refer To                                                             |
-        | ---------- | -------------------------------------------------------------------- |
-        | `char`     | [`io.utils.chars.types.char`](../../utils/chars/readme.md#types)     |
-        | `str`      | [`io.utils.chars.types.str`](../../utils/chars/readme.md#types)      |
-        | `cstr`     | [`io.utils.chars.types.cstr`](../../utils/chars/readme.md#types)     |
-        | `unsigned` | [`io.utils.chars.types.unsigned`](../../utils/chars/readme.md#types) |
-        | `signed`   | [`io.utils.chars.types.signed`](../../utils/chars/readme.md#types)   |
+        | Type   | Refer To                                                         |
+        | ------ | ---------------------------------------------------------------- |
+        | `char` | [`io.utils.chars.types.char`](../../utils/chars/readme.md#types) |
+        | `str`  | [`io.utils.chars.types.str`](../../utils/chars/readme.md#types)  |
+        | `cstr` | [`io.utils.chars.types.cstr`](../../utils/chars/readme.md#types) |
+        | `len`  | [`io.utils.chars.types.len`](../../utils/chars/readme.md#types)  |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
