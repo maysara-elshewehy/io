@@ -33,16 +33,8 @@
     ```
 
     ```zig
-    // Create a new Allocator to allocate memory.
-    var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-
-    // Deallocate all memory allocated when the scope ends.
-    defer alloc.deinit();
-    ```
-
-    ```zig
     // Creates a new string structure.
-    var str = string.init(alloc.allocator());
+    var str = string.init(<yourAllocator>);
 
     // Cleans up the allocated memory (if allocated) when the scope ends.
     defer str.deinit();

@@ -17,24 +17,37 @@
     // ┌─────────────────────────── BASICS ───────────────────────────┐
 
         test "Empty constant" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+            defer alloc.deinit();
+
             // size = 0
             const res = string.init(alloc.allocator());
             try EQL(0, res.size());
             try EQL(0,  res.bytes());
         }
 
+        test "Non-Empty constant" {
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+            defer alloc.deinit();
+
+            // size = 0
+            const res = try string.initWith(alloc.allocator(), "Hello");
+            try EQL(12, res.size());
+            try EQL(5,  res.bytes());
+        }
+
         test "Empty mutable" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
             // size = 0
             var res = string.init(alloc.allocator());
             try EQL(0, res.size());
             try EQL(0,  res.bytes());
-            res.deinit();
+            alloc.deinit();
         }
 
         test "Non-Empty" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             // size = 5*2
             var res = string.init(alloc.allocator());
 
@@ -86,7 +99,8 @@
         }
 
         test "Non-Empty mutable (fmt)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             // size = 5*2
             var res = string.init(alloc.allocator());
 
@@ -153,7 +167,8 @@
     // ┌──────────────────────────── INIT ────────────────────────────┐
 
         test "Init empty string" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator());    // Creates a new string structure.
             defer str.deinit();         // Cleans up the allocated memory (if allocated) when the scope ends.
 
@@ -164,7 +179,8 @@
         }
 
         test "Init string using array of characters" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "Hello 🌍!");
             defer str.deinit();
 
@@ -175,7 +191,8 @@
         }
 
         test "Init string using character" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), '!');
             defer str.deinit();
 
@@ -186,7 +203,8 @@
         }
 
         test "Init string using another string" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str1 = try string.initWith(alloc.allocator(), "Hello 🌍!");
             defer str1.deinit();
 
@@ -200,7 +218,8 @@
         }
 
         test "Allocate a new size" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator());
 
             try EQL(0, str.size());   // 👉 0
@@ -217,7 +236,8 @@
     // ┌─────────────────────────── INSERT ───────────────────────────┐
 
         test "Append a string" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("Hello");
@@ -233,7 +253,8 @@
         }
 
         test "Append a string (using insertReal function)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insertReal("Hello", 0);
@@ -249,7 +270,8 @@
         }
 
         test "Append a string (using insert function)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insert("Hello", 0);
@@ -265,7 +287,8 @@
         }
 
         test "Append a character" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append('H');
@@ -276,7 +299,8 @@
         }
 
         test "Append a character (using insert function)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insert('H', 0);
@@ -287,7 +311,8 @@
         }
 
         test "Prepend a string" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.prepend("Hello");
@@ -303,7 +328,8 @@
         }
 
         test "Prepend a string (using insert function)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insert("Hello", 0);
@@ -319,7 +345,8 @@
         }
 
         test "Prepend a character" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.prepend('H');
@@ -330,7 +357,8 @@
         }
 
         test "Prepend a character (using insert function)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insert('H', 0);
@@ -341,7 +369,8 @@
         }
 
         test "Insert a character into a specifiec position" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insert('!', 0);
@@ -352,7 +381,8 @@
         }
 
         test "Insert a string into a specifiec position" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insert("!", 0);
@@ -365,7 +395,8 @@
         }
 
         test "Insert a character into a specifiec position (using insertReal function)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insertReal('!', 0);
@@ -376,7 +407,8 @@
         }
 
         test "Insert a string into a specifiec position (using insertReal function)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insertReal("!", 0);
@@ -394,7 +426,8 @@
     // ┌─────────────────────────── REMOVE ───────────────────────────┐
 
         test "Remove a rang of string (single character)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("Hello");
@@ -414,7 +447,8 @@
         }
 
         test "Remove a range of string (multiple characters)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("Hello World");
@@ -428,7 +462,8 @@
         }
 
         test "Remove a single character" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("Hello");
@@ -451,7 +486,8 @@
         }
 
         test "Remove a unicode character (fake position)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("=🌍🌟!,=🌍🌟!");
@@ -486,7 +522,8 @@
         }
 
         test "Remove a unicode character (fake range)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("=🌍🌟!,=🌍🌟!");
@@ -521,7 +558,8 @@
         }
 
         test "Remove a unicode character (real position)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("=🌍🌟!,=🌍🌟!");
@@ -556,7 +594,8 @@
         }
 
         test "Remove a unicode character (real range)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("=🌍🌟!,=🌍🌟!");
@@ -591,7 +630,8 @@
         }
 
         test "Remove N characters from the end of the string (using pop function)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("Hello World!");
@@ -616,7 +656,8 @@
         }
 
         test "Remove N characters from the beginning of the string (using shift function)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append("Hello World!");
@@ -646,7 +687,8 @@
     // ┌──────────────────────────── TRIM ────────────────────────────┐
 
         test "Trim start of string" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
             str.trimStart(' ');
 
@@ -656,7 +698,8 @@
         }
 
         test "Trim end of string" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
             str.trimEnd(' ');
 
@@ -666,7 +709,8 @@
         }
 
         test "Trim start and end of string" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
             str.trimEnd(' ');
 
@@ -681,7 +725,8 @@
     // ┌─────────────────────────── WRITER ───────────────────────────┐
 
         test "Make a writer for a string and write some string using print function (fmt)" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             var writer = str.writer();
@@ -696,7 +741,8 @@
     // ┌────────────────────────── ITERATOR ──────────────────────────┐
 
         test "Iterate over a string" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "Hello 🌍"); defer str.deinit();
             var i: chars.types.len = 0;
             var iter = str.iterator();
@@ -712,9 +758,10 @@
     // ┌──────────────────────────── DOCS ────────────────────────────┐
 
         test "readme example" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
-            var str = string.init(alloc.allocator());            // Creates a new string structure.
-            defer str.deinit();                 // Cleans up the allocated memory (if allocated) when the scope ends.
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
+            var str = string.init(alloc.allocator());   // Creates a new string structure.
+            defer str.deinit();                         // Cleans up the allocated memory (if allocated) when the scope ends.
 
             try str.append("Hello 🌍!");        // 👉 "Hello 🌍!"
             try EQL(8, str.ubytes());           // 👉 8     (Unicode characters are counted as regular characters).
@@ -724,7 +771,8 @@
         }
 
         test "docs: allocate" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try EQL(0, str.size());     // 👉 0
@@ -733,7 +781,8 @@
         }
 
         test "docs: init" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
             try EQL(0, str.size());     // 👉 0
             try EQL(0, str.bytes());    // 👉 0
@@ -741,7 +790,8 @@
         }
 
         test "docs: initWith" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "Hello 🌍!"); defer str.deinit();
             try EQL(24, str.size());     // 👉 24
             try EQL(11, str.bytes());    // 👉 11
@@ -750,7 +800,8 @@
         }
 
         test "docs: bytes" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try EQL(0, str.bytes());    // 👉 0
@@ -759,7 +810,8 @@
         }
 
         test "docs: ubytes" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try EQL(0, str.ubytes());   // 👉 0
@@ -768,7 +820,8 @@
         }
 
         test "docs: src" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try EQLS("", str.src());            // 👉 ""
@@ -777,7 +830,8 @@
         }
 
         test "docs: append" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.append('=');    // 👉 "="
@@ -797,7 +851,8 @@
         }
 
         test "docs: prepend" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.prepend('=');
@@ -817,7 +872,8 @@
         }
 
         test "docs: insert" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insert('=', 0);      // 👉 "="
@@ -837,7 +893,8 @@
         }
 
         test "docs: insertReal" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.insertReal('=', 0);      // 👉 "="
@@ -857,7 +914,8 @@
         }
 
         test "docs: write" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.write( "{c}", .{ '=' } );     // 👉 "="
@@ -871,7 +929,8 @@
         }
 
         test "docs: writeStart" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.writeStart( "{c}", .{ '=' } );     // 👉 "="
@@ -885,7 +944,8 @@
         }
 
         test "docs: writeAt" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.writeAt( "{c}", .{ '='  }, 0 );     // 👉 "="
@@ -899,7 +959,8 @@
         }
 
         test "docs: writeAtReal" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             try str.writeAtReal( "{c}", .{ '='  }, 0 );     // 👉 "="
@@ -913,7 +974,8 @@
         }
 
         test "docs: remove" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!"); defer str.deinit();
 
             str.remove(0);              // 👉 "🌍🌟!"
@@ -925,7 +987,8 @@
         }
 
         test "docs: removeReal" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!"); defer str.deinit();
 
             str.removeReal(0);          // 👉 "🌍🌟!"
@@ -937,7 +1000,8 @@
         }
 
         test "docs: pop" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!"); defer str.deinit();
 
             str.pop(1); // 👉 "=🌍🌟"
@@ -951,7 +1015,8 @@
         }
 
         test "docs: shift" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!"); defer str.deinit();
 
             str.shift(1); // 👉 "🌍🌟!"
@@ -963,28 +1028,32 @@
         }
 
         test "docs: trimStart" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "  =🌍🌟!"); defer str.deinit();
             str.trimStart(' '); // 👉 "=🌍🌟!"
             try EQLS("=🌍🌟!", str.src());
         }
 
         test "docs: trimEnd" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!  "); defer str.deinit();
             str.trimEnd(' '); // 👉 "=🌍🌟!"
             try EQLS("=🌍🌟!", str.src());
         }
 
         test "docs: trim" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "  =🌍🌟!  "); defer str.deinit();
             str.trim(' '); // 👉 "=🌍🌟!"
             try EQLS("=🌍🌟!", str.src());
         }
 
         test "docs: find" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "==🌍🌟!!"); defer str.deinit();
             try EQL(0, str.find('='));    // 👉 0   ("=")
             try EQL(2, str.find("🌍"));   // 👉 2   (beg of "🌍")
@@ -993,7 +1062,8 @@
         }
 
         test "docs: rfind" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "==🌍🌟!!"); defer str.deinit();
             try EQL(1, str.rfind('='));    // 👉 1   ("=")
             try EQL(2, str.rfind("🌍"));   // 👉 2   (beg of "🌍")
@@ -1002,28 +1072,32 @@
         }
 
         test "docs: toLower" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "HELLO 🌍!"); defer str.deinit();
             str.toLower();    // 👉 "hello 🌍!"
             try EQLS("hello 🌍!", str.src());
         }
 
         test "docs: toUpper" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "hello 🌍!"); defer str.deinit();
             str.toUpper();    // 👉 "HELLO 🌍!"
             try EQLS("HELLO 🌍!", str.src());
         }
 
         test "docs: toTitle" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "hello 🌍!"); defer str.deinit();
             str.toTitle();    // 👉 "Hello 🌍!"
             try EQLS("Hello 🌍!", str.src());
         }
 
         test "docs: eql" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!"); defer str.deinit();
             try EQL(false, str.eql(""));
             try EQL(false, str.eql("====="));
@@ -1031,7 +1105,8 @@
         }
 
         test "docs: startsWith" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!"); defer str.deinit();
             try EQL(false, str.startsWith(""));
             try EQL(false, str.startsWith("🌍"));
@@ -1039,7 +1114,8 @@
         }
 
         test "docs: endsWith" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!"); defer str.deinit();
             try EQL(false, str.endsWith(""));
             try EQL(false, str.endsWith("🌍"));
@@ -1047,7 +1123,8 @@
         }
 
         test "docs: startsWith Empty" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), ""); defer str.deinit();
             try EQL(false, str.startsWith('='));
             try EQL(false, str.startsWith("🌍"));
@@ -1055,7 +1132,8 @@
         }
 
         test "docs: endsWith Empty" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), ""); defer str.deinit();
             try EQL(false, str.endsWith('!'));
             try EQL(false, str.endsWith("🌍"));
@@ -1064,7 +1142,8 @@
 
 
         test "docs: includes" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!"); defer str.deinit();
             try EQL(true, str.includes('='));
             try EQL(true, str.includes("🌍"));
@@ -1074,7 +1153,8 @@
         }
 
         test "docs: replace" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "==🌍🌍🌟!!"); defer str.deinit();
 
             // replace character.
@@ -1091,7 +1171,8 @@
         }
 
         test "docs: rreplace" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "==🌍🌍🌟!!"); defer str.deinit();
 
             // replace character.
@@ -1108,7 +1189,8 @@
         }
 
          test "docs: repeat" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = string.init(alloc.allocator()); defer str.deinit();
 
             // repeat character.
@@ -1130,7 +1212,8 @@
         }
 
         test "docs: reverse" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "=🌍🌟!"); defer str.deinit();
 
             str.reverse(); // 👉 "!🌟🌍="
@@ -1138,7 +1221,8 @@
         }
 
         test "docs: split" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "🌍1🌍🌍2🌍🌍3🌍");
             defer str.deinit();
 
@@ -1151,7 +1235,8 @@
         }
 
         test "docs: split using character" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), ",1,,2,,3,");
             defer str.deinit();
 
@@ -1164,7 +1249,8 @@
         }
 
         test "docs: splitAll using character" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), ",1,,2,,3,");
             defer str.deinit();
 
@@ -1181,7 +1267,8 @@
         }
 
         test "docs: splitToString using character" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), ",1,,2,,3,");
             defer str.deinit();
 
@@ -1194,7 +1281,8 @@
         }
 
         test "docs: splitAllToStrings using character" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), ",1,,2,,3,");
             defer str.deinit();
 
@@ -1210,7 +1298,8 @@
         }
 
         test "docs: lines" {
-            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
             var str = try string.initWith(alloc.allocator(), "\n1\n\n2\n\n3\n");
             defer str.deinit();
 
@@ -1225,7 +1314,8 @@
         }
 
         // test "TODO" {
-            // var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator); defer alloc.deinit();
+            // var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+
         //     var str = string.init(alloc.allocator());
         //     defer str.deinit();
         //     try str.append("☹️");
