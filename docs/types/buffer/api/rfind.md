@@ -41,7 +41,7 @@ pub inline fn rfind(_self: *Self, _it: anytype) ?types.len
     ```
 
     ```zig
-    var str = try string.initWith("==🌍🌟!!");
+    var str = try string.initWith(alloc, "==🌍🌟!!");
     defer str.deinit();
     ```
 

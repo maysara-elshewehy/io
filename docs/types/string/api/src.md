@@ -35,7 +35,7 @@ pub fn src(_self: Self) types.cstr
     ```
 
     ```zig
-    var str = string.init();
+    var str = string.init(alloc);
     defer str.deinit();
 
     _ = str.src(); // 👉 ""

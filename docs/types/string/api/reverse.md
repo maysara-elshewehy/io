@@ -36,7 +36,7 @@ pub inline fn reverse(_self: *Self) void
     ```
 
     ```zig
-    var str = try string.initWith("=🌍🌟!");
+    var str = try string.initWith(alloc, "=🌍🌟!");
     defer str.deinit();
 
     str.reverse(); // 👉 "!🌟🌍="

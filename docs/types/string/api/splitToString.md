@@ -44,7 +44,7 @@ pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) Error!?Sel
     ```
 
     ```zig
-    var str = try string.initWith(",1,,2,,3,");
+    var str = try string.initWith(alloc, ",1,,2,,3,");
     defer str.deinit();
 
     const r1 = try str.splitToString(',', 0).?;  // r1.src() 👉 ""

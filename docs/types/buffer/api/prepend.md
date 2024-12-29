@@ -61,7 +61,7 @@ pub fn prepend(_self: *Self, _it: anytype) Error!void
     > Prepend using a `string`.
 
     ```zig
-    var other = try string.initWith("!!");
+    var other = try string.initWith(alloc, "!!");
     defer other.deinit();
 
     try str.prepend(other);   // 👉 "!!🌍🌟="

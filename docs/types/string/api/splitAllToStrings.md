@@ -40,7 +40,7 @@ pub inline fn splitAllToStrings(_self: Self, _sep: anytype) Error![]Self
     ```
 
     ```zig
-    var str = try string.initWith(",1,,2,,3,");
+    var str = try string.initWith(alloc, ",1,,2,,3,");
     defer str.deinit();
 
     const res = try str.splitAllToStrings(',');

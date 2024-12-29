@@ -33,9 +33,22 @@
     ```
 
     ```zig
-    var str = string.init();        // Creates a new string structure.
-    defer str.deinit();             // Cleans up the allocated memory (if allocated) when the scope ends.
+    // Create a new Allocator to allocate memory.
+    var alloc = std.heap.ArenaAllocator.init(std.heap.page_allocator);
 
+    // Deallocate all memory allocated when the scope ends.
+    defer alloc.deinit();
+    ```
+
+    ```zig
+    // Creates a new string structure.
+    var str = string.init(alloc.allocator());
+
+    // Cleans up the allocated memory (if allocated) when the scope ends.
+    defer str.deinit();
+    ```
+
+    ```zig
     try str.append("Hello 🌍!");    // 👉 "Hello 🌍!"
     str.ubytes();                   // 👉 8     (Unicode characters are counted as regular characters).
     str.bytes();                    // 👉 11    Regular characters = 1, Unicode characters = 4.

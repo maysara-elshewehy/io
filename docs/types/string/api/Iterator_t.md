@@ -44,7 +44,7 @@ pub const Iterator = struct {
     ```
 
     ```zig
-    var str = try string.initWith("Hello 🌍!");
+    var str = try string.initWith(alloc, "Hello 🌍!");
     defer str.deinit();
 
     var i: usize = 0;

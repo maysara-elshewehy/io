@@ -41,7 +41,7 @@ pub inline fn remove(_self: *Self, _it: anytype) void
     ```
 
     ```zig
-    var str = string.init();
+    var str = string.init(alloc);
     defer str.deinit();
     ```
 

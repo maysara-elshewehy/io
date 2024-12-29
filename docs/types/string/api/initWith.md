@@ -38,24 +38,24 @@ pub fn initWith(_it: anytype) Error!Self
     > using array of characters.
 
     ```zig
-    var str = try string.initWith("Hello 🌍!");     👉 "Hello 🌍!"
+    var str = try string.initWith(alloc, "Hello 🌍!");     👉 "Hello 🌍!"
     defer str.deinit();
     ```
 
     > using character.
 
     ```zig
-    var str = try string.initWith('!');             👉 "!"
+    var str = try string.initWith(alloc, '!');             👉 "!"
     defer str.deinit();
     ```
 
     > using another string structure.
 
     ```zig
-    var str1 = try string.initWith("Hello 🌍!");    👉 "Hello 🌍!"
+    var str1 = try string.initWith(alloc, "Hello 🌍!");    👉 "Hello 🌍!"
     defer str.deinit();
 
-    var str2 = try string.initWith(str1);           👉 "Hello 🌍!"
+    var str2 = try string.initWith(alloc, str1);           👉 "Hello 🌍!"
     defer str.deinit();
     ```
 

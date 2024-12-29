@@ -44,7 +44,7 @@ pub inline fn repeat(_self: *Self, _it: anytype, _count: types.len) Error!void
     ```
 
     ```zig
-    var str = string.init();
+    var str = string.init(alloc);
     defer str.deinit();
     ```
 

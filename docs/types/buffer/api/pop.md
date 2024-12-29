@@ -41,7 +41,7 @@ pub inline fn pop(_self: *Self, _count: types.len) void
     ```
 
     ```zig
-    var str = try string.initWith("=🌍🌟!");
+    var str = try string.initWith(alloc, "=🌍🌟!");
     defer str.deinit();
 
     str.pop(2);             // 👉 "=🌍" ("🌟!" removed)

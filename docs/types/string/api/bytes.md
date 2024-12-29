@@ -37,7 +37,7 @@ pub fn bytes(_self: Self) types.len
     ```
 
     ```zig
-    var str = string.init();
+    var str = string.init(alloc);
     defer str.deinit();
 
     _ = str.bytes(); // 👉 0

@@ -35,7 +35,7 @@ pub const Writer = std.io.Writer(*Self, anyerror, write);
     ```
 
     ```zig
-    var str = string.init();
+    var str = string.init(alloc);
     defer str.deinit();
 
     var writer : str.Writer = str.writer();

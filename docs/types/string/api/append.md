@@ -41,7 +41,7 @@ pub fn append(_self: *Self, _it: anytype) Error!void
     ```
 
     ```zig
-    var str = string.init();
+    var str = string.init(alloc);
     defer str.deinit();
     ```
 
@@ -61,7 +61,7 @@ pub fn append(_self: *Self, _it: anytype) Error!void
     > Append using a `string`.
 
     ```zig
-    var other = try string.initWith("!!");
+    var other = try string.initWith(alloc, "!!");
     defer other.deinit();
 
     try str.append(other);   // 👉 "=🌍🌟!!"

@@ -44,7 +44,7 @@ pub inline fn split(_self: Self, _sep: anytype, _pos: types.len) ?types.cstr
     ```
 
     ```zig
-    var str = try string.initWith("🌍1🌍🌍2🌍🌍3🌍");
+    var str = try string.initWith(alloc, "🌍1🌍🌍2🌍🌍3🌍");
     defer str.deinit()
 
     str.split("🌍", 0).?; // 👉 ""

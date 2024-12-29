@@ -59,18 +59,18 @@
         // ┌──────────────────────────── INIT ────────────────────────────┐
 
             /// Initialize an empty string.
-            pub fn init() Self {
+            pub fn init(_alloc: std.mem.Allocator) Self {
                 return .{
                     .m_buff = &.{},
-                    .m_alloc = std.heap.page_allocator, // TODO: change this allocator.
+                    .m_alloc = _alloc,
                     .m_size = 0,
                     .m_bytes = 0,
                 };
             }
 
             /// Initialize a string with an allocator and a given _(`string` or `char`)_.
-            pub fn initWith(_it: anytype) Error!Self {
-                var l_str = init();
+            pub fn initWith(_alloc: std.mem.Allocator, _it: anytype) Error!Self {
+                var l_str = init(_alloc);
                 try l_str.append(_it);
                 return l_str;
             }
@@ -140,7 +140,7 @@
             /// Copies this String into a new one
             /// User is responsible for managing the new String
             pub inline fn clone(_self: Self) Error!Self {
-                return try Self.initWith(_self.src());
+                return try Self.initWith(_self.m_alloc, _self.src());
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -405,7 +405,7 @@
                 if(@TypeOf(_sep) == Self) return _self.splitToString(_sep.src(), index);
 
                 if (_self.split(_sep, index)) |block| {
-                    var l_str = Self.init();
+                    var l_str = Self.init(_self.m_alloc);
                     try l_str.append(block);
                     return l_str;
                 }
