@@ -3,7 +3,7 @@
 > Repeats the _(`string` or `char`)_ `N` times.
 
 ```zig
-pub inline fn repeat(_self: *Self, _it: anytype, _count: types.len) !void
+pub inline fn repeat(_self: *Self, _it: anytype, _count: types.len) Error!void
 ```
 
 
@@ -29,7 +29,7 @@ pub inline fn repeat(_self: *Self, _it: anytype, _count: types.len) !void
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `anyerror` or `void`
+- #### Returns : `Error` or `void`
 
     > Modifies the string in place, returns an error if the memory allocation fails.
 

@@ -161,14 +161,24 @@
         | `m_bytes` | Length of the string.                     |
 
 
+    - #### ✖ Errors
+
+        | Error          | Description                                               |
+        | -------------- | --------------------------------------------------------- |
+        | `OutOfMemory`  | Insufficient memory available to complete the operation.  |
+        | `InvalidIndex` | Index is out of the valid range for the string operation. |
+        | `FmtError`     | An error occurred during string formatting.               |
+
     - #### ⠟ Types
 
-        | Type     | Refer To                                                           |
-        | -------- | ------------------------------------------------------------------ |
-        | `char`   | [`io.utils.chars.types.char`](../../utils/chars/readme.md#types)   |
-        | `str`    | [`io.utils.chars.types.str`](../../utils/chars/readme.md#types)    |
-        | `cstr`   | [`io.utils.chars.types.cstr`](../../utils/chars/readme.md#types)   |
-        | `len`    | [`io.utils.chars.types.len`](../../utils/chars/readme.md#types)    |
+        > You can access to types using `io.utils.chars.types.<typeName>`
+
+        | Type   | Refer To                                                         |
+        | ------ | ---------------------------------------------------------------- |
+        | `char` | [`io.utils.chars.types.char`](../../utils/chars/readme.md#types) |
+        | `str`  | [`io.utils.chars.types.str`](../../utils/chars/readme.md#types)  |
+        | `cstr` | [`io.utils.chars.types.cstr`](../../utils/chars/readme.md#types) |
+        | `len`  | [`io.utils.chars.types.len`](../../utils/chars/readme.md#types)  |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

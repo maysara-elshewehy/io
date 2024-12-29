@@ -3,7 +3,7 @@
 > Returns an array of slices of the string split by the separator (`\r\n` or `\n`).
 
 ```zig
-pub inline fn lines(_self: Self) ![]Self
+pub inline fn lines(_self: Self) Error![]Self
 ```
 
 <div align="center">
@@ -20,9 +20,9 @@ pub inline fn lines(_self: Self) ![]Self
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `anyerror` or `[]Self`
+- #### Returns : `Error` or `[]Self`
 
-    > An array of slices of the string split by the (`\r\n` or `\n`), or `anyerror` if failed.
+    > An array of slices of the string split by the (`\r\n` or `\n`), or `Error` if failed.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

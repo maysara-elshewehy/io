@@ -16,7 +16,7 @@ pub const Writer = std.io.Writer(*Self, anyerror, write);
     - `self` : `*Self`
 
         > The string structure to be used.
-    - `anyerror` : `anyerror`
+    - `Error` : `Error`
 
         > The error type of the Writer.
 

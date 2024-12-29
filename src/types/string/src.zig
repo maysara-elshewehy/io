@@ -139,7 +139,7 @@
 
             /// Copies this String into a new one
             /// User is responsible for managing the new String
-            pub inline fn clone(_self: Self) !Self {
+            pub inline fn clone(_self: Self) Error!Self {
                 return try Self.initWith(_self.src());
             }
 

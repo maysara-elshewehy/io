@@ -3,7 +3,7 @@
 > Inserts a _(`string` or `char`)_ into the `beginning` of the string.
 
 ```zig
-pub fn prepend(_self: *Self, _it: anytype) !void
+pub fn prepend(_self: *Self, _it: anytype) Error!void
 ```
 
 
@@ -26,7 +26,7 @@ pub fn prepend(_self: *Self, _it: anytype) !void
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `anyerror` or `void`
+- #### Returns : `Error` or `void`
 
     > Modifies the string in place, returns an error if the memory allocation fails.
 

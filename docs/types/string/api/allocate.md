@@ -3,7 +3,7 @@
 > Allocate or reallocate the string buffer to a new size.
 
 ```zig
-pub fn allocate(_self: *Self, _bytes: types.len) !void
+pub fn allocate(_self: *Self, _bytes: types.len) Error!void
 ```
 
 
@@ -25,7 +25,7 @@ pub fn allocate(_self: *Self, _bytes: types.len) !void
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `void` or `anyerror`
+- #### Returns : `void` or `Error`
 
     > If allocation fails, an error is returned. Otherwise, the string buffer is deallocated and reallocated to the new size.
 

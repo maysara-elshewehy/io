@@ -3,7 +3,7 @@
 > Initialize a string with an allocator and a given _(`string` or `char`)_.
 
 ```zig
-pub fn initWith(_it: anytype) !Self
+pub fn initWith(_it: anytype) Error!Self
 ```
 
 
@@ -21,7 +21,7 @@ pub fn initWith(_it: anytype) !Self
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `Self` or `anyerror`
+- #### Returns : `Self` or `Error`
 
     > An initialized string structure or error if failed.
 

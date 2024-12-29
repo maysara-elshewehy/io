@@ -3,7 +3,7 @@
 > Returns a slice of the `io.types.string` split by the separator _(`string` or `char`)_ at the specified position, or null if failed.
 
 ```zig
-pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) !?Self
+pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) Error!?Self
 ```
 
 <div align="center">
@@ -28,9 +28,9 @@ pub inline fn splitToString(_self: Self, _sep: anytype, index: usize) !?Self
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `anyerror` or `null` or `Self`
+- #### Returns : `Error` or `null` or `Self`
 
-    > The resulting slice of the string split by the separator at the specified position as a `string`, or `null` or `anyerror` if failed.
+    > The resulting slice of the string split by the separator at the specified position as a `string`, or `null` or `Error` if failed.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>

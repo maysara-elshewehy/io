@@ -3,7 +3,7 @@
 > Inserts a _(`string` or `char`)_ into a `specific real  position` in the string.
 
 ```zig
-pub fn insertReal(_self: *Self, _it: anytype, _pos: types.len) !void
+pub fn insertReal(_self: *Self, _it: anytype, _pos: types.len) Error!void
 ```
 
 
@@ -29,7 +29,7 @@ pub fn insertReal(_self: *Self, _it: anytype, _pos: types.len) !void
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `anyerror` or `void`
+- #### Returns : `Error` or `void`
 
     > Modifies the string in place, returns an error if the memory allocation fails.
 
