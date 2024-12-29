@@ -34,12 +34,12 @@
 
    - #### ❱ Basics
 
-        | Method                  | Description                                                                               |
-        | ----------------------- | ----------------------------------------------------------------------------------------- |
-        | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_                                              |
-        | [`calc`](./api/calc.md) | Returns the number of characters in the string.                                           |
-        | [`make`](./api/make.md) | Returns an _(`array of characters`)_ with specified size and content _(terminated with `\0`)_.      |
-        | [`get`](./api/get.md)   | Returns the (`unicode` or `char`) at the specified position _(`non-real`)_ in the string. |
+        | Method                  | Description                                                                                    |
+        | ----------------------- | ---------------------------------------------------------------------------------------------- |
+        | [`size`](./api/size.md) | Returns the size of a _(`string` or `char`)_                                                   |
+        | [`calc`](./api/calc.md) | Returns the number of characters in the string.                                                |
+        | [`make`](./api/make.md) | Returns an _(`array of characters`)_ with specified size and content _(terminated with `\0`)_. |
+        | [`get`](./api/get.md)   | Returns the (`unicode` or `char`) at the specified position _(`non-real`)_ in the string.      |
 
    - #### ➕ Insertion
 
@@ -110,13 +110,12 @@
 
         > You can access to types using `io.utils.chars.types.typeName`
 
-        | Type       | Refer To     |
-        | ---------- | ------------ |
-        | `char`     | `u8`         |
-        | `str`      | `[]u8`       |
-        | `cstr`     | `[]const u8` |
-        | `unsigned` | `usize`      |
-        | `signed`   | `isize`      |
+        | Type   | Refer To     |
+        | ------ | ------------ |
+        | `char` | `u8`         |
+        | `str`  | `[]u8`       |
+        | `cstr` | `[]const u8` |
+        | `len`  | `usize`      |
 
 <div align="center">
 <img src="../../dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
