@@ -42,8 +42,8 @@ pub inline fn startsWith(_self: Self, _with: anytype) bool
     ```
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "=🌍🌟!");
-    defer str.deinit();
+    var buf = chars.make(64, "=🌍🌟!");
+    var str = buffer(&buf);
 
     str.startsWith("");   // 👉 false
     str.startsWith("🌍"); // 👉 false

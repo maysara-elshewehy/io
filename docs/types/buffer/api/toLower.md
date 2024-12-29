@@ -37,8 +37,8 @@ pub inline fn toLower(_self: *Self) void
     ```
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "HELLO 🌍!");
-    defer str.deinit();
+     var buf = chars.make(64, "Hello 🌍!");
+    var str = buffer(&buf);
 
     src.toLower(); // 👉 "hello 🌍!"
     ```

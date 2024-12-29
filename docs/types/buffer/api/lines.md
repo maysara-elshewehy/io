@@ -36,8 +36,8 @@ pub inline fn lines(_self: Self) Error![]Self
     ```
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "\n1\n\n2\n\n3\n");
-    defer str.deinit();
+    var buf = chars.make(64, "\n1\n\n2\n\n3\n");
+    var str = buffer(&buf);
 
     const res = try str.lines();
     res.len;        // 👉 7

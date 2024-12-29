@@ -42,8 +42,8 @@ pub inline fn includes(_self: Self, _it: anytype) bool
     ```
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "=🌍🌟!");
-    defer str.deinit();
+    var buf = chars.make(64, "=🌍🌟!");
+    var str = buffer(&buf);
 
     str.includes('=');    // 👉 true
     str.includes("🌍");   // 👉 true

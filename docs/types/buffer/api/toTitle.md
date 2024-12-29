@@ -37,8 +37,8 @@ pub inline fn toTitle(_self: *Self) void
     ```
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "hello 🌍!");
-    defer str.deinit();
+     var buf = chars.make(64, "Hello 🌍!");
+    var str = buffer(&buf);
 
     src.toTitle(); // 👉 "Hello 🌍!"
     ```

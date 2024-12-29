@@ -38,8 +38,8 @@ pub inline fn trimStart(_self: *Self, _char: types.char) void
 - #### Example
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "  =🌍🌟!");
-    defer str.deinit();
+    var buf = chars.make(64, "  =🌍🌟!");
+    var str = buffer(&buf);
 
     str.trimStart(' '); // 👉 "=🌍🌟!"
     ```

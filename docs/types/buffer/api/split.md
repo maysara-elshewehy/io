@@ -44,8 +44,8 @@ pub inline fn split(_self: Self, _sep: anytype, _pos: types.len) ?types.cstr
     ```
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "🌍1🌍🌍2🌍🌍3🌍");
-    defer str.deinit()
+    var buf = chars.make(64, "🌍1🌍🌍2🌍🌍3🌍");
+    var str = buffer(&buf);
 
     str.split("🌍", 0).?; // 👉 ""
     str.split("🌍", 1).?; // 👉 "1"

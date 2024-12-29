@@ -41,8 +41,8 @@ pub inline fn shift(_self: *Self, _count: types.len) void
     ```
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "=🌍🌟!");
-    defer str.deinit();
+    var buf = chars.make(64, "=🌍🌟!");
+    var str = buffer(&buf);
 
     str.shift(2);              // 👉 "🌟!" ("=🌍" removed)
     str.shift(1);              // 👉   "!" ( "🌟" removed)

@@ -41,8 +41,8 @@ pub inline fn rfind(_self: *Self, _it: anytype) ?types.len
     ```
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "==🌍🌟!!");
-    defer str.deinit();
+    var buf = chars.make(64, "==🌍🌟!!");
+    var str = buffer(&buf);
     ```
 
     > Find using a `character`.
