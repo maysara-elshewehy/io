@@ -173,7 +173,6 @@
         | `m_size`  | Size of the string.                       |
         | `m_bytes` | Length of the string.                     |
 
-
     - #### ✖ Errors
 
         | Error          | Description                                               |

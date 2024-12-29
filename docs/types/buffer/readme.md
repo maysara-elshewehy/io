@@ -137,6 +137,14 @@
         | [`Iterator (Type)`](./api/Iterator_t.md) | The underlying type of the Iterator returned by `iterator()`. |
         | [`iterator`](./api/iterator.md)          | Returns an iterator for the string.                           |
 
+    - #### ✖ Errors
+
+        | Error          | Description                                               |
+        | -------------- | --------------------------------------------------------- |
+        | `OutOfMemory`  | Insufficient memory available to complete the operation.  |
+        | `InvalidIndex` | Index is out of the valid range for the string operation. |
+        | `FmtError`     | An error occurred during string formatting.               |
+
    - #### ⡾ Fields
 
         | Field     | Description                               |
@@ -144,7 +152,6 @@
         | `m_buff`  | Array of characters to store the content. |
         | `m_size`  | Size of the string.                       |
         | `m_bytes` | Length of the string.                     |
-
 
     - #### ⠟ Types
 
