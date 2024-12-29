@@ -42,24 +42,24 @@ pub fn initWith(_alloc: std.mem.Allocator, _it: anytype) Error!Self
     > using array of characters.
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, "Hello 🌍!");     👉 "Hello 🌍!"
+    var str = try string.initWith(<yourAllocator>, "Hello 🌍!");     // 👉 "Hello 🌍!"
     defer str.deinit();
     ```
 
     > using character.
 
     ```zig
-    var str = try string.initWith(<yourAllocator>, '!');             👉 "!"
+    var str = try string.initWith(<yourAllocator>, '!');             // 👉 "!"
     defer str.deinit();
     ```
 
     > using another string structure.
 
     ```zig
-    var str1 = try string.initWith(<yourAllocator>, "Hello 🌍!");    👉 "Hello 🌍!"
+    var str1 = try string.initWith(<yourAllocator>, "Hello 🌍!");    // 👉 "Hello 🌍!"
     defer str.deinit();
 
-    var str2 = try string.initWith(<yourAllocator>, str1);           👉 "Hello 🌍!"
+    var str2 = try string.initWith(<yourAllocator>, str1);           // 👉 "Hello 🌍!"
     defer str.deinit();
     ```
 

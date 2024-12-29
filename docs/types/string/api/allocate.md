@@ -42,7 +42,7 @@ pub fn allocate(_self: *Self, _bytes: types.len) Error!void
     > using array of characters.
 
     ```zig
-    var str = string.init(");
+    var str = string.init(<yourAllocator>);
     defer str.deinit();
 
     str.size(); // 👉 0
