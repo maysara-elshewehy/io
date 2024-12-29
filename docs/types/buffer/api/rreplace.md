@@ -44,6 +44,7 @@ pub inline fn replace(_self: *Self, _it: anytype, _with: anytype, _count: types.
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

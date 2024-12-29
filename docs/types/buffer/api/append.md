@@ -37,6 +37,7 @@ pub fn append(_self: *Self, _it: anytype) Error!void
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

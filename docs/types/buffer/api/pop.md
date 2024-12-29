@@ -37,6 +37,7 @@ pub inline fn pop(_self: *Self, _count: types.len) void
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

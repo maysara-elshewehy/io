@@ -44,6 +44,7 @@ pub fn writeAt(_self: *Self, comptime _fmt: types.cstr, _args: anytype, _pos: ty
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

@@ -40,6 +40,7 @@ pub fn write(_self: *Self, comptime _fmt: types.cstr, _args: anytype) Error!void
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

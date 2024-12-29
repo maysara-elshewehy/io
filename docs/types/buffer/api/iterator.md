@@ -33,6 +33,7 @@ pub fn iterator(_self: *const Self) iterator
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

@@ -40,6 +40,7 @@ pub const Iterator = struct {
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

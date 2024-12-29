@@ -37,6 +37,7 @@ pub inline fn eql(_self: Self, _with: anytype) bool
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

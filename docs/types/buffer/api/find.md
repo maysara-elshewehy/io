@@ -37,6 +37,7 @@ pub inline fn find(_self: *Self, _it: anytype) ?types.len
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

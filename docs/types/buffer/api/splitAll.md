@@ -36,6 +36,7 @@ pub inline fn splitAll(_self: Self, _sep: anytype) Error![]types.cstr
 
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

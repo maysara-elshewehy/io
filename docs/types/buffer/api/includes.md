@@ -38,6 +38,7 @@ pub inline fn includes(_self: Self, _it: anytype) bool
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

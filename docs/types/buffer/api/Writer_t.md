@@ -31,6 +31,7 @@ pub const Writer = std.io.Writer(*Self, anyerror, write);
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

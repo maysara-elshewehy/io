@@ -40,6 +40,7 @@ pub fn writeStart(_self: *Self, comptime _fmt: types.cstr, _args: anytype) Error
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

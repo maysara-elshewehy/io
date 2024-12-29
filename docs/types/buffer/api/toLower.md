@@ -33,6 +33,7 @@ pub inline fn toLower(_self: *Self) void
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

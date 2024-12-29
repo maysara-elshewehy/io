@@ -40,6 +40,7 @@ pub fn insert(_self: *Self, _it: anytype, _pos: types.len) Error!void
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

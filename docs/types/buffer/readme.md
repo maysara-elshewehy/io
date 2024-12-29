@@ -29,6 +29,7 @@
 - #### Usage
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

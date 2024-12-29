@@ -32,6 +32,7 @@ pub inline fn reverse(_self: *Self) void
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

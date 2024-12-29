@@ -40,6 +40,7 @@ pub inline fn split(_self: Self, _sep: anytype, _pos: types.len) ?types.cstr
 
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

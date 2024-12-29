@@ -32,6 +32,7 @@ pub inline fn lines(_self: Self) Error![]Self
 
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 

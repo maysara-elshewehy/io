@@ -37,6 +37,7 @@ pub inline fn removeReal(_self: *Self, _it: anytype) void
 - #### Example
 
     ```zig
+    const chars = @import("io").utils.chars;
     const buffer = @import("io").types.buffer;
     ```
 
