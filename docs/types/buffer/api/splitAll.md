@@ -63,12 +63,6 @@ pub inline fn splitAll(_self: Self, _sep: anytype) Error![]types.cstr
 
   > [`io.types.buffer.split`](./split.md)
 
-  > [`io.types.buffer.splitToString`](./splitToString.md)
-
-  > [`io.types.buffer.splitAllToStrings`](./splitAllToStrings.md)
-
-  > [`io.types.buffer.lines`](./lines.md)
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>

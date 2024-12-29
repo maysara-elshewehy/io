@@ -63,12 +63,6 @@ pub inline fn split(_self: Self, _sep: anytype, _pos: types.len) ?types.cstr
 
   > [`io.types.buffer.splitAll`](./splitAll.md)
 
-  > [`io.types.buffer.splitToString`](./splitToString.md)
-
-  > [`io.types.buffer.splitAllToStrings`](./splitAllToStrings.md)
-
-  > [`io.types.buffer.lines`](./lines.md)
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
