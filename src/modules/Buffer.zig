@@ -1,9 +1,8 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std = @import("std");
-    const Internal = @import("./_Internal.zig");
     const Bytes = @import("./Bytes.zig");
-    pub const Types = Internal.Types;
+    pub const Types = Bytes.Types;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 

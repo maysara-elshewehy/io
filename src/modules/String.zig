@@ -1,9 +1,8 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std = @import("std");
-    const Internal = @import("./_Internal.zig");
     const Bytes = @import("./Bytes.zig");
-    pub const Types = Internal.Types;
+    pub const Types = Bytes.Types;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -11,7 +10,7 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-    /// Fixed array of bytes.
+    /// Dynamic array of bytes.
     pub const String = struct {
         /// ..?
         m_gpa :? std.heap.GeneralPurposeAllocator(.{}),
