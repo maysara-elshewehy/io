@@ -46,6 +46,7 @@
     ```zig
     var str = String.make();
     // 🌟 Use `String.makeAlloc` to use a specific allocator.
+    defer str.free();
 
     _ = str.size(); // 👉 0
     _ = str.len();  // 👉 0
@@ -56,6 +57,7 @@
     ```zig
     var str = try String.makeWith("Hello 🌍!");
     // 🌟 Use `String.makeWithAlloc` to use a specific allocator.
+    defer str.free();
 
     _ = str.size(); // 👉 22 (11 * 2) (To reduce the number of allocations)
     _ = str.len();  // 👉 11
@@ -65,6 +67,7 @@
 
     ```zig
     var str = try String.clone("Hello 🌍!");
+    defer str.free();
 
     _ = str.size(); // 👉 11
     _ = str.len();  // 👉 11
