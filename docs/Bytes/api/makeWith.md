@@ -8,7 +8,7 @@ pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) ![_size]Types.byte
 
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### Parameters
@@ -22,7 +22,7 @@ pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) ![_size]Types.byte
         > The input to copy.
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### Returns : `![_size]Types.byte`
@@ -38,7 +38,7 @@ pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) ![_size]Types.byte
     > **You can use the `Unchecked` ~= `Bytes.makeWithUnchecked` version for no checks/errors.**
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### Example
@@ -81,7 +81,7 @@ pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) ![_size]Types.byte
 
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### Related
@@ -92,7 +92,7 @@ pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) ![_size]Types.byte
 
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

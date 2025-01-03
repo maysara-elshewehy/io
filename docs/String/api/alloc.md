@@ -8,7 +8,7 @@ pub fn alloc(_self: *String, _size: Types.len) !void
 
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### Parameters
@@ -22,7 +22,7 @@ pub fn alloc(_self: *String, _size: Types.len) !void
         > The number of bytes to allocate/reallocate.
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### Returns : `!void`
@@ -32,7 +32,7 @@ pub fn alloc(_self: *String, _size: Types.len) !void
     > Modifies the size of the string in place.
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### Example
@@ -51,7 +51,7 @@ pub fn alloc(_self: *String, _size: Types.len) !void
     ```
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### Related
@@ -60,7 +60,7 @@ pub fn alloc(_self: *String, _size: Types.len) !void
 
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

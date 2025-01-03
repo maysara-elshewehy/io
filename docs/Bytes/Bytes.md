@@ -1,7 +1,7 @@
 # [←](../index.md) `io`.`Bytes`
 
 <p align="center">
-  <img src="https://super-zig.github.io/io/_dist/img/logo/Bytes/logo.png" alt="Bytes" width="1000" />
+  <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/logo/Bytes/logo.png" alt="Bytes" width="1000" />
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 <br />
 
 <div align="center">
-    <img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+    <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 </div>
@@ -33,7 +33,7 @@
 >  With this library, you can focus on building your application's core logic while leaving the heavy lifting of text processing to **Bytes**.
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Usage
@@ -70,7 +70,7 @@
     ```
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Functions
@@ -99,7 +99,7 @@
         | [`count`](./api/count.md) | Returns the number of bytes in the `input` array, stops at the first 0 byte, or at the size. |
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Types
@@ -115,7 +115,7 @@
     | `range`  | `[2]len`       |
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;">Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

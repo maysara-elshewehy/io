@@ -1,7 +1,7 @@
 # [←](../index.md) `io`.`String`
 
 <p align="center">
-  <img src="https://super-zig.github.io/io/_dist/img/logo/String/logo.png" alt="String" width="1000" />
+  <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/logo/String/logo.png" alt="String" width="1000" />
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 <br />
 
 <div align="center">
-    <img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+    <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 </div>
@@ -27,7 +27,7 @@
 > ..?
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Usage
@@ -67,7 +67,7 @@
     ```
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Functions
@@ -98,7 +98,7 @@
         | [`free`](./api/free.md)   | Deallocate the allocated memory and reset the string.   |
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Types
@@ -106,7 +106,7 @@
     > **_See [Types of `Bytes` Module](../Bytes/Bytes.md#types) for more information._**
 
 <div align="center">
-<img src="https://super-zig.github.io/io/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;">Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>
