@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <b>Dynamic string done right.</b><br />
+  <b>Dynamic UTF-8 string done right.</b><br />
 </p>
 
 <br />
@@ -22,7 +22,13 @@
     <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-> ..?
+> The `String` module provides a robust and efficient dynamic string implementation tailored for `UTF-8` encoding.
+
+> Designed to handle flexible string operations, allowing for resizing, cloning, and memory management with ease.
+>
+> Unlike fixed-size arrays, this dynamic string type can grow or shrink as needed, optimizing memory usage and ensuring high performance for applications that require frequent string manipulations.
+>
+> With built-in support for custom allocators and advanced functions for string analysis and manipulation, the `String` type is ideal for developers who need a reliable and efficient solution for handling text in the Zig programming language.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

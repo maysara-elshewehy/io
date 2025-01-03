@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <b>Fixed string done right.</b><br />
+  <b>Fixed UTF-8 string done right.</b><br />
 </p>
 
 <br />
@@ -22,7 +22,14 @@
     <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-> ..?
+> The `Buffer` module offers a highly efficient implementation of fixed-size strings, optimized for `UTF-8` encoding.
+
+> Designed for scenarios where memory usage and performance are critical, the fixed string type provides a predefined capacity that ensures zero runtime resizing, making it predictable and lightweight.
+>
+> This type is perfect for applications requiring strict size constraints or those that prioritize speed and memory efficiency.
+>
+> With a focus on simplicity and precision, the `Buffer` module enables seamless handling of text data without the overhead of dynamic allocations, making it an excellent choice for embedded systems, parsers, or other performance-critical use cases.
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

@@ -9,7 +9,6 @@
 
     test {
         _ = @import("./tests/Bytes.zig");   // 👉 Bytes
-        _ = @import("./tests/Unicode.zig"); // 👉 Unicode
         _ = @import("./tests/Buffer.zig");  // 👉 Buffer
         _ = @import("./tests/String.zig");  // 👉 String
     }

@@ -22,13 +22,12 @@
     <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-> Everything for me is either a **`byte`** or a **`bytes`**, and **my preferred and universally accepted format** is `UTF-8`, so before using this library, know that it **only handles cases that follow the guidelines of this format**, otherwise **an error will be returned** indicating that.
+> The `Bytes` module combines simplicity with power, offering a seamless experience for byte and bit-level manipulation while ensuring data integrity and maintaining high performance.
+
+> Tailored for handling `UTF-8` encoding as the standard format in our projects, the `Bytes` module excels in applications that require precise control over memory and binary data structures.
 >
-> This library was built after many trials and experiments, so it is well polished, whether in terms of **performance**, **testing**, **documentation**, or even **the quality of the code** itself and its maintainability later.
->
-> Designed to streamline text and byte manipulation, reducing development time and effort.
->
->  With this library, you can focus on building your application's core logic while leaving the heavy lifting of text processing to **Bytes**.
+> Perfect for developers who demand efficiency, consistency, and compatibility in projects leveraging the `UTF-8` standard.
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
