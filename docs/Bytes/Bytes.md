@@ -22,8 +22,6 @@
     <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-</div>
-
 > Everything for me is either a **`byte`** or a **`bytes`**, and **my preferred and universally accepted format** is `UTF-8`, so before using this library, know that it **only handles cases that follow the guidelines of this format**, otherwise **an error will be returned** indicating that.
 >
 > This library was built after many trials and experiments, so it is well polished, whether in terms of **performance**, **testing**, **documentation**, or even **the quality of the code** itself and its maintainability later.
