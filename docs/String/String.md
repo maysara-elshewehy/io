@@ -101,7 +101,7 @@
 
         | Method                      | Description                                             |
         | --------------------------- | ------------------------------------------------------- |
-        | [`alloc`](./api/alloc.md)   | Allocate or reallocate the string string to a new size. |
+        | [`alloc`](./api/alloc.md)   | Allocate or reallocate the string to a new size. |
         | [`deinit`](./api/deinit.md) | Deallocate the allocated memory and reset the string.   |
 
 <div align="center">

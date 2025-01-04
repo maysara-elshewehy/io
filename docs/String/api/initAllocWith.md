@@ -27,9 +27,11 @@ pub fn initAllocWith(_it: anytype, _alloc: std.mem.Allocator) !String
 
 - #### Returns : `!String`
 
-    > Returns `error.AllocationFailed` _if the allocation fails._
+    > Returns `error.InvalidType` _if the `_it` type is invalid._
 
     > Returns `error.InvalidUTF8` _if the `_it` is not valid UTF-8._.
+
+    > Returns `error.AllocationFailed` _if the allocation fails._
 
     > A new `String` initialized with the contents of `_it`.
 

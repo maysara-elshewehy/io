@@ -46,7 +46,7 @@
 
         // ┌──────────────────────────── HEAP ────────────────────────────┐
 
-            /// Allocate or reallocate the string string to a new size.
+            /// Allocate or reallocate the string to a new size.
             /// - Returns `error.AllocationFailed` if the allocation fails.
             pub fn alloc(_self: *String, _size: Types.len) !void {
                 if (_self.m_size > 0) {

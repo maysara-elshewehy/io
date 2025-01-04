@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`alloc`
 
-> Allocate or reallocate the string string to a new size.
+> Allocate or reallocate the string to a new size.
 
 ```zig
 pub fn alloc(_self: *String, _size: Types.len) !void
