@@ -1,8 +1,8 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std = @import("std");
-    const Bytes = @import("../modules/Bytes.zig");
-    const Buffer = @import("../modules/Buffer.zig");
+    const Bytes = @import("../mods/Bytes.zig");
+    const Buffer = @import("../mods/Buffer.zig");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -12,45 +12,45 @@
 
     // ┌──────────────────────────── ---- ────────────────────────────┐
 
-        test "Buffer.make (> 0)" {
-            const buf = try Buffer.make(64);
+        test "Buffer.init (> 0)" {
+            const buf = try Buffer.init(64);
             try std.testing.expect(buf.size() == 64);
             try std.testing.expect(buf.len() == 0);
         }
 
-        test "Buffer.make (0) error ZeroValue" {
-            try std.testing.expectError(error.ZeroValue, Buffer.make(0));
+        test "Buffer.init (0) error ZeroValue" {
+            try std.testing.expectError(error.ZeroValue, Buffer.init(0));
         }
 
-        test "Buffer.makeWith (empty value)" {
-            try std.testing.expectError(error.ZeroValue, Buffer.makeWith(64, ""));
+        test "Buffer.initWith (empty value)" {
+            try std.testing.expectError(error.ZeroValue, Buffer.initWith(64, ""));
         }
 
-        test "Buffer.makeWith (non-empty value)" {
-            const buf = try Buffer.makeWith(64, "Hello 🌍!");
+        test "Buffer.initWith (non-empty value)" {
+            const buf = try Buffer.initWith(64, "Hello 🌍!");
             try std.testing.expectEqualStrings("Hello 🌍!", buf.m_buff[0..11]);
             try std.testing.expectEqual(64, buf.size());
             try std.testing.expectEqual(11, buf.len());
         }
 
-        test "Buffer.makeWith (character)" {
-            const buf = try Buffer.makeWith(64, 'H');
+        test "Buffer.initWith (character)" {
+            const buf = try Buffer.initWith(64, 'H');
             try std.testing.expectEqualStrings("H", buf.m_buff[0..1]);
             try std.testing.expectEqual(64, buf.size());
             try std.testing.expectEqual(1, buf.len());
         }
 
-        test "Buffer.makeWith (constant array)" {
+        test "Buffer.initWith (constant array)" {
             const src = "Hello 🌍!";
-            const buf = try Buffer.makeWith(64, src);
+            const buf = try Buffer.initWith(64, src);
             try std.testing.expectEqualStrings(src[0..11], buf.m_buff[0..11]);
             try std.testing.expectEqual(64, buf.size());
             try std.testing.expectEqual(11, buf.len());
         }
 
-        test "Buffer.makeWith    (mutable array)" {
+        test "Buffer.initWith    (mutable array)" {
             var src: [11]u8 = "Hello 🌍!".*;
-            const buf = try Buffer.makeWith(64, src[0..]);
+            const buf = try Buffer.initWith(64, src[0..]);
             try std.testing.expectEqualStrings(src[0..11], buf.m_buff[0..11]);
             try std.testing.expectEqual(64, buf.size());
             try std.testing.expectEqual(11, buf.len());
@@ -63,8 +63,8 @@
             try std.testing.expectEqual(11, buf.len());
         }
 
-        test "Buffer.makeWith    (OutOfRange)" {
-            try std.testing.expectError(error.OutOfRange, Buffer.makeWith(1, "122"));
+        test "Buffer.initWith    (OutOfRange)" {
+            try std.testing.expectError(error.OutOfRange, Buffer.initWith(1, "122"));
         }
 
     // └──────────────────────────────────────────────────────────────┘

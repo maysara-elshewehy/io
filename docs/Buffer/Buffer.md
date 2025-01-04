@@ -42,7 +42,7 @@
     > **Create a Buffer of size 64. Initially, length is 0.**
 
     ```zig
-    var buf = try Buffer.make(64);
+    var buf = try Buffer.init(64);
 
     _ = buf.size(); // 👉 64
     _ = buf.len();  // 👉 0
@@ -51,7 +51,7 @@
     > **Create a Buffer of size 64 and copy a bytes into it. Length reflects the bytes length.**
 
     ```zig
-    var buf = try Buffer.makeWith(64, "Hello 🌍!");
+    var buf = try Buffer.initWith(64, "Hello 🌍!");
 
     _ = buf.size(); // 👉 64
     _ = buf.len();  // 👉 11
@@ -74,11 +74,11 @@
 
    - #### ❱ Make some buffers.
 
-        | Method                      | Description                                                           |
-        | --------------------------- | --------------------------------------------------------------------- |
-        | [`make`](./api/make.md)     | Creates a buffer of the specified size.                               |
-        | [`makeWith`](./api/makeWith.md) | Creates a buffer of the specified size and copies the value into it. |
-        | [`clone`](./api/clone.md)   | Creates a buffer and copies the bytes into it.                       |
+        | Method                          | Description                                                              |
+        | ------------------------------- | ------------------------------------------------------------------------ |
+        | [`init`](./api/init.md)         | Initializes a buffer of the specified size.                              |
+        | [`initWith`](./api/initWith.md) | Initializes a buffer of the specified size and copies the value into it. |
+        | [`clone`](./api/clone.md)       | Copies the value into a new buffer.                                      |
 
    - #### ❱ Count the buffer.
 

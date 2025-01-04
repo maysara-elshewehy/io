@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`clone`
 
-> Creates a new string and copies the value into it with the same size.
+> Copies the value into a new string.
 
 ```zig
 pub fn clone(_it: anytype) !String
@@ -65,11 +65,9 @@ pub fn clone(_it: anytype) !String
 
 - ##### Related
 
-  > [`String.make`](./make.md)
+  > [`String.init`](./init.md)
 
-  > [`String.makeWith`](./makeWith.md)
-
-  > [`String.src`](./src.md)
+  > [`String.initWith`](./initWith.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>

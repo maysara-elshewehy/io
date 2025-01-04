@@ -44,9 +44,9 @@
     > Create an empty string
 
     ```zig
-    var str = String.make();
-    // 🌟 Use `String.makeAlloc` to use a specific allocator.
-    defer str.free();
+    var str = String.init();
+    // 🌟 Use `String.initAlloc` to use a specific allocator.
+    defer str.deinit();
 
     _ = str.size(); // 👉 0
     _ = str.len();  // 👉 0
@@ -55,9 +55,9 @@
     > Create a string with initial content
 
     ```zig
-    var str = try String.makeWith("Hello 🌍!");
-    // 🌟 Use `String.makeAllocWith` to use a specific allocator.
-    defer str.free();
+    var str = try String.initWith("Hello 🌍!");
+    // 🌟 Use `String.initAllocWith` to use a specific allocator.
+    defer str.deinit();
 
     _ = str.size(); // 👉 22 (11 * 2) (To reduce the number of allocations)
     _ = str.len();  // 👉 11
@@ -67,7 +67,7 @@
 
     ```zig
     var str = try String.clone("Hello 🌍!");
-    defer str.free();
+    defer str.deinit();
 
     _ = str.size(); // 👉 11
     _ = str.len();  // 👉 11
@@ -81,13 +81,13 @@
 
    - #### ❱ Make some strings.
 
-        | Method                                    | Description                                                                    |
-        | ----------------------------------------- | ------------------------------------------------------------------------------ |
-        | [`make`](./api/make.md)                   | Creates a string of the specified size.                                        |
-        | [`makeWith`](./api/makeWith.md)           | Creates a string of the specified size and copies the value into it.          |
-        | [`makeAlloc`](./api/makeAlloc.md)         | Creates a new string with a `specific allocator`.                              |
-        | [`makeAllocWith`](./api/makeAllocWith.md) | Creates a new string with a `specific allocator` and copies the value into it. |
-        | [`clone`](./api/clone.md)                 | Creates a new string and copies the value into it with the same size.          |
+        | Method                                    | Description                                                                        |
+        | ----------------------------------------- | ---------------------------------------------------------------------------------- |
+        | [`init`](./api/init.md)                   | Initializes a new empty string.                                                    |
+        | [`initWith`](./api/initWith.md)           | Initializes a new string and copies the value into it.                             |
+        | [`initAlloc`](./api/initAlloc.md)         | Initializes a new string with a `specific allocator`.                              |
+        | [`initAllocWith`](./api/initAllocWith.md) | Initializes a new string with a `specific allocator` and copies the value into it. |
+        | [`clone`](./api/clone.md)                 | Copies the value into a new string.                                                |
 
    - #### ❱ Detect some information about the string.
 
@@ -99,10 +99,10 @@
 
    - #### ❱ Play with memory.
 
-        | Method                    | Description                                             |
-        | ------------------------- | ------------------------------------------------------- |
-        | [`alloc`](./api/alloc.md) | Allocate or reallocate the string string to a new size. |
-        | [`free`](./api/free.md)   | Deallocate the allocated memory and reset the string.   |
+        | Method                      | Description                                             |
+        | --------------------------- | ------------------------------------------------------- |
+        | [`alloc`](./api/alloc.md)   | Allocate or reallocate the string string to a new size. |
+        | [`deinit`](./api/deinit.md) | Deallocate the allocated memory and reset the string.   |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

@@ -64,13 +64,13 @@
 
         /// Creates an array of `size` bytes.
         /// - Returns `error.ZeroValue` _if the `size` is 0._
-        pub fn make(comptime _size: Types.len) ![_size]Types.byte {
+        pub fn init(comptime _size: Types.len) ![_size]Types.byte {
             if(_size == 0) return error.ZeroValue;
-            return makeUnchecked(_size);
+            return initUnchecked(_size);
         }
 
         /// Creates an array of `size` bytes.
-        pub fn makeUnchecked(comptime _size: Types.len) [_size]Types.byte {
+        pub fn initUnchecked(comptime _size: Types.len) [_size]Types.byte {
             return .{0} ** _size;
         }
 
@@ -78,21 +78,21 @@
         /// - `error.OutOfRange` _if the length of `_it` is greater than the `_size`._
         /// - `error.ZeroisUTF8the `_it` length is 0._
         /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-        pub fn makeWith(comptime _size: Types.len, _it: anytype) ![_size]Types.byte {
+        pub fn initWith(comptime _size: Types.len, _it: anytype) ![_size]Types.byte {
             const _It = try internalToBytes(_it);
 
             if(_It.len > _size) return error.OutOfRange;
             if(_It.len == 0) return error.ZeroValue;
             if(!isUTF8(_It)) return error.InvalidUTF8;
-            return makeWithUnchecked(_size, _It);
+            return initWithUnchecked(_size, _It);
         }
 
         /// Creates a valid utf-8 array of `size` bytes and copies the `_it` value into it.
-        pub fn makeWithUnchecked(comptime _size: Types.len, _it: anytype) [_size]Types.byte {
+        pub fn initWithUnchecked(comptime _size: Types.len, _it: anytype) [_size]Types.byte {
             const _It = internalToBytes(_it) catch unreachable;
 
             var _Dist: [_size]Types.byte = undefined;
-            @memcpy(_Dist[0.._It.len], _It);
+            copy(_Dist[0.._It.len], _It);
             _Dist[_It.len] = 0;
             return _Dist;
         }

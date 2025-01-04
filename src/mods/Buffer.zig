@@ -22,7 +22,7 @@
             m_bytes: Types.len = 0,
 
 
-            // ┌─────────────────────────── BASICS ───────────────────────────┐
+            // ┌──────────────────────────── ---- ────────────────────────────┐
 
                 /// Returns the number of (`bytes` / `characters`) in the buffer.
                 pub fn len(_self: Self) Types.len {
@@ -46,9 +46,9 @@
 
     /// Creates a buffer of the specified size.
     /// - Returns `error.ZeroValue` _if the `size` is 0._
-    pub fn make(comptime _size: Types.len) !Buffer(Types.byte, _size) {
+    pub fn init(comptime _size: Types.len) !Buffer(Types.byte, _size) {
         return .{
-            .m_buff  = try Bytes.make(_size),
+            .m_buff  = try Bytes.init(_size),
             .m_size  = _size,
             .m_bytes = 0
         };
@@ -59,11 +59,11 @@
     /// - `error.OutOfRange` _if the length of `_it` is greater than the `_size`._
     /// - `error.ZeroValue` _if the `_it` length is 0._
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    pub fn makeWith(comptime _size: Types.len, _it: anytype) !Buffer(Types.byte, _size) {
+    pub fn initWith(comptime _size: Types.len, _it: anytype) !Buffer(Types.byte, _size) {
         const _It = try internalToBytes(_it);
 
         return .{
-            .m_buff  = try Bytes.makeWith(_size, _It),
+            .m_buff  = try Bytes.initWith(_size, _It),
             .m_size  = _size,
             .m_bytes = _It.len
         };

@@ -37,13 +37,13 @@ pub fn free(_self: *String) void
     ```
 
     ```zig
-    var str = String.make();    // 👉 "", size: 0, len: 0
+    var str = String.init();    // 👉 "", size: 0, len: 0
 
     // Allocate some space.
     try str.alloc(5);           // 👉 "", size: 5, len: 0
 
     // Deallocate the allocated space.
-    defer str.free();           // 👉 "", size: 0, len: 0
+    defer str.deinit();           // 👉 "", size: 0, len: 0
     ```
 
 <div align="center">

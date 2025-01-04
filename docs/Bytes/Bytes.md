@@ -42,7 +42,7 @@
     > **Create an empty buffer of size 64.**
 
     ```zig
-    var res = try Bytes.make(64);
+    var res = try Bytes.init(64);
 
     _ = res.len;          // 👉 64
     _ = Bytes.count(res); // 👉 0
@@ -51,7 +51,7 @@
     > **Create a buffer of size 64 and copy a bytes into it.**
 
     ```zig
-    var res = try Bytes.makeWith(64, "Hello 🌍!");
+    var res = try Bytes.initWith(64, "Hello 🌍!");
 
     _ = res.len;          // 👉 64
     _ = Bytes.count(res); // 👉 11
@@ -82,12 +82,12 @@
 
    - #### ❱ Make some bytes.
 
-        | Method                      | Description                                                                         |
-        | --------------------------- | ----------------------------------------------------------------------------------- |
-        | [`make`](./api/make.md)     | Creates an array of `size` bytes.                                                   |
-        | [`makeWith`](./api/makeWith.md) | Creates a valid `utf-8` array of `size` bytes and copies the `input` bytes into it. |
-        | [`copy`](./api/copy.md)     | Copies the `input` bytes into `another` array.                                      |
-        | [`clone`](./api/clone.md)   | Copies the `input` bytes into a `new` array.                                        |
+        | Method                          | Description                                                                         |
+        | ------------------------------- | ----------------------------------------------------------------------------------- |
+        | [`init`](./api/init.md)         | Initializes an array of `size` bytes.                                                   |
+        | [`initWith`](./api/initWith.md) | Initializes a valid `utf-8` array of `size` bytes and copies the `input` bytes into it. |
+        | [`copy`](./api/copy.md)         | Copies the `input` bytes into `another` array.                                      |
+        | [`clone`](./api/clone.md)       | Copies the `input` bytes into a `new` array.                                        |
 
    - #### ❱ Count the bytes.
 

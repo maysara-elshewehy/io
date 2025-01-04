@@ -61,9 +61,9 @@ pub fn clone(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len)
 
 - ##### Related
 
-  > [`Buffer.make`](./make.md)
+  > [`Buffer.init`](./init.md)
 
-  > [`Buffer.makeWith`](./makeWith.md)
+  > [`Buffer.initWith`](./initWith.md)
 
 
 <div align="center">

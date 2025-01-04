@@ -1,9 +1,9 @@
-# [←](../String.md) `String`.`make`
+# [←](../String.md) `String`.`init`
 
-> Creates a new string.
+> Initializes a new empty string.
 
 ```zig
-pub fn make() String
+pub fn init() String
 ```
 
 
@@ -35,7 +35,7 @@ pub fn make() String
     ```
 
     ```zig
-    _ = String.make();  // 👉 "", size: 0, len: 0
+    _ = String.init();  // 👉 "", size: 0, len: 0
     ```
 
 <div align="center">
@@ -44,13 +44,11 @@ pub fn make() String
 
 - ##### Related
 
-  > [`String.makeAlloc`](./makeAlloc.md)
+  > [`String.initWith`](./initWith.md)
 
-  > [`String.makeWith`](./makeWith.md)
+  > [`String.initAlloc`](./initAlloc.md)
 
-  > [`String.src`](./src.md)
-
-  > [`String.clone`](./clone.md)
+  > [`String.initAllocWith`](./initAllocWith.md)
 
 
 <div align="center">

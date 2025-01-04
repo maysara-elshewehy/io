@@ -48,7 +48,7 @@ pub fn len(_self: String) Types.len
     ```
 
     ```zig
-    const str = try String.makeWith("Hello 🌍!");
+    const str = try String.initWith("Hello 🌍!");
     _ = str.size(); // 👉 22
     _ = str.len();  // 👉 11
     ```

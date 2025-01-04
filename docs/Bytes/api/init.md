@@ -1,9 +1,9 @@
-# [←](../Buffer.md) `Buffer`.`make`
+# [←](../Bytes.md) `Bytes`.`init`
 
-> Creates a buffer of the specified size.
+> Creates an array of `size` bytes.
 
 ```zig
-pub fn make(comptime _size: Types.len) !Buffer(Types.byte, _size)
+pub fn init(comptime _size: Types.len) ![_size]Types.byte
 ```
 
 
@@ -15,18 +15,20 @@ pub fn make(comptime _size: Types.len) !Buffer(Types.byte, _size)
 
     - `comptime _size` : `Types.len`
 
-        > The specified size of the buffer.
+        > The specified size of the array.
 
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `!Buffer(Types.byte, _size)`
+- #### Returns : `![_size]Types.byte`
 
-    > **[`Bytes.make`](../../Bytes/api/make.md) is used internally, check it out for more information about errors.**
+    > Returns `error.ZeroValue` _if the `_size` is 0_.
 
-    > A new `Buffer` with specified size, initialized with `0`.
+    > A new array with specified size, initialized with `0`.
+
+    > **You can use the `Unchecked` ~= `Bytes.initUnchecked` version for no checks/errors.**
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -35,15 +37,15 @@ pub fn make(comptime _size: Types.len) !Buffer(Types.byte, _size)
 - #### Example
 
     ```zig
-    const Buffer = @import("io").Buffer;
+    const Bytes = @import("io").Bytes;
     ```
 
     ```zig
-    _ = try Buffer.make(0);  // 👉 error.ZeroValue
+    _ = try Bytes.init(0);  // 👉 error.ZeroValue
     ```
 
     ```zig
-    _ = try Buffer.make(64); // 👉 "", size: 64, len: 0
+    _ = try Bytes.init(64); // 👉 "", size: 64
     ```
 
 <div align="center">
@@ -52,9 +54,9 @@ pub fn make(comptime _size: Types.len) !Buffer(Types.byte, _size)
 
 - ##### Related
 
-  > [`Buffer.makeWith`](./makeWith.md)
+  > [`Bytes.initWith`](./initWith.md)
 
-  > [`Buffer.clone`](./clone.md)
+  > [`Bytes.clone`](./clone.md)
 
 
 <div align="center">

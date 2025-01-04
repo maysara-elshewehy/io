@@ -39,7 +39,7 @@ pub fn size(_self: Self) Types.len
     ```zig
     _ = Buffer.clone("Hello 🌍!").size();           // 👉 11
 
-    _ = try Buffer.makeWith(64, "Hello 🌍!").size();  // 👉 64
+    _ = try Buffer.initWith(64, "Hello 🌍!").size();  // 👉 64
     ```
 
 <div align="center">

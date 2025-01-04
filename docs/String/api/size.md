@@ -47,7 +47,7 @@ pub fn size(_self: String) Types.len
     ```
 
     ```zig
-    const str = try String.makeWith("Hello 🌍!");
+    const str = try String.initWith("Hello 🌍!");
     _ = str.size(); // 👉 22 (11 * 2) (To reduce the number of allocations)
     ```
 

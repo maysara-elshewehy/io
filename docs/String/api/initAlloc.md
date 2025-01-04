@@ -1,9 +1,9 @@
-# [←](../String.md) `String`.`makeWith`
+# [←](../String.md) `String`.`initAlloc`
 
-> Creates a new string and copies the value into it.
+> Initializes a new string with a `specific allocator`.
 
 ```zig
-pub fn makeWith(_it: anytype) !String
+pub fn initAlloc(_alloc: std.mem.Allocator) String
 ```
 
 
@@ -13,21 +13,18 @@ pub fn makeWith(_it: anytype) !String
 
 - #### Parameters
 
-    - `_it` : `Types.cbytes` or `Types.byte` or `String`
+    - `_alloc` : `std.mem.Allocator`
 
-        > The input to copy.
+        > The allocator to use.
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `!String`
+- #### Returns : `String`
 
-    > Returns `error.AllocationFailed` _if the allocation fails._
-
-    > Returns `error.InvalidUTF8` _if the `_it` is not valid UTF-8._.
-
-    > A new `String` initialized with the contents of `_it`.
+    > A new `String` initialized with `0`.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -36,33 +33,17 @@ pub fn makeWith(_it: anytype) !String
 - #### Example
 
     ```zig
+    const std = @import("std");
     const String = @import("io").String;
     ```
 
-    > Empty String
-
     ```zig
-    _ = try String.makeWith("");           // 👉 "", size: 0, length: 0
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     ```
 
-    > Non-Empty String
-
     ```zig
-    _ = try String.makeWith("Hello 🌍!");  // 👉 "Hello 🌍!", size: 22, length: 11
-    ```
-
-    > Constant String.
-
-    ```zig
-    const src = "Hello 🌍!";
-    _ = try String.makeWith(src);          // 👉 "Hello 🌍!", size: 22, length: 11
-    ```
-
-    > Mutable String.
-
-    ```zig
-    var src = "Hello 🌍!";
-    _ = try String.makeWith(src[0..]);     // 👉 "Hello 🌍!", size: 22, length: 11
+    var str = String.initAlloc(gpa.allocator());    // 👉 "", size: 0, len: 0
+    defer str.deinit();
     ```
 
 <div align="center">
@@ -71,13 +52,11 @@ pub fn makeWith(_it: anytype) !String
 
 - ##### Related
 
-  > [`String.makeAlloc`](./makeAlloc.md)
+  > [`String.init`](./init.md)
 
-  > [`String.make`](./make.md)
+  > [`String.initWith`](./initWith.md)
 
-  > [`String.src`](./src.md)
-
-  > [`String.clone`](./clone.md)
+  > [`String.initAllocWith`](./initAllocWith.md)
 
 
 <div align="center">

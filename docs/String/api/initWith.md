@@ -1,9 +1,9 @@
-# [←](../String.md) `String`.`makeAlloc`
+# [←](../String.md) `String`.`initWith`
 
-> Creates a new string with a `specific allocator`.
+> Initializes a new string and copies the value into it.
 
 ```zig
-pub fn makeAlloc(_alloc: std.mem.Allocator) String
+pub fn initWith(_it: anytype) !String
 ```
 
 
@@ -13,18 +13,21 @@ pub fn makeAlloc(_alloc: std.mem.Allocator) String
 
 - #### Parameters
 
-    - `_alloc` : `std.mem.Allocator`
+    - `_it` : `Types.cbytes` or `Types.byte` or `String`
 
-        > The allocator to use.
-
+        > The input to copy.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `String`
+- #### Returns : `!String`
 
-    > A new `String` initialized with `0`.
+    > Returns `error.AllocationFailed` _if the allocation fails._
+
+    > Returns `error.InvalidUTF8` _if the `_it` is not valid UTF-8._.
+
+    > A new `String` initialized with the contents of `_it`.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -33,17 +36,33 @@ pub fn makeAlloc(_alloc: std.mem.Allocator) String
 - #### Example
 
     ```zig
-    const std = @import("std");
     const String = @import("io").String;
     ```
 
-    ```zig
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    ```
+    > Empty String
 
     ```zig
-    var str = String.makeAlloc(gpa.allocator());    // 👉 "", size: 0, len: 0
-    defer str.free();
+    _ = try String.initWith("");           // 👉 "", size: 0, length: 0
+    ```
+
+    > Non-Empty String
+
+    ```zig
+    _ = try String.initWith("Hello 🌍!");  // 👉 "Hello 🌍!", size: 22, length: 11
+    ```
+
+    > Constant String.
+
+    ```zig
+    const src = "Hello 🌍!";
+    _ = try String.initWith(src);          // 👉 "Hello 🌍!", size: 22, length: 11
+    ```
+
+    > Mutable String.
+
+    ```zig
+    var src = "Hello 🌍!";
+    _ = try String.initWith(src[0..]);     // 👉 "Hello 🌍!", size: 22, length: 11
     ```
 
 <div align="center">
@@ -52,13 +71,11 @@ pub fn makeAlloc(_alloc: std.mem.Allocator) String
 
 - ##### Related
 
-  > [`String.makeAllocWith`](./makeAllocWith.md)
+  > [`String.init`](./init.md)
 
-  > [`String.make`](./make.md)
+  > [`String.initAlloc`](./initAlloc.md)
 
-  > [`String.src`](./src.md)
-
-  > [`String.clone`](./clone.md)
+  > [`String.initAllocWith`](./initAllocWith.md)
 
 
 <div align="center">

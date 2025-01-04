@@ -43,8 +43,8 @@ pub fn alloc(_self: *String, _size: Types.len) !void
     ```
 
     ```zig
-    var str = String.make();    // 👉 "", size: 0, len: 0
-    defer str.free();
+    var str = String.init();    // 👉 "", size: 0, len: 0
+    defer str.deinit();
 
     // Allocate some space.
     try str.alloc(5);           // 👉 "", size: 5, len: 0
@@ -56,7 +56,7 @@ pub fn alloc(_self: *String, _size: Types.len) !void
 
 - ##### Related
 
-  > [`String.free`](./free.md)
+  > [`String.deinit`](./deinit.md)
 
 
 <div align="center">

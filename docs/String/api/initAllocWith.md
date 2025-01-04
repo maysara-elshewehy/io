@@ -1,9 +1,9 @@
-# [←](../String.md) `String`.`makeAllocWith`
+# [←](../String.md) `String`.`initAllocWith`
 
-> Creates a new string with a `specific allocator` and copies the value into it.
+> Initializes a new string with a `specific allocator` and copies the value into it.
 
 ```zig
-pub fn makeAllocWith(_it: anytype, _alloc: std.mem.Allocator) !String
+pub fn initAllocWith(_it: anytype, _alloc: std.mem.Allocator) !String
 ```
 
 
@@ -51,31 +51,31 @@ pub fn makeAllocWith(_it: anytype, _alloc: std.mem.Allocator) !String
     > Empty String
 
     ```zig
-    const str = try String.makeAllocWith(gpa.allocator(), "");          // 👉 "", size: 0, length: 0
-    defer str.free();
+    const str = try String.initAllocWith(gpa.allocator(), "");          // 👉 "", size: 0, length: 0
+    defer str.deinit();
     ```
 
     > Non-Empty String
 
     ```zig
-    const str = try String.makeAllocWith(gpa.allocator(), "Hello 🌍!"); // 👉 "Hello 🌍!", size: 22, length: 11
-    defer str.free();
+    const str = try String.initAllocWith(gpa.allocator(), "Hello 🌍!"); // 👉 "Hello 🌍!", size: 22, length: 11
+    defer str.deinit();
     ```
 
     > Constant String.
 
     ```zig
     const src = "Hello 🌍!";
-    const str = try String.makeAllocWith(gpa.allocator(), src);         // 👉 "Hello 🌍!", size: 22, length: 11
-    defer str.free();
+    const str = try String.initAllocWith(gpa.allocator(), src);         // 👉 "Hello 🌍!", size: 22, length: 11
+    defer str.deinit();
     ```
 
     > Mutable String.
 
     ```zig
     var src = "Hello 🌍!";
-    const str = try String.makeAllocWith(gpa.allocator(), src[0..]);    // 👉 "Hello 🌍!", size: 22, length: 11
-    defer str.free();
+    const str = try String.initAllocWith(gpa.allocator(), src[0..]);    // 👉 "Hello 🌍!", size: 22, length: 11
+    defer str.deinit();
     ```
 
 <div align="center">
@@ -84,13 +84,11 @@ pub fn makeAllocWith(_it: anytype, _alloc: std.mem.Allocator) !String
 
 - ##### Related
 
-  > [`String.makeAlloc`](./makeAlloc.md)
+  > [`String.init`](./init.md)
 
-  > [`String.makeWith`](./makeWith.md)
+  > [`String.initWith`](./initWith.md)
 
-  > [`String.src`](./src.md)
-
-  > [`String.clone`](./clone.md)
+  > [`String.initAlloc`](./initAlloc.md)
 
 
 <div align="center">

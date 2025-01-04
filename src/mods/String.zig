@@ -24,7 +24,7 @@
         m_bytes: Types.len = 0,
 
 
-        // ┌─────────────────────────── BASICS ───────────────────────────┐
+        // ┌──────────────────────────── ---- ────────────────────────────┐
 
             /// Returns the number of (`bytes` / `characters`) in the string.
             pub fn len(_self: String) Types.len {
@@ -58,7 +58,7 @@
             }
 
             /// Deallocate the allocated memory and reset the string.
-            pub fn free(_self: *String) void {
+            pub fn deinit(_self: *String) void {
                 if (_self.m_size > 0) {
                     if(_self.m_gpa) |_| {
                         if(_self.m_gpa.?.deinit() == .leak) {
@@ -83,38 +83,38 @@
 
 // ╔══════════════════════════════════════ MAKE ══════════════════════════════════════╗
 
-    /// Creates a new string.
-    pub fn make() String {
-        return internalMake("", null, false) catch unreachable;
+    /// Initializes a new empty string.
+    pub fn init() String {
+        return internalInit("", null, false) catch unreachable;
     }
 
-    /// Creates a new string and copies the value into it.
+    /// Initializes a new string and copies the value into it.
     /// - `error.InvalidType` _if the type is invalid._
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
     /// - `error.AllocationFailed` _if the allocation fails._
-    pub fn makeWith(_it: anytype) !String {
-        return internalMake(_it, null, false);
+    pub fn initWith(_it: anytype) !String {
+        return internalInit(_it, null, false);
     }
 
-    /// Creates a new string with a specific allocator.
-    pub fn makeAlloc(_alloc: std.mem.Allocator) String {
-        return internalMake("", _alloc, false) catch unreachable;
+    /// Initializes a new string with a `specific allocator`.
+    pub fn initAlloc(_alloc: std.mem.Allocator) String {
+        return internalInit("", _alloc, false) catch unreachable;
     }
 
-    /// Creates a new string with a specific allocator and copies the value into it.
+    /// Initializes a new string with a `specific allocator` and copies the value into it.
     /// - `error.InvalidType` _if the type is invalid._
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
     /// - `error.AllocationFailed` _if the allocation fails._
-    pub fn makeAllocWith(_alloc: std.mem.Allocator, _it: anytype) !String {
-        return internalMake(_it, _alloc, false);
+    pub fn initAllocWith(_alloc: std.mem.Allocator, _it: anytype) !String {
+        return internalInit(_it, _alloc, false);
     }
 
-    /// Creates a new string and copies the value into it.
+    /// Copies the value into a new string.
     /// - `error.AllocationFailed` _if the allocation fails._
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
     /// - `error.InvalidType` _if the type is invalid._
     pub fn clone(_it: anytype) !String {
-        return internalMake(_it, null, true);
+        return internalInit(_it, null, true);
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
@@ -139,14 +139,14 @@
     /// - `error.InvalidType` _if the type is invalid._
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
     /// - `error.AllocationFailed` _if the allocation fails._
-    fn internalMake(_it: anytype, _alloc: ?std.mem.Allocator, _same: bool) !String {
-        return internalMakeString(try internalToBytes(_it), _alloc, _same);
+    fn internalInit(_it: anytype, _alloc: ?std.mem.Allocator, _same: bool) !String {
+        return internalInitString(try internalToBytes(_it), _alloc, _same);
     }
 
     /// Creates a new string with a specific allocator and copies the bytes into it.
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
     /// - `error.AllocationFailed` _if the allocation fails._
-    fn internalMakeString(_it: Types.cbytes, _alloc: ?std.mem.Allocator, _same: bool) !String {
+    fn internalInitString(_it: Types.cbytes, _alloc: ?std.mem.Allocator, _same: bool) !String {
         var _String =  String { .m_gpa = null };
 
         // Specific allocator ?

@@ -49,7 +49,7 @@ pub fn count(_it: Types.cbytes) Types.len
 
   > [`Bytes.clone`](./clone.md)
 
-  > [`Bytes.make`](./make.md)
+  > [`Bytes.init`](./init.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
