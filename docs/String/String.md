@@ -56,7 +56,7 @@
 
     ```zig
     var str = try String.makeWith("Hello 🌍!");
-    // 🌟 Use `String.makeWithAlloc` to use a specific allocator.
+    // 🌟 Use `String.makeAllocWith` to use a specific allocator.
     defer str.free();
 
     _ = str.size(); // 👉 22 (11 * 2) (To reduce the number of allocations)
@@ -84,10 +84,10 @@
         | Method                                    | Description                                                                    |
         | ----------------------------------------- | ------------------------------------------------------------------------------ |
         | [`make`](./api/make.md)                   | Creates a string of the specified size.                                        |
+        | [`makeWith`](./api/makeWith.md)           | Creates a string of the specified size and copies the value into it.          |
         | [`makeAlloc`](./api/makeAlloc.md)         | Creates a new string with a `specific allocator`.                              |
-        | [`makeWith`](./api/makeWith.md)           | Creates a string of the specified size and copies the string into it.          |
-        | [`makeWithAlloc`](./api/makeWithAlloc.md) | Creates a new string with a `specific allocator` and copies the bytes into it. |
-        | [`clone`](./api/clone.md)                 | Creates a new string and copies the bytes into it with the same size.          |
+        | [`makeAllocWith`](./api/makeAllocWith.md) | Creates a new string with a `specific allocator` and copies the value into it. |
+        | [`clone`](./api/clone.md)                 | Creates a new string and copies the value into it with the same size.          |
 
    - #### ❱ Detect some information about the string.
 

@@ -1,9 +1,9 @@
-# [←](../String.md) `String`.`makeWithAlloc`
+# [←](../String.md) `String`.`makeAllocWith`
 
-> Creates a new string with a `specific allocator` and copies the bytes into it.
+> Creates a new string with a `specific allocator` and copies the value into it.
 
 ```zig
-pub fn makeWithAlloc(_it: Types.cbytes, _alloc: std.mem.Allocator) !String
+pub fn makeAllocWith(_it: anytype, _alloc: std.mem.Allocator) !String
 ```
 
 
@@ -13,13 +13,13 @@ pub fn makeWithAlloc(_it: Types.cbytes, _alloc: std.mem.Allocator) !String
 
 - #### Parameters
 
-    - `_it` : `Types.cbytes`
-
-        > The input to copy.
-
     - `_alloc` : `std.mem.Allocator`
 
         > The allocator to use.
+
+    - `_it` : `Types.cbytes` or `Types.byte` or `String`
+
+        > The input to copy.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -51,14 +51,14 @@ pub fn makeWithAlloc(_it: Types.cbytes, _alloc: std.mem.Allocator) !String
     > Empty String
 
     ```zig
-    const str = try String.makeWithAlloc("", gpa.allocator());          // 👉 "", size: 0, length: 0
+    const str = try String.makeAllocWith(gpa.allocator(), "");          // 👉 "", size: 0, length: 0
     defer str.free();
     ```
 
     > Non-Empty String
 
     ```zig
-    const str = try String.makeWithAlloc("Hello 🌍!", gpa.allocator()); // 👉 "Hello 🌍!", size: 22, length: 11
+    const str = try String.makeAllocWith(gpa.allocator(), "Hello 🌍!"); // 👉 "Hello 🌍!", size: 22, length: 11
     defer str.free();
     ```
 
@@ -66,7 +66,7 @@ pub fn makeWithAlloc(_it: Types.cbytes, _alloc: std.mem.Allocator) !String
 
     ```zig
     const src = "Hello 🌍!";
-    const str = try String.makeWithAlloc(src, gpa.allocator());         // 👉 "Hello 🌍!", size: 22, length: 11
+    const str = try String.makeAllocWith(gpa.allocator(), src);         // 👉 "Hello 🌍!", size: 22, length: 11
     defer str.free();
     ```
 
@@ -74,7 +74,7 @@ pub fn makeWithAlloc(_it: Types.cbytes, _alloc: std.mem.Allocator) !String
 
     ```zig
     var src = "Hello 🌍!";
-    const str = try String.makeWithAlloc(src[0..], gpa.allocator());    // 👉 "Hello 🌍!", size: 22, length: 11
+    const str = try String.makeAllocWith(gpa.allocator(), src[0..]);    // 👉 "Hello 🌍!", size: 22, length: 11
     defer str.free();
     ```
 
@@ -84,9 +84,9 @@ pub fn makeWithAlloc(_it: Types.cbytes, _alloc: std.mem.Allocator) !String
 
 - ##### Related
 
-  > [`String.makeWith`](./makeWith.md)
-
   > [`String.makeAlloc`](./makeAlloc.md)
+
+  > [`String.makeWith`](./makeWith.md)
 
   > [`String.src`](./src.md)
 

@@ -88,36 +88,65 @@
         return internalMake("", null, false) catch unreachable;
     }
 
+    /// Creates a new string and copies the value into it.
+    /// - `error.InvalidType` _if the type is invalid._
+    /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
+    /// - `error.AllocationFailed` _if the allocation fails._
+    pub fn makeWith(_it: anytype) !String {
+        return internalMake(_it, null, false);
+    }
+
     /// Creates a new string with a specific allocator.
     pub fn makeAlloc(_alloc: std.mem.Allocator) String {
         return internalMake("", _alloc, false) catch unreachable;
     }
 
-    /// Creates a new string and copies the bytes into it.
+    /// Creates a new string with a specific allocator and copies the value into it.
+    /// - `error.InvalidType` _if the type is invalid._
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
     /// - `error.AllocationFailed` _if the allocation fails._
-    pub fn makeWith(_it: Types.cbytes) !String {
-        return internalMake(_it, null, false);
+    pub fn makeAllocWith(_alloc: std.mem.Allocator, _it: anytype) !String {
+        return internalMake(_it, _alloc, false);
+    }
+
+    /// Creates a new string and copies the value into it.
+    /// - `error.AllocationFailed` _if the allocation fails._
+    /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
+    /// - `error.InvalidType` _if the type is invalid._
+    pub fn clone(_it: anytype) !String {
+        return internalMake(_it, null, true);
+    }
+
+// ╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+
+// ╔════════════════════════════════════ INTERNAL ════════════════════════════════════╗
+
+    /// Returns a Types.cbytes from anytype.
+    /// - `error.InvalidType` _if the type is invalid._
+    fn internalToBytes(_it: anytype) !Types.cbytes {
+        const _Type = @TypeOf(_it);
+
+        if(_Type == u8 or _Type == comptime_int) { return &[_]Types.byte {_it}; }
+        else if(_Type == String) { return _it.src(); }
+        else if(Bytes.isBytes(_it)) { return _it; }
+
+        return error.InvalidType;
+    }
+
+    /// Creates a new string with a specific allocator and size and copies the passed value into it.
+    /// - `error.InvalidType` _if the type is invalid._
+    /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
+    /// - `error.AllocationFailed` _if the allocation fails._
+    fn internalMake(_it: anytype, _alloc: ?std.mem.Allocator, _same: bool) !String {
+        return internalMakeString(try internalToBytes(_it), _alloc, _same);
     }
 
     /// Creates a new string with a specific allocator and copies the bytes into it.
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
     /// - `error.AllocationFailed` _if the allocation fails._
-    pub fn makeWithAlloc(_it: Types.cbytes, _alloc: std.mem.Allocator) !String {
-        return internalMake(_it, _alloc, false);
-    }
-
-    /// Creates a new string and copies the bytes into it with the same size.
-    /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    /// - `error.AllocationFailed` _if the allocation fails._
-    pub fn clone(_it: Types.cbytes) !String {
-        return internalMake(_it, null, true);
-    }
-
-    /// Creates a new string and copies the bytes into it.
-    /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    /// - `error.AllocationFailed` _if the allocation fails._
-    fn internalMake(_it: Types.cbytes, _alloc: ?std.mem.Allocator, _same: bool) !String {
+    fn internalMakeString(_it: Types.cbytes, _alloc: ?std.mem.Allocator, _same: bool) !String {
         var _String =  String { .m_gpa = null };
 
         // Specific allocator ?

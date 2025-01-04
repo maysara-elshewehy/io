@@ -32,9 +32,9 @@
             try std.testing.expectEqual(0, str.size());
         }
 
-        test "String.makeWithAlloc (empty value)" {
+        test "String.makeAllocWith (empty value)" {
             var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-            var str = try String.makeWithAlloc("", gpa.allocator()); defer str.free();
+            var str = try String.makeAllocWith(gpa.allocator(), ""); defer str.free();
             try std.testing.expectEqualStrings("", str.src());
             try std.testing.expectEqual(0, str.len());
             try std.testing.expectEqual(0, str.size());
@@ -47,9 +47,24 @@
             try std.testing.expectEqual(11, str.len());
         }
 
-        test "String.makeWithAlloc (non-empty value)" {
+        test "String.makeWith (character value)" {
+            var str = try String.makeWith('H'); defer str.free();
+            try std.testing.expectEqualStrings("H", str.src());
+            try std.testing.expectEqual(2, str.size());
+            try std.testing.expectEqual(1, str.len());
+        }
+
+        test "String.makeWith (String value)" {
+            var ref = try String.makeWith('H'); defer ref.free();
+            var str = try String.makeWith(ref); defer str.free();
+            try std.testing.expectEqualStrings("H", str.src());
+            try std.testing.expectEqual(2, str.size());
+            try std.testing.expectEqual(1, str.len());
+        }
+
+        test "String.makeAllocWith (non-empty value)" {
             var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-            var str = try String.makeWithAlloc("Hello 🌍!", gpa.allocator()); defer str.free();
+            var str = try String.makeAllocWith(gpa.allocator(), "Hello 🌍!"); defer str.free();
             try std.testing.expectEqualStrings("Hello 🌍!", str.src());
             try std.testing.expectEqual(22, str.size());
             try std.testing.expectEqual(11, str.len());
@@ -63,10 +78,10 @@
             try std.testing.expectEqual(11, str.len());
         }
 
-        test "String.makeWithAlloc (constant array)" {
+        test "String.makeAllocWith (constant array)" {
             const src = "Hello 🌍!";
             var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-            var str = try String.makeWithAlloc(src, gpa.allocator()); defer str.free();
+            var str = try String.makeAllocWith(gpa.allocator(), src); defer str.free();
             try std.testing.expectEqualStrings(src[0..11], str.src());
             try std.testing.expectEqual(22, str.size());
             try std.testing.expectEqual(11, str.len());
@@ -87,10 +102,10 @@
             try std.testing.expectEqual(11, str.len());
         }
 
-        test "String.makeWithAlloc (mutable array)" {
+        test "String.makeAllocWith (mutable array)" {
             var src: [11]u8 = "Hello 🌍!".*;
             var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-            var str = try String.makeWithAlloc(src[0..], gpa.allocator()); defer str.free();
+            var str = try String.makeAllocWith(gpa.allocator(), src[0..]); defer str.free();
             try std.testing.expectEqualStrings(src[0..11], str.src());
             try std.testing.expectEqual(22, str.size());
             try std.testing.expectEqual(11, str.len());
@@ -120,6 +135,13 @@
             try std.testing.expectEqualStrings("Hello 🌍!", str.src());
             try std.testing.expectEqual(11, str.size());
             try std.testing.expectEqual(11, str.len());
+        }
+
+        test "String.clone (character)" {
+            var str = try String.clone('H'); defer str.free();
+            try std.testing.expectEqualStrings("H", str.src());
+            try std.testing.expectEqual(1, str.size());
+            try std.testing.expectEqual(1, str.len());
         }
 
         test "String.clone (constant array)" {

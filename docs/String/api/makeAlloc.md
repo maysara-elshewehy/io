@@ -52,7 +52,7 @@ pub fn makeAlloc(_alloc: std.mem.Allocator) String
 
 - ##### Related
 
-  > [`String.makeWithAlloc`](./makeWithAlloc.md)
+  > [`String.makeAllocWith`](./makeAllocWith.md)
 
   > [`String.make`](./make.md)
 

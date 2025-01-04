@@ -1,9 +1,9 @@
 # [←](../String.md) `String`.`clone`
 
-> Creates a new string and copies the bytes into it with the same size.
+> Creates a new string and copies the value into it with the same size.
 
 ```zig
-pub fn clone(_it: Types.cbytes) !String
+pub fn clone(_it: anytype) !String
 ```
 
 
@@ -13,7 +13,7 @@ pub fn clone(_it: Types.cbytes) !String
 
 - #### Parameters
 
-    - `_it` : `Types.cbytes`
+    - `_it` : `Types.cbytes` or `Types.byte` or `String`
 
         > The input to clone.
 

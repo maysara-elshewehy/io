@@ -1,9 +1,9 @@
 # [←](../String.md) `String`.`makeWith`
 
-> Creates a new string and copies the bytes into it.
+> Creates a new string and copies the value into it.
 
 ```zig
-pub fn makeWith(_it: Types.cbytes) !String
+pub fn makeWith(_it: anytype) !String
 ```
 
 
@@ -13,7 +13,7 @@ pub fn makeWith(_it: Types.cbytes) !String
 
 - #### Parameters
 
-    - `_it` : `Types.cbytes`
+    - `_it` : `Types.cbytes` or `Types.byte` or `String`
 
         > The input to copy.
 
@@ -71,7 +71,7 @@ pub fn makeWith(_it: Types.cbytes) !String
 
 - ##### Related
 
-  > [`String.makeWithAlloc`](./makeWithAlloc.md)
+  > [`String.makeAlloc`](./makeAlloc.md)
 
   > [`String.make`](./make.md)
 

@@ -1,9 +1,9 @@
 # [←](../Buffer.md) `Buffer`.`makeWith`
 
-> Creates a buffer of the specified size and copies the string into it.
+> Creates a buffer of the specified size and copies the value into it.
 
 ```zig
-pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) !Buffer(Types.byte, _size)
+pub fn makeWith(comptime _size: Types.len, _it: anytype) !Buffer(Types.byte, _size)
 ```
 
 
@@ -17,7 +17,7 @@ pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) !Buffer(Types.byte
 
         > The specified size of the Buffer.
 
-    - `_it` : `Types.cbytes`
+    - `_it` : `Types.cbytes` or `Types.byte` or `Buffer`
 
         > The input to copy.
 

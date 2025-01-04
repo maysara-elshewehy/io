@@ -54,15 +54,18 @@
         };
     }
 
-    /// Creates a buffer of the specified size and copies the bytes into it.
+    /// Creates a buffer of the specified size and copies the value into it.
+    /// - `error.InvalidType` _if the type is invalid._
     /// - `error.OutOfRange` _if the length of `_it` is greater than the `_size`._
     /// - `error.ZeroValue` _if the `_it` length is 0._
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) !Buffer(Types.byte, _size) {
+    pub fn makeWith(comptime _size: Types.len, _it: anytype) !Buffer(Types.byte, _size) {
+        const _It = try internalToBytes(_it);
+
         return .{
-            .m_buff  = try Bytes.makeWith(_size, _it),
+            .m_buff  = try Bytes.makeWith(_size, _It),
             .m_size  = _size,
-            .m_bytes = _it.len
+            .m_bytes = _It.len
         };
     }
 
@@ -73,6 +76,24 @@
             .m_size  = _it.len,
             .m_bytes = _it.len
         };
+    }
+
+// ╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+// ╔════════════════════════════════════ INTERNAL ════════════════════════════════════╗
+
+    /// Returns a Types.cbytes from anytype.
+    /// - `error.InvalidType` _if the type is invalid._
+    fn internalToBytes(_it: anytype) !Types.cbytes {
+        const _Type = @TypeOf(_it);
+        const _TypeInfo = @typeInfo(_Type);
+
+        if(_Type == u8 or _Type == comptime_int) { return &[_]Types.byte {_it}; }
+        else if(_TypeInfo == .Struct and @hasField(_Type, "m_buff")) { return _it.m_buff[0.._it.m_bytes]; }
+        else if(Bytes.isBytes(_it)) { return _it; }
+
+        return error.InvalidType;
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

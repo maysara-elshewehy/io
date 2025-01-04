@@ -74,22 +74,26 @@
             return .{0} ** _size;
         }
 
-        /// Creates a valid utf-8 array of `size` bytes and copies the `_it` bytes into it.
+        /// Creates a valid utf-8 array of `size` bytes and copies the `_it` value into it.
         /// - `error.OutOfRange` _if the length of `_it` is greater than the `_size`._
         /// - `error.ZeroisUTF8the `_it` length is 0._
         /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-        pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) ![_size]Types.byte {
-            if(_it.len > _size) return error.OutOfRange;
-            if(_it.len == 0) return error.ZeroValue;
-            if(!isUTF8(_it)) return error.InvalidUTF8;
-            return makeWithUnchecked(_size, _it);
+        pub fn makeWith(comptime _size: Types.len, _it: anytype) ![_size]Types.byte {
+            const _It = try internalToBytes(_it);
+
+            if(_It.len > _size) return error.OutOfRange;
+            if(_It.len == 0) return error.ZeroValue;
+            if(!isUTF8(_It)) return error.InvalidUTF8;
+            return makeWithUnchecked(_size, _It);
         }
 
-        /// Creates a valid utf-8 array of `size` bytes and copies the `_it` bytes into it.
-        pub fn makeWithUnchecked(comptime _size: Types.len, _it: Types.cbytes) [_size]Types.byte {
+        /// Creates a valid utf-8 array of `size` bytes and copies the `_it` value into it.
+        pub fn makeWithUnchecked(comptime _size: Types.len, _it: anytype) [_size]Types.byte {
+            const _It = internalToBytes(_it) catch unreachable;
+
             var _Dist: [_size]Types.byte = undefined;
-            @memcpy(_Dist[0.._it.len], _it);
-            _Dist[_it.len] = 0;
+            @memcpy(_Dist[0.._It.len], _It);
+            _Dist[_It.len] = 0;
             return _Dist;
         }
 
@@ -123,5 +127,22 @@
         }
 
     // └──────────────────────────────────────────────────────────────┘
+
+// ╚══════════════════════════════════════════════════════════════════════════════════╝
+
+
+
+// ╔════════════════════════════════════ INTERNAL ════════════════════════════════════╗
+
+    /// Returns a Types.cbytes from anytype.
+    /// - `error.InvalidType` _if the type is invalid._
+    fn internalToBytes(_it: anytype) !Types.cbytes {
+        const _Type = @TypeOf(_it);
+
+        if(_Type == u8 or _Type == comptime_int) { return &[_]Types.byte {_it}; }
+        else if(isBytes(_it)) { return _it; }
+
+        return error.InvalidType;
+    }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

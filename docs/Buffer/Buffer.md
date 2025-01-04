@@ -77,8 +77,8 @@
         | Method                      | Description                                                           |
         | --------------------------- | --------------------------------------------------------------------- |
         | [`make`](./api/make.md)     | Creates a buffer of the specified size.                               |
-        | [`makeWith`](./api/makeWith.md) | Creates a buffer of the specified size and copies the string into it. |
-        | [`clone`](./api/clone.md)   | Creates a buffer and copies the string into it.                       |
+        | [`makeWith`](./api/makeWith.md) | Creates a buffer of the specified size and copies the value into it. |
+        | [`clone`](./api/clone.md)   | Creates a buffer and copies the bytes into it.                       |
 
    - #### ❱ Count the buffer.
 

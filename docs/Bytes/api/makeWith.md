@@ -1,9 +1,9 @@
 # [←](../Bytes.md) `Bytes`.`makeWith`
 
-> Creates a valid utf-8 array of `size` bytes and copies the `src` bytes into it.
+> Creates a valid utf-8 array of `size` bytes and copies the value into it.
 
 ```zig
-pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) ![_size]Types.byte
+pub fn makeWith(comptime _size: Types.len, _it: anytype) ![_size]Types.byte
 ```
 
 
@@ -17,7 +17,7 @@ pub fn makeWith(comptime _size: Types.len, _it: Types.cbytes) ![_size]Types.byte
 
         > The specified size of the array.
 
-    - `_it` : `Types.cbytes`
+    - `_it` : `Types.cbytes` or `Types.byte`
 
         > The input to copy.
 

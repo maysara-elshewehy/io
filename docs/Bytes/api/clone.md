@@ -1,6 +1,6 @@
 # [←](../Bytes.md) `Bytes`.`clone`
 
-> Copies the `input` bytes into a `new` array.
+> Copies the `input` value into a `new` array.
 
 ```zig
 pub fn clone(comptime _it: Types.cbytes) [_it.len]Types.byte

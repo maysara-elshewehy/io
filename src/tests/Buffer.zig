@@ -12,28 +12,35 @@
 
     // ┌──────────────────────────── ---- ────────────────────────────┐
 
-        test "Buffer.make      (> 0)" {
+        test "Buffer.make (> 0)" {
             const buf = try Buffer.make(64);
             try std.testing.expect(buf.size() == 64);
             try std.testing.expect(buf.len() == 0);
         }
 
-        test "Buffer.make      (0) error ZeroValue" {
+        test "Buffer.make (0) error ZeroValue" {
             try std.testing.expectError(error.ZeroValue, Buffer.make(0));
         }
 
-        test "Buffer.makeWith    (empty value)" {
+        test "Buffer.makeWith (empty value)" {
             try std.testing.expectError(error.ZeroValue, Buffer.makeWith(64, ""));
         }
 
-        test "Buffer.makeWith    (non-empty value)" {
+        test "Buffer.makeWith (non-empty value)" {
             const buf = try Buffer.makeWith(64, "Hello 🌍!");
             try std.testing.expectEqualStrings("Hello 🌍!", buf.m_buff[0..11]);
             try std.testing.expectEqual(64, buf.size());
             try std.testing.expectEqual(11, buf.len());
         }
 
-        test "Buffer.makeWith    (constant array)" {
+        test "Buffer.makeWith (character)" {
+            const buf = try Buffer.makeWith(64, 'H');
+            try std.testing.expectEqualStrings("H", buf.m_buff[0..1]);
+            try std.testing.expectEqual(64, buf.size());
+            try std.testing.expectEqual(1, buf.len());
+        }
+
+        test "Buffer.makeWith (constant array)" {
             const src = "Hello 🌍!";
             const buf = try Buffer.makeWith(64, src);
             try std.testing.expectEqualStrings(src[0..11], buf.m_buff[0..11]);

@@ -1,6 +1,6 @@
 # [←](../Buffer.md) `Buffer`.`clone`
 
-> Creates a buffer and copies the string into it.
+> Creates a buffer and copies the bytes into it.
 
 ```zig
 pub fn clone(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len)
