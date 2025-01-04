@@ -53,7 +53,7 @@
         }
 
         /// Returns `true` if the `bytes` is valid UTF-8, `false` otherwise.
-        pub inline fn isUTF8(_input: Types.cbytes) bool {
+        pub fn isUTF8(_input: Types.cbytes) bool {
             return std.unicode.utf8ValidateSlice(_input);
         }
 

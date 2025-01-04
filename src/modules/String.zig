@@ -95,7 +95,6 @@
 
     /// Creates a new string and copies the bytes into it.
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    /// -
     /// - `error.AllocationFailed` _if the allocation fails._
     pub fn makeWith(_it: Types.cbytes) !String {
         return internalMake(_it, null, false);
@@ -103,7 +102,6 @@
 
     /// Creates a new string with a specific allocator and copies the bytes into it.
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    /// -
     /// - `error.AllocationFailed` _if the allocation fails._
     pub fn makeWithAlloc(_it: Types.cbytes, _alloc: std.mem.Allocator) !String {
         return internalMake(_it, _alloc, false);
@@ -111,7 +109,6 @@
 
     /// Creates a new string and copies the bytes into it with the same size.
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    /// -
     /// - `error.AllocationFailed` _if the allocation fails._
     pub fn clone(_it: Types.cbytes) !String {
         return internalMake(_it, null, true);
@@ -119,7 +116,6 @@
 
     /// Creates a new string and copies the bytes into it.
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    /// -
     /// - `error.AllocationFailed` _if the allocation fails._
     fn internalMake(_it: Types.cbytes, _alloc: ?std.mem.Allocator, _same: bool) !String {
         var _String =  String { .m_gpa = null };
