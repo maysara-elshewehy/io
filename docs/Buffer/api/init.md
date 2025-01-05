@@ -1,9 +1,9 @@
 # [←](../Buffer.md) `Buffer`.`init`
 
-> Creates a buffer of the specified size.
+> Initializes a buffer of a pre-specified `size`.
 
 ```zig
-pub fn init(comptime _size: Types.len) !Buffer(Types.byte, _size)
+pub fn init(comptime _size: Types.len) !Buffer(_size)
 ```
 
 
@@ -22,7 +22,7 @@ pub fn init(comptime _size: Types.len) !Buffer(Types.byte, _size)
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `!Buffer(Types.byte, _size)`
+- #### Returns : `!Buffer(_size)`
 
     > **[`Bytes.init`](../../Bytes/api/init.md) is used internally, check it out for more information about errors.**
 

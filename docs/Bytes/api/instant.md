@@ -1,6 +1,6 @@
 # [←](../Bytes.md) `Bytes`.`instant`
 
-> Copies the `input` value into a `new` array.
+> Instantiates an array of bytes directly from a specified `value`.
 
 ```zig
 pub fn instant(comptime _it: Types.cbytes) [_it.len]Types.byte
@@ -15,7 +15,7 @@ pub fn instant(comptime _it: Types.cbytes) [_it.len]Types.byte
 
     - `comptime _it` : `Types.cbytes`
 
-        > The input to copy.
+        > Input to be instantiated.
 
 
 <div align="center">

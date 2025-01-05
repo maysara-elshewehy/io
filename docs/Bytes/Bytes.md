@@ -35,11 +35,13 @@
 
 - ### Usage
 
+    > **Import `Bytes` module.**
+
     ```zig
     const Bytes = @import("io").Bytes;
     ```
 
-    > **Create an empty buffer of size 64.**
+    > **Initialize an array of bytes of a pre-specified `size`.**
 
     ```zig
     var res = try Bytes.init(64);
@@ -48,7 +50,7 @@
     _ = Bytes.count(res); // 👉 0
     ```
 
-    > **Create a buffer of size 64 and copy a bytes into it.**
+    > **Initialize an array of bytes of a pre-specified `size` and `value`.**
 
     ```zig
     var res = try Bytes.initWith(64, "Hello 🌍!");
@@ -57,7 +59,7 @@
     _ = Bytes.count(res); // 👉 11
     ```
 
-    > **Clone a bytes into a new buffer.**
+    > **Instantiate an array of bytes directly from a specified `value`.**
 
     ```zig
     var res = Bytes.instant("Hello 🌍!");
@@ -65,6 +67,7 @@
     _ = res.len;          // 👉 11
     _ = Bytes.count(res); // 👉 11
     ```
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -82,11 +85,11 @@
 
    - #### ❱ Make some bytes.
 
-        | Method                          | Description                                                                             |
-        | ------------------------------- | --------------------------------------------------------------------------------------- |
-        | [`init`](./api/init.md)         | Initializes an array of `size` bytes.                                                   |
-        | [`initWith`](./api/initWith.md) | Initializes a valid `utf-8` array of `size` bytes and copies the `input` bytes into it. |
-        | [`instant`](./api/instant.md)   | Copies the `input` bytes into a `new` array.                                            |
+        | Method                          | Description                                                          |
+        | ------------------------------- | -------------------------------------------------------------------- |
+        | [`init`](./api/init.md)         | Initializes an array of bytes of a pre-specified `size`.             |
+        | [`initWith`](./api/initWith.md) | Initializes an array of bytes of a pre-specified `size` and `value`. |
+        | [`instant`](./api/instant.md)   | Instantiates an array of bytes directly from a specified `value`.    |
 
    - #### ❱ Count the bytes.
 

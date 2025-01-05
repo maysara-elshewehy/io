@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`initAlloc`
 
-> Initializes a new string with a `specific allocator`.
+> Initializes an empty string with `specific allocator`.
 
 ```zig
 pub fn initAlloc(_alloc: std.mem.Allocator) String

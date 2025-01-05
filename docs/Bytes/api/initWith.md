@@ -1,6 +1,6 @@
 # [←](../Bytes.md) `Bytes`.`initWith`
 
-> Creates a valid utf-8 array of `size` bytes and copies the value into it.
+> Initializes an array of bytes of a pre-specified `size` and `value`.
 
 ```zig
 pub fn initWith(comptime _size: Types.len, _it: anytype) ![_size]Types.byte

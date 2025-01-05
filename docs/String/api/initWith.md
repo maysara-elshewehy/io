@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`initWith`
 
-> Initializes a new string and copies the value into it.
+> Initializes a string with `value`.
 
 ```zig
 pub fn initWith(_it: anytype) !String

@@ -11,11 +11,11 @@
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
     // Fixed array of bytes.
-    pub fn Buffer(comptime _type: type, comptime _size: Types.len) type {
+    pub fn Buffer(comptime _size: Types.len) type {
         return struct {
             const Self = @This();
             /// Array of characters to store the content.
-            m_buff:  [_size]_type = undefined,
+            m_buff:  [_size]Types.byte = undefined,
             /// Size of the buffer.
             m_size: Types.len,
             /// Length of the buffer.
@@ -44,9 +44,9 @@
 
 // ╔══════════════════════════════════════ MAKE ══════════════════════════════════════╗
 
-    /// Creates a buffer of the specified size.
+    /// Initializes a buffer of a pre-specified `size`.
     /// - Returns `error.ZeroValue` _if the `size` is 0._
-    pub fn init(comptime _size: Types.len) !Buffer(Types.byte, _size) {
+    pub fn init(comptime _size: Types.len) !Buffer(_size) {
         return .{
             .m_buff  = try Bytes.init(_size),
             .m_size  = _size,
@@ -54,12 +54,12 @@
         };
     }
 
-    /// Creates a buffer of the specified size and copies the value into it.
+    /// Initializes a buffer of a pre-specified `size` and `value`.
     /// - `error.InvalidType` _if the type is invalid._
     /// - `error.OutOfRange` _if the length of `_it` is greater than the `_size`._
     /// - `error.ZeroValue` _if the `_it` length is 0._
     /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    pub fn initWith(comptime _size: Types.len, _it: anytype) !Buffer(Types.byte, _size) {
+    pub fn initWith(comptime _size: Types.len, _it: anytype) !Buffer(_size) {
         const _It = try internalToBytes(_it);
 
         return .{
@@ -69,8 +69,8 @@
         };
     }
 
-    /// Creates a buffer and copies the bytes into it.
-    pub fn instant(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len) {
+    /// Instantiates a buffer directly from a specified `value`.
+    pub fn instant(comptime _it: Types.cbytes) Buffer(_it.len) {
         return .{
             .m_buff  = Bytes.instant(_it),
             .m_size  = _it.len,

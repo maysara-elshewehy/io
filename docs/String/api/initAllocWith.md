@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`initAllocWith`
 
-> Initializes a new string with a `specific allocator` and copies the value into it.
+> Initializes a string with `specific allocator` and `value`.
 
 ```zig
 pub fn initAllocWith(_it: anytype, _alloc: std.mem.Allocator) !String

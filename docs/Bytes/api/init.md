@@ -1,6 +1,6 @@
 # [←](../Bytes.md) `Bytes`.`init`
 
-> Creates an array of `size` bytes.
+> Initializes an array of bytes of a pre-specified `size`.
 
 ```zig
 pub fn init(comptime _size: Types.len) ![_size]Types.byte

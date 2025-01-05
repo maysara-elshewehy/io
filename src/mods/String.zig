@@ -46,12 +46,12 @@
 
         // ┌──────────────────────────── INIT ────────────────────────────┐
 
-            /// Initializes a new empty string.
+            /// Initializes an empty string.
             pub fn init() String {
                 return internalInit("", null, false) catch unreachable;
             }
 
-            /// Initializes a new string and copies the value into it.
+            /// Initializes a string with `value`.
             /// - `error.InvalidType` _if the type is invalid._
             /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
             /// - `error.AllocationFailed` _if the allocation fails._
@@ -59,12 +59,12 @@
                 return internalInit(_it, null, false);
             }
 
-            /// Initializes a new string with a `specific allocator`.
+            /// Initializes an empty string with `specific allocator`.
             pub fn initAlloc(_alloc: std.mem.Allocator) String {
                 return internalInit("", _alloc, false) catch unreachable;
             }
 
-            /// Initializes a new string with a `specific allocator` and copies the value into it.
+            /// Initializes a string with `specific allocator` and `value`.
             /// - `error.InvalidType` _if the type is invalid._
             /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
             /// - `error.AllocationFailed` _if the allocation fails._
@@ -72,7 +72,7 @@
                 return internalInit(_it, _alloc, false);
             }
 
-            /// Copies the value into a new string.
+            /// Instantiates a string directly from a specified `value`.
             /// - `error.AllocationFailed` _if the allocation fails._
             /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
             /// - `error.InvalidType` _if the type is invalid._

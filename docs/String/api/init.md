@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`init`
 
-> Initializes a new empty string.
+> Initializes an empty string.
 
 ```zig
 pub fn init() String

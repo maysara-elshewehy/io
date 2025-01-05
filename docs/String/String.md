@@ -36,12 +36,13 @@
 
 - ### Usage
 
+    > **Import `Buffer` module.**
+
     ```zig
     const String = @import("io").String;
     ```
-- ### Examples
 
-    > Create an empty string
+    > **Initialize an empty string.**
 
     ```zig
     var str = String.init();
@@ -52,7 +53,7 @@
     _ = str.len();  // 👉 0
     ```
 
-    > Create a string with initial content
+    > **Initialize a string with `value`.**
 
     ```zig
     var str = try String.initWith("Hello 🌍!");
@@ -63,7 +64,7 @@
     _ = str.len();  // 👉 11
     ```
 
-    > Clone an existing string
+    > **Instantiate a string directly from a specified `value`.**
 
     ```zig
     var str = try String.instant("Hello 🌍!");
@@ -81,13 +82,13 @@
 
    - #### ❱ Make some strings.
 
-        | Method                                    | Description                                                                        |
-        | ----------------------------------------- | ---------------------------------------------------------------------------------- |
-        | [`init`](./api/init.md)                   | Initializes a new empty string.                                                    |
-        | [`initWith`](./api/initWith.md)           | Initializes a new string and copies the value into it.                             |
-        | [`initAlloc`](./api/initAlloc.md)         | Initializes a new string with a `specific allocator`.                              |
-        | [`initAllocWith`](./api/initAllocWith.md) | Initializes a new string with a `specific allocator` and copies the value into it. |
-        | [`instant`](./api/instant.md)             | Copies the value into a new string.                                                |
+        | Method                                    | Description                                                 |
+        | ----------------------------------------- | ----------------------------------------------------------- |
+        | [`init`](./api/init.md)                   | Initializes an empty string.                                |
+        | [`initWith`](./api/initWith.md)           | Initializes a string with `value`.                          |
+        | [`initAlloc`](./api/initAlloc.md)         | Initializes an empty string with `specific allocator`.      |
+        | [`initAllocWith`](./api/initAllocWith.md) | Initializes a string with `specific allocator` and `value`. |
+        | [`instant`](./api/instant.md)             | Instantiates a string directly from a specified `value`.    |
 
    - #### ❱ Detect some information about the string.
 

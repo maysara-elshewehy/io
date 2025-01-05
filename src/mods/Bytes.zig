@@ -62,19 +62,19 @@
 
     // ┌──────────────────────────── ---- ────────────────────────────┐
 
-        /// Creates an array of `size` bytes.
+        /// Initializes an array of bytes of a pre-specified `size`.
         /// - Returns `error.ZeroValue` _if the `size` is 0._
         pub fn init(comptime _size: Types.len) ![_size]Types.byte {
             if(_size == 0) return error.ZeroValue;
             return initUnchecked(_size);
         }
 
-        /// Creates an array of `size` bytes.
+        /// Initializes an array of bytes of a pre-specified `size`.
         pub fn initUnchecked(comptime _size: Types.len) [_size]Types.byte {
             return .{0} ** _size;
         }
 
-        /// Creates a valid utf-8 array of `size` bytes and copies the `_it` value into it.
+        /// Initializes an array of bytes of a pre-specified `size` and `value`.
         /// - `error.InvalidType` _if the type is invalid._
         /// - `error.OutOfRange` _if the length of `_it` is greater than the `_size`._
         /// - `error.ZeroisUTF8the `_it` length is 0._
@@ -89,11 +89,18 @@
             return initWithUnchecked(_size, _It);
         }
 
-        /// Creates a valid utf-8 array of `size` bytes and copies the `_it` bytes into it.
+        /// Initializes an array of bytes of a pre-specified `size` and `value`.
         pub fn initWithUnchecked(comptime _size: Types.len, _it: Types.cbytes) [_size]Types.byte {
             var _Dest: [_size]Types.byte = undefined;
             copy(_Dest[0.._it.len], _it);
             _Dest[_it.len] = 0;
+            return _Dest;
+        }
+
+        /// Instantiates an array of bytes directly from a specified `value`.
+        pub fn instant(comptime _it: Types.cbytes) [_it.len]Types.byte {
+            var _Dest: [_it.len]Types.byte = undefined;
+            copy(_Dest[0.._it.len], _it);
             return _Dest;
         }
 
@@ -105,13 +112,6 @@
         /// Copies the `_it` bytes into another array.
         pub fn copy(_to: Types.bytes, _from: Types.cbytes) void {
             @memcpy(_to[0.._from.len], _from);
-        }
-
-        /// Copies the `_it` bytes into a new array.
-        pub fn instant(comptime _it: Types.cbytes) [_it.len]Types.byte {
-            var _Dest: [_it.len]Types.byte = undefined;
-            copy(_Dest[0.._it.len], _it);
-            return _Dest;
         }
 
     // └──────────────────────────────────────────────────────────────┘

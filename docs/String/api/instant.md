@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`instant`
 
-> Copies the value into a new string.
+> Instantiates a string directly from a specified `value`.
 
 ```zig
 pub fn instant(_it: anytype) !String
@@ -15,7 +15,7 @@ pub fn instant(_it: anytype) !String
 
     - `_it` : `Types.cbytes` or `Types.byte` or `String`
 
-        > The input to copy.
+        > Input to be instantiated.
 
 
 <div align="center">

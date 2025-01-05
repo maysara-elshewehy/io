@@ -35,11 +35,13 @@
 
 - ### Usage
 
+    > **Import `Buffer` module.**
+
     ```zig
     const Buffer = @import("io").Buffer;
     ```
 
-    > **Create a Buffer of size 64. Initially, length is 0.**
+    > **Initialize a buffer of a pre-specified `size`.**
 
     ```zig
     var buf = try Buffer.init(64);
@@ -48,7 +50,7 @@
     _ = buf.len();  // 👉 0
     ```
 
-    > **Create a Buffer of size 64 and copy a bytes into it. Length reflects the bytes length.**
+    > **Initialize a buffer of a pre-specified `size` and `value`.**
 
     ```zig
     var buf = try Buffer.initWith(64, "Hello 🌍!");
@@ -57,7 +59,7 @@
     _ = buf.len();  // 👉 11
     ```
 
-    > **Clone a bytes into a Buffer. Size and length are equal to the bytes length.**
+    > **Instantiate a buffer directly from a specified `value`.**
 
     ```zig
     var buf = Buffer.instant("Hello 🌍!");
@@ -74,11 +76,11 @@
 
    - #### ❱ Make some buffers.
 
-        | Method                          | Description                                                              |
-        | ------------------------------- | ------------------------------------------------------------------------ |
-        | [`init`](./api/init.md)         | Initializes a buffer of the specified size.                              |
-        | [`initWith`](./api/initWith.md) | Initializes a buffer of the specified size and copies the value into it. |
-        | [`instant`](./api/instant.md)       | Copies the value into a new buffer.                                      |
+        | Method                          | Description                                                 |
+        | ------------------------------- | ----------------------------------------------------------- |
+        | [`init`](./api/init.md)         | Initializes a buffer of a pre-specified `size`.             |
+        | [`initWith`](./api/initWith.md) | Initializes a buffer of a pre-specified `size` and `value`. |
+        | [`instant`](./api/instant.md)   | Instantiates a buffer directly from a specified `value`.    |
 
    - #### ❱ Count the buffer.
 
