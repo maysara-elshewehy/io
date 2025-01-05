@@ -10,7 +10,7 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-    /// Dynamic array of bytes.
+    // Dynamic array of bytes.
     pub const String = struct {
         /// ..?
         m_gpa :? std.heap.GeneralPurposeAllocator(.{}),

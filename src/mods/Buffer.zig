@@ -10,7 +10,7 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-    /// Fixed array of bytes.
+    // Fixed array of bytes.
     pub fn Buffer(comptime _type: type, comptime _size: Types.len) type {
         return struct {
             const Self = @This();
