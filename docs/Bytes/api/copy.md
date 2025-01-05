@@ -1,4 +1,4 @@
-# [←](../Bytes.md) `Bytes`.`clone`
+# [←](../Bytes.md) `Bytes`.`copy`
 
 > Copies the `input` bytes into `another` array.
 
@@ -40,23 +40,12 @@ pub fn copy(_to: Types.bytes, _from: Types.cbytes) void
     const Bytes = @import("io").Bytes;
     ```
 
-    > Empty value
-
     ```zig
-    _ = Bytes.clone("");            // 👉 "", size: 0
-    ```
+    var str = Bytes.init(64);
+    Bytes.copy(&str, "Hello  🌍!"); // 👉 "Hello 🌍!"
 
-    > Non-Empty value
-
-    ```zig
-    _ = Bytes.clone("Hello 🌍!");   // 👉 "Hello 🌍!", size: 11
-    ```
-
-    > Constant array of bytes.
-
-    ```zig
-    const src = "Hello 🌍!";
-    _ = Bytes.clone(src);           // 👉 "Hello 🌍!", size: 11
+    _ = str.len;                    // 👉 64 (Size of array)
+    _ = Bytes.count(&str);          // 👉 11 (Length of bytes written to array)
     ```
 
 <div align="center">

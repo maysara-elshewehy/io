@@ -135,6 +135,40 @@
             try std.testing.expectEqual(11, Bytes.count(buf[0..]));
         }
 
+        test "Bytes.copy (non-empty value)" {
+            var str = try Bytes.init(64);
+            Bytes.copy(&str, "Hello 🌍!");
+            try std.testing.expectEqualStrings(str[0..11], str[0..11]);
+            try std.testing.expectEqual(64, str.len);
+            try std.testing.expectEqual(11, Bytes.count(&str));
+        }
+
+        test "Bytes.copy (empty value)" {
+            var str = try Bytes.init(64);
+            Bytes.copy(&str, "");
+            try std.testing.expectEqualStrings("", str[0..0]);
+            try std.testing.expectEqual(64, str.len);
+            try std.testing.expectEqual(0, Bytes.count(&str));
+        }
+
+        test "Bytes.copy (constant array)" {
+            var str = try Bytes.init(64);
+            const src = "Hello 🌍!";
+            Bytes.copy(&str, src);
+            try std.testing.expectEqualStrings(src[0..11], str[0..11]);
+            try std.testing.expectEqual(64, str.len);
+            try std.testing.expectEqual(11, Bytes.count(&str));
+        }
+
+        test "Bytes.copy (mutable array)" {
+            var str = try Bytes.init(64);
+            var src: [11]u8 = "Hello 🌍!".*;
+            Bytes.copy(&str, src[0..]);
+            try std.testing.expectEqualStrings(src[0..11], str[0..11]);
+            try std.testing.expectEqual(64, str.len);
+            try std.testing.expectEqual(11, Bytes.count(&str));
+        }
+
     // └──────────────────────────────────────────────────────────────┘
 
 
