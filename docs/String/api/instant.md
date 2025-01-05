@@ -15,7 +15,7 @@ pub fn instant(_it: anytype) !String
 
     - `_it` : `Types.cbytes` or `Types.byte` or `String`
 
-        > The input to instant.
+        > The input to copy.
 
 
 <div align="center">

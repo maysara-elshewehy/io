@@ -15,7 +15,7 @@ pub fn instant(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len)
 
     - `comptime _it` : `Types.cbytes`
 
-        > The input to instant.
+        > The input to copy.
 
 
 <div align="center">
