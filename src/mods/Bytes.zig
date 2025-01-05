@@ -108,7 +108,7 @@
         }
 
         /// Copies the `_it` bytes into a new array.
-        pub fn clone(comptime _it: Types.cbytes) [_it.len]Types.byte {
+        pub fn instant(comptime _it: Types.cbytes) [_it.len]Types.byte {
             var _Dest: [_it.len]Types.byte = undefined;
             copy(_Dest[0.._it.len], _it);
             return _Dest;

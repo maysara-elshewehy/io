@@ -47,7 +47,7 @@ pub fn count(_it: Types.cbytes) Types.len
 
 - ##### Related
 
-  > [`Bytes.clone`](./clone.md)
+  > [`Bytes.instant`](./instant.md)
 
   > [`Bytes.init`](./init.md)
 

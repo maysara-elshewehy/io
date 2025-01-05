@@ -60,7 +60,7 @@
     > **Clone a bytes into a new buffer.**
 
     ```zig
-    var res = Bytes.clone("Hello 🌍!");
+    var res = Bytes.instant("Hello 🌍!");
 
     _ = res.len;          // 👉 11
     _ = Bytes.count(res); // 👉 11
@@ -82,18 +82,24 @@
 
    - #### ❱ Make some bytes.
 
-        | Method                          | Description                                                                         |
-        | ------------------------------- | ----------------------------------------------------------------------------------- |
+        | Method                          | Description                                                                             |
+        | ------------------------------- | --------------------------------------------------------------------------------------- |
         | [`init`](./api/init.md)         | Initializes an array of `size` bytes.                                                   |
         | [`initWith`](./api/initWith.md) | Initializes a valid `utf-8` array of `size` bytes and copies the `input` bytes into it. |
-        | [`copy`](./api/copy.md)         | Copies the `input` bytes into `another` array.                                      |
-        | [`clone`](./api/clone.md)       | Copies the `input` bytes into a `new` array.                                        |
+        | [`instant`](./api/instant.md)   | Copies the `input` bytes into a `new` array.                                            |
 
    - #### ❱ Count the bytes.
 
         | Method                    | Description                                                                                  |
         | ------------------------- | -------------------------------------------------------------------------------------------- |
         | [`count`](./api/count.md) | Returns the number of bytes in the `input` array, stops at the first 0 byte, or at the size. |
+
+
+   - #### ❱ ..
+
+        | Method                  | Description                                    |
+        | ----------------------- | ---------------------------------------------- |
+        | [`copy`](./api/copy.md) | Copies the `input` bytes into `another` array. |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

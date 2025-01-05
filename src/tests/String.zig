@@ -18,6 +18,11 @@
             try std.testing.expect(str.len() == 0);
         }
 
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── ---- ────────────────────────────┐
+
         test "String.initAlloc" {
             var gpa = std.heap.GeneralPurposeAllocator(.{}){};
             var str = String.initAlloc(gpa.allocator()); defer str.deinit();
@@ -25,16 +30,13 @@
             try std.testing.expect(str.len() == 0);
         }
 
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── ---- ────────────────────────────┐
+
         test "String.initWith (empty value)" {
             var str = try String.initWith(""); defer str.deinit();
-            try std.testing.expectEqualStrings("", str.src());
-            try std.testing.expectEqual(0, str.len());
-            try std.testing.expectEqual(0, str.size());
-        }
-
-        test "String.initAllocWith (empty value)" {
-            var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-            var str = try String.initAllocWith(gpa.allocator(), ""); defer str.deinit();
             try std.testing.expectEqualStrings("", str.src());
             try std.testing.expectEqual(0, str.len());
             try std.testing.expectEqual(0, str.size());
@@ -62,26 +64,9 @@
             try std.testing.expectEqual(1, str.len());
         }
 
-        test "String.initAllocWith (non-empty value)" {
-            var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-            var str = try String.initAllocWith(gpa.allocator(), "Hello 🌍!"); defer str.deinit();
-            try std.testing.expectEqualStrings("Hello 🌍!", str.src());
-            try std.testing.expectEqual(22, str.size());
-            try std.testing.expectEqual(11, str.len());
-        }
-
         test "String.initWith (constant array)" {
             const src = "Hello 🌍!";
             var str = try String.initWith(src); defer str.deinit();
-            try std.testing.expectEqualStrings(src[0..11], str.src());
-            try std.testing.expectEqual(22, str.size());
-            try std.testing.expectEqual(11, str.len());
-        }
-
-        test "String.initAllocWith (constant array)" {
-            const src = "Hello 🌍!";
-            var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-            var str = try String.initAllocWith(gpa.allocator(), src); defer str.deinit();
             try std.testing.expectEqualStrings(src[0..11], str.src());
             try std.testing.expectEqual(22, str.size());
             try std.testing.expectEqual(11, str.len());
@@ -98,6 +83,36 @@
             try std.testing.expectEqualStrings("Xello 🌍!", src[0..11]);
             try std.testing.expectEqualStrings("Hello 🌍!", str.src());
 
+            try std.testing.expectEqual(22, str.size());
+            try std.testing.expectEqual(11, str.len());
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── ---- ────────────────────────────┐
+
+        test "String.initAllocWith (empty value)" {
+            var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+            var str = try String.initAllocWith(gpa.allocator(), ""); defer str.deinit();
+            try std.testing.expectEqualStrings("", str.src());
+            try std.testing.expectEqual(0, str.len());
+            try std.testing.expectEqual(0, str.size());
+        }
+
+        test "String.initAllocWith (non-empty value)" {
+            var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+            var str = try String.initAllocWith(gpa.allocator(), "Hello 🌍!"); defer str.deinit();
+            try std.testing.expectEqualStrings("Hello 🌍!", str.src());
+            try std.testing.expectEqual(22, str.size());
+            try std.testing.expectEqual(11, str.len());
+        }
+
+        test "String.initAllocWith (constant array)" {
+            const src = "Hello 🌍!";
+            var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+            var str = try String.initAllocWith(gpa.allocator(), src); defer str.deinit();
+            try std.testing.expectEqualStrings(src[0..11], str.src());
             try std.testing.expectEqual(22, str.size());
             try std.testing.expectEqual(11, str.len());
         }
@@ -123,30 +138,30 @@
 
     // ┌──────────────────────────── ---- ────────────────────────────┐
 
-        test "String.clone (empty value)" {
-            var str = try String.clone(""); defer str.deinit();
+        test "String.instant (empty value)" {
+            var str = try String.instant(""); defer str.deinit();
             try std.testing.expectEqualStrings("", str.src());
             try std.testing.expectEqual(0, str.size());
             try std.testing.expectEqual(0, str.len());
         }
 
-        test "String.clone (non-empty value)" {
-            var str = try String.clone("Hello 🌍!"); defer str.deinit();
+        test "String.instant (non-empty value)" {
+            var str = try String.instant("Hello 🌍!"); defer str.deinit();
             try std.testing.expectEqualStrings("Hello 🌍!", str.src());
             try std.testing.expectEqual(11, str.size());
             try std.testing.expectEqual(11, str.len());
         }
 
-        test "String.clone (character)" {
-            var str = try String.clone('H'); defer str.deinit();
+        test "String.instant (character)" {
+            var str = try String.instant('H'); defer str.deinit();
             try std.testing.expectEqualStrings("H", str.src());
             try std.testing.expectEqual(1, str.size());
             try std.testing.expectEqual(1, str.len());
         }
 
-        test "String.clone (constant array)" {
+        test "String.instant (constant array)" {
             const src = "Hello 🌍!";
-            var str = try String.clone(src); defer str.deinit();
+            var str = try String.instant(src); defer str.deinit();
             try std.testing.expectEqualStrings(src[0..11], str.src());
             try std.testing.expectEqual(11, str.size());
             try std.testing.expectEqual(11, str.len());
@@ -157,11 +172,22 @@
 
     // ┌──────────────────────────── ---- ────────────────────────────┐
 
-        test "String.len" {
-            var str1 = try String.clone(""); defer str1.deinit();
-            var str2 = try String.clone("Hello 🌍!"); defer str2.deinit();
-            try std.testing.expect(str1.len()           == 0);
-            try std.testing.expect(str2.len()  == 11);
+        test "String.len/size (empty value)" {
+            var str = try String.instant(""); defer str.deinit();
+            try std.testing.expect(str.len() == 0);
+            try std.testing.expect(str.size() == 0);
+        }
+
+        test "String.len/size (non-empty value) (instant)" {
+            var str = try String.instant("Hello 🌍!"); defer str.deinit();
+            try std.testing.expect(str.len() == 11);
+            try std.testing.expect(str.size() == 11);
+        }
+
+        test "String.len/size (non-empty value) (initWith)" {
+            var str = try String.initWith("Hello 🌍!"); defer str.deinit();
+            try std.testing.expect(str.len() == 11);
+            try std.testing.expect(str.size() == 22);
         }
 
     // └──────────────────────────────────────────────────────────────┘

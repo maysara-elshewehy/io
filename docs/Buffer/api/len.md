@@ -37,7 +37,7 @@ pub fn len(_self: Self) Types.len
     ```
 
     ```zig
-    _ = Buffer.clone("Hello 🌍!").len();            // 👉 11
+    _ = Buffer.instant("Hello 🌍!").len();            // 👉 11
 
     _ = try Buffer.initWith(64, "Hello 🌍!").len();   // 👉 11
     ```

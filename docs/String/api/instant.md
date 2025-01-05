@@ -1,9 +1,9 @@
-# [←](../Buffer.md) `Buffer`.`clone`
+# [←](../String.md) `String`.`instant`
 
-> Creates a buffer and copies the bytes into it.
+> Copies the value into a new string.
 
 ```zig
-pub fn clone(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len)
+pub fn instant(_it: anytype) !String
 ```
 
 
@@ -13,18 +13,22 @@ pub fn clone(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len)
 
 - #### Parameters
 
-    - `comptime _it` : `Types.cbytes`
+    - `_it` : `Types.cbytes` or `Types.byte` or `String`
 
-        > The input to clone.
+        > The input to instant.
 
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
-- #### Returns : `Buffer(Types.byte, _it.len)`
+- #### Returns : `!String`
 
-    > A new `Buffer` with `_it.len` as the size, initialized with the contents of `_it`.
+    > Returns `error.AllocationFailed` _if the allocation fails._
+
+    > Returns `error.InvalidUTF8` _if the `_it` is not valid UTF-8._.
+
+    > A new `String` initialized with the contents of `_it`.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -33,26 +37,26 @@ pub fn clone(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len)
 - #### Example
 
     ```zig
-    const Buffer = @import("io").Buffer;
+    const String = @import("io").String;
     ```
 
     > Empty value
 
     ```zig
-    _ = Buffer.clone("");            // 👉 "", size: 0
+    _ = String.instant("");            // 👉 "", size: 0, len
     ```
 
     > Non-Empty value
 
     ```zig
-    _ = Buffer.clone("Hello 🌍!");   // 👉 "Hello 🌍!", size: 11
+    _ = String.instant("Hello 🌍!");   // 👉 "Hello 🌍!", size: 11
     ```
 
     > Constant array of bytes.
 
     ```zig
     const src = "Hello 🌍!";
-    _ = Buffer.clone(src);           // 👉 "Hello 🌍!", size: 11
+    _ = String.instant(src);           // 👉 "Hello 🌍!", size: 11
     ```
 
 <div align="center">
@@ -61,10 +65,9 @@ pub fn clone(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len)
 
 - ##### Related
 
-  > [`Buffer.init`](./init.md)
+  > [`String.init`](./init.md)
 
-  > [`Buffer.initWith`](./initWith.md)
-
+  > [`String.initWith`](./initWith.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>

@@ -63,6 +63,11 @@
             try std.testing.expectError(error.ZeroValue, Bytes.init(0));
         }
 
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── ---- ────────────────────────────┐
+
         test "Bytes.initWith (empty value)" {
             try std.testing.expectError(error.ZeroValue, Bytes.initWith(64, ""));
         }
@@ -113,28 +118,6 @@
 
     // ┌──────────────────────────── ---- ────────────────────────────┐
 
-        test "Bytes.clone (empty value)" {
-            const buf = Bytes.clone("");
-            try std.testing.expectEqualStrings("", buf[0..0]);
-            try std.testing.expectEqual(0, buf.len);
-            try std.testing.expectEqual(0, Bytes.count(buf[0..]));
-        }
-
-        test "Bytes.clone (non-empty value)" {
-            const buf = Bytes.clone("Hello 🌍!");
-            try std.testing.expectEqualStrings("Hello 🌍!", buf[0..11]);
-            try std.testing.expectEqual(11, buf.len);
-            try std.testing.expectEqual(11, Bytes.count(buf[0..]));
-        }
-
-        test "Bytes.clone (constant array)" {
-            const src = "Hello 🌍!";
-            const buf = Bytes.clone(src);
-            try std.testing.expectEqualStrings(src[0..11], buf[0..11]);
-            try std.testing.expectEqual(11, buf.len);
-            try std.testing.expectEqual(11, Bytes.count(buf[0..]));
-        }
-
         test "Bytes.copy (non-empty value)" {
             var str = try Bytes.init(64);
             Bytes.copy(&str, "Hello 🌍!");
@@ -167,6 +150,33 @@
             try std.testing.expectEqualStrings(src[0..11], str[0..11]);
             try std.testing.expectEqual(64, str.len);
             try std.testing.expectEqual(11, Bytes.count(&str));
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── ---- ────────────────────────────┐
+
+        test "Bytes.instant (empty value)" {
+            const buf = Bytes.instant("");
+            try std.testing.expectEqualStrings("", buf[0..0]);
+            try std.testing.expectEqual(0, buf.len);
+            try std.testing.expectEqual(0, Bytes.count(buf[0..]));
+        }
+
+        test "Bytes.instant (non-empty value)" {
+            const buf = Bytes.instant("Hello 🌍!");
+            try std.testing.expectEqualStrings("Hello 🌍!", buf[0..11]);
+            try std.testing.expectEqual(11, buf.len);
+            try std.testing.expectEqual(11, Bytes.count(buf[0..]));
+        }
+
+        test "Bytes.instant (constant array)" {
+            const src = "Hello 🌍!";
+            const buf = Bytes.instant(src);
+            try std.testing.expectEqualStrings(src[0..11], buf[0..11]);
+            try std.testing.expectEqual(11, buf.len);
+            try std.testing.expectEqual(11, Bytes.count(buf[0..]));
         }
 
     // └──────────────────────────────────────────────────────────────┘

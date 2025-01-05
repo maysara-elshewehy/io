@@ -54,7 +54,7 @@ pub fn copy(_to: Types.bytes, _from: Types.cbytes) void
 
 - ##### Related
 
-  > [`Bytes.clone`](./clone.md)
+  > [`Bytes.instant`](./instant.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>

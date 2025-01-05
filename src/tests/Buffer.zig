@@ -22,6 +22,12 @@
             try std.testing.expectError(error.ZeroValue, Buffer.init(0));
         }
 
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── ---- ────────────────────────────┐
+
+
         test "Buffer.initWith (empty value)" {
             try std.testing.expectError(error.ZeroValue, Buffer.initWith(64, ""));
         }
@@ -48,7 +54,7 @@
             try std.testing.expectEqual(11, buf.len());
         }
 
-        test "Buffer.initWith    (mutable array)" {
+        test "Buffer.initWith (mutable array)" {
             var src: [11]u8 = "Hello 🌍!".*;
             const buf = try Buffer.initWith(64, src[0..]);
             try std.testing.expectEqualStrings(src[0..11], buf.m_buff[0..11]);
@@ -63,7 +69,7 @@
             try std.testing.expectEqual(11, buf.len());
         }
 
-        test "Buffer.initWith    (OutOfRange)" {
+        test "Buffer.initWith (OutOfRange)" {
             try std.testing.expectError(error.OutOfRange, Buffer.initWith(1, "122"));
         }
 
@@ -72,23 +78,23 @@
 
     // ┌──────────────────────────── ---- ────────────────────────────┐
 
-        test "Buffer.clone     (empty value)" {
-            const buf = Buffer.clone("");
+        test "Buffer.instant (empty value)" {
+            const buf = Buffer.instant("");
             try std.testing.expectEqualStrings("", buf.m_buff[0..0]);
             try std.testing.expectEqual(0, buf.size());
             try std.testing.expectEqual(0, buf.len());
         }
 
-        test "Buffer.clone     (non-empty value)" {
-            const buf = Buffer.clone("Hello 🌍!");
+        test "Buffer.instant (non-empty value)" {
+            const buf = Buffer.instant("Hello 🌍!");
             try std.testing.expectEqualStrings("Hello 🌍!", buf.m_buff[0..11]);
             try std.testing.expectEqual(11, buf.size());
             try std.testing.expectEqual(11, buf.len());
         }
 
-        test "Buffer.clone     (constant array)" {
+        test "Buffer.instant (constant array)" {
             const src = "Hello 🌍!";
-            const buf = Buffer.clone(src);
+            const buf = Buffer.instant(src);
             try std.testing.expectEqualStrings(src[0..11], buf.m_buff[0..11]);
             try std.testing.expectEqual(11, buf.size());
             try std.testing.expectEqual(11, buf.len());
@@ -100,8 +106,8 @@
     // ┌──────────────────────────── ---- ────────────────────────────┐
 
         test "Buffer.len" {
-            try std.testing.expect(Buffer.clone("").len()           == 0);
-            try std.testing.expect(Buffer.clone("Hello 🌍!").len()  == 11);
+            try std.testing.expect(Buffer.instant("").len()           == 0);
+            try std.testing.expect(Buffer.instant("Hello 🌍!").len()  == 11);
         }
 
     // └──────────────────────────────────────────────────────────────┘

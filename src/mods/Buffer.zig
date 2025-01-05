@@ -70,9 +70,9 @@
     }
 
     /// Creates a buffer and copies the bytes into it.
-    pub fn clone(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len) {
+    pub fn instant(comptime _it: Types.cbytes) Buffer(Types.byte, _it.len) {
         return .{
-            .m_buff  = Bytes.clone(_it),
+            .m_buff  = Bytes.instant(_it),
             .m_size  = _it.len,
             .m_bytes = _it.len
         };

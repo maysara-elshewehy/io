@@ -54,7 +54,7 @@ pub fn init(comptime _size: Types.len) !Buffer(Types.byte, _size)
 
   > [`Buffer.initWith`](./initWith.md)
 
-  > [`Buffer.clone`](./clone.md)
+  > [`Buffer.instant`](./instant.md)
 
 
 <div align="center">

@@ -60,7 +60,7 @@
     > **Clone a bytes into a Buffer. Size and length are equal to the bytes length.**
 
     ```zig
-    var buf = Buffer.clone("Hello 🌍!");
+    var buf = Buffer.instant("Hello 🌍!");
 
     _ = buf.size(); // 👉 11
     _ = buf.len();  // 👉 11
@@ -78,7 +78,7 @@
         | ------------------------------- | ------------------------------------------------------------------------ |
         | [`init`](./api/init.md)         | Initializes a buffer of the specified size.                              |
         | [`initWith`](./api/initWith.md) | Initializes a buffer of the specified size and copies the value into it. |
-        | [`clone`](./api/clone.md)       | Copies the value into a new buffer.                                      |
+        | [`instant`](./api/instant.md)       | Copies the value into a new buffer.                                      |
 
    - #### ❱ Count the buffer.
 

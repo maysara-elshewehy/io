@@ -1,9 +1,9 @@
-# [←](../Bytes.md) `Bytes`.`clone`
+# [←](../Bytes.md) `Bytes`.`instant`
 
 > Copies the `input` value into a `new` array.
 
 ```zig
-pub fn clone(comptime _it: Types.cbytes) [_it.len]Types.byte
+pub fn instant(comptime _it: Types.cbytes) [_it.len]Types.byte
 ```
 
 
@@ -15,7 +15,7 @@ pub fn clone(comptime _it: Types.cbytes) [_it.len]Types.byte
 
     - `comptime _it` : `Types.cbytes`
 
-        > The input to clone.
+        > The input to instant.
 
 
 <div align="center">
@@ -39,20 +39,20 @@ pub fn clone(comptime _it: Types.cbytes) [_it.len]Types.byte
     > Empty value
 
     ```zig
-    _ = Bytes.clone("");            // 👉 "", size: 0
+    _ = Bytes.instant("");            // 👉 "", size: 0
     ```
 
     > Non-Empty value
 
     ```zig
-    _ = Bytes.clone("Hello 🌍!");   // 👉 "Hello 🌍!", size: 11
+    _ = Bytes.instant("Hello 🌍!");   // 👉 "Hello 🌍!", size: 11
     ```
 
     > Constant array of bytes.
 
     ```zig
     const src = "Hello 🌍!";
-    _ = Bytes.clone(src);           // 👉 "Hello 🌍!", size: 11
+    _ = Bytes.instant(src);           // 👉 "Hello 🌍!", size: 11
     ```
 
 <div align="center">

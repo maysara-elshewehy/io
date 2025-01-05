@@ -37,12 +37,12 @@ pub fn src(_self: String) Types.cbytes
     ```
 
     ```zig
-    const str = try String.clone("");
+    const str = try String.instant("");
     _ = str.src(); // 👉 ""
     ```
 
     ```zig
-    const str = try String.clone("Hello 🌍!");
+    const str = try String.instant("Hello 🌍!");
     _ = str.src(); // 👉 "Hello 🌍!"
     ```
 
@@ -52,7 +52,7 @@ pub fn src(_self: String) Types.cbytes
 
 - ##### Related
 
-  > [`String.clone`](./clone.md)
+  > [`String.instant`](./instant.md)
 
   > [`String.size`](./size.md)
 

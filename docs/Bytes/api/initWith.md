@@ -90,7 +90,7 @@ pub fn initWith(comptime _size: Types.len, _it: anytype) ![_size]Types.byte
 
   > [`Bytes.init`](./init.md)
 
-  > [`Bytes.clone`](./clone.md)
+  > [`Bytes.instant`](./instant.md)
 
 
 <div align="center">

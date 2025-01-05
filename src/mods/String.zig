@@ -76,7 +76,7 @@
             /// - `error.AllocationFailed` _if the allocation fails._
             /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
             /// - `error.InvalidType` _if the type is invalid._
-            pub fn clone(_it: anytype) !String {
+            pub fn instant(_it: anytype) !String {
                 return internalInit(_it, null, true);
             }
 

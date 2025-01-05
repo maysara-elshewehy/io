@@ -37,12 +37,12 @@ pub fn len(_self: String) Types.len
     ```
 
     ```zig
-    const str = try String.clone("");
+    const str = try String.instant("");
     _ = str.len();  // 👉 0
     ```
 
     ```zig
-    const str = try String.clone("Hello 🌍!");
+    const str = try String.instant("Hello 🌍!");
     _ = str.size(); // 👉 11
     _ = str.len();  // 👉 11
     ```
@@ -63,7 +63,7 @@ pub fn len(_self: String) Types.len
 
   > [`String.src`](./src.md)
 
-  > [`String.clone`](./clone.md)
+  > [`String.instant`](./instant.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="width:500px;"/>

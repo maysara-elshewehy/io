@@ -66,7 +66,7 @@
     > Clone an existing string
 
     ```zig
-    var str = try String.clone("Hello 🌍!");
+    var str = try String.instant("Hello 🌍!");
     defer str.deinit();
 
     _ = str.size(); // 👉 11
@@ -87,7 +87,7 @@
         | [`initWith`](./api/initWith.md)           | Initializes a new string and copies the value into it.                             |
         | [`initAlloc`](./api/initAlloc.md)         | Initializes a new string with a `specific allocator`.                              |
         | [`initAllocWith`](./api/initAllocWith.md) | Initializes a new string with a `specific allocator` and copies the value into it. |
-        | [`clone`](./api/clone.md)                 | Copies the value into a new string.                                                |
+        | [`instant`](./api/instant.md)             | Copies the value into a new string.                                                |
 
    - #### ❱ Detect some information about the string.
 
@@ -99,10 +99,10 @@
 
    - #### ❱ Play with memory.
 
-        | Method                      | Description                                             |
-        | --------------------------- | ------------------------------------------------------- |
-        | [`alloc`](./api/alloc.md)   | Allocate or reallocate the string to a new size. |
-        | [`deinit`](./api/deinit.md) | Deallocate the allocated memory and reset the string.   |
+        | Method                      | Description                                           |
+        | --------------------------- | ----------------------------------------------------- |
+        | [`alloc`](./api/alloc.md)   | Allocate or reallocate the string to a new size.      |
+        | [`deinit`](./api/deinit.md) | Deallocate the allocated memory and reset the string. |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/docs/_dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
