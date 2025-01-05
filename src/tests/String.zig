@@ -2,7 +2,7 @@
 
     const std = @import("std");
     const Bytes = @import("../mods/Bytes.zig");
-    const String = @import("../mods/String.zig");
+    const String = @import("../mods/String.zig").String;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 

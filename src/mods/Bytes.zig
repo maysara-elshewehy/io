@@ -75,6 +75,7 @@
         }
 
         /// Creates a valid utf-8 array of `size` bytes and copies the `_it` value into it.
+        /// - `error.InvalidType` _if the type is invalid._
         /// - `error.OutOfRange` _if the length of `_it` is greater than the `_size`._
         /// - `error.ZeroisUTF8the `_it` length is 0._
         /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
@@ -84,17 +85,16 @@
             if(_It.len > _size) return error.OutOfRange;
             if(_It.len == 0) return error.ZeroValue;
             if(!isUTF8(_It)) return error.InvalidUTF8;
+
             return initWithUnchecked(_size, _It);
         }
 
-        /// Creates a valid utf-8 array of `size` bytes and copies the `_it` value into it.
-        pub fn initWithUnchecked(comptime _size: Types.len, _it: anytype) [_size]Types.byte {
-            const _It = internalToBytes(_it) catch unreachable;
-
-            var _Dist: [_size]Types.byte = undefined;
-            copy(_Dist[0.._It.len], _It);
-            _Dist[_It.len] = 0;
-            return _Dist;
+        /// Creates a valid utf-8 array of `size` bytes and copies the `_it` bytes into it.
+        pub fn initWithUnchecked(comptime _size: Types.len, _it: Types.cbytes) [_size]Types.byte {
+            var _Dest: [_size]Types.byte = undefined;
+            copy(_Dest[0.._it.len], _it);
+            _Dest[_it.len] = 0;
+            return _Dest;
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -109,9 +109,9 @@
 
         /// Copies the `_it` bytes into a new array.
         pub fn clone(comptime _it: Types.cbytes) [_it.len]Types.byte {
-            var _Dist: [_it.len]Types.byte = undefined;
-            copy(_Dist[0.._it.len], _it);
-            return _Dist;
+            var _Dest: [_it.len]Types.byte = undefined;
+            copy(_Dest[0.._it.len], _it);
+            return _Dest;
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -139,7 +139,7 @@
     fn internalToBytes(_it: anytype) !Types.cbytes {
         const _Type = @TypeOf(_it);
 
-        if(_Type == u8 or _Type == comptime_int) { return &[_]Types.byte {_it}; }
+        if(_Type == u8 or (_Type == comptime_int and (_it >= 0 and _it <= 255))) { return &[_]Types.byte {_it}; }
         else if(isBytes(_it)) { return _it; }
 
         return error.InvalidType;

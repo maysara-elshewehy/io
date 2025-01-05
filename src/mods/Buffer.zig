@@ -89,7 +89,7 @@
         const _Type = @TypeOf(_it);
         const _TypeInfo = @typeInfo(_Type);
 
-        if(_Type == u8 or _Type == comptime_int) { return &[_]Types.byte {_it}; }
+        if(_Type == u8 or (_Type == comptime_int and (_it >= 0 and _it <= 255))) { return &[_]Types.byte {_it}; }
         else if(_TypeInfo == .Struct and @hasField(_Type, "m_buff")) { return _it.m_buff[0.._it.m_bytes]; }
         else if(Bytes.isBytes(_it)) { return _it; }
 

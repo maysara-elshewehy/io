@@ -27,6 +27,8 @@ pub fn initWith(comptime _size: Types.len, _it: anytype) ![_size]Types.byte
 
 - #### Returns : `![_size]Types.byte`
 
+    > Returns `error.InvalidType` _if the `_it` type is invalid._
+
     > Returns `error.OutOfRange` _if the `_it` length is greater than the `_size`_.
 
     > Returns `error.ZeroValue` _if the `_size` is 0_.

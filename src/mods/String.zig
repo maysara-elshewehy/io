@@ -44,6 +44,45 @@
         // └──────────────────────────────────────────────────────────────┘
 
 
+        // ┌──────────────────────────── INIT ────────────────────────────┐
+
+            /// Initializes a new empty string.
+            pub fn init() String {
+                return internalInit("", null, false) catch unreachable;
+            }
+
+            /// Initializes a new string and copies the value into it.
+            /// - `error.InvalidType` _if the type is invalid._
+            /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
+            /// - `error.AllocationFailed` _if the allocation fails._
+            pub fn initWith(_it: anytype) !String {
+                return internalInit(_it, null, false);
+            }
+
+            /// Initializes a new string with a `specific allocator`.
+            pub fn initAlloc(_alloc: std.mem.Allocator) String {
+                return internalInit("", _alloc, false) catch unreachable;
+            }
+
+            /// Initializes a new string with a `specific allocator` and copies the value into it.
+            /// - `error.InvalidType` _if the type is invalid._
+            /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
+            /// - `error.AllocationFailed` _if the allocation fails._
+            pub fn initAllocWith(_alloc: std.mem.Allocator, _it: anytype) !String {
+                return internalInit(_it, _alloc, false);
+            }
+
+            /// Copies the value into a new string.
+            /// - `error.AllocationFailed` _if the allocation fails._
+            /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
+            /// - `error.InvalidType` _if the type is invalid._
+            pub fn clone(_it: anytype) !String {
+                return internalInit(_it, null, true);
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
+
         // ┌──────────────────────────── HEAP ────────────────────────────┐
 
             /// Allocate or reallocate the string to a new size.
@@ -81,46 +120,6 @@
 
 
 
-// ╔══════════════════════════════════════ MAKE ══════════════════════════════════════╗
-
-    /// Initializes a new empty string.
-    pub fn init() String {
-        return internalInit("", null, false) catch unreachable;
-    }
-
-    /// Initializes a new string and copies the value into it.
-    /// - `error.InvalidType` _if the type is invalid._
-    /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    /// - `error.AllocationFailed` _if the allocation fails._
-    pub fn initWith(_it: anytype) !String {
-        return internalInit(_it, null, false);
-    }
-
-    /// Initializes a new string with a `specific allocator`.
-    pub fn initAlloc(_alloc: std.mem.Allocator) String {
-        return internalInit("", _alloc, false) catch unreachable;
-    }
-
-    /// Initializes a new string with a `specific allocator` and copies the value into it.
-    /// - `error.InvalidType` _if the type is invalid._
-    /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    /// - `error.AllocationFailed` _if the allocation fails._
-    pub fn initAllocWith(_alloc: std.mem.Allocator, _it: anytype) !String {
-        return internalInit(_it, _alloc, false);
-    }
-
-    /// Copies the value into a new string.
-    /// - `error.AllocationFailed` _if the allocation fails._
-    /// - `error.InvalidUTF8` _if the `_it` is not valid UTF-8._
-    /// - `error.InvalidType` _if the type is invalid._
-    pub fn clone(_it: anytype) !String {
-        return internalInit(_it, null, true);
-    }
-
-// ╚══════════════════════════════════════════════════════════════════════════════════╝
-
-
-
 // ╔════════════════════════════════════ INTERNAL ════════════════════════════════════╗
 
     /// Returns a Types.cbytes from anytype.
@@ -128,7 +127,7 @@
     fn internalToBytes(_it: anytype) !Types.cbytes {
         const _Type = @TypeOf(_it);
 
-        if(_Type == u8 or _Type == comptime_int) { return &[_]Types.byte {_it}; }
+        if(_Type == u8 or (_Type == comptime_int and (_it >= 0 and _it <= 255))) { return &[_]Types.byte {_it}; }
         else if(_Type == String) { return _it.src(); }
         else if(Bytes.isBytes(_it)) { return _it; }
 
