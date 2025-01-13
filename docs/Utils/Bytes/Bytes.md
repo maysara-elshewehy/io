@@ -15,7 +15,7 @@
 
 <p align="center"> <b>Simplified and perfected.</b> </p>
 
-<div align="center"><br>
+<div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
 </div>
 

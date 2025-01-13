@@ -16,7 +16,7 @@
 
 <p align="center"> <b>Mutable fixed UTF-8 string done right.</b> </p>
 
-<div align="center"><br>
+<div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
 </div>
 
