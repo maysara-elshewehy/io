@@ -13,14 +13,10 @@
     <img src="https://img.shields.io/github/stars/Super-ZIG/io?style=social" alt="GitHub Repo stars" />
 </p>
 
-<p align="center">
-  <b>Immutable fixed UTF-8 string done right.</b>
-</p>
+<p align="center"> <b>Immutable fixed UTF-8 string done right.</b> </p> <br>
 
-<br>
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<div align="center"><br>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
 </div>
 
 - ### Usage
@@ -36,39 +32,39 @@
     ```
 
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<div align="center"><br>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
 </div>
 
 - ### Functions
 
    - #### ❱ ..?
 
-        | Method                                    | Description                                                          |
-        | ----------------------------------------- | -------------------------------------------------------------------- |
-        | [`..?`](./api/..?.md)         | ..?       |
+        | Method                | Description |
+        | --------------------- | ----------- |
+        | [`..?`](./api/..?.md) | ..?         |
 
-    <div align="center">
+    <div align="center"><br>
     <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
-    </div>
+    </div><br>
 
 - ### Types
 
     > You can access internal types using `io.iTypes.<typeName>`.
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<div align="center"><br>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
 </div>
 
 
 - ### Errors
 
-    | Error         | Description                                            |
-    | ------------- | ------------------------------------------------------ |
-    | `InvalidUTF8` | The source contains invalid UTF-8 data.                |
+    | Error         | Description                             |
+    | ------------- | --------------------------------------- |
+    | `InvalidUTF8` | The source contains invalid UTF-8 data. |
 
-<div align="center">
+<div align="center"><br>
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-<p align="center" style="color:grey;">Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>
+<p align="center" style="color:grey;"><br>Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>
