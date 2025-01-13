@@ -13,11 +13,10 @@
     <img src="https://img.shields.io/github/stars/Super-ZIG/io?style=social" alt="GitHub Repo stars" />
 </p>
 
-<p align="center"> <b>Unmanaged dynamic UTF-8 string done right.</b> </p> <br>
+<p align="center"> <b>Managed dynamic UTF-8 string done right.</b> </p>
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
-
+<div align="center"><br>
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
 </div>
 
 - ### Usage
