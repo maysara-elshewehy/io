@@ -24,7 +24,7 @@ jobs:
         run: alias zig=$PWD/zig-0.14.0-dev.2639+15fe99957/lib/zig
 
       - name: Version
-        run: zig version
+        run: $PWD/zig-0.14.0-dev.2639+15fe99957/lib/zig version
 
       - name: Test
-        run: zig build test
+        run: $PWD/zig-0.14.0-dev.2639+15fe99957/lib/zig build test
