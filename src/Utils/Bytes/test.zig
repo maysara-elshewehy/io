@@ -1,13 +1,15 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
-    /// A unified set of internal data types to facilitate subsequent library creation and maintenance.
-    pub const iTypes = @import("./common/types.zig").Types;
+    const std = @import("std");
+    const Bytes = @import("./src.zig");
 
-    /// A set of useful utilities with associated functions.
-    pub const Utils = @import("./Utils/src.zig");
+    const expect = std.testing.expect;
+    const expectEqual = std.testing.expectEqual;
+    const expectError = std.testing.expectError;
+    const expectEqualStrings = std.testing.expectEqualStrings;
 
-    /// A set of useful data types with their associated functions.
-    pub const Types = @import("./Types/src.zig");
+    const invalid_utf8 : [2]u8     = .{0xc0, 0x80};
+    const long_array   : [1024]u8  = .{'#'} ** 1024;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -15,9 +17,5 @@
 
 // ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
 
-    test {
-        _ = @import("./Utils/src.zig");
-        _ = @import("./Types/src.zig");
-    }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
