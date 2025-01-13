@@ -1,6 +1,6 @@
 <p align="center"> <br>
   <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/logo/IO/logo.png" alt="Input / Output" width="1000" />
-</p><br>
+</p>
 
 <p align="center">
      <a href="#">
