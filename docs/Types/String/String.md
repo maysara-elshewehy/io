@@ -1,6 +1,4 @@
-## [←](../../index.md) `io`.`Types`.`String`
-
-<p align="center"> <br> <br>
+<p align="center"> <br>
   <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/logo/String/logo.png" alt="String" width="1000" />
 </p>
 
@@ -56,7 +54,7 @@
 
 - ### Types
 
-    > You can access to the types using `io.iTypes.<typeName>`
+    > You can access internal types using `io.iTypes.<typeName>`.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
