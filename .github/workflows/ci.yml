@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download zig
+        run: wget https://github.com/ziglang/zig/releases/download/0.13.0/zig-bootstrap-0.13.0.tar.xz
+
+      - name: Extract
+        run: tar -xf zig-bootstrap-0.13.0.tar.xz
+
+      - name: Alias
+        run: alias zig=$PWD/zig-bootstrap-0.13.0/zig
+
+      - name: Version
+        run: $PWD/zig-bootstrap-0.13.0/zig version
+
+      - name: Test
+        run: $PWD/zig-bootstrap-0.13.0/zig build test
