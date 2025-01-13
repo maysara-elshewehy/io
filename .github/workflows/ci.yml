@@ -21,10 +21,10 @@ jobs:
         run: tar -xf zig-0.14.0-dev.2639+15fe99957.tar.xz
 
       - name: Alias
-        run: alias zig=$PWD/zig-0.14.0-dev.2639+15fe99957/zig
+        run: alias zig=$PWD/zig-0.14.0-dev.2639+15fe99957/lib/zig
 
       - name: Version
-        run: $PWD/zig-0.14.0-dev.2639+15fe99957/zig version
+        run: zig version
 
       - name: Test
-        run: $PWD/zig-0.14.0-dev.2639+15fe99957/zig build test
+        run: zig build test

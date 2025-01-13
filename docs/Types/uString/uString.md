@@ -6,8 +6,8 @@
      <a href="#">
         <img src="https://img.shields.io/badge/under--development-yellow.svg" alt="Under Development" />
     </a>
-    <a href="https://github.com/Super-ZIG/io/actions/workflows/main.yml">
-        <img src="https://github.com/Super-ZIG/io/actions/workflows/main.yml/badge.svg" alt="CI" />
+    <a href="https://github.com/Super-ZIG/io/actions/workflows/ci.yml">
+        <img src="https://github.com/Super-ZIG/io/actions/workflows/ci.yml/badge.svg" alt="CI" />
     </a>
     <img src="https://img.shields.io/github/issues/Super-ZIG/io?style=flat" alt="Github Repo Issues" />
     <img src="https://img.shields.io/github/stars/Super-ZIG/io?style=social" alt="GitHub Repo stars" />
