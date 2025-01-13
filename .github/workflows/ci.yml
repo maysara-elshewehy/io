@@ -24,7 +24,7 @@ jobs:
         run: alias zig=$PWD/zig-linux-x86_64-0.14.0-dev.2639+15fe99957/zig
 
       - name: Version
-        run: $PWD/zig-linux-x86_64-0.14.0-dev.2271+f845fa04a/zig version
+        run: $PWD/zig-linux-x86_64-0.14.0-dev.2639+15fe99957/zig version
 
       - name: Test
         run: $PWD/zig-linux-x86_64-0.14.0-dev.2639+15fe99957/zig build test
