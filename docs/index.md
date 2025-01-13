@@ -1,5 +1,3 @@
-# Documents
-
 > For more details on how to use this library in your project, run tests, and benchmarks, please read the [Installation Guide](#).
 
 - ## API
