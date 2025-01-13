@@ -14,7 +14,9 @@
 </p>
 
 <p align="center">
-  <b>Simplified and perfected.</b>
+  <b>Easy input and output in ZIG.
+
+</b>
 </p>
 
 <br>
