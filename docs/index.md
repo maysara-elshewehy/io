@@ -17,7 +17,7 @@
 
       | Type                                    | Description                                   | Progress |
       | --------------------------------------- | --------------------------------------------- | -------- |
-      | [`Viewer`](./types/Viewer/Viewer.md)    | **Immutable Fixed** array of `UTF-8` bytes.   | `10%`    |
-      | [`Buffer`](./types/Buffer/Buffer.md)    | **Mutable Fixed** array of `UTF-8` bytes.     | `10%`    |
-      | [`String`](./types/String/String.md)    | **Managed Dynamic** array of `UTF-8` bytes.   | `10%`    |
-      | [`uString`](./types/uString/uString.md) | **Unmanaged Dynamic** array of `UTF-8` bytes. | `10%`    |
+      | [`Viewer`](./types/Viewer/Viewer.md)    | Immutable fixed array of `UTF-8` bytes.   | `10%`    |
+      | [`Buffer`](./types/Buffer/Buffer.md)    | Mutable fixed array of `UTF-8` bytes.     | `10%`    |
+      | [`String`](./types/String/String.md)    | Managed dynamic array of `UTF-8` bytes.   | `10%`    |
+      | [`uString`](./types/uString/uString.md) | Unmanaged dynamic array of `UTF-8` bytes. | `10%`    |

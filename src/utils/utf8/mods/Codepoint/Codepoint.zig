@@ -8,13 +8,14 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
+    /// A struct to represent a single Unicode codepoint with properties.
     pub const Codepoint = struct {
 
         // ┌──────────────────────────── ---- ────────────────────────────┐
 
             const Self = @This();
 
-            /// ..?
+            /// Unified error set of `Codepoint` functions.
             pub const Error = error { InvalidValue };
 
             /// Modes of the codepoint.

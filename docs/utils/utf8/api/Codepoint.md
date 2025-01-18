@@ -1,6 +1,6 @@
 # [←](../utf8.md) `utf8`.`Codepoint`
 
-> Structure containing the data of a codepoint.
+> A struct to represent a single Unicode codepoint with properties.
 
 ```zig
 pub const Codepoint = struct

@@ -40,10 +40,10 @@
   
    - #### ✨ Structures
 
-        | Structure                         | Description                                     |
-        | --------------------------------- | ----------------------------------------------- |
-        | [`Iterator`](./api/Iterator.md)   | Iterator for traversing codepoints in a string. |
-        | [`Codepoint`](./api/Codepoint.md) | Structure containing the data of a codepoint.   |
+        | Structure                         | Description                                                                         |
+        | --------------------------------- | ----------------------------------------------------------------------------------- |
+        | [`Iterator`](./api/Iterator.md)   | A _(`grapheme cluster`, `codepoint`)_ iterator for iterating over a slice of bytes. |
+        | [`Codepoint`](./api/Codepoint.md) | A struct to represent a single Unicode codepoint with properties.                   |
   
    - #### 🧩 Utilities
 

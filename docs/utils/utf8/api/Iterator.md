@@ -1,6 +1,6 @@
 # [←](../utf8.md) `utf8`.`Iterator`
 
-> Iterator for traversing codepoints in a string.
+> A _(`grapheme cluster`, `codepoint`)_ iterator for iterating over a slice of bytes.
 
 ```zig
 pub const Iterator = struct

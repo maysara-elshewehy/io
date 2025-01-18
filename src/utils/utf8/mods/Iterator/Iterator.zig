@@ -9,17 +9,17 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-        /// Iterator for traversing codepoints in a string.
+    /// A _(`grapheme cluster`, `codepoint`)_ iterator for iterating over a slice of bytes.
     pub const Iterator = struct {
 
     // ┌──────────────────────────── ---- ────────────────────────────┐
 
         const Self = @This();
 
-        /// ..?
+        /// Unified error set of `iterator` functions.
         pub const Error = error { InvalidValue };
 
-        /// ..?
+        /// Modes of the iterator.
         pub const modes = enum { codepoint, graphemeCluster };
 
     // └──────────────────────────────────────────────────────────────┘
