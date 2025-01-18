@@ -47,7 +47,7 @@ pub fn lengthOfFirst(value: anytype) lengthOfFirstError!usize
         _ = utf8.utils.lengthOfFirst("ب-"[0]);    // 👉 2 (length of first codepoint of "ب")
         _ = utf8.utils.lengthOfFirst("你-"[0]);   // 👉 3 (length of first codepoint of "你")
         _ = utf8.utils.lengthOfFirst("🌟-"[0]);   // 👉 4 (length of first codepoint of "🌟")
-        _ = utf8.utils.lengthOfFirst("☹️-"[0]);    // 👉 3 (length of first codepoint of "☹️")
+        _ = utf8.utils.lengthOfFirst("☹️-"[0]);   // 👉 3 (length of first codepoint of "☹️")
         _ = utf8.utils.lengthOfFirst("👨‍🏭-"[0]);   // 👉 4 (length of first codepoint of "👨‍🏭")
         ```
         
@@ -58,7 +58,7 @@ pub fn lengthOfFirst(value: anytype) lengthOfFirstError!usize
         _ = utf8.utils.lengthOfFirst("ب-");       // 👉  2 (total length of "ب")
         _ = utf8.utils.lengthOfFirst("你-");      // 👉  3 (total length of "你")
         _ = utf8.utils.lengthOfFirst("🌟-");      // 👉  4 (total length of "🌟")
-        _ = utf8.utils.lengthOfFirst("☹️-");       // 👉  6 (total length of "☹️")
+        _ = utf8.utils.lengthOfFirst("☹️-");      // 👉  6 (total length of "☹️")
         _ = utf8.utils.lengthOfFirst("👨‍🏭-");      // 👉 11 (total length of "👨‍🏭")
         ```
 
