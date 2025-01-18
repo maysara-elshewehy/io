@@ -8,7 +8,8 @@
 
       | Utility                           | Description                                       | Progress |
       | --------------------------------- | ------------------------------------------------- | -------- |
-      | [`Bytes`](./Utils/Bytes/Bytes.md) | A set of useful functions for working with bytes. | `1%`     |
+      | [`Bytes`](./utils/bytes/bytes.md) | A set of useful functions for working with bytes. | `10%`    |
+      | [`Utf8`](./utils/utf8/utf8.md)    | A set of useful functions for working with utf-8. | `90%`    |
 
   - ### Types
 
@@ -16,7 +17,7 @@
 
       | Type                                    | Description                                   | Progress |
       | --------------------------------------- | --------------------------------------------- | -------- |
-      | [`Viewer`](./Types/Viewer/Viewer.md)    | **Immutable Fixed** array of `UTF-8` bytes.   | `1%`     |
-      | [`Buffer`](./Types/Buffer/Buffer.md)    | **Mutable Fixed** array of `UTF-8` bytes.     | `1%`     |
-      | [`String`](./Types/String/String.md)    | **Managed Dynamic** array of `UTF-8` bytes.   | `1%`     |
-      | [`uString`](./Types/uString/uString.md) | **Unmanaged Dynamic** array of `UTF-8` bytes. | `1%`     |
+      | [`Viewer`](./types/Viewer/Viewer.md)    | **Immutable Fixed** array of `UTF-8` bytes.   | `10%`    |
+      | [`Buffer`](./types/Buffer/Buffer.md)    | **Mutable Fixed** array of `UTF-8` bytes.     | `10%`    |
+      | [`String`](./types/String/String.md)    | **Managed Dynamic** array of `UTF-8` bytes.   | `10%`    |
+      | [`uString`](./types/uString/uString.md) | **Unmanaged Dynamic** array of `UTF-8` bytes. | `10%`    |

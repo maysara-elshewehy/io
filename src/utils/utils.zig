@@ -1,10 +1,10 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
-    /// A set of useful utilities with associated functions.
-    pub const utils = @import("./utils/utils.zig");
+    /// ..?
+    pub const bytes = @import("./bytes/bytes.zig");
 
-    /// A set of useful data types with their associated functions.
-    pub const types = @import("./types/types.zig");
+    /// ..?
+    pub const utf8 = @import("./utf8/utf8.zig");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -13,8 +13,8 @@
 // ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
 
     test {
-        _ = @import("./utils/utils.zig");
-        _ = @import("./types/types.zig");
+        _ = @import("./bytes/bytes.zig");
+        _ = @import("./utf8/utf8.zig");
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
