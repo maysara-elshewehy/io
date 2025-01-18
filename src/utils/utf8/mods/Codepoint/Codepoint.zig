@@ -28,6 +28,7 @@
 
             /// The mode of the code point _(`ZeroWidthJointer`/`Modifier`/`None`)_.
             mode: Mode,
+
             /// The length of the codepoint slice.
             len: usize,
 

@@ -29,6 +29,7 @@
 
         /// The input bytes to iterate over.
         input_bytes: []const u8,
+
         /// The current position of the iterator.
         current_index: usize,
 
