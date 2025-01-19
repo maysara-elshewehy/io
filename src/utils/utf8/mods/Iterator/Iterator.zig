@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std = @import("std");
-    const lengthOfFirst = @import("../../utils/utils.zig").lengthOfFirst;
+    const utils = @import("../../utils/utils.zig");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -64,8 +64,8 @@
         fn getNextSlice(self: *Self, mode: modes) ?[]const u8 {
             if (self.current_index >= self.input_bytes.len) return null;
             const cp_len = 
-            if(mode == .codepoint) lengthOfFirst(self.input_bytes[self.current_index]) catch return null
-            else lengthOfFirst(self.input_bytes[self.current_index..]) catch return null;
+            if(mode == .codepoint) utils.lengthOfStartByte(self.input_bytes[self.current_index]) catch return null
+            else utils.lengthOfFirstGrapheme(self.input_bytes[self.current_index..]) catch return null;
 
             self.current_index += cp_len;
             return self.input_bytes[self.current_index - cp_len..self.current_index];

@@ -82,7 +82,7 @@ pub const Iterator = struct
     const txt = "Aأ你🌟☹️👨‍🏭@";
     ```
 
-    > It is recommended to see the examples of our [Codepoint structure](./Codepoint.md) to know some details about codepoints.
+    > It is recommended to see the examples of our [Codepoint structure](./Codepoint.md#-examples) to know some details about codepoints.
 
     - ##### 🟢 Success Cases
 

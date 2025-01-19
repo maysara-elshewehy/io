@@ -1,9 +1,9 @@
-# [←](../bytes.md) `bytes`.`initArray`
+# [←](../bytes.md) `bytes`.`initCapacity`
 
 > Initializes an array of bytes of a given `size`, filled with null bytes.
 
 ```zig
-pub fn initArray(comptime array_size: usize) initArrayError![array_size]u8
+pub fn initCapacity(comptime array_size: usize) initCapacityError![array_size]u8
 ```
 
 
@@ -34,7 +34,7 @@ pub fn initArray(comptime array_size: usize) initArrayError![array_size]u8
 - #### 🧪 Examples
 
     ```zig
-    const bytes = @import("io").utils.bytes;
+    const Bytes = @import("io").utils.bytes;
     ```
 
     - ##### 🟢 Success Cases
@@ -42,8 +42,8 @@ pub fn initArray(comptime array_size: usize) initArrayError![array_size]u8
         > **_Non-Zero size._**
 
         ```zig
-        _ = try bytes.initArray(1);   // 👉 { 0 }
-        _ = try bytes.initArray(2);   // 👉 { 0, 0 }
+        _ = try Bytes.initCapacity(1);   // 👉 { 0 }
+        _ = try Bytes.initCapacity(2);   // 👉 { 0, 0 }
         ```
 
     - ##### 🔴 Failure Cases
@@ -51,7 +51,7 @@ pub fn initArray(comptime array_size: usize) initArrayError![array_size]u8
         > **_ZeroSize._**
 
         ```zig
-        _ = try bytes.initArray(0);   // 👉 error.ZeroSize
+        _ = try Bytes.initCapacity(0);   // 👉 error.ZeroSize
         ```
 
 <div align="center">
@@ -60,7 +60,7 @@ pub fn initArray(comptime array_size: usize) initArrayError![array_size]u8
 
 - ##### 🔗 Related
 
-  > [`bytes.initArrayWith`](./initArrayWith.md)
+  > [`Bytes.init`](./init.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

@@ -28,23 +28,23 @@ pub inline fn isByte(value: anytype) bool
 - #### 🧪 Examples
 
     ```zig
-    const bytes = @import("io").utils.bytes;
+    const Bytes = @import("io").utils.bytes;
     ```
 
     - ##### 🟢 True Cases
 
         ```zig
-        _ = bytes.isByte(0);            // 👉 true (`0`   is within the valid byte range)
-        _ = bytes.isByte(255);          // 👉 true (`255` is the maximum valid byte value)
-        _ = bytes.isByte(@as(u8, 0));   // 👉 true (`u8`  is a valid byte type)
+        _ = Bytes.isByte(0);            // 👉 true (`0`   is within the valid byte range)
+        _ = Bytes.isByte(255);          // 👉 true (`255` is the maximum valid byte value)
+        _ = Bytes.isByte(@as(u8, 0));   // 👉 true (`u8`  is a valid byte type)
         ```
 
     - ##### 🔴 False Cases
 
         ```zig
-        _ = bytes.isByte(-1);           // 👉 false (`-1`  is below the minimum byte value of `0`)
-        _ = bytes.isByte(256);          // 👉 false (`256` is exceed the maximum byte value of `255`)
-        _ = bytes.isByte(@as(u7, 0));   // 👉 false (`u7`  is not a full `8-bit` byte type)
+        _ = Bytes.isByte(-1);           // 👉 false (`-1`  is below the minimum byte value of `0`)
+        _ = Bytes.isByte(256);          // 👉 false (`256` is exceed the maximum byte value of `255`)
+        _ = Bytes.isByte(@as(u7, 0));   // 👉 false (`u7`  is not a full `8-bit` byte type)
         ```
 
 <div align="center">
@@ -53,9 +53,9 @@ pub inline fn isByte(value: anytype) bool
 
 - ##### 🔗 Related
 
-  > [`bytes.isBytes`](./isbytes.md)
+  > [`Bytes.isBytes`](./isbytes.md)
 
-  > [`bytes.toBytes`](./tobytes.md)
+  > [`Bytes.toBytes`](./tobytes.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

@@ -18,12 +18,23 @@
           - `io.types.String`  
           - `io.types.uString`  
 
+- ## January 19, 2025  
+
+    - ### `Phase 2` Read-Only Functions _(Completed)_  
+
+        > Implement advanced read-only functions that don't modify the data directly but enhance usability.  
+
+      - **Deliverables:**  
+
+        > More than **50** _(total added functions for all following sections)_ read-only functions have been added to all sections (types and utilities).
+
+        - **Utils:**
+          - `...`  
+
+        - **Types:**
+          - `...`  
+
     - **Todo:**
-            
-        - ### `Phase 2` Read-Only Functions
-
-            > Implement advanced read-only functions that don't modify the data directly but enhance usability.  
-
 
         - ### `Phase 3` Insertion Functions
             

@@ -22,7 +22,7 @@
 - ### Usage
 
     ```zig
-    const bytes = @import("io").utils.bytes;
+    const Bytes = @import("io").utils.bytes;
     ```
 
     > **..?**
@@ -40,18 +40,51 @@
 
    - #### ✨ Initialization
 
-        | Function                                  | Description                                                  |
-        | ----------------------------------------- | ------------------------------------------------------------ |
-        | [`initArray`](./api/initArray.md)         | Initializes an array of bytes of a given `size`.             |
-        | [`initArrayWith`](./api/initArrayWith.md) | Initializes an array of bytes of a given `size` and `value`. |
+        | Function                                | Description                                                  |
+        | --------------------------------------- | ------------------------------------------------------------ |
+        | [`init`](./api/init.md)                 | Initializes an array of bytes of a given `size` and `value`. |
+        | [`initCapacity`](./api/initCapacity.md) | Initializes an array of bytes of a given `size`.             |
 
-   - #### 🧩 Utilities
+   - #### 🔍 Search
+
+        | Method                                | Description                                                           |
+        | ------------------------------------- | --------------------------------------------------------------------- |
+        | [`find`](./api/find.md)               | Finds the **real position** of the **first** occurrence of `value`.   |
+        | [`findVisual`](./api/findVisual.md)   | Finds the **visual position** of the **first** occurrence of `value`. |
+        | [`rfind`](./api/rfind.md)             | Finds the **real position** of the **last** occurrence of `value`.    |
+        | [`rfindVisual`](./api/rfindVisual.md) | Finds the **visual position** of the **last** occurrence of `value`.  |
+        | [`includes`](./api/includes.md)       | Returns `true` **if `dest` contains `target`**.                       |
+        | [`startsWith`](./api/startsWith.md)   | Returns `true` **if `dest` starts with `target`**.                    |
+        | [`endsWith`](./api/endsWith.md)       | Returns `true` **if `dest` ends with `target`**.                      |
+
+   - #### 🌈 Letter Cases
+
+        | Method                        | Description                                |
+        | ----------------------------- | ------------------------------------------ |
+        | [`toLower`](./api/toLower.md) | Converts all (ASCII) letters to lowercase. |
+        | [`toUpper`](./api/toUpper.md) | Converts all (ASCII) letters to uppercase. |
+        | [`toTitle`](./api/toTitle.md) | Converts all (ASCII) letters to titlecase. |
+
+   - #### 🪄 Counting
+
+        | Function                                | Description                                    |
+        | --------------------------------------- | ---------------------------------------------- |
+        | [`countWritten`](./api/countWritten.md) | Returns the total number of written bytes.     |
+        | [`countVisual`](./api/countVisual.md)   | Returns the total number of visual characters. |
+
+   - #### ✔️ Validation 
 
         | Function                      | Description                                                |
         | ----------------------------- | ---------------------------------------------------------- |
         | [`isByte`](./api/isByte.md)   | Returns `true` **if the value is a valid byte**.           |
         | [`isBytes`](./api/isbytes.md) | Returns `true` **if the value is a valid array of bytes**. |
-        | [`toBytes`](./api/tobytes.md) | Converts the given value to an array of bytes.             |
+
+   - #### 🌟 More
+
+        | Function                                | Description                                       |
+        | --------------------------------------- | ------------------------------------------------- |
+        | [`writtenSlice`](./api/writtenSlice.md) | Returns a slice containing only the written part. |
+        | [`toBytes`](./api/tobytes.md)           | Converts the given value to an array of bytes.    |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

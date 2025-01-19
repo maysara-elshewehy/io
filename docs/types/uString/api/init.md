@@ -1,6 +1,6 @@
 # [←](../uString.md) `uString`.`init`
 
-> Initializes a new `uString` instance using the given `allocator` and `value`.
+> Initializes a new `uString` instance using `allocator` and `value`.
 
 ```zig
 pub fn init(alloator: Allocator, value: []const u8) initError!Self 

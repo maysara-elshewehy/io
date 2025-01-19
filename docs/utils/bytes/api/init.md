@@ -1,10 +1,10 @@
-# [←](../bytes.md) `bytes`.`initArrayWith`
+# [←](../bytes.md) `bytes`.`init`
 
 > Initializes an array of bytes of a given `size` and `value`,
 > terminated with a null byte **if the `size` is greater than the length of `value`**.
 
 ```zig
-pub fn initArrayWith(comptime size: usize, value: []const u8)initArrayWithError![size]u8
+pub fn init(comptime size: usize, value: []const u8)initError![size]u8
 ```
 
 
@@ -37,14 +37,14 @@ pub fn initArrayWith(comptime size: usize, value: []const u8)initArrayWithError!
 - #### 🧪 Examples
 
     ```zig
-    const bytes = @import("io").utils.bytes;
+    const Bytes = @import("io").utils.bytes;
     ```
 
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try bytes.initArrayWith(1, "A");    // 👉 { 'A' }
-        _ = try bytes.initArrayWith(2, "A");    // 👉 { 'A', 0 }
+        _ = try Bytes.init(1, "A");    // 👉 { 'A' }
+        _ = try Bytes.init(2, "A");    // 👉 { 'A', 0 }
         ```
 
     - ##### 🔴 Failure Cases
@@ -52,13 +52,13 @@ pub fn initArrayWith(comptime size: usize, value: []const u8)initArrayWithError!
         > **_ZeroSize._**
 
         ```zig
-        _ = try bytes.initArrayWith(0, "..");   // 👉 error.ZeroSize
+        _ = try Bytes.init(0, "");      // 👉 error.ZeroSize
         ```
 
         > **_OutOfRange._**
 
         ```zig
-        _ = try bytes.initArrayWith(1, "AB");   // 👉 error.OutOfRange
+        _ = try Bytes.init(1, "AB");    // 👉 error.OutOfRange
         ```
 
 <div align="center">
@@ -67,7 +67,7 @@ pub fn initArrayWith(comptime size: usize, value: []const u8)initArrayWithError!
 
 - ##### 🔗 Related
 
-  > [`bytes.initArray`](./initArray.md)
+  > [`Bytes.initCapacity`](./initCapacity.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

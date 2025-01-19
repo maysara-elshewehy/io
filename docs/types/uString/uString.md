@@ -42,17 +42,44 @@
 
       | Field      | Type    | Description                                          |
       | ---------- | ------- | ---------------------------------------------------- |
-      | `source`   | `[]u8`  | The mutable UTF-8 encoded bytes.             |
+      | `source`   | `[]u8`  | The mutable UTF-8 encoded bytes.                     |
       | `length`   | `usize` | The number of written bytes to `source`.             |
       | `capacity` | `usize` | The number of bytes that can be written to `source`. |
 
    - #### ✨ Initialization
 
-        | Function                                | Description                                                                   |
-        | --------------------------------------- | ----------------------------------------------------------------------------- |
-        | [`init`](./api/init.md)                 | Initializes a new `uString` instance using the given `allocator` and `value`. |
-        | [`initCapacity`](./api/initCapacity.md) | Initializes a new `uString` instance using `allocator` and `size`.            |
-        | [`deinit`](./api/deinit.md)             | Release all allocated memory.                                                 |
+        | Function                                | Description                                                         |
+        | --------------------------------------- | ------------------------------------------------------------------- |
+        | [`init`](./api/init.md)                 | Initializes a new `uString` instance using `allocator` and `value`. |
+        | [`initCapacity`](./api/initCapacity.md) | Initializes a new `uString` instance using `allocator` and `size`.  |
+        | [`deinit`](./api/deinit.md)             | Release all allocated memory.                                       |
+
+  - #### 🔍 Search
+
+      | Method                                | Description                                                           |
+      | ------------------------------------- | --------------------------------------------------------------------- |
+      | [`find`](./api/find.md)               | Finds the **real position** of the **first** occurrence of `value`.   |
+      | [`findVisual`](./api/findVisual.md)   | Finds the **visual position** of the **first** occurrence of `value`. |
+      | [`rfind`](./api/rfind.md)             | Finds the **real position** of the **last** occurrence of `value`.    |
+      | [`rfindVisual`](./api/rfindVisual.md) | Finds the **visual position** of the **last** occurrence of `value`.  |
+      | [`includes`](./api/includes.md)       | Returns `true` **if contains `target`**.                              |
+      | [`startsWith`](./api/startsWith.md)   | Returns `true` **if starts with `target`**.                           |
+      | [`endsWith`](./api/endsWith.md)       | Returns `true` **if ends with `target`**.                             |
+
+   - #### 🌈 Letter Cases
+
+        | Method                        | Description                                |
+        | ----------------------------- | ------------------------------------------ |
+        | [`toLower`](./api/toLower.md) | Converts all (ASCII) letters to lowercase. |
+        | [`toUpper`](./api/toUpper.md) | Converts all (ASCII) letters to uppercase. |
+        | [`toTitle`](./api/toTitle.md) | Converts all (ASCII) letters to titlecase. |
+
+   - #### 🪄 Counting
+
+        | Function                                | Description                                    |
+        | --------------------------------------- | ---------------------------------------------- |
+        | [`countWritten`](./api/countWritten.md) | Returns the total number of written bytes.     |
+        | [`countVisual`](./api/countVisual.md)   | Returns the total number of visual characters. |
 
    - #### 🚀 Iterations
 
@@ -62,10 +89,11 @@
 
    - #### 🌟 More
 
-        | Function                                    | Description                                               |
-        | ------------------------------------------- | --------------------------------------------------------- |
-        | [`allocatedSlice`](./api/allocatedSlice.md) | Returns a slice of all the bytes plus the extra capacity. |
-        | [`writtenSlice`](./api/writtenSlice.md)     | Returns a slice of only written bytes.                    |
+        | Function                                    | Description                                                           |
+        | ------------------------------------------- | --------------------------------------------------------------------- |
+        | [`allocatedSlice`](./api/allocatedSlice.md) | Returns a slice representing the entire allocated memory range.       |
+        | [`writtenSlice`](./api/writtenSlice.md)     | Returns a slice containing only the written part.                     |
+        | [`toManaged`](./api/toManaged.md)           | Converts the `uString` to a `String`, taking ownership of the memory. |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

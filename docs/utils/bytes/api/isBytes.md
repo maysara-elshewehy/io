@@ -28,21 +28,21 @@ pub inline fn isBytes(value: anytype) bool
 - #### 🧪 Examples
 
     ```zig
-    const bytes = @import("io").utils.bytes;
+    const Bytes = @import("io").utils.bytes;
     ```
 
     - ##### 🟢 True Cases
 
         ```zig
-        _ = bytes.isBytes("");          // 👉 true (empty array)
-        _ = bytes.isBytes("#");         // 👉 true (non empty array)
+        _ = Bytes.isBytes("");          // 👉 true (empty array)
+        _ = Bytes.isBytes("#");         // 👉 true (non empty array)
         ```
 
     - ##### 🔴 False Cases
 
         ```zig
-        _ = bytes.isBytes('#');         // 👉 false (`#` is a single byte not an array of bytes)
-        _ = bytes.isBytes([_]u7{0});    // 👉 false (An array of `u7` which is invalid byte type)
+        _ = Bytes.isBytes('#');         // 👉 false (`#` is a single byte not an array of bytes)
+        _ = Bytes.isBytes([_]u7{0});    // 👉 false (An array of `u7` which is invalid byte type)
         ```
 
 <div align="center">
@@ -51,9 +51,9 @@ pub inline fn isBytes(value: anytype) bool
 
 - ##### 🔗 Related
 
-  > [`bytes.isByte`](./isByte.md)
+  > [`Bytes.isByte`](./isByte.md)
 
-  > [`bytes.toBytes`](./tobytes.md)
+  > [`Bytes.toBytes`](./tobytes.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

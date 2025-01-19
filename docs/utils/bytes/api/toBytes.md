@@ -34,7 +34,7 @@ pub inline fn toBytes(value: anytype) toBytesError![]const u8
 - #### 🧪 Examples
 
     ```zig
-    const bytes = @import("io").utils.bytes;
+    const Bytes = @import("io").utils.bytes;
     ```
 
     - ##### 🟢 Success Cases
@@ -42,15 +42,15 @@ pub inline fn toBytes(value: anytype) toBytesError![]const u8
         > **_Single byte._**
 
         ```zig
-        _ = try bytes.toBytes('A');         // 👉 "A"
-        _ = try bytes.toBytes(65);          // 👉 "A"
+        _ = try Bytes.toBytes('A');         // 👉 "A"
+        _ = try Bytes.toBytes(65);          // 👉 "A"
         ```
 
         > **_Array of bytes._**
 
         ```zig
-        _ = try bytes.toBytes("");          // 👉 ""
-        _ = try bytes.toBytes("A");         // 👉 "A"
+        _ = try Bytes.toBytes("");          // 👉 ""
+        _ = try Bytes.toBytes("A");         // 👉 "A"
         ```
 
     - ##### 🔴 Failure Cases
@@ -58,11 +58,11 @@ pub inline fn toBytes(value: anytype) toBytesError![]const u8
         > **_InvalidValue._**
 
         ```zig
-        _ = try bytes.toBytes(256);         // 👉 error.InvalidValue (Exceeds maximum byte value `255`)
-        _ = try bytes.toBytes(-1);          // 👉 error.InvalidValue (Negative number)
-        _ = try bytes.toBytes(1.5);         // 👉 error.InvalidValue (Float)
-        _ = try bytes.toBytes(true);        // 👉 error.InvalidValue (Boolean)
-        _ = try bytes.toBytes([_]u7{'#'});  // 👉 error.InvalidValue (Array of non-byte type)
+        _ = try Bytes.toBytes(256);         // 👉 error.InvalidValue (Exceeds maximum byte value `255`)
+        _ = try Bytes.toBytes(-1);          // 👉 error.InvalidValue (Negative number)
+        _ = try Bytes.toBytes(1.5);         // 👉 error.InvalidValue (Float)
+        _ = try Bytes.toBytes(true);        // 👉 error.InvalidValue (Boolean)
+        _ = try Bytes.toBytes([_]u7{'#'});  // 👉 error.InvalidValue (Array of non-byte type)
         ```
 
 <div align="center">
@@ -71,9 +71,9 @@ pub inline fn toBytes(value: anytype) toBytesError![]const u8
 
 - ##### 🔗 Related
 
-  > [`bytes.isByte`](./isByte.md)
+  > [`Bytes.isByte`](./isByte.md)
 
-  > [`bytes.isBytes`](./isbytes.md)
+  > [`Bytes.isBytes`](./isbytes.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

@@ -47,9 +47,12 @@
   
    - #### 🧩 Utilities
 
-        | Function                                  | Description                                                  |
-        | ----------------------------------------- | ------------------------------------------------------------ |
-        | [`lengthOfFirst`](./api/lengthOfFirst.md) | Returns length of the codepoint depending on the first byte. |
+        | Function                                                  | Description                                                          |
+        | --------------------------------------------------------- | -------------------------------------------------------------------- |
+        | [`lengthOfStartByte`](./api/lengthOfStartByte.md)         | Returns length of the codepoint depending on the first byte.         |
+        | [`lengthOfFirstGrapheme`](./api/lengthOfFirstGrapheme.md) | Returns total length of the first grapheme cluster.                  |
+        | [`getRealPosition`](./api/getRealPosition.md)             | Returns the real position in the array based on the visual position. |
+        | [`getVisualPosition`](./api/getVisualPosition.md)         | Returns the visual position in the array based on the real position. |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

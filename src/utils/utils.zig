@@ -13,7 +13,7 @@
 // ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
 
     test {
-        _ = @import("./bytes/bytes.zig");
+        _ = @import("./bytes/bytes.test.zig");
         _ = @import("./utf8/utf8.zig");
     }
 

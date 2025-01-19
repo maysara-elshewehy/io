@@ -1,7 +1,6 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std = @import("std");
-    const bytes = @import("../../bytes/bytes.zig");
     const Codepoint = @import("../mods/Codepoint/Codepoint.zig").Codepoint;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
@@ -10,22 +9,19 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-    /// Error for `lengthOfFirst`
-    const lengthOfFirstError = error { InvalidValue };
+    // ┌──────────────────────────── COUNT ───────────────────────────┐
 
-    /// Returns length of the codepoint depending on the first byte **if single-byte**,
-    /// or total length of the first grapheme cluster **if multi-byte**.
-    /// - `InvalidValueError.InvalidValue` **_if the `value` is multi-byte and is not a valid utf8 byte._**
-    /// - `InvalidValueError.InvalidValue` **_if the `value` is single-byte and not valid a utf8 start byte._**
-    pub fn lengthOfFirst(value: anytype) lengthOfFirstError!usize {
-        // Single-byte
-        if(bytes.isByte(value)) {
-            return std.unicode.utf8ByteSequenceLength(value) catch lengthOfFirstError.InvalidValue;
+        /// Returns length of the codepoint depending on the first byte.
+        /// - `lengthOfStartByteError.InvalidValue` **_if the `value` is not valid a utf8 start byte._**
+        pub fn lengthOfStartByte(value: u8) lengthOfStartByteError!usize {
+            return std.unicode.utf8ByteSequenceLength(value) catch lengthOfStartByteError.InvalidValue;
         }
-        
-        // Multi-byte
-        else if(bytes.isBytes(value)) {
-            if(!std.unicode.utf8ValidateSlice(value)) return lengthOfFirstError.InvalidValue;
+        pub const lengthOfStartByteError = error { InvalidValue };
+
+        /// Returns total length of the first grapheme cluster.
+        /// - `lengthOfFirstGraphemeError.InvalidValue` **_if the `value` is not a valid utf8._**
+        pub fn lengthOfFirstGrapheme(value: []const u8) lengthOfFirstGraphemeError!usize {
+            if(!std.unicode.utf8ValidateSlice(value)) return lengthOfFirstGraphemeError.InvalidValue;
             var iterator = std.unicode.Utf8Iterator{ .bytes = value, .i = 0 };
             var previous_codepoint :? Codepoint = null;
             var result : usize = 0;
@@ -66,11 +62,51 @@
 
             return result;
         }
-        
-        // Otherwise
-        return lengthOfFirstError.InvalidValue;
-    }
+        pub const lengthOfFirstGraphemeError = lengthOfStartByteError;
 
-    pub const isValid = std.unicode.utf8ValidateSlice;
+        /// Returns the real position in the array based on the visual position.
+        /// - `getRealPositionError.OutOfRange` **_if `visual_pos` is out of range._**
+        /// - `getRealPositionError.InvalidValue` **_if `value` is not valid UTF-8._**
+        pub fn getRealPosition(value: []const u8, visual_pos: usize) getRealPositionError!usize {
+            if(visual_pos > value.len) return getRealPositionError.OutOfRange;
+
+            var i: usize = 0;
+
+            while (i < value.len and value[i] != 0 and i < visual_pos) {
+                i += try lengthOfFirstGrapheme(value[i..]);
+            }
+
+            return i;
+        }
+        pub const getRealPositionError = lengthOfStartByteError || error { OutOfRange };
+
+        /// Returns the visual position in the array based on the real position.
+        /// - `getVisualPositionError.OutOfRange` **_if `real_pos` is out of range._**
+        /// - `getVisualPositionError.InvalidValue` **_if `value` is not valid UTF-8._**
+        pub fn getVisualPosition(value: []const u8, real_pos: usize) getVisualPositionError!usize {
+            if (real_pos > value.len) return getVisualPositionError.OutOfRange;
+
+            var i: usize = 0;
+            var _VisualPosition: usize = 0;
+
+            while (i < value.len and value[i] != 0 and i < real_pos) {
+                i += try lengthOfFirstGrapheme(value[i..]);
+                _VisualPosition += 1;
+            }
+
+            return _VisualPosition;
+        }
+        pub const getVisualPositionError = getRealPositionError;
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── VALID ───────────────────────────┐
+
+        ///
+        pub const isValid = std.unicode.utf8ValidateSlice;
+
+    // └──────────────────────────────────────────────────────────────┘
+
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
