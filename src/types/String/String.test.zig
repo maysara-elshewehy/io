@@ -232,12 +232,22 @@
 
         // wait for append function to be implemented.
         test "writtenSlice" {
+            var string = try String.init(allocator, &[_]u8{ '1', 0, 0 });
+            defer string.deinit();
+
+            try expectEqual(1, string.writtenSlice().len);
         }
 
         // wait for append function to be implemented.
         test "allocatedSlice" {
+            var string = try String.init(allocator, &[_]u8{ '1', 0, 0 });
+            defer string.deinit();
+            
+            // size = original length *2
+            try expectEqual(6, string.allocatedSlice().len);
         }
     
     // └──────────────────────────────────────────────────────────────┘
+
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

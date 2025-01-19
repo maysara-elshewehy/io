@@ -29,15 +29,13 @@ pub fn allocatedSlice(self: Self) []const u8
 
     ```zig
     const uString = @import("io").types.uString;
-    var string = try uString.initCapacity(allocator, 3);
+    var string = try uString.init(allocator, &[_]u8{ '1', 0, 0 });
     defer string.deinit(allocator);
-
-    const string = try string.append("1");
     ```
 
     ```zig
     _ = string.writtenSlice();   // 👉 { '1' }
-    _ = string.allocatedSlice(); // 👉 { '1', 0, 0 }
+    _ = string.allocatedSlice(); // 👉 { '1', 0, 0, 0xAA, 0xAA, 0xAA }
     ```
 
 <div align="center">

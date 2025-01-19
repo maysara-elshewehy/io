@@ -48,6 +48,8 @@
 
                 var self = try Self.initCapacity(alloator, value.len*2);
                 self.appendSliceAssumeCapacity(value);
+                self.length = Bytes.countWritten(value);
+
                 return self;
             }
             pub const initError = initCapacityError || error { InvalidValue };

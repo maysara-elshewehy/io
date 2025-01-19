@@ -32,7 +32,7 @@ pub fn allocatedSlice(self: Self) []const u8
     const string = try String.initCapacity(allocator, 3);
     defer string.deinit();
 
-    const string = try string.append("1");
+    try string.append("1");
     ```
 
     ```zig

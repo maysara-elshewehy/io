@@ -226,10 +226,19 @@
 
         // wait for append function to be implemented.
         test "writtenSlice" {
+            var string = try uString.init(allocator, &[_]u8{ '1', 0, 0 });
+            defer string.deinit(allocator);
+
+            try expectEqual(1, string.writtenSlice().len);
         }
 
         // wait for append function to be implemented.
         test "allocatedSlice" {
+            var string = try uString.init(allocator, &[_]u8{ '1', 0, 0 });
+            defer string.deinit(allocator);
+            
+            // size = original length *2
+            try expectEqual(6, string.allocatedSlice().len);
         }
     
     // └──────────────────────────────────────────────────────────────┘
