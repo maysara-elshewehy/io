@@ -7,6 +7,8 @@
     const expect = std.testing.expect;
     const expectEqual = std.testing.expectEqual;
     const expectError = std.testing.expectError;
+    const exceptString = std.testing.expectEqualStrings;
+    const exceptSlice = std.testing.expectEqualSlices;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -124,7 +126,47 @@
             try expectError(error.OutOfRange, utils.getVisualPosition(&_Str, 19));
         }
 
+        test "getLastCodepointSlice" {
+            const test_cases = .{
+                .{"-A", "A"},
+                .{"-أ", "أ"},
+                .{"-你", "你"}, 
+                .{"-🌟", "🌟"}, 
+                .{"-☹️", &[_]u8{ 0xEF, 0xB8, 0x8F }}, // second codepoint at ☹️ (modifier)  
+                .{"-👨‍🏭", &[_]u8{ 0xF0, 0x9F, 0x8F, 0xAD }}, // third codepoint at 👨‍🏭 (emojie)
+            };
 
+            inline for (test_cases) |test_case| {
+                const input = test_case[0];
+                const expected = test_case[1];
+
+                try exceptSlice(u8, expected, utils.getLastCodepointSlice(input).?);
+            }
+
+            // invalid value cases
+            try expectEqual(null, utils.getLastCodepointSlice(""));
+        }
+
+        test "getLastGraphemeSlice" {
+            const test_cases = .{
+                .{"-A", "A"},
+                .{"-أ", "أ"},
+                .{"-你", "你"}, 
+                .{"-🌟", "🌟"},
+                .{"-☹️", "☹️"},
+                .{"-👨‍🏭", "👨‍🏭"},
+            };
+
+            inline for (test_cases) |test_case| {
+                const input = test_case[0];
+                const expected = test_case[1];
+                
+                try exceptSlice(u8, expected, utils.getLastGraphemeSlice(input).?);
+            }
+
+            // invalid value cases
+            try expectEqual(null, utils.getLastGraphemeSlice(""));
+        }
 
     // └──────────────────────────────────────────────────────────────┘
 

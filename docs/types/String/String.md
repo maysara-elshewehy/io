@@ -43,7 +43,7 @@
       | Field       | Type                | Description                                          |
       | ----------- | ------------------- | ---------------------------------------------------- |
       | `allocator` | `std.mem.Allocator` | Allocator used for memory management.                |
-      | `source`    | `[]u8`              | The mutable UTF-8 encoded bytes.             |
+      | `source`    | `[]u8`              | The mutable UTF-8 encoded bytes.                     |
       | `length`    | `usize`             | The number of written bytes to `source`.             |
       | `capacity`  | `usize`             | The number of bytes that can be written to `source`. |
 
@@ -53,8 +53,21 @@
         | --------------------------------------- | --------------------------------------------------------------------------- |
         | [`init`](./api/init.md)                 | Initializes a new `String` instance with the given `allocator` and `value`. |
         | [`initAlloc`](./api/initAlloc.md)       | Initializes a new `String` instance with the given `allocator`.             |
-        | [`initCapacity`](./api/initCapacity.md) | Initializes a new `String` instance with `allocator` and `size`.                     |
-        | [`deinit`](./api/deinit.md)             | Release all allocated memory.                       |
+        | [`initCapacity`](./api/initCapacity.md) | Initializes a new `String` instance with `allocator` and `size`.            |
+        | [`deinit`](./api/deinit.md)             | Release all allocated memory.                                               |
+
+   - #### ➕ Insert
+
+        | Function                                      | Description                                                           |
+        | --------------------------------------------- | --------------------------------------------------------------------- |
+        | [`insert`](./api/insert.md)                   | Inserts a `slice` at the specified `position` by **real position**.   |
+        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` at the specified `position` by **real position**.    |
+        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` at the specified `position` by **visual position**. |
+        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` at the specified `position` by **visual position**.  |
+        | [`append`](./api/append.md)                   | Appends a `slice` into the `String` instance.                         |
+        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into the `String` instance.                          |
+        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into the `String` instance.                        |
+        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into the `String` instance.                         |
 
   - #### 🔍 Search
 
@@ -91,10 +104,13 @@
 
    - #### 🌟 More
 
-        | Function                                    | Description                                               |
-        | ------------------------------------------- | --------------------------------------------------------- |
-        | [`allocatedSlice`](./api/allocatedSlice.md) | Returns a slice representing the entire allocated memory range. |
-        | [`writtenSlice`](./api/writtenSlice.md)     | Returns a slice containing only the written part.                    |
+        | Function                                    | Description                                                       |
+        | ------------------------------------------- | ----------------------------------------------------------------- |
+        | [`allocatedSlice`](./api/allocatedSlice.md) | Returns a slice representing the entire allocated memory range.   |
+        | [`writtenSlice`](./api/writtenSlice.md)     | Returns a slice containing only the written part.                 |
+        | [`reverse`](./api/reverse.md)               | Reverses the order of the characters **_(considering unicode)_**. |
+        | [`clone`](./api/clone.md)                   | Returns a copy of the `String` instance.                          |
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
@@ -108,7 +124,7 @@
   - #### [io.type.Viewer](../Viewer/Viewer.md)
     > Immutable fixed UTF-8 type.
 
-  - #### [io.type.Buffer](../Buffer/Buffer.md)
+  - #### [io.type.String](../String/String.md)
     > Mutable fixed UTF-8 type.
 
 <div align="center"><br>

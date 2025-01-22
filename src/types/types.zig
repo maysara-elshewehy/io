@@ -1,16 +1,16 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     /// Immutable fixed array of `UTF-8` bytes.
-    pub const Viewer = @import("./Viewer/Viewer.zig");
+    pub const Viewer = @import("./Viewer/Viewer.zig").Viewer;
 
     /// Mutable fixed array of `UTF-8` bytes.
     pub const Buffer = @import("./Buffer/Buffer.zig");
 
     /// Managed dynamic array of `UTF-8` bytes.
-    pub const String = @import("./String/String.zig");
+    pub const String = @import("./String/String.zig").String;
 
     /// Unmanaged dynamic array of `UTF-8` bytes.
-    pub const uString = @import("./uString/uString.zig");
+    pub const uString = @import("./uString/uString.zig").uString;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 

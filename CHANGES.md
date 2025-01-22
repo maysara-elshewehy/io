@@ -26,20 +26,19 @@
 
       - **Deliverables:**  
 
-        > More than **50** _(total added functions for all following sections)_ read-only functions have been added to all sections (types and utilities).
+        > More than **50** _(total added functions for all sections)_ read-only functions have been added to all sections (types and utilities).
 
-        - **Utils:**
-          - `...`  
+- ## January 22, 2025  
 
-        - **Types:**
-          - `...`  
+    - ### `Phase 3` Insertion Functions _(Completed)_  
+        
+        > Add support for functions that allow inserting elements or data into the types.  
+
+      - **Deliverables:**  
+
+        > More than **50** _(total added functions for all sections)_ insertion functions have been added to all sections (types and utilities).
 
     - **Todo:**
-
-        - ### `Phase 3` Insertion Functions
-            
-            > Add support for functions that allow inserting elements or data into the types.  
-
 
         - ### `Phase 4` Deletion Functions
             

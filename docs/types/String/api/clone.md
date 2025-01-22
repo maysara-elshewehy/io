@@ -1,9 +1,9 @@
-# [←](../uString.md) `uString`.`writtenSlice`
+# [←](../String.md) `String`.`clone`
 
-> Returns a slice containing only the written part.
+> Returns a copy of the `String` instance. 
 
 ```zig
-pub fn writtenSlice(self: Self) []const u8 
+pub fn clone(self: Self) AllocatorError!Self
 ```
 
 
@@ -15,11 +15,17 @@ pub fn writtenSlice(self: Self) []const u8
 
     | Parameter | Type   | Description            |
     | --------- | ------ | ---------------------- |
-    | `self`    | `Self` | The `uString` instance. |
+    | `self`    | `Self` | The `String` instance. |
 
-- #### ✨ Returns : `[]const u8`
+- #### 🚫 Errors
+    
+    | Error            | Reason                           |
+    | ---------------- | -------------------------------- |
+    | `AllocatorError` | The allocator returned an error. |
 
-    > Returns a slice containing only the written part.
+- #### ✨ Returns : `Self`
+
+    > Creates and returns a new `String` instance that is a copy of the current `String` instance.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -29,13 +35,14 @@ pub fn writtenSlice(self: Self) []const u8
 
     ```zig
     const String = @import("io").types.String;
-    var string = try String.init(allocator, &[_]u8{ '1', 0, 0 });
-    defer string.deinit(allocator);
     ```
 
     ```zig
-    _ = string.writtenSlice();   // 👉 { '1' }
-    _ = string.allocatedSlice(); // 👉 { '1', 0, 0, 0xAA, 0xAA, 0xAA }
+    const string_one = try String.init(allocator, ".."); // 👉 size: 4, length: 2, written bytes: ".."
+    defer string_one.deinit();
+
+    const string_two = try string_one.clone();           // 👉 size: 4, length: 2, written bytes: ".."
+    defer string_two.deinit();
     ```
 
 <div align="center">
@@ -44,9 +51,7 @@ pub fn writtenSlice(self: Self) []const u8
 
 - ##### 🔗 Related
 
-  > [`uString.init`](./init.md)
-
-  > [`uString.allocatedSlice`](./allocatedSlice.md)
+  > [`String.init`](./init.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

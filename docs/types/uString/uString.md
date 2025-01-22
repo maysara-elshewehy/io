@@ -54,6 +54,19 @@
         | [`initCapacity`](./api/initCapacity.md) | Initializes a new `uString` instance using `allocator` and `size`.  |
         | [`deinit`](./api/deinit.md)             | Release all allocated memory.                                       |
 
+   - #### ➕ Insert
+
+        | Function                                      | Description                                                           |
+        | --------------------------------------------- | --------------------------------------------------------------------- |
+        | [`insert`](./api/insert.md)                   | Inserts a `slice` at the specified `position` by **real position**.   |
+        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` at the specified `position` by **real position**.    |
+        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` at the specified `position` by **visual position**. |
+        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` at the specified `position` by **visual position**.  |
+        | [`append`](./api/append.md)                   | Appends a `slice` into the `uString` instance.                        |
+        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into the `uString` instance.                         |
+        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into the `uString` instance.                       |
+        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into the `uString` instance.                        |
+
   - #### 🔍 Search
 
       | Method                                | Description                                                           |
@@ -93,7 +106,10 @@
         | ------------------------------------------- | --------------------------------------------------------------------- |
         | [`allocatedSlice`](./api/allocatedSlice.md) | Returns a slice representing the entire allocated memory range.       |
         | [`writtenSlice`](./api/writtenSlice.md)     | Returns a slice containing only the written part.                     |
+        | [`reverse`](./api/reverse.md)               | Reverses the order of the characters **_(considering unicode)_**.     |
+        | [`clone`](./api/clone.md)                   | Returns a copy of the `uString` instance.                             |
         | [`toManaged`](./api/toManaged.md)           | Converts the `uString` to a `String`, taking ownership of the memory. |
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

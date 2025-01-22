@@ -5,6 +5,7 @@
     const Bytes = @import("../../utils/bytes/bytes.zig");
 
     const Allocator = std.mem.Allocator;
+    const AllocatorError = Allocator.Error;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -41,6 +42,9 @@
 
         // ┌─────────────────────── Initialization ───────────────────────┐
 
+            pub const initCapacityError = AllocatorError    || error { ZeroSize };
+            pub const initError         = initCapacityError || error { InvalidValue };
+
             /// Initializes a new `String` instance with the given `allocator`.
             pub fn initAlloc(allocator: Allocator) Self {
                 return Self{ .allocator = allocator, };
@@ -52,10 +56,9 @@
                 if(size == 0) return initCapacityError.ZeroSize;
 
                 var self = Self.initAlloc(allocator);
-                try self.ensureTotalCapacityPrecise(size);
+                try self.ensureCapacity(size);
                 return self;
             }
-            pub const initCapacityError = Allocator.Error || error { ZeroSize };
 
             /// Initializes a new `String` instance with the given `allocator` and `value`.
             /// - `initError.InvalidValue` **_if the `value` is not valid utf8._**
@@ -65,16 +68,129 @@
                 if(!utf8.utils.isValid(value)) return initError.InvalidValue;
 
                 var self = try Self.initCapacity(alloator, value.len*2);
-                self.appendSliceAssumeCapacity(value);
+                Bytes.unsafeAppend(self.allocatedSlice(), value, 0);
                 self.length = Bytes.countWritten(value);
                 
                 return self;
             }
-            pub const initError = initCapacityError || error { InvalidValue };
 
             /// Release all allocated memory.
             pub fn deinit(self: Self) void {
                 self.allocator.free(self.allocatedSlice());
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌─────────────────────────── Insert ───────────────────────────┐
+
+            pub const insertError       = AllocatorError || Bytes.insertError       || error { InvalidValue };
+            pub const insertVisualError = AllocatorError || Bytes.insertVisualError || error { InvalidValue };
+            pub const appendError       = insertError;
+            pub const prependError      = appendError;
+
+            /// Inserts a `slice` into the `String` instance at the specified `position` by **real position**.
+            /// - `AllocatorError` **_if the `allocator` returned an error._**
+            /// - `insertError.InvalidValue` **_if the `slice` is invalid utf8._**
+            /// - `insertError.OutOfRange` **_if the `pos` is greater than `self.length`._**
+            /// 
+            /// Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
+            pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void {
+                if (slice.len == 0) return;
+                if (pos > self.length) return insertError.OutOfRange;
+                if(!utf8.utils.isValid(slice)) return appendError.InvalidValue;
+                try self.ensureCapacity(self.length + slice.len);
+                Bytes.unsafeInsert(self.allocatedSlice(), slice, self.length, pos);
+                self.length += slice.len;
+            }
+
+            /// Inserts a `byte` into the `String` instance at the specified `position` by **real position**.
+            /// - `insertError.InvalidValue` **_if the `byte` is invalid utf8._**
+            /// - `insertError.OutOfRange` **_if the `pos` is greater than `self.length`._**
+            /// 
+            /// Modifies the `String` instance in place.
+            pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void {
+                _ = utf8.utils.lengthOfStartByte(byte) catch return insertError.InvalidValue;
+                if (pos > self.length) return insertError.OutOfRange;
+                try self.ensureCapacity(self.length + 1);
+                Bytes.unsafeInsertOne(self.allocatedSlice(), byte, self.length, pos);
+                self.length += 1;
+            }
+
+            /// Inserts a `slice` into the `String` instance at the specified `position` by **visual position**.
+            /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `self.length`._**
+            /// - `insertVisualError.InvalidValue` **_if the `slice` is invalid utf8._**
+            /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
+            /// 
+            /// Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
+            pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualError!void {
+                if(!utf8.utils.isValid(slice)) return insertError.InvalidValue;
+                if (pos > self.length) return insertVisualError.OutOfRange;
+                const real_pos = utf8.utils.getRealPosition(self.writtenSlice(), pos) catch return insertVisualError.InvalidPosition;
+                try self.ensureCapacity(self.length + slice.len);
+                Bytes.unsafeInsert(self.allocatedSlice(), slice, self.length, real_pos);
+                self.length += slice.len;
+            }
+
+            /// Inserts a `byte` into the `String` instance at the specified `position` by **visual position**.
+            /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `self.length`._**
+            /// - `insertVisualError.InvalidValue` **_if the `byte` is invalid utf8._**
+            /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
+            /// 
+            /// Modifies the `String` instance in place.
+            pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void {
+                _ = utf8.utils.lengthOfStartByte(byte) catch return insertVisualError.InvalidValue;
+                if (pos > self.length) return insertVisualError.OutOfRange;
+                const real_pos = utf8.utils.getRealPosition(self.writtenSlice(), pos) catch return insertVisualError.InvalidPosition;
+                try self.ensureCapacity(self.length + 1);
+                Bytes.unsafeInsertOne(self.allocatedSlice(), byte, self.length, real_pos);
+                self.length += 1;
+            }
+
+            /// Appends a `slice` into the `String` instance.
+            /// - `insertError.InvalidValue` **_if the `slice` is invalid utf8._**
+            /// 
+            /// Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
+            pub fn append(self: *Self, slice: []const u8) appendError!void {
+                if (slice.len == 0) return;
+                if(!utf8.utils.isValid(slice)) return appendError.InvalidValue;
+                try self.ensureCapacity(self.length + slice.len);
+                Bytes.unsafeAppend(self.allocatedSlice(), slice, self.length);
+                self.length += slice.len;
+            }
+
+            /// Appends a `byte` into the `String` instance.
+            /// - `insertError.InvalidValue` **_if the `byte` is invalid utf8._**
+            /// 
+            /// Modifies the `String` instance in place.
+            pub fn appendOne(self: *Self, byte: u8) appendError!void {
+                _ = utf8.utils.lengthOfStartByte(byte) catch return appendError.InvalidValue;
+                try self.ensureCapacity(self.length + 1);
+                Bytes.unsafeAppendOne(self.allocatedSlice(), byte, self.length);
+                self.length += 1;
+            }
+
+            /// Prepends a `slice` into the `String` instance.
+            /// - `insertError.InvalidValue` **_if the `slice` is invalid utf8._**
+            /// 
+            /// Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
+            pub fn prepend(self: *Self, slice: []const u8) prependError!void {
+                if (slice.len == 0) return;
+                if(!utf8.utils.isValid(slice)) return appendError.InvalidValue;
+                try self.ensureCapacity(self.length + slice.len);
+                Bytes.unsafePrepend(self.allocatedSlice(), slice, self.length);
+                self.length += slice.len;
+            }
+
+            /// Prepends a `byte` into the `String` instance.
+            /// - `insertError.InvalidValue` **_if the `byte` is invalid utf8._**
+            /// 
+            /// Modifies the `String` instance in place.
+            pub fn prependOne(self: *Self, byte: u8) appendError!void {
+                _ = utf8.utils.lengthOfStartByte(byte) catch return appendError.InvalidValue;
+                try self.ensureCapacity(self.length + 1);
+                Bytes.unsafePrependOne(self.allocatedSlice(), byte, self.length);
+                self.length += 1;
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -172,13 +288,38 @@
         // ┌──────────────────────────── Utils ───────────────────────────┐
 
             /// Returns a slice representing the entire allocated memory range.
-            pub fn allocatedSlice(self: Self) []u8 {
+            pub inline fn allocatedSlice(self: Self) []u8 {
                 return self.source.ptr[0..self.capacity];
             }
 
             /// Returns a slice containing only the written part.
-            pub fn writtenSlice(self: Self) []const u8 {
+            pub inline fn writtenSlice(self: Self) []const u8 {
                 return if(self.length > 0 )self.source.ptr[0..self.length] else "";
+            }
+
+            /// Returns a copy of the `Buffer` instance. 
+            pub fn clone(self: Self) AllocatorError!Self {
+                var new_string = initAlloc(self.allocator);
+                try new_string.ensureCapacity(self.capacity);
+                Bytes.unsafeAppend(new_string.allocatedSlice(), self.writtenSlice(), 0);
+                new_string.length = self.length;
+                return new_string;
+            }
+
+            /// Reverses the order of the characters **_(considering unicode)_**.
+            pub fn reverse(self: *Self) AllocatorError!void {
+                if (self.length == 0) return;
+                const original_data = try self.clone();
+                defer original_data.deinit();
+
+                var utf8_iterator = utf8.Iterator.unsafeInit(original_data.writtenSlice());
+                var i: usize = self.length;
+                
+                while (utf8_iterator.nextGraphemeCluster()) |gc| {
+                    i -= gc.len;
+                    @memcpy(self.allocatedSlice()[i..i + gc.len], gc);
+                    if (i == 0) break; // to avoid underflow.
+                }
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -189,7 +330,7 @@
             /// If the current capacity is less than `new_capacity`, this function will
             /// modify the array so that it can hold exactly `new_capacity` bytes.
             /// Invalidates element pointers if additional memory is needed.
-            fn ensureTotalCapacityPrecise(self: *Self, new_capacity: usize) Allocator.Error!void {
+            fn ensureCapacity(self: *Self, new_capacity: usize) AllocatorError!void {
                 if (self.capacity >= new_capacity) return;
 
                 // Here we avoid copying allocated but unused bytes by
@@ -208,18 +349,6 @@
                     self.capacity = new_memory.len;
                 }
 
-            }
-
-            /// Append the slice of bytes to the list.
-            /// Never invalidates element pointers.
-            /// Asserts that the list can hold the additional bytes.
-            fn appendSliceAssumeCapacity(self: *Self, slice: []const u8) void {
-                const old_len = self.source.len;
-                const new_len = old_len + slice.len;
-                std.debug.assert(new_len <= self.capacity);
-                self.source.len = new_len;
-                self.length = new_len;
-                @memcpy(self.source[old_len..][0..slice.len], slice);
             }
 
         // └──────────────────────────────────────────────────────────────┘

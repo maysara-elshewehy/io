@@ -1,0 +1,97 @@
+# [←](../String.md) `String`.`insert`
+
+> Inserts a `slice` into the `String` instance at the specified `position` by **real position**.
+
+```zig
+pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void
+```
+
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+</div>
+
+- #### 🧩 Parameters
+
+    | Parameter | Type         | Description                |
+    | --------- | ------------ | -------------------------- |
+    | `self`    | `*Self`      | The `String` instance.     |
+    | `slice`   | `[]const u8` | The slice to insert.       |
+    | `pos`     | `usize`      | The position to insert at. |
+
+- #### 🚫 Errors
+    
+    | Error             | Reason                                         |
+    | ----------------- | ---------------------------------------------- |
+    | `AllocatorError` | The allocator returned an error.               |
+    | `InvalidValue`    | The `slice` contains invalid UTF-8 characters. |
+    | `OutOfRange`      | The `pos` is greater than `String` length.     |
+
+- #### ✨ Returns : `void`
+
+    > Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+</div>
+
+- #### 🧪 Examples
+
+    ```zig
+    const String = @import("io").types.String;
+    var string = try String.initCapacity(allocator, 18);
+    defer string.deinit();
+    ```
+
+    - ##### 🟢 Success Cases
+
+        ```zig
+        _ = try string.insert("H",   0); // 👉 "H"
+        _ = try string.insert("!",   1); // 👉 "H!"
+        _ = try string.insert("o",   1); // 👉 "Ho!"
+        _ = try string.insert("ell", 1); // 👉 "Hello!"
+        _ = try string.insert(" ",   5); // 👉 "Hello !"
+        _ = try string.insert("👨‍🏭",  6); // 👉 "Hello 👨‍🏭!"
+        ```
+
+    - ##### 🔴 Failure Cases
+        
+        > **_InvalidValue._**
+
+        ```zig
+        _ = try string.insert("\x80", 0); // 👉 error.InvalidValue
+        ```
+
+        > **_OutOfRange._**
+
+        ```zig
+        _ = try string.insert("@", 99); // 👉 error.OutOfRange
+        ```
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+</div>
+
+- ##### 🔗 Related
+
+  > [`String.initCapacity`](./initCapacity.md)
+
+  > [`String.insertOne`](./insertOne.md)
+
+  > [`String.insertVisual`](./insertVisual.md)
+
+  > [`String.insertVisualOne`](./insertVisualOne.md)
+
+  > [`String.append`](./append.md)
+
+  > [`String.appendOne`](./appendOne.md)
+
+  > [`String.prepend`](./prepend.md)
+
+  > [`String.prependOne`](./prependOne.md)
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+</div>
+
+<p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

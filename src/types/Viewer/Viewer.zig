@@ -104,7 +104,7 @@
                 // why Unchecked version ?
                 // because we already checked the validity of the input bytes
                 // when we initialized this instance of the `Viewer` struct.
-                return utf8.Iterator.initUnchecked(self.source);
+                return utf8.Iterator.unsafeInit(self.source);
             }
 
         // └──────────────────────────────────────────────────────────────┘

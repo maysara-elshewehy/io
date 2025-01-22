@@ -9,6 +9,11 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
+    // All the functions here are designed to be used internally across a lot of other modules and its functions,
+    // so most of the functions here are `inline` as expected and required,
+    // and this module can be considered internal only, so to speak.
+    // I have reasons for this that may not be obvious in the current form of the project.
+
     // ┌─────────────────────── Initialization ───────────────────────┐
 
         /// Initializes an array of bytes of a given `size` and `value`,
@@ -19,6 +24,9 @@
             if(size == 0 or value.len == 0) return initError.ZeroSize;
             if(value.len > size) return initError.OutOfRange;
 
+            return unsafeInit(size, value);
+        }
+        pub inline fn unsafeInit(comptime size: usize, value: []const u8) [size]u8 {
             var result: [size]u8 = undefined;
             @memcpy(result[0..value.len], value[0..value.len]);
 
@@ -31,9 +39,131 @@
         /// Initializes an array of bytes of a given `size`, filled with null bytes.
         /// - `initCapacityError.ZeroSize` **_if the `size` is `0`._**
         pub fn initCapacity(comptime array_size: usize) initCapacityError![array_size]u8 {
-            return if(array_size == 0) initCapacityError.ZeroSize else .{0} ** array_size;
+            return if(array_size == 0) initCapacityError.ZeroSize else unsafeInitCapacity(array_size);
+        }
+        pub inline fn unsafeInitCapacity(comptime array_size: usize) [array_size]u8 {
+            return .{0} ** array_size;
         }
         pub const initCapacityError = error { ZeroSize };
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌─────────────────────────── Insert ───────────────────────────┐
+
+        pub const insertError = error { OutOfRange };
+        pub const insertVisualError = insertError || error { InvalidPosition };
+        pub const appendError = insertError;
+        pub const prependError = appendError;
+
+        /// Inserts a `slice` into `destination` at the specified `position` by **real position**.
+        /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
+        /// - `insertError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
+        /// 
+        /// Modifies `dest` in place **_if `slice` length is greater than 0_.**
+        pub inline fn insert(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) insertError!void {
+
+            if (slice.len == 0) return;
+            if (pos > dest_wlen) return insertError.OutOfRange;
+            if (dest_wlen+slice.len > dest.len) return insertError.OutOfRange;
+
+            unsafeInsert(dest, slice, dest_wlen, pos);
+        }
+        pub inline fn unsafeInsert(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) void {
+            const shiftLen = slice.len;
+            std.mem.copyBackwards(u8, dest[pos + shiftLen..], dest[pos..dest_wlen]);
+            @memcpy(dest[pos..pos + shiftLen], slice);
+        }
+
+        /// Inserts a `byte` into `destination` at the specified `position` by **real position**.
+        /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
+        /// - `insertError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
+        /// 
+        /// Modifies `dest` in place.
+        pub inline fn insertOne(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) insertError!void {
+            if (pos > dest_wlen) return insertError.OutOfRange;
+            if (dest_wlen+1 > dest.len) return insertError.OutOfRange;
+
+            unsafeInsertOne(dest, byte, dest_wlen, pos);
+        }
+        pub inline fn unsafeInsertOne(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) void {
+            std.mem.copyBackwards(u8, dest[pos+1..], dest[pos..dest_wlen]);
+            dest[pos] = byte;
+        }
+
+        /// Inserts a `slice` into `destination` at the specified `position` by **visual position**.
+        /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
+        /// - `insertVisualError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
+        /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
+        /// 
+        /// Modifies `dest` in place **_if `slice` length is greater than 0_.**
+        pub inline fn insertVisual(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) insertVisualError!void {
+            const real_pos = utf8.utils.getRealPosition(dest[0..dest_wlen], pos) catch return insertVisualError.InvalidPosition;
+            return insert(dest, slice, dest_wlen, real_pos);
+        }
+
+        /// Inserts a `byte` into `destination` at the specified `position` by **visual position**.
+        /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
+        /// - `insertVisualError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
+        /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
+        /// 
+        /// Modifies `dest` in place.
+        pub inline fn insertVisualOne(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) insertVisualError!void {
+            const real_pos = utf8.utils.getRealPosition(dest[0..dest_wlen], pos) catch return insertVisualError.InvalidPosition;
+            return insertOne(dest, byte, dest_wlen, real_pos);
+        }
+
+        /// Appends a `slice` into `dest`.
+        /// - Returns `appendError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
+        /// 
+        /// Modifies `dest` in place **_if `slice` length is greater than 0_.**
+        pub inline fn append(dest: []u8, slice: []const u8, dest_wlen: usize) appendError!void {
+            if (slice.len == 0) return;
+            if (dest_wlen+slice.len > dest.len) return insertError.OutOfRange;
+
+            unsafeAppend(dest, slice, dest_wlen);
+        }
+        pub inline fn unsafeAppend(dest: []u8, slice: []const u8, dest_wlen: usize) void {
+            const old_len = dest_wlen;
+            const new_len = old_len + slice.len;
+            std.debug.assert(new_len <= dest.len);
+            @memcpy(dest[old_len..new_len], slice);
+        }
+
+        /// Appends a `byte` into `dest`.
+        /// - Returns `appendError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
+        /// 
+        /// Modifies `dest` in place.
+        pub inline fn appendOne(dest: []u8, byte: u8, dest_wlen: usize) appendError!void {
+            if (dest_wlen+1 > dest.len) return insertError.OutOfRange;
+
+            unsafeAppendOne(dest, byte, dest_wlen);
+        }
+        pub inline fn unsafeAppendOne(dest: []u8, byte: u8, dest_wlen: usize) void {
+            dest[dest_wlen] = byte;
+        }
+
+        /// Prepends a `slice` into `dest`.
+        /// - Returns `prependError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
+        /// 
+        /// Modifies `dest` in place **_if `slice` length is greater than 0_.**
+        pub inline fn prepend(dest: []u8, slice: []const u8, dest_wlen: usize) prependError!void {
+            try insert(dest, slice, dest_wlen, 0);
+        }
+        pub inline fn unsafePrepend(dest: []u8, slice: []const u8, dest_wlen: usize) void {
+            unsafeInsert(dest, slice, dest_wlen, 0);
+        }
+
+        /// Prepends a `byte` into `dest`.
+        /// - Returns `prependError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
+        /// 
+        /// Modifies `dest` in place.
+        pub inline fn prependOne(dest: []u8, byte: u8, dest_wlen: usize) prependError!void {
+            try insertOne(dest, byte, dest_wlen, 0);
+        }
+        pub inline fn unsafePrependOne(dest: []u8, byte: u8, dest_wlen: usize) void {
+            unsafeInsertOne(dest, byte, dest_wlen, 0);
+        }
 
     // └──────────────────────────────────────────────────────────────┘
 
@@ -41,41 +171,41 @@
     // ┌──────────────────────────── Find ────────────────────────────┐
 
         /// Finds the **real position** of the **first** occurrence of `value`. 
-        pub fn find(dest: []const u8, target: []const u8) ?usize {
+        pub inline fn find(dest: []const u8, target: []const u8) ?usize {
             return std.mem.indexOf(u8, dest, target);
         }
 
         /// Finds the **visual position** of the **first** occurrence of `value`.
-        pub fn findVisual(dest: []const u8, target: []const u8) !?usize {
+        pub inline fn findVisual(dest: []const u8, target: []const u8) !?usize {
             if(find(dest, target)) |pos| return utf8.utils.getVisualPosition(dest, pos) catch null;
             return null;
         }
 
         /// Finds the **real position** of the **last** occurrence of `value`.
-        pub fn rfind(dest: []const u8, target: []const u8) ?usize {
+        pub inline fn rfind(dest: []const u8, target: []const u8) ?usize {
             return std.mem.lastIndexOf(u8, dest, target);
         }
 
         /// Finds the **visual position** of the **last** occurrence of `value`.
-        pub fn rfindVisual(dest: []const u8, target: []const u8) ?usize {
+        pub inline fn rfindVisual(dest: []const u8, target: []const u8) ?usize {
             if(rfind(dest, target)) |pos| return utf8.utils.getVisualPosition(dest, pos) catch null;
             return null;
         }
 
         /// Returns `true` **if `dest` contains `target`**.
-        pub fn includes(dest: []const u8, target: []const u8) bool {
+        pub inline fn includes(dest: []const u8, target: []const u8) bool {
             if(find(dest, target)) |_| { return true; }
             return false;
         }
 
         /// Returns `true` **if `dest` starts with `target`**.
-        pub fn startsWith(dest: []const u8, target: []const u8) bool {
+        pub inline fn startsWith(dest: []const u8, target: []const u8) bool {
             const i = std.mem.indexOf(u8, dest[0..dest.len], target);
             return i == 0;
         }
 
         /// Returns `true` **if `dest` ends with `target`**.
-        pub fn endsWith(dest: []const u8, target: []const u8) bool {
+        pub inline fn endsWith(dest: []const u8, target: []const u8) bool {
             const i = std.mem.lastIndexOf(u8, dest[0..dest.len], target);
             return i == (dest.len-target.len);
         }
@@ -86,7 +216,7 @@
     // ┌──────────────────────────── Case ────────────────────────────┐
 
         /// Converts all (ASCII) letters to lowercase.
-        pub fn toLower(value: []u8) void {
+        pub inline fn toLower(value: []u8) void {
             var i: usize = 0;
             while (i < value.len) {
                 const first_byte_size = std.unicode.utf8ByteSequenceLength(value[i]) catch 1;
@@ -96,7 +226,7 @@
         }
 
         /// Converts all (ASCII) letters to uppercase.
-        pub fn toUpper(value: []u8) void {
+        pub inline fn toUpper(value: []u8) void {
             var i: usize = 0;
             while (i < value.len) {
                 const first_byte_size = std.unicode.utf8ByteSequenceLength(value[i]) catch 1;
@@ -106,7 +236,7 @@
         }
 
         // Converts all (ASCII) letters to titlecase.
-        pub fn toTitle(value: []u8) void {
+        pub inline fn toTitle(value: []u8) void {
             if (value.len == 0) return;
 
             var i: usize = 0;
@@ -169,14 +299,14 @@
     // ┌──────────────────────────── Count ───────────────────────────┐
 
         /// Returns the total number of written bytes, stopping at the first null byte.
-        pub fn countWritten(value: []const u8) usize {
+        pub inline fn countWritten(value: []const u8) usize {
             for(0..value.len) |i| if(value[i] == 0) return i;
             return value.len;
         }
 
         /// Returns the total number of visual characters, stopping at the first null byte.
         /// - `countVisualError.InvalidValue` **_if the `value` is not a valid utf-8 format._**
-        pub fn countVisual(value: []const u8) countVisualError!usize {
+        pub inline fn countVisual(value: []const u8) countVisualError!usize {
             const len = countWritten(value);
             var count : usize = 0;
             var i : usize = 0;
@@ -194,20 +324,14 @@
     // ┌──────────────────────────── Utils ───────────────────────────┐
 
         /// Returns a slice containing only the written part.
-        pub fn writtenSlice(value: []const u8) []const u8 {
+        pub inline fn writtenSlice(value: []const u8) []const u8 {
             return value[0..countWritten(value)];
         }
 
-        /// Converts the given value to an array of bytes.
-        /// - `toBytesError.InvalidValue` **_if the value is invalid._**
-        /// 
-        /// TODO: remove it.
-        pub inline fn toBytes(value: anytype) toBytesError![]const u8 {
-            if(isByte(value)) { return &[_]u8 {value}; }
-            else if(isBytes(value)) { return value[0..]; }
-            else return toBytesError.InvalidValue;
+        /// Reverses the order of the bytes.
+        pub inline fn reverse(value: []u8) void {
+            std.mem.reverse(u8, value);
         }
-        pub const toBytesError = error { InvalidValue };
 
     // └──────────────────────────────────────────────────────────────┘
     

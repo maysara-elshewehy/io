@@ -45,6 +45,19 @@
         | [`init`](./api/init.md)                 | Initializes an array of bytes of a given `size` and `value`. |
         | [`initCapacity`](./api/initCapacity.md) | Initializes an array of bytes of a given `size`.             |
 
+   - #### ➕ Insert
+
+        | Function                                      | Description                                                                              |
+        | --------------------------------------------- | ---------------------------------------------------------------------------------------- |
+        | [`insert`](./api/insert.md)                   | Inserts a `slice` into `destination` at the specified `position` by **real position**.   |
+        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` into `destination` at the specified `position` by **real position**.    |
+        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` into `destination` at the specified `position` by **visual position**. |
+        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` into `destination` at the specified `position` by **visual position**.  |
+        | [`append`](./api/append.md)                   | Appends a `slice` into `dest`.                                                           |
+        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into `dest`.                                                            |
+        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into `dest`.                                                          |
+        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into `dest`.                                                           |
+
    - #### 🔍 Search
 
         | Method                                | Description                                                           |
@@ -84,7 +97,7 @@
         | Function                                | Description                                       |
         | --------------------------------------- | ------------------------------------------------- |
         | [`writtenSlice`](./api/writtenSlice.md) | Returns a slice containing only the written part. |
-        | [`toBytes`](./api/tobytes.md)           | Converts the given value to an array of bytes.    |
+        | [`reverse`](./api/reverse.md)           | Reverses the order of the bytes.                  |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

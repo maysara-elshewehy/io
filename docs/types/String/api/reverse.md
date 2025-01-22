@@ -1,9 +1,9 @@
-# [←](../uString.md) `uString`.`writtenSlice`
+# [←](../String.md) `String`.`reverse`
 
-> Returns a slice containing only the written part.
+> Reverses the order of the characters **_(considering unicode)_**.
 
 ```zig
-pub fn writtenSlice(self: Self) []const u8 
+pub inline fn reverse(self: *Self) AllocatorError!void
 ```
 
 
@@ -13,13 +13,19 @@ pub fn writtenSlice(self: Self) []const u8
 
 - #### 🧩 Parameters
 
-    | Parameter | Type   | Description            |
-    | --------- | ------ | ---------------------- |
-    | `self`    | `Self` | The `uString` instance. |
+    | Parameter | Type    | Description            |
+    | --------- | ------- | ---------------------- |
+    | `self`    | `*Self` | The `String` instance. |
 
-- #### ✨ Returns : `[]const u8`
+- #### 🚫 Errors
+    
+    | Error            | Reason                           |
+    | ---------------- | -------------------------------- |
+    | `AllocatorError` | The allocator returned an error. |
 
-    > Returns a slice containing only the written part.
+- #### ✨ Returns : `void`
+
+    > Modifies the `String` instance in place.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -29,13 +35,12 @@ pub fn writtenSlice(self: Self) []const u8
 
     ```zig
     const String = @import("io").types.String;
-    var string = try String.init(allocator, &[_]u8{ '1', 0, 0 });
-    defer string.deinit(allocator);
+    var string = try String.init(allocator, "Hello 👨‍🏭!");
+    defer string.deinit();
     ```
 
     ```zig
-    _ = string.writtenSlice();   // 👉 { '1' }
-    _ = string.allocatedSlice(); // 👉 { '1', 0, 0, 0xAA, 0xAA, 0xAA }
+    try string.reverse(); // 👉 "ّ!👨‍🏭 olleH"
     ```
 
 <div align="center">
@@ -44,9 +49,7 @@ pub fn writtenSlice(self: Self) []const u8
 
 - ##### 🔗 Related
 
-  > [`uString.init`](./init.md)
-
-  > [`uString.allocatedSlice`](./allocatedSlice.md)
+  > [`String.init`](./init.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

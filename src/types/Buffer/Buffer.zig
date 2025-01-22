@@ -1,5 +1,6 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
+    const std = @import("std");
     const utf8 = @import("../../utils/utf8/utf8.zig");
     const Bytes = @import("../../utils/bytes/bytes.zig");
 
@@ -27,6 +28,110 @@
 
                 /// The number of written bytes to `source`.
                 length: usize = 0,
+
+            // └──────────────────────────────────────────────────────────────┘
+
+
+            // ┌─────────────────────────── Insert ───────────────────────────┐
+
+                pub const insertError       = Bytes.insertError || error { InvalidValue };
+                pub const insertVisualError = Bytes.insertVisualError || error { InvalidValue };
+                pub const appendError       = insertError;
+                pub const prependError      = appendError;
+
+                /// Inserts a `slice` into the `Buffer` instance at the specified `position` by **real position**.
+                /// - `insertError.InvalidValue` **_if the `slice` is invalid utf8._**
+                /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
+                /// - `insertError.OutOfRange` **_if the `pos` is greater than `self.length`._**
+                /// 
+                /// Modifies the `Buffer` instance in place **_if `slice` length is greater than 0_.**
+                pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void {
+                    if(!utf8.utils.isValid(slice)) return insertError.InvalidValue;
+                    try Bytes.insert(&self.source, slice, self.length, pos);
+                    self.length += slice.len;
+                }
+
+                /// Inserts a `byte` into the `Buffer` instance at the specified `position` by **real position**.
+                /// - `insertError.InvalidValue` **_if the `byte` is invalid utf8._**
+                /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
+                /// - `insertError.OutOfRange` **_if the `pos` is greater than `self.length`._**
+                /// 
+                /// Modifies the `Buffer` instance in place.
+                pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void {
+                    _ = utf8.utils.lengthOfStartByte(byte) catch return insertError.InvalidValue;
+                    try Bytes.insertOne(&self.source, byte, self.length, pos);
+                    self.length += 1;
+                }
+
+                /// Inserts a `slice` into the `Buffer` instance at the specified `position` by **visual position**.
+                /// - `insertVisualError.InvalidValue` **_if the `slice` is invalid utf8._**
+                /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
+                /// - `insertVisualError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
+                /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `self.length`._**
+                /// 
+                /// Modifies the `Buffer` instance in place **_if `slice` length is greater than 0_.**
+                pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualError!void {
+                    if(!utf8.utils.isValid(slice)) return insertVisualError.InvalidValue;
+                    try Bytes.insertVisual(&self.source, slice, self.length, pos);
+                    self.length += slice.len;
+                }
+
+                /// Inserts a `byte` into the `Buffer` instance at the specified `position` by **visual position**.
+                /// - `insertVisualError.InvalidValue` **_if the `byte` is invalid utf8._**
+                /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
+                /// - `insertVisualError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
+                /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `self.length`._**
+                /// 
+                /// Modifies the `Buffer` instance in place.
+                pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void {
+                    _ = utf8.utils.lengthOfStartByte(byte) catch return insertVisualError.InvalidValue;
+                    try Bytes.insertVisualOne(&self.source, byte, self.length, pos);
+                    self.length += 1;
+                }
+
+                /// Appends a `slice` into the `Buffer` instance.
+                /// - `insertError.InvalidValue` **_if the `slice` is invalid utf8._**
+                /// - Returns `appendError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
+                /// 
+                /// Modifies the `Buffer` instance in place **_if `slice` length is greater than 0_.**
+                pub fn append(self: *Self, slice: []const u8) appendError!void {
+                    if(!utf8.utils.isValid(slice)) return appendError.InvalidValue;
+                    try Bytes.append(&self.source, slice, self.length);
+                    self.length += slice.len;
+                }
+
+                /// Appends a `byte` into the `Buffer` instance.
+                /// - `insertError.InvalidValue` **_if the `byte` is invalid utf8._**
+                /// - Returns `appendError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
+                /// 
+                /// Modifies the `Buffer` instance in place.
+                pub fn appendOne(self: *Self, byte: u8) appendError!void {
+                    _ = utf8.utils.lengthOfStartByte(byte) catch return appendError.InvalidValue;
+                    try Bytes.appendOne(&self.source, byte, self.length);
+                    self.length += 1;
+                }
+
+                /// Prepends a `slice` into the `Buffer` instance.
+                /// - `insertError.InvalidValue` **_if the `slice` is invalid utf8._**
+                /// - Returns `prependError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
+                /// 
+                /// Modifies the `Buffer` instance in place **_if `slice` length is greater than 0_.**
+                pub fn prepend(self: *Self, slice: []const u8) prependError!void {
+                    if(!utf8.utils.isValid(slice)) return prependError.InvalidValue;
+                    try Bytes.prepend(&self.source, slice, self.length);
+                    self.length += slice.len;
+                }
+
+                /// Prepends a `byte` into the `Buffer` instance.
+                /// - `insertError.InvalidValue` **_if the `byte` is invalid utf8._**
+                /// - Returns `prependError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
+                /// 
+                /// Modifies the `Buffer` instance in place.
+                pub fn prependOne(self: *Self, byte: u8) prependError!void {
+                    _ = utf8.utils.lengthOfStartByte(byte) catch return prependError.InvalidValue;
+                    try Bytes.prependOne(&self.source, byte, self.length);
+                    self.length += 1;
+                }
 
             // └──────────────────────────────────────────────────────────────┘
 
@@ -104,7 +209,7 @@
                 }
 
             // └──────────────────────────────────────────────────────────────┘
-
+            
 
             // ┌────────────────────────── Iterator ──────────────────────────┐
 
@@ -112,6 +217,33 @@
                 /// - `utf8.Iterator.Error` **_if the initialization failed._**
                 pub fn iterator(self: Self) utf8.Iterator.Error!utf8.Iterator {
                     return try utf8.Iterator.init(self.source[0..self.length]);
+                }
+
+            // └──────────────────────────────────────────────────────────────┘
+
+
+            // ┌──────────────────────────── Utils ───────────────────────────┐
+
+                /// Returns a copy of the `Buffer` instance. 
+                pub fn clone(self: Self) Self {
+                    return .{
+                        .source = Bytes.unsafeInit(array_size, self.source[0..self.length]),
+                        .length = self.length
+                    };
+                }
+
+                /// Reverses the order of the characters **_(considering unicode)_**.
+                pub fn reverse(self: *Self) void {
+                    if (self.length == 0) return;
+                    const original_data = self.clone();
+                    var utf8_iterator = utf8.Iterator.unsafeInit(original_data.source[0..original_data.length]);
+                    var i: usize = self.length;
+                    
+                    while (utf8_iterator.nextGraphemeCluster()) |gc| {
+                        i -= gc.len;
+                        @memcpy(self.source[i..i + gc.len], gc);
+                        if (i == 0) break; // to avoid underflow.
+                    }
                 }
 
             // └──────────────────────────────────────────────────────────────┘
@@ -125,6 +257,9 @@
 
 // ╔══════════════════════════════════════ MAKE ══════════════════════════════════════╗
 
+    pub const initError = error { InvalidValue } || Bytes.initError;
+    pub const initCapacityError = Bytes.initCapacityError;
+
     /// Initializes a `Buffer` of a pre-specified `size`.
     /// - `initCapacityError.ZeroSize` _if the `size` is 0._
     pub fn initCapacity(comptime size: usize) initCapacityError!Buffer(size) {
@@ -133,7 +268,6 @@
             .length = 0
         };
     }
-    pub const initCapacityError = Bytes.initCapacityError;
 
     /// Initializes a `Buffer` of a pre-specified `size` and `value`.
     /// - `initError.InvalidValue` **_if the `value` is not valid utf8._**
@@ -147,6 +281,5 @@
             .length = Bytes.countWritten(value)
         };
     }
-    pub const initError = error { InvalidValue } || Bytes.initError;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

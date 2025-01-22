@@ -42,11 +42,11 @@
         /// Returns `Error.InvalidValue` **_if the `input_bytes` is not a valid utf8._**
         pub fn init(input_bytes: []const u8) Error!Self {
             if(!std.unicode.utf8ValidateSlice(input_bytes)) return Error.InvalidValue;
-            return initUnchecked(input_bytes);
+            return unsafeInit(input_bytes);
         }
 
         /// Initializes a Iterator with the given input bytes.
-        pub fn initUnchecked(input_bytes: []const u8) Self {
+        pub fn unsafeInit(input_bytes: []const u8) Self {
             return .{ .input_bytes = input_bytes, .current_index = 0, };
         }
 

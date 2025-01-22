@@ -1,9 +1,9 @@
-# [←](../uString.md) `uString`.`writtenSlice`
+# [←](../bytes.md) `bytes`.`reverse`
 
-> Returns a slice containing only the written part.
+> Reverses the order of the bytes.
 
 ```zig
-pub fn writtenSlice(self: Self) []const u8 
+pub inline fn reverse(value: []u8) void
 ```
 
 
@@ -13,13 +13,13 @@ pub fn writtenSlice(self: Self) []const u8
 
 - #### 🧩 Parameters
 
-    | Parameter | Type   | Description            |
-    | --------- | ------ | ---------------------- |
-    | `self`    | `Self` | The `uString` instance. |
+    | Parameter | Type   | Description                 |
+    | --------- | ------ | --------------------------- |
+    | `value`    | `[]u8` | The value to reverse. |
 
-- #### ✨ Returns : `[]const u8`
+- #### ✨ Returns : `void`
 
-    > Returns a slice containing only the written part.
+    > Modifies `value` in place.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -28,14 +28,12 @@ pub fn writtenSlice(self: Self) []const u8
 - #### 🧪 Examples
 
     ```zig
-    const String = @import("io").types.String;
-    var string = try String.init(allocator, &[_]u8{ '1', 0, 0 });
-    defer string.deinit(allocator);
+    const Bytes = @import("io").utils.bytes;
+    var array = try Bytes.init(5, "Hello");
     ```
 
     ```zig
-    _ = string.writtenSlice();   // 👉 { '1' }
-    _ = string.allocatedSlice(); // 👉 { '1', 0, 0, 0xAA, 0xAA, 0xAA }
+    Bytes.reverse(array[0..5]); // 👉 "olleH"
     ```
 
 <div align="center">
@@ -44,9 +42,7 @@ pub fn writtenSlice(self: Self) []const u8
 
 - ##### 🔗 Related
 
-  > [`uString.init`](./init.md)
-
-  > [`uString.allocatedSlice`](./allocatedSlice.md)
+  > [`Bytes.init`](./init.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

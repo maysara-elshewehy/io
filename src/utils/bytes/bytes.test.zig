@@ -17,7 +17,7 @@
 
     // ┌─────────────────────── Initialization ───────────────────────┐
 
-        test"initCapacity" {
+        test "initCapacity" {
             // Success Cases.
             {
                 const array = try Bytes.initCapacity(1);
@@ -34,7 +34,7 @@
             try expectError(error.ZeroSize, Bytes.initCapacity(0)); // Invalid size.
         }
 
-        test"init" {
+        test "init" {
             // Success Cases.
             {
                 // Array of bytes.
@@ -51,6 +51,205 @@
             // Failure cases.
             try expectError(error.ZeroSize, Bytes.init(0, ""));       // Invalid size
             try expectError(error.OutOfRange, Bytes.init(1, "AB"));   // Out of range
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌─────────────────────────── Insert ───────────────────────────┐
+
+        test "insert" {
+            var array = try Bytes.initCapacity(18);
+            const Cases = struct { value: []const u8, expected: []const u8, pos: usize };
+            const cases = &[_]Cases{
+                .{ .value  = "H",   .expected = "H", .pos=0 },
+                .{ .value  = "!",   .expected = "H!", .pos=1 },
+                .{ .value  = "o",   .expected = "Ho!", .pos=1 },
+                .{ .value  = "ell", .expected = "Hello!", .pos=1 },
+                .{ .value  = " ",   .expected = "Hello !", .pos=5 },
+                .{ .value  = "👨‍🏭",  .expected = "Hello 👨‍🏭!", .pos=6 },
+                .{ .value  = "",    .expected = "Hello 👨‍🏭!", .pos=2 },
+            };
+
+            var prev_len : usize = 0;
+            for(cases) |c| {
+                try Bytes.insert(&array, c.value, prev_len, c.pos);
+                try expectStrings(c.expected, array[0..c.expected.len]);
+                prev_len += c.value.len;
+            }
+
+            // Failure Cases.
+            try expectError(error.OutOfRange, Bytes.insert(&array, "@", prev_len, 17));
+        }
+
+        test "insertOne" {
+            var array = try Bytes.initCapacity(7);
+            const Cases = struct { value: u8, expected: []const u8, pos: usize };
+            const cases = &[_]Cases{
+                .{ .value  = 'H', .expected = "H", .pos=0 },
+                .{ .value  = '!', .expected = "H!", .pos=1 },
+                .{ .value  = 'o', .expected = "Ho!", .pos=1 },
+                .{ .value  = 'l', .expected = "Hlo!", .pos=1 },
+                .{ .value  = 'e', .expected = "Helo!", .pos=1 },
+                .{ .value  = 'l', .expected = "Hello!", .pos=2 },
+                .{ .value  = ' ', .expected = "Hello !", .pos=5 },
+            };
+
+            var prev_len : usize = 0;
+            for(cases) |c| {
+                try Bytes.insertOne(&array, c.value, prev_len, c.pos);
+                try expectStrings(c.expected, array[0..c.expected.len]);
+                prev_len += 1;
+            }
+
+            // Failure Cases.
+            try expectError(error.OutOfRange, Bytes.insertOne(&array, '@', 0, 6));
+        }
+
+        test "insertVisual" {
+            var array = try Bytes.initCapacity(18);
+            const Cases = struct { value: []const u8, expected: []const u8, pos: usize };
+            const cases = &[_]Cases{
+                .{ .value  = "H", .expected = "H", .pos=0 },
+                .{ .value  = "👨‍🏭", .expected = "H👨‍🏭", .pos=1 },
+                .{ .value  = "o", .expected = "Ho👨‍🏭", .pos=1 },
+                .{ .value  = "ell", .expected = "Hello👨‍🏭", .pos=1 },
+                .{ .value  = " ", .expected = "Hello 👨‍🏭", .pos=5 },
+                .{ .value  = "!", .expected = "Hello 👨‍🏭!", .pos=7 },
+                .{ .value  = "", .expected = "Hello 👨‍🏭!", .pos=2 },
+            };
+
+            var prev_len : usize = 0;
+            for(cases) |c| {
+                try Bytes.insertVisual(&array, c.value, prev_len, c.pos);
+                try expectStrings(c.expected, array[0..c.expected.len]);
+                prev_len += c.value.len;
+            }
+
+            // Failure Cases.
+            try expectError(error.OutOfRange, Bytes.insertVisual(&array, "@", prev_len, 17));
+            try expectError(error.InvalidPosition, Bytes.insertVisual(&array, "@", prev_len, 99));
+        }
+
+        test "insertVisualOne" {
+            var array = try Bytes.init(18, "👨‍🏭");
+            const Cases = struct { value: u8, expected: []const u8, pos: usize };
+            const cases = &[_]Cases{
+                .{ .value  = 'H', .expected = "👨‍🏭H", .pos=1 },
+                .{ .value  = '!', .expected = "👨‍🏭H!", .pos=2 },
+                .{ .value  = 'o', .expected = "👨‍🏭Ho!", .pos=2 },
+                .{ .value  = 'l', .expected = "👨‍🏭Hlo!", .pos=2 },
+                .{ .value  = 'e', .expected = "👨‍🏭Helo!", .pos=2 },
+                .{ .value  = 'l', .expected = "👨‍🏭Hello!", .pos=3 },
+                .{ .value  = ' ', .expected = "👨‍🏭Hello !", .pos=6 },
+            };
+
+            var prev_len : usize = 11;
+            for(cases) |c| {
+                try Bytes.insertVisualOne(&array, c.value, prev_len, c.pos);
+                try expectStrings(c.expected, array[0..c.expected.len]);
+                prev_len += 1;
+            }
+
+            // Failure Cases.
+            try expectError(error.OutOfRange, Bytes.insertVisualOne(&array, '@', prev_len, 6));
+            try expectError(error.InvalidPosition, Bytes.insertVisualOne(&array, '@', prev_len, 99));
+        }
+
+        test "append" {
+            var array = try Bytes.initCapacity(18);
+            const Cases = struct { value: []const u8, expected: []const u8 };
+            const cases = &[_]Cases{
+                .{ .value  = "H",   .expected = "H" },
+                .{ .value  = "e",   .expected = "He" },
+                .{ .value  = "llo", .expected = "Hello" },
+                .{ .value  = " ",   .expected = "Hello " },
+                .{ .value  = "👨‍🏭",  .expected = "Hello 👨‍🏭" },
+                .{ .value  = "!",   .expected = "Hello 👨‍🏭!" },
+                .{ .value  = "",    .expected = "Hello 👨‍🏭!" },
+            };
+
+            var prev_len : usize = 0;
+            for(cases) |c| {
+                try Bytes.append(&array, c.value, prev_len);
+                try expectStrings(c.expected, array[0..c.expected.len]);
+                prev_len += c.value.len;
+            }
+
+            // Failure Cases.
+            try expectError(error.OutOfRange, Bytes.append(&array, "@", prev_len));
+        }
+
+        test "appendOne" {
+            var array = try Bytes.initCapacity(7);
+            const Cases = struct { value: u8, expected: []const u8 };
+            const cases = &[_]Cases{
+                .{ .value  = 'H', .expected = "H" },
+                .{ .value  = 'e', .expected = "He" },
+                .{ .value  = 'l', .expected = "Hel" },
+                .{ .value  = 'l', .expected = "Hell" },
+                .{ .value  = 'o', .expected = "Hello" },
+                .{ .value  = ' ', .expected = "Hello " },
+                .{ .value  = '!', .expected = "Hello !" },
+            };
+
+            var prev_len : usize = 0;
+            for(cases) |c| {
+                try Bytes.appendOne(&array, c.value, prev_len);
+                try expectStrings(c.expected, array[0..c.expected.len]);
+                prev_len += 1;
+            }
+
+            // Failure Cases.
+            try expectError(error.OutOfRange, Bytes.appendOne(&array, '@', prev_len));
+        }
+
+        test "prepend" {
+            var array = try Bytes.initCapacity(18);
+            const Cases = struct { value: []const u8, expected: []const u8 };
+            const cases = &[_]Cases{
+                .{ .value  = "H",   .expected = "H" },
+                .{ .value  = "e",   .expected = "eH" },
+                .{ .value  = "oll", .expected = "olleH" },
+                .{ .value  = " ",   .expected = " olleH" },
+                .{ .value  = "👨‍🏭",  .expected = "👨‍🏭 olleH" },
+                .{ .value  = "!",   .expected = "!👨‍🏭 olleH" },
+                .{ .value  = "",    .expected = "!👨‍🏭 olleH" },
+            };
+
+            var prev_len : usize = 0;
+            for(cases) |c| {
+                try Bytes.prepend(&array, c.value, prev_len);
+                try expectStrings(c.expected, array[0..c.expected.len]);
+                prev_len += c.value.len;
+            }
+
+            // Failure Cases.
+            try expectError(error.OutOfRange, Bytes.prepend(&array, "@", prev_len));
+        }
+
+        test "prependOne" {
+            var array = try Bytes.initCapacity(7);
+            const Cases = struct { value: u8, expected: []const u8 };
+            const cases = &[_]Cases{
+                .{ .value  = 'H', .expected = "H" },
+                .{ .value  = 'e', .expected = "eH" },
+                .{ .value  = 'l', .expected = "leH" },
+                .{ .value  = 'l', .expected = "lleH" },
+                .{ .value  = 'o', .expected = "olleH" },
+                .{ .value  = ' ', .expected = " olleH" },
+                .{ .value  = '!', .expected = "! olleH" },
+            };
+
+            var prev_len : usize = 0;
+            for(cases) |c| {
+                try Bytes.prependOne(&array, c.value, prev_len);
+                try expectStrings(c.expected, array[0..c.expected.len]);
+                prev_len += 1;
+            }
+
+            // Failure Cases.
+            try expectError(error.OutOfRange, Bytes.prependOne(&array, '@', prev_len));
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -245,23 +444,10 @@
             try expect(!Bytes.isBytes(&[_]u7{0}));
         }
 
-        test "toBytes" {
-            // Success Cases.
-            try expectStrings("", try Bytes.toBytes(""));                   // Empty
-            try expectStrings("", try Bytes.toBytes(&[_]u8{}));             // Empty
-
-            try expectStrings(&[_]u8{0}, try Bytes.toBytes(0));             // Number
-            try expectStrings("A", try Bytes.toBytes('A'));                 // Letter
-            try expectStrings("#", try Bytes.toBytes([_]u8{'#'}));          // Array of bytes
-            try expectStrings("#", try Bytes.toBytes(&[_]u8{'#'}));         // Pointer to array
-
-            // Failure cases.
-            try expectError(error.InvalidValue, Bytes.toBytes(300));         // Out of `u8` range
-            try expectError(error.InvalidValue, Bytes.toBytes(-1));          // Negative number
-            try expectError(error.InvalidValue, Bytes.toBytes(1.5));         // Float
-            try expectError(error.InvalidValue, Bytes.toBytes(true));        // Boolean
-            try expectError(error.InvalidValue, Bytes.toBytes([_]u7{'#'}));  // Array of non-byte type.
-            try expectError(error.InvalidValue, Bytes.toBytes(&[_]u7{'#'})); // Pointer to non-byte array.
+        test "reverse" {
+            var array = try Bytes.init(5, "Hello");
+            Bytes.reverse(array[0..5]);
+            try expectStrings("olleH", &array);
         }
 
     // └──────────────────────────────────────────────────────────────┘

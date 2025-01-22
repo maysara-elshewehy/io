@@ -51,6 +51,19 @@
         | [`init`](./api/init.md)                 | Initializes a `Buffer` of a pre-specified `size` and `value`. |
         | [`initCapacity`](./api/initCapacity.md) | Initializes a `Buffer` of a pre-specified `size`.             |
 
+   - #### ➕ Insert
+
+        | Function                                      | Description                                                           |
+        | --------------------------------------------- | --------------------------------------------------------------------- |
+        | [`insert`](./api/insert.md)                   | Inserts a `slice` at the specified `position` by **real position**.   |
+        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` at the specified `position` by **real position**.    |
+        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` at the specified `position` by **visual position**. |
+        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` at the specified `position` by **visual position**.  |
+        | [`append`](./api/append.md)                   | Appends a `slice` into the `Buffer` instance.                         |
+        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into the `Buffer` instance.                          |
+        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into the `Buffer` instance.                        |
+        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into the `Buffer` instance.                         |
+
   - #### 🔍 Search
 
       | Method                                | Description                                                           |
@@ -86,9 +99,12 @@
 
    - #### 🌟 More
 
-        | Function                                | Description                                       |
-        | --------------------------------------- | ------------------------------------------------- |
-        | [`writtenSlice`](./api/writtenSlice.md) | Returns a slice containing only the written part. |
+        | Function                                | Description                                                       |
+        | --------------------------------------- | ----------------------------------------------------------------- |
+        | [`writtenSlice`](./api/writtenSlice.md) | Returns a slice containing only the written part.                 |
+        | [`reverse`](./api/reverse.md)           | Reverses the order of the characters **_(considering unicode)_**. |
+        | [`clone`](./api/clone.md)               | Returns a copy of the `Buffer` instance.                          |
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

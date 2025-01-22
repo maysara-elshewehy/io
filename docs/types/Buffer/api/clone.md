@@ -1,9 +1,9 @@
-# [←](../uString.md) `uString`.`writtenSlice`
+# [←](../Buffer.md) `Buffer`.`clone`
 
-> Returns a slice containing only the written part.
+> Returns a copy of the `Buffer` instance. 
 
 ```zig
-pub fn writtenSlice(self: Self) []const u8 
+pub fn clone(self: Self) Self
 ```
 
 
@@ -15,11 +15,11 @@ pub fn writtenSlice(self: Self) []const u8
 
     | Parameter | Type   | Description            |
     | --------- | ------ | ---------------------- |
-    | `self`    | `Self` | The `uString` instance. |
+    | `self`    | `Self` | The `Buffer` instance. |
 
-- #### ✨ Returns : `[]const u8`
+- #### ✨ Returns : `Self`
 
-    > Returns a slice containing only the written part.
+    > Creates and returns a new `Buffer` instance that is a copy of the current `Buffer` instance.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -28,14 +28,12 @@ pub fn writtenSlice(self: Self) []const u8
 - #### 🧪 Examples
 
     ```zig
-    const String = @import("io").types.String;
-    var string = try String.init(allocator, &[_]u8{ '1', 0, 0 });
-    defer string.deinit(allocator);
+    const Buffer = @import("io").types.Buffer;
     ```
 
     ```zig
-    _ = string.writtenSlice();   // 👉 { '1' }
-    _ = string.allocatedSlice(); // 👉 { '1', 0, 0, 0xAA, 0xAA, 0xAA }
+    const buffer_one = try Buffer.init(64, ".."); // 👉 size: 64, length: 2, written bytes: ".."
+    const buffer_two = buffer_one.clone();        // 👉 size: 64, length: 2, written bytes: ".."
     ```
 
 <div align="center">
@@ -44,9 +42,7 @@ pub fn writtenSlice(self: Self) []const u8
 
 - ##### 🔗 Related
 
-  > [`uString.init`](./init.md)
-
-  > [`uString.allocatedSlice`](./allocatedSlice.md)
+  > [`Buffer.init`](./init.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

@@ -53,8 +53,6 @@ pub inline fn isBytes(value: anytype) bool
 
   > [`Bytes.isByte`](./isByte.md)
 
-  > [`Bytes.toBytes`](./tobytes.md)
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>

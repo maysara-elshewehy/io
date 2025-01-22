@@ -74,6 +74,207 @@
     // └──────────────────────────────────────────────────────────────┘
 
 
+    // ┌─────────────────────────── Insert ───────────────────────────┐
+
+        test "insert" {
+            var string = try uString.initCapacity(allocator, 18);
+            defer string.deinit(allocator);
+
+            const Cases = struct { value: []const u8, expected: []const u8, pos: usize };
+            const cases = &[_]Cases{
+                .{ .value  = "H",   .expected = "H", .pos=0 },
+                .{ .value  = "!",   .expected = "H!", .pos=1 },
+                .{ .value  = "o",   .expected = "Ho!", .pos=1 },
+                .{ .value  = "ell", .expected = "Hello!", .pos=1 },
+                .{ .value  = " ",   .expected = "Hello !", .pos=5 },
+                .{ .value  = "👨‍🏭",  .expected = "Hello 👨‍🏭!", .pos=6 },
+                .{ .value  = "",    .expected = "Hello 👨‍🏭!", .pos=2 },
+            };
+
+            for(cases) |c| {
+                try string.insert(allocator, c.value, c.pos);
+                try expectStrings(c.expected, string.writtenSlice());
+            }
+
+            // Failure Cases.
+            try expectError(error.InvalidValue, string.insert(allocator, &[_]u8{0x80, 0x81, 0x82}, 17));
+            try expectError(error.OutOfRange, string.insert(allocator, "@", 99)); // TODO: update with the actual value
+        }
+
+        test "insertOne" {
+            var string = try uString.initCapacity(allocator, 7);
+            defer string.deinit(allocator);
+
+            const Cases = struct { value: u8, expected: []const u8, pos: usize };
+            const cases = &[_]Cases{
+                .{ .value  = 'H', .expected = "H", .pos=0 },
+                .{ .value  = '!', .expected = "H!", .pos=1 },
+                .{ .value  = 'o', .expected = "Ho!", .pos=1 },
+                .{ .value  = 'l', .expected = "Hlo!", .pos=1 },
+                .{ .value  = 'e', .expected = "Helo!", .pos=1 },
+                .{ .value  = 'l', .expected = "Hello!", .pos=2 },
+                .{ .value  = ' ', .expected = "Hello !", .pos=5 },
+            };
+
+            for(cases) |c| {
+                try string.insertOne(allocator, c.value, c.pos);
+                try expectStrings(c.expected, string.writtenSlice());
+            }
+
+            // Failure Cases.
+            try expectError(error.InvalidValue, string.insertOne(allocator, '\x80', 0));
+            try expectError(error.OutOfRange, string.insertOne(allocator, '@', 99)); // TODO: update with the actual value
+        }
+
+        test "insertVisual" {
+            var string = try uString.initCapacity(allocator, 18);
+            defer string.deinit(allocator);
+
+            const Cases = struct { value: []const u8, expected: []const u8, pos: usize };
+            const cases = &[_]Cases{
+                .{ .value  = "H",   .expected = "H", .pos=0 },
+                .{ .value  = "👨‍🏭",  .expected = "H👨‍🏭", .pos=1 },
+                .{ .value  = "o",   .expected = "Ho👨‍🏭", .pos=1 },
+                .{ .value  = "ell", .expected = "Hello👨‍🏭", .pos=1 },
+                .{ .value  = " ",   .expected = "Hello 👨‍🏭", .pos=5 },
+                .{ .value  = "!",   .expected = "Hello 👨‍🏭!", .pos=7 },
+                .{ .value  = "",    .expected = "Hello 👨‍🏭!", .pos=2 },
+            };
+
+            for(cases) |c| {
+                try string.insertVisual(allocator, c.value, c.pos);
+                try expectStrings(c.expected, string.writtenSlice());
+            }
+
+            // Failure Cases.
+            try expectError(error.InvalidValue, string.insertVisual(allocator, &[_]u8{0x80, 0x81, 0x82}, 17));
+            try expectError(error.OutOfRange, string.insertVisual(allocator, "@", 99));
+        }
+
+        test "insertVisualOne" {
+            var string = try uString.init(allocator, "👨‍🏭");
+            defer string.deinit(allocator);
+
+            const Cases = struct { value: u8, expected: []const u8, pos: usize };
+            const cases = &[_]Cases{
+                .{ .value  = 'H', .expected = "👨‍🏭H", .pos=1 },
+                .{ .value  = '!', .expected = "👨‍🏭H!", .pos=2 },
+                .{ .value  = 'o', .expected = "👨‍🏭Ho!", .pos=2 },
+                .{ .value  = 'l', .expected = "👨‍🏭Hlo!", .pos=2 },
+                .{ .value  = 'e', .expected = "👨‍🏭Helo!", .pos=2 },
+                .{ .value  = 'l', .expected = "👨‍🏭Hello!", .pos=3 },
+                .{ .value  = ' ', .expected = "👨‍🏭Hello !", .pos=6 },
+            };
+
+            for(cases) |c| {
+                try string.insertVisualOne(allocator, c.value, c.pos);
+                try expectStrings(c.expected, string.writtenSlice());
+            }
+
+            // Failure Cases.
+            try expectError(error.InvalidValue, string.insertVisualOne(allocator, '\x80', 0));
+            try expectError(error.OutOfRange, string.insertVisualOne(allocator, '@', 99));
+        }
+
+        test "append" {
+            var string = try uString.initCapacity(allocator, 18);
+            defer string.deinit(allocator);
+
+            const Cases = struct { value: []const u8, expected: []const u8 };
+            const cases = &[_]Cases{
+                .{ .value  = "H",   .expected = "H" },
+                .{ .value  = "e",   .expected = "He" },
+                .{ .value  = "llo", .expected = "Hello" },
+                .{ .value  = " ",   .expected = "Hello " },
+                .{ .value  = "👨‍🏭",  .expected = "Hello 👨‍🏭" },
+                .{ .value  = "!",   .expected = "Hello 👨‍🏭!" },
+                .{ .value  = "",    .expected = "Hello 👨‍🏭!" },
+            };
+
+            for(cases) |c| {
+                try string.append(allocator, c.value);
+                try expectStrings(c.expected, string.writtenSlice());
+            }
+
+            // Failure Cases.
+            try expectError(error.InvalidValue, string.append(allocator, &[_]u8{0x80, 0x81, 0x82}));
+        }
+
+        test "appendOne" {
+            var string = try uString.initCapacity(allocator, 7);
+            defer string.deinit(allocator);
+
+            const Cases = struct { value: u8, expected: []const u8 };
+            const cases = &[_]Cases{
+                .{ .value  = 'H', .expected = "H" },
+                .{ .value  = 'e', .expected = "He" },
+                .{ .value  = 'l', .expected = "Hel" },
+                .{ .value  = 'l', .expected = "Hell" },
+                .{ .value  = 'o', .expected = "Hello" },
+                .{ .value  = ' ', .expected = "Hello " },
+                .{ .value  = '!', .expected = "Hello !" },
+            };
+
+            for(cases) |c| {
+                try string.appendOne(allocator, c.value);
+                try expectStrings(c.expected, string.writtenSlice());
+            }
+
+            // Failure Cases.
+            try expectError(error.InvalidValue, string.appendOne(allocator, 0x80));
+        }
+
+        test "prepend" {
+            var string = try uString.initCapacity(allocator, 18);
+            defer string.deinit(allocator);
+
+            const Cases = struct { value: []const u8, expected: []const u8 };
+            const cases = &[_]Cases{
+                .{ .value  = "H",   .expected = "H" },
+                .{ .value  = "e",   .expected = "eH" },
+                .{ .value  = "oll", .expected = "olleH" },
+                .{ .value  = " ",   .expected = " olleH" },
+                .{ .value  = "👨‍🏭",  .expected = "👨‍🏭 olleH" },
+                .{ .value  = "!",   .expected = "!👨‍🏭 olleH" },
+                .{ .value  = "",    .expected = "!👨‍🏭 olleH" },
+            };
+
+            for(cases) |c| {
+                try string.prepend(allocator, c.value);
+                try expectStrings(c.expected, string.writtenSlice());
+            }
+
+            // Failure Cases.
+            try expectError(error.InvalidValue, string.prepend(allocator, &[_]u8{0x80, 0x81, 0x82}));
+        }
+
+        test "prependOne" {
+            var string = try uString.initCapacity(allocator, 7);
+            defer string.deinit(allocator);
+
+            const Cases = struct { value: u8, expected: []const u8 };
+            const cases = &[_]Cases{
+                .{ .value  = 'H', .expected = "H" },
+                .{ .value  = 'e', .expected = "eH" },
+                .{ .value  = 'l', .expected = "leH" },
+                .{ .value  = 'l', .expected = "lleH" },
+                .{ .value  = 'o', .expected = "olleH" },
+                .{ .value  = ' ', .expected = " olleH" },
+                .{ .value  = '!', .expected = "! olleH" },
+            };
+
+            for(cases) |c| {
+                try string.prependOne(allocator, c.value);
+                try expectStrings(c.expected, string.writtenSlice());
+            }
+
+            // Failure Cases.
+            try expectError(error.InvalidValue, string.prependOne(allocator, 0x80));
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
     // ┌──────────────────────────── Find ────────────────────────────┐
 
         test "String.find" {
@@ -200,7 +401,7 @@
             defer string.deinit(allocator);
 
             string.toLower();
-            try expectStrings("hello 👨‍🏭!", string.source[0..string.length]); 
+            try expectStrings("hello 👨‍🏭!", string.writtenSlice()); 
         }
 
         test "toUpper" {
@@ -208,7 +409,7 @@
             defer string.deinit(allocator);
 
             string.toUpper();
-            try expectStrings("HELLO 👨‍🏭!", string.source[0..string.length]); 
+            try expectStrings("HELLO 👨‍🏭!", string.writtenSlice()); 
         }
 
         test "toTitle" {
@@ -216,7 +417,7 @@
             defer string.deinit(allocator);
 
             string.toTitle();
-            try expectStrings("Hello 👨‍🏭!", string.source[0..string.length]); 
+            try expectStrings("Hello 👨‍🏭!", string.writtenSlice()); 
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -240,8 +441,14 @@
             // size = original length *2
             try expectEqual(6, string.allocatedSlice().len);
         }
+
+        test "reverse" {
+            var string = try uString.init(allocator, "Hello 👨‍🏭!");
+            defer string.deinit(allocator);
+            try string.reverse(allocator);
+            try expectStrings("!👨‍🏭 olleH", string.writtenSlice());
+        }
     
     // └──────────────────────────────────────────────────────────────┘
-
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
