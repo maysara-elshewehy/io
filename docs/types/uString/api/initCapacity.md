@@ -19,7 +19,7 @@ pub fn initCapacity(allocator: Allocator, size: usize) initCapacityError!Self
     | `size`      | `usize`             | The number of bytes to allocate. |
 
 - #### 🚫 Errors
-    
+
     | Error                     | Reason                           |
     | ------------------------- | -------------------------------- |
     | `ZeroSize`                | The `size` is 0.                 |
@@ -50,13 +50,13 @@ pub fn initCapacity(allocator: Allocator, size: usize) initCapacityError!Self
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_ZeroSize._**
 
         ```zig
         _ = try uString.initCapacity(allocator, 0); // 👉 error.ZeroSize
         ```
-        
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
@@ -64,7 +64,7 @@ pub fn initCapacity(allocator: Allocator, size: usize) initCapacityError!Self
 - ##### 🔗 Related
 
   > [`uString.init`](./init.md)
-  
+
   > [`uString.deinit`](./deinit.md)
 
 <div align="center">

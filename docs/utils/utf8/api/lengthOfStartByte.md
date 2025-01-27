@@ -3,7 +3,7 @@
 > Returns length of the codepoint depending on the first byte.
 
 ```zig
-pub fn lengthOfStartByte(value: u8) lengthOfStartByteError!usize
+pub fn lengthOfStartByte(value: u8) error{InvalidValue}!usize
 ```
 
 
@@ -18,7 +18,7 @@ pub fn lengthOfStartByte(value: u8) lengthOfStartByteError!usize
     | `value`   | `u8` | The value to handle. |
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                              |
     | -------------- | ----------------------------------- |
     | `InvalidValue` | if the `value` is not a valid utf8. |
@@ -49,7 +49,7 @@ pub fn lengthOfStartByte(value: u8) lengthOfStartByteError!usize
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_InvalidValue._**
 
         ```zig
@@ -62,7 +62,7 @@ pub fn lengthOfStartByte(value: u8) lengthOfStartByteError!usize
 
 - ##### 🔗 Related
 
-  > [`utf8.lengthOfFirstGrapheme`](./lengthOfFirstGrapheme.md)
+  > [`utf8.firstGcLength`](./firstGcLength.md)
 
   > [`utf8.Iterator`](./Iterator.md)
 

@@ -1,6 +1,6 @@
 # [←](../bytes.md) `Bytes`.`countVisual`
 
-> Returns the total number of visual characters, stopping at the first null byte.
+> Returns the total number of visual characters.
 
 ```zig
 pub fn countVisual(value: []const u8) countVisualError!usize
@@ -18,7 +18,7 @@ pub fn countVisual(value: []const u8) countVisualError!usize
     | `value`   | `[]const u8` | The value to count. |
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                               |
     | -------------- | ------------------------------------ |
     | `InvalidValue` | The value is not valid utf-8 foramt. |
@@ -46,9 +46,9 @@ pub fn countVisual(value: []const u8) countVisualError!usize
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_InvalidValue._**
-        
+
         ```zig
         const invalidUtf8 = &[_]u8{0x80, 0x81, 0x82};
         _ = try Bytes.countVisual(invalidUtf8); // 👉 error.InvalidValue

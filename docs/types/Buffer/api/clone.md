@@ -1,6 +1,6 @@
 # [←](../Buffer.md) `Buffer`.`clone`
 
-> Returns a copy of the `Buffer` instance. 
+> Returns a copy of the `Buffer` instance.
 
 ```zig
 pub fn clone(self: Self) Self

@@ -3,7 +3,7 @@
 > Reverses the order of the characters **_(considering unicode)_**.
 
 ```zig
-pub inline fn reverse(self: *Self) AllocatorError!void
+pub fn reverse(self: *Self) AllocatorError!void
 ```
 
 
@@ -18,7 +18,7 @@ pub inline fn reverse(self: *Self) AllocatorError!void
     | `self`    | `*Self` | The `String` instance. |
 
 - #### 🚫 Errors
-    
+
     | Error            | Reason                           |
     | ---------------- | -------------------------------- |
     | `AllocatorError` | The allocator returned an error. |

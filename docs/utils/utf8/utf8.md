@@ -37,22 +37,30 @@
 </div>
 
 - ### API
-  
+
    - #### ✨ Structures
 
         | Structure                         | Description                                                                         |
         | --------------------------------- | ----------------------------------------------------------------------------------- |
         | [`Iterator`](./api/Iterator.md)   | A _(`grapheme cluster`, `codepoint`)_ iterator for iterating over a slice of bytes. |
         | [`Codepoint`](./api/Codepoint.md) | A struct to represent a single Unicode codepoint with properties.                   |
-  
+
    - #### 🧩 Utilities
 
-        | Function                                                  | Description                                                          |
-        | --------------------------------------------------------- | -------------------------------------------------------------------- |
-        | [`lengthOfStartByte`](./api/lengthOfStartByte.md)         | Returns length of the codepoint depending on the first byte.         |
-        | [`lengthOfFirstGrapheme`](./api/lengthOfFirstGrapheme.md) | Returns total length of the first grapheme cluster.                  |
-        | [`getRealPosition`](./api/getRealPosition.md)             | Returns the real position in the array based on the visual position. |
-        | [`getVisualPosition`](./api/getVisualPosition.md)         | Returns the visual position in the array based on the real position. |
+        | Function                                          | Description                                                          |
+        | ------------------------------------------------- | -------------------------------------------------------------------- |
+        | [`getRealPosition`](./api/getRealPosition.md)     | Returns the real position in the array based on the visual position. |
+        | [`getVisualPosition`](./api/getVisualPosition.md) | Returns the visual position in the array based on the real position. |
+        | [`lengthOfStartByte`](./api/lengthOfStartByte.md) | Returns length of the codepoint depending on the first byte.         |
+
+   - #### 🌟 More
+
+        | Function                                | Description                                    |
+        | --------------------------------------- | ---------------------------------------------- |
+        | [`lastCp`](./api/lastCp.md)             | Returns the last codepoint.                    |
+        | [`lastCpSlice`](./api/lastCpSlice.md)   | Returns a slice of the last codepoint.         |
+        | [`firstGcSlice`](./api/firstGcSlice.md) | Returns a slice of the first grapheme cluster. |
+        | [`lastGcSlice`](./api/lastGcSlice.md)   | Returns a slice of the last grapheme cluster.  |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

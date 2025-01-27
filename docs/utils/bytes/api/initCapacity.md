@@ -18,7 +18,7 @@ pub fn initCapacity(comptime array_size: usize) initCapacityError![array_size]u8
     | `array_size` | `comptime usize` | The size of the array. |
 
 - #### 🚫 Errors
-    
+
     | Error      | Reason             |
     | ---------- | ------------------ |
     | `ZeroSize` | The `size` is `0`. |
@@ -47,7 +47,7 @@ pub fn initCapacity(comptime array_size: usize) initCapacityError![array_size]u8
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_ZeroSize._**
 
         ```zig

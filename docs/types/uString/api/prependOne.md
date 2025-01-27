@@ -3,7 +3,7 @@
 > Prepends a `byte` into the `uString` instance.
 
 ```zig
-pub fn prependOne(self: *Self, allocator: Allocator, byte: u8) prependError!void
+pub fn prependOne(self: *Self, allocator: Allocator, byte: u8) insertError!void
 ```
 
 
@@ -20,11 +20,10 @@ pub fn prependOne(self: *Self, allocator: Allocator, byte: u8) prependError!void
     | `byte`      | `u8`                | The byte to insert.     |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                           |
-    | ----------------- | -------------------------------- |
+
+    | Error            | Reason                           |
+    | ---------------- | -------------------------------- |
     | `AllocatorError` | The allocator returned an error. |
-    | `InvalidValue`    | The `byte` is not valid UTF-8.   |
 
 - #### ✨ Returns : `void`
 
@@ -42,25 +41,15 @@ pub fn prependOne(self: *Self, allocator: Allocator, byte: u8) prependError!void
     defer string.deinit(allocator);
     ```
 
-    - ##### 🟢 Success Cases
-
-        ```zig
-        _ = try string.prependOne(allocator, 'H'); // 👉 "H"
-        _ = try string.prependOne(allocator, 'e'); // 👉 "eH"
-        _ = try string.prependOne(allocator, 'l'); // 👉 "leH"
-        _ = try string.prependOne(allocator, 'l'); // 👉 "lleH"
-        _ = try string.prependOne(allocator, 'o'); // 👉 "olleH"
-        _ = try string.prependOne(allocator, ' '); // 👉 " olleH"
-        _ = try string.prependOne(allocator, '!'); // 👉 "! olleH"
-        ```
-
-    - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try string.prependOne(allocator, '\x80'); // 👉 error.InvalidValue
-        ```
+    ```zig
+    _ = try string.prependOne(allocator, 'H'); // 👉 "H"
+    _ = try string.prependOne(allocator, 'e'); // 👉 "eH"
+    _ = try string.prependOne(allocator, 'l'); // 👉 "leH"
+    _ = try string.prependOne(allocator, 'l'); // 👉 "lleH"
+    _ = try string.prependOne(allocator, 'o'); // 👉 "olleH"
+    _ = try string.prependOne(allocator, ' '); // 👉 " olleH"
+    _ = try string.prependOne(allocator, '!'); // 👉 "! olleH"
+    ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

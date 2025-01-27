@@ -3,7 +3,7 @@
 > Appends a `slice` into the `uString` instance.
 
 ```zig
-pub fn append(self: *Self, allocator: Allocator, slice: []const u8) appendError!void
+pub fn append(self: *Self, allocator: Allocator, slice: []const u8) insertError!void
 ```
 
 
@@ -20,11 +20,10 @@ pub fn append(self: *Self, allocator: Allocator, slice: []const u8) appendError!
     | `slice`     | `[]const u8`        | The slice to insert.    |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                                         |
-    | ----------------- | ---------------------------------------------- |
+
+    | Error            | Reason                                         |
+    | ---------------- | ---------------------------------------------- |
     | `AllocatorError` | The allocator returned an error.               |
-    | `InvalidValue`    | The `slice` contains invalid UTF-8 characters. |
 
 - #### ✨ Returns : `void`
 
@@ -42,24 +41,14 @@ pub fn append(self: *Self, allocator: Allocator, slice: []const u8) appendError!
     defer string.deinit(allocator);
     ```
 
-    - ##### 🟢 Success Cases
-
-        ```zig
-        _ = try string.append(allocator, "H");   // 👉 "H"
-        _ = try string.append(allocator, "e");   // 👉 "He"
-        _ = try string.append(allocator, "llo"); // 👉 "Hello"
-        _ = try string.append(allocator, " ");   // 👉 "Hello "
-        _ = try string.append(allocator, "👨‍🏭");  // 👉 "Hello 👨‍🏭"
-        _ = try string.append(allocator, "!");   // 👉 "Hello 👨‍🏭!"
-        ```
-
-    - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try string.append(allocator, "\x80"); // 👉 error.InvalidValue
-        ```
+    ```zig
+    _ = try string.append(allocator, "H");   // 👉 "H"
+    _ = try string.append(allocator, "e");   // 👉 "He"
+    _ = try string.append(allocator, "llo"); // 👉 "Hello"
+    _ = try string.append(allocator, " ");   // 👉 "Hello "
+    _ = try string.append(allocator, "👨‍🏭");  // 👉 "Hello 👨‍🏭"
+    _ = try string.append(allocator, "!");   // 👉 "Hello 👨‍🏭!"
+    ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

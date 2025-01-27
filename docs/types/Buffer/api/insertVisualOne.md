@@ -1,6 +1,6 @@
 # [←](../Buffer.md) `Buffer`.`insertVisualOne`
 
-> Inserts a `byte` into the `Buffer` instance at the specified `position` by **visual position**.
+> Inserts a `byte` into the `Buffer` instance at the specified `visual position`.
 
 ```zig
 pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void
@@ -20,10 +20,9 @@ pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void
     | `pos`     | `usize` | The visual position to insert at. |
 
 - #### 🚫 Errors
-    
+
     | Error             | Reason                                                     |
     | ----------------- | ---------------------------------------------------------- |
-    | `InvalidValue`    | The `byte` is not valid UTF-8.                             |
     | `InvalidPosition` | The position is invalid.                                   |
     | `OutOfRange`      | The insertion exceeds the bounds of the `Buffer` instance. |
     | `OutOfRange`      | The `pos` is greater than `Buffer` length.                 |
@@ -56,13 +55,7 @@ pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void
         ```
 
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
 
-        ```zig
-        _ = try buffer.insertVisualOne('\x80', 0); // 👉 error.InvalidValue
-        ```
-        
         > **_OutOfRange._**
 
         ```zig

@@ -3,7 +3,7 @@
 > Returns `true` **if the value is a valid byte**.
 
 ```zig
-pub inline fn isByte(value: anytype) bool
+pub fn isByte(value: anytype) bool
 ```
 
 

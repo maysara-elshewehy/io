@@ -3,7 +3,7 @@
 > Prepends a `slice` into `dest`.
 
 ```zig
-pub fn prepend(dest: []u8, slice: []const u8, dest_wlen: usize) prependError!void
+pub fn prepend(dest: []u8, slice: []const u8, dest_wlen: usize) insertError!void
 ```
 
 
@@ -20,7 +20,7 @@ pub fn prepend(dest: []u8, slice: []const u8, dest_wlen: usize) prependError!voi
     | `dest_wlen` | `usize`      | The write length of `dest`.     |
 
 - #### 🚫 Errors
-    
+
     | Error        | Reason                                      |
     | ------------ | ------------------------------------------- |
     | `OutOfRange` | The insertion exceeds the bounds of `dest`. |
@@ -53,7 +53,7 @@ pub fn prepend(dest: []u8, slice: []const u8, dest_wlen: usize) prependError!voi
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_OutOfRange._**
 
         ```zig

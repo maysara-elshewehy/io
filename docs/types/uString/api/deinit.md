@@ -40,7 +40,7 @@ pub fn deinit(self: *Self, allocator: Allocator) void
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_Common misuse of `deinit`._**
 
         ```zig

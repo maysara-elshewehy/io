@@ -33,7 +33,7 @@ pub fn iterator(self: Self) utf8.Iterator
 
     ```zig
     const myViewer = try Viewer.init("..");
-    _ = myViewer.iterator(); 
+    _ = myViewer.iterator();
     ```
 
 <div align="center">
@@ -43,7 +43,7 @@ pub fn iterator(self: Self) utf8.Iterator
 - ##### 🔗 Related
 
   > [`Viewer.init`](./init.md)
-  
+
   > [`io.utils.utf8.Iterator`](../../../utils/utf8/api/Iterator.md)
 
 <div align="center">

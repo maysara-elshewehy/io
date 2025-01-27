@@ -3,7 +3,7 @@
 > Release all allocated memory.
 
 ```zig
-pub fn deinit(self: Self) void 
+pub fn deinit(self: Self) void
 ```
 
 
@@ -45,7 +45,7 @@ pub fn deinit(self: Self) void
   > [`String.init`](./init.md)
 
   > [`String.initAlloc`](./initAlloc.md)
-  
+
   > [`String.initCapacity`](./initCapacity.md)
 
 <div align="center">

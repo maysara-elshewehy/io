@@ -1,6 +1,6 @@
 # [←](../bytes.md) `Bytes`.`find`
 
-> Finds the **real position** of the **first** occurrence of `value`.
+> Finds the `position` of the **first** occurrence of `target`.
 
 ```zig
 pub fn find(dest: []const u8, target: []const u8) ?usize
@@ -12,10 +12,10 @@ pub fn find(dest: []const u8, target: []const u8) ?usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description                             |
-    | --------- | ------------ | --------------------------------------- |
+    | Parameter | Type         | Description                                    |
+    | --------- | ------------ | ---------------------------------------------- |
     | `dest`    | `[]const u8` | The destination slice where the search occurs. |
-    | `target`  | `[]const u8` | The value to search for.      |
+    | `target`  | `[]const u8` | The value to search for.                       |
 
 - #### ✨ Returns : `?usize`
 

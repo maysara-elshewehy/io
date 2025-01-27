@@ -53,28 +53,39 @@
 
    - #### ➕ Insert
 
-        | Function                                      | Description                                                           |
-        | --------------------------------------------- | --------------------------------------------------------------------- |
-        | [`insert`](./api/insert.md)                   | Inserts a `slice` at the specified `position` by **real position**.   |
-        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` at the specified `position` by **real position**.    |
-        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` at the specified `position` by **visual position**. |
-        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` at the specified `position` by **visual position**.  |
-        | [`append`](./api/append.md)                   | Appends a `slice` into the `Buffer` instance.                         |
-        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into the `Buffer` instance.                          |
-        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into the `Buffer` instance.                        |
-        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into the `Buffer` instance.                         |
+        | Function                                      | Description                                                         |
+        | --------------------------------------------- | ------------------------------------------------------------------- |
+        | [`insert`](./api/insert.md)                   | Inserts a `slice` at the specified `position` by **real position**. |
+        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` at the specified `position` by **real position**.  |
+        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` at the specified `visual position`.               |
+        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` at the specified `visual position`.                |
+        | [`append`](./api/append.md)                   | Appends a `slice` into the `Buffer` instance.                       |
+        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into the `Buffer` instance.                        |
+        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into the `Buffer` instance.                      |
+        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into the `Buffer` instance.                       |
 
-  - #### 🔍 Search
+   - #### ➖ Remove
 
-      | Method                                | Description                                                           |
-      | ------------------------------------- | --------------------------------------------------------------------- |
-      | [`find`](./api/find.md)               | Finds the **real position** of the **first** occurrence of `value`.   |
-      | [`findVisual`](./api/findVisual.md)   | Finds the **visual position** of the **first** occurrence of `value`. |
-      | [`rfind`](./api/rfind.md)             | Finds the **real position** of the **last** occurrence of `value`.    |
-      | [`rfindVisual`](./api/rfindVisual.md) | Finds the **visual position** of the **last** occurrence of `value`.  |
-      | [`includes`](./api/includes.md)       | Returns `true` **if contains `target`**.                              |
-      | [`startsWith`](./api/startsWith.md)   | Returns `true` **if starts with `target`**.                           |
-      | [`endsWith`](./api/endsWith.md)       | Returns `true` **if ends with `target`**.                             |
+        | Function                                          | Description                                                                                       |
+        | ------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+        | [`remove`](./api/remove.md)                       | Removes a byte from the `Buffer` instance.                                                        |
+        | [`removeRange`](./api/removeRange.md)             | Removes a `range` of bytes from the `Buffer` instance.                                            |
+        | [`removeVisual`](./api/removeVisual.md)           | Removes a byte from the `Buffer` instance by the `visual position`.                               |
+        | [`removeVisualRange`](./api/removeVisualRange.md) | Removes a `range` of bytes from the `Buffer` instance by the `visual position`.                   |
+        | [`pop`](./api/pop.md)                             | Removes the last grapheme cluster at the `Buffer` instance, Returns the number of removed bytes.  |
+        | [`shift`](./api/shift.md)                         | Removes the first grapheme cluster at the `Buffer` instance, Returns the number of removed bytes. |
+
+   - #### 🔍 Search
+
+      | Method                                | Description                                                          |
+      | ------------------------------------- | -------------------------------------------------------------------- |
+      | [`find`](./api/find.md)               | Finds the `position` of the **first** occurrence of `target`.        |
+      | [`findVisual`](./api/findVisual.md)   | Finds the `visual position` of the **first** occurrence of `target`. |
+      | [`rfind`](./api/rfind.md)             | Finds the `position` of the **last** occurrence of `target`.         |
+      | [`rfindVisual`](./api/rfindVisual.md) | Finds the `visual position` of the **last** occurrence of `target`.  |
+      | [`includes`](./api/includes.md)       | Returns `true` **if contains `target`**.                             |
+      | [`startsWith`](./api/startsWith.md)   | Returns `true` **if starts with `target`**.                          |
+      | [`endsWith`](./api/endsWith.md)       | Returns `true` **if ends with `target`**.                            |
 
    - #### 🌈 Letter Cases
 
@@ -86,10 +97,10 @@
 
    - #### 🪄 Counting
 
-        | Function                                | Description                                    |
-        | --------------------------------------- | ---------------------------------------------- |
-        | [`countWritten`](./api/countWritten.md) | Returns the total number of written bytes.     |
-        | [`countVisual`](./api/countVisual.md)   | Returns the total number of visual characters. |
+        | Function                      | Description                                    |
+        | ----------------------------- | ---------------------------------------------- |
+        | [`length`](./api/length.md)   | Returns the total number of written bytes.     |
+        | [`vlength`](./api/vlength.md) | Returns the total number of visual characters. |
 
    - #### 🚀 Iterations
 
@@ -99,11 +110,11 @@
 
    - #### 🌟 More
 
-        | Function                                | Description                                                       |
-        | --------------------------------------- | ----------------------------------------------------------------- |
-        | [`writtenSlice`](./api/writtenSlice.md) | Returns a slice containing only the written part.                 |
-        | [`reverse`](./api/reverse.md)           | Reverses the order of the characters **_(considering unicode)_**. |
-        | [`clone`](./api/clone.md)               | Returns a copy of the `Buffer` instance.                          |
+        | Function                      | Description                                                       |
+        | ----------------------------- | ----------------------------------------------------------------- |
+        | [`slice`](./api/slice.md)     | Returns a slice containing only the written part.                 |
+        | [`reverse`](./api/reverse.md) | Reverses the order of the characters **_(considering unicode)_**. |
+        | [`clone`](./api/clone.md)     | Returns a copy of the `Buffer` instance.                          |
 
 
 <div align="center">
@@ -117,7 +128,7 @@
 
   - #### [io.type.String](../String/String.md)
     > Managed dynamic UTF-8 type.
-  
+
   - #### [io.type.uString](../uString/uString.md)
     > Unmanaged dynamic UTF-8 type.
 

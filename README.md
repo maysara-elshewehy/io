@@ -19,7 +19,9 @@
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
 </div><br>
 
-- ### [`Docs`](https://super-zig.github.io/io/)
+- ### [`Documents`](https://super-zig.github.io/io/)
+
+- ### [`Benchmarks`](./bench/index.md)
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

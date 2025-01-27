@@ -20,10 +20,9 @@ pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void
     | `pos`     | `usize`      | The position to insert at. |
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                                                     |
     | -------------- | ---------------------------------------------------------- |
-    | `InvalidValue` | The `slice` contains invalid UTF-8 characters.             |
     | `OutOfRange`   | The insertion exceeds the bounds of the `Buffer` instance. |
     | `OutOfRange`   | The `pos` is greater than `Buffer` length.                 |
 
@@ -54,12 +53,6 @@ pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void
         ```
 
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try buffer.insert("\x80", 0); // 👉 error.InvalidValue
-        ```
 
         > **_OutOfRange._**
 

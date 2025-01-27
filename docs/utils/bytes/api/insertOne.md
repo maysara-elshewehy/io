@@ -1,6 +1,6 @@
 # [←](../bytes.md) `bytes`.`insertOne`
 
-> Inserts a `byte` into `destination` at the specified `position` by **real position**.
+> Inserts a `byte` into `dest` at the specified `position`.
 
 ```zig
 pub fn insertOne(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) insertError!void
@@ -21,7 +21,7 @@ pub fn insertOne(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) insertError
     | `pos`       | `usize` | The position to insert at.      |
 
 - #### 🚫 Errors
-    
+
     | Error        | Reason                                      |
     | ------------ | ------------------------------------------- |
     | `OutOfRange` | The insertion exceeds the bounds of `dest`. |
@@ -55,7 +55,7 @@ pub fn insertOne(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) insertError
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_OutOfRange._**
 
         ```zig

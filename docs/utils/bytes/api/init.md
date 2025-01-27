@@ -20,7 +20,7 @@ pub fn init(comptime size: usize, value: []const u8)initError![size]u8
     | `value`   | `[]const u8`     | The initial value of the array. |
 
 - #### 🚫 Errors
-    
+
     | Error        | Reason                                |
     | ------------ | ------------------------------------- |
     | `ZeroSize`   | The `size` is `0`.                    |
@@ -48,7 +48,7 @@ pub fn init(comptime size: usize, value: []const u8)initError![size]u8
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_ZeroSize._**
 
         ```zig

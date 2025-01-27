@@ -1,6 +1,6 @@
 # [←](../bytes.md) `bytes`.`insertVisual`
 
-> Inserts a `slice` into `destination` at the specified `position` by **visual position**.
+> Inserts a `slice` into `dest` at the specified `visual position`.
 
 ```zig
 pub fn insertVisual(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) insertVisualError!void

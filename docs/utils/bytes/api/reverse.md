@@ -3,7 +3,7 @@
 > Reverses the order of the bytes.
 
 ```zig
-pub inline fn reverse(value: []u8) void
+pub fn reverse(value: []u8) void
 ```
 
 

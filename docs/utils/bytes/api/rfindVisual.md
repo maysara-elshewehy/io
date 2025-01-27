@@ -1,6 +1,6 @@
 # [←](../bytes.md) `Bytes`.`rfindVisual`
 
-> Finds the **visual position** of the **last** occurrence of `value`.
+> Finds the `visual position` of the **last** occurrence of `target`.
 
 ```zig
 pub fn rfindVisual(dest: []const u8, target: []const u8) ?usize
@@ -12,10 +12,10 @@ pub fn rfindVisual(dest: []const u8, target: []const u8) ?usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description                             |
-    | --------- | ------------ | --------------------------------------- |
+    | Parameter | Type         | Description                                    |
+    | --------- | ------------ | ---------------------------------------------- |
     | `dest`    | `[]const u8` | The destination slice where the search occurs. |
-    | `target`  | `[]const u8` | The value to search for.      |
+    | `target`  | `[]const u8` | The value to search for.                       |
 
 - #### ✨ Returns : `?usize`
 

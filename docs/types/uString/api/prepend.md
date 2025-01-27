@@ -3,7 +3,7 @@
 > Prepends a `slice` into the `uString` instance.
 
 ```zig
-pub fn prepend(self: *Self, allocator: Allocator, slice: []const u8) prependError!void
+pub fn prepend(self: *Self, allocator: Allocator, slice: []const u8) insertError!void
 ```
 
 
@@ -20,11 +20,10 @@ pub fn prepend(self: *Self, allocator: Allocator, slice: []const u8) prependErro
     | `slice`     | `[]const u8`        | The slice to insert.    |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                                         |
-    | ----------------- | ---------------------------------------------- |
+
+    | Error            | Reason                                         |
+    | ---------------- | ---------------------------------------------- |
     | `AllocatorError` | The allocator returned an error.               |
-    | `InvalidValue`    | The `slice` contains invalid UTF-8 characters. |
 
 - #### ✨ Returns : `void`
 
@@ -42,24 +41,14 @@ pub fn prepend(self: *Self, allocator: Allocator, slice: []const u8) prependErro
     defer string.deinit(allocator);
     ```
 
-    - ##### 🟢 Success Cases
-
-        ```zig
-        _ = try string.prepend(allocator, "H");   // 👉 "H"
-        _ = try string.prepend(allocator, "e");   // 👉 "eH"
-        _ = try string.prepend(allocator, "oll"); // 👉 "olleH"
-        _ = try string.prepend(allocator, " ");   // 👉 " olleH"
-        _ = try string.prepend(allocator, "👨‍🏭");  // 👉 "👨‍🏭 olleH"
-        _ = try string.prepend(allocator, "!");   // 👉 "!👨‍🏭 olleH"
-        ```
-
-    - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try string.prepend(allocator, "\x80"); // 👉 error.InvalidValue
-        ```
+    ```zig
+    _ = try string.prepend(allocator, "H");   // 👉 "H"
+    _ = try string.prepend(allocator, "e");   // 👉 "eH"
+    _ = try string.prepend(allocator, "oll"); // 👉 "olleH"
+    _ = try string.prepend(allocator, " ");   // 👉 " olleH"
+    _ = try string.prepend(allocator, "👨‍🏭");  // 👉 "👨‍🏭 olleH"
+    _ = try string.prepend(allocator, "!");   // 👉 "!👨‍🏭 olleH"
+    ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

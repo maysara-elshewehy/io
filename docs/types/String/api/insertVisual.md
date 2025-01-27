@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`insertVisual`
 
-> Inserts a `slice` into the `String` instance at the specified `position` by **visual position**.
+> Inserts a `slice` into the `String` instance at the specified `visual position`.
 
 ```zig
 pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualError!void
@@ -20,11 +20,10 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
     | `pos`     | `usize`      | The visual position to insert at. |
 
 - #### 🚫 Errors
-    
+
     | Error             | Reason                                         |
     | ----------------- | ---------------------------------------------- |
-    | `AllocatorError` | The allocator returned an error.               |
-    | `InvalidValue`    | The `slice` contains invalid UTF-8 characters. |
+    | `AllocatorError`  | The allocator returned an error.               |
     | `InvalidPosition` | The position is invalid.                       |
     | `OutOfRange`      | The `pos` is greater than `String` length.     |
 
@@ -55,13 +54,7 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
         _ = try string.insertVisual("!",   7); // 👉 "Hello 👨‍🏭!"
         ```
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
 
-        ```zig
-        _ = try string.insertVisual("\x80", 0); // 👉 error.InvalidValue
-        ```
-        
         > **_OutOfRange._**
 
         ```zig

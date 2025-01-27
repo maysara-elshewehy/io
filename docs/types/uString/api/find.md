@@ -1,6 +1,6 @@
 # [←](../uString.md) `uString`.`find`
 
-> Finds the **real position** of the **first** occurrence of `value`.
+> Finds the `position` of the **first** occurrence of `target`.
 
 ```zig
 pub fn find(self: Self, target: []const u8) ?usize
@@ -12,9 +12,9 @@ pub fn find(self: Self, target: []const u8) ?usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description                        |
-    | --------- | ------------ | ---------------------------------- |
-    | `self`    | `Self`       | The `uString` instance.             |
+    | Parameter | Type         | Description              |
+    | --------- | ------------ | ------------------------ |
+    | `self`    | `Self`       | The `uString` instance.  |
     | `target`  | `[]const u8` | The value to search for. |
 
 - #### ✨ Returns : `?usize`

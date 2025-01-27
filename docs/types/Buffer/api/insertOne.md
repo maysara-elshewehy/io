@@ -20,10 +20,9 @@ pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void
     | `pos`     | `usize` | The position to insert at. |
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                                                     |
     | -------------- | ---------------------------------------------------------- |
-    | `InvalidValue` | The `byte` is not valid UTF-8.                             |
     | `OutOfRange`   | The insertion exceeds the bounds of the `Buffer` instance. |
     | `OutOfRange`   | The `pos` is greater than `Buffer` length.                 |
 
@@ -55,13 +54,7 @@ pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void
         ```
 
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
 
-        ```zig
-        _ = try buffer.insertOne('\x80', 0); // 👉 error.InvalidValue
-        ```
-        
         > **_OutOfRange._**
 
         ```zig

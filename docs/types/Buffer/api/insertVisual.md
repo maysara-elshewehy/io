@@ -1,6 +1,6 @@
 # [←](../Buffer.md) `Buffer`.`insertVisual`
 
-> Inserts a `slice` into the `Buffer` instance at the specified `position` by **visual position**.
+> Inserts a `slice` into the `Buffer` instance at the specified `visual position`.
 
 ```zig
 pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualError!void
@@ -20,10 +20,9 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
     | `pos`     | `usize`      | The visual position to insert at. |
 
 - #### 🚫 Errors
-    
+
     | Error             | Reason                                                     |
     | ----------------- | ---------------------------------------------------------- |
-    | `InvalidValue`    | The `slice` contains invalid UTF-8 characters.             |
     | `InvalidPosition` | The position is invalid.                                   |
     | `OutOfRange`      | The insertion exceeds the bounds of the `Buffer` instance. |
     | `OutOfRange`      | The `pos` is greater than `Buffer` length.                 |
@@ -54,13 +53,7 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
         _ = try buffer.insertVisual("!",   7); // 👉 "Hello 👨‍🏭!"
         ```
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
 
-        ```zig
-        _ = try buffer.insertVisual("\x80", 0); // 👉 error.InvalidValue
-        ```
-        
         > **_OutOfRange._**
 
         ```zig

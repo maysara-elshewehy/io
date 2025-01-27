@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`insertVisualOne`
 
-> Inserts a `byte` into the `String` instance at the specified `position` by **visual position**.
+> Inserts a `byte` into the `String` instance at the specified `visual position`.
 
 ```zig
 pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void
@@ -20,11 +20,10 @@ pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void
     | `pos`     | `usize` | The visual position to insert at. |
 
 - #### 🚫 Errors
-    
+
     | Error             | Reason                                     |
     | ----------------- | ------------------------------------------ |
-    | `AllocatorError` | The allocator returned an error.           |
-    | `InvalidValue`    | The `byte` is not valid UTF-8.             |
+    | `AllocatorError`  | The allocator returned an error.           |
     | `InvalidPosition` | The position is invalid.                   |
     | `OutOfRange`      | The `pos` is greater than `String` length. |
 
@@ -57,13 +56,7 @@ pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void
         ```
 
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
 
-        ```zig
-        _ = try string.insertVisualOne('\x80', 0); // 👉 error.InvalidValue
-        ```
-        
         > **_OutOfRange._**
 
         ```zig

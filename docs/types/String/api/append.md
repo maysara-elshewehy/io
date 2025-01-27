@@ -3,7 +3,7 @@
 > Appends a `slice` into the `String` instance.
 
 ```zig
-pub fn append(self: *Self, slice: []const u8) appendError!void
+pub fn append(self: *Self, slice: []const u8) insertError!void
 ```
 
 
@@ -19,11 +19,10 @@ pub fn append(self: *Self, slice: []const u8) appendError!void
     | `slice`   | `[]const u8` | The slice to insert.   |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                                         |
-    | ----------------- | ---------------------------------------------- |
+
+    | Error            | Reason                                         |
+    | ---------------- | ---------------------------------------------- |
     | `AllocatorError` | The allocator returned an error.               |
-    | `InvalidValue`    | The `slice` contains invalid UTF-8 characters. |
 
 - #### ✨ Returns : `void`
 
@@ -41,24 +40,14 @@ pub fn append(self: *Self, slice: []const u8) appendError!void
     defer string.deinit();
     ```
 
-    - ##### 🟢 Success Cases
-
-        ```zig
-        _ = try string.append("H");   // 👉 "H"
-        _ = try string.append("e");   // 👉 "He"
-        _ = try string.append("llo"); // 👉 "Hello"
-        _ = try string.append(" ");   // 👉 "Hello "
-        _ = try string.append("👨‍🏭");  // 👉 "Hello 👨‍🏭"
-        _ = try string.append("!");   // 👉 "Hello 👨‍🏭!"
-        ```
-
-    - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try string.append("\x80"); // 👉 error.InvalidValue
-        ```
+    ```zig
+    _ = try string.append("H");   // 👉 "H"
+    _ = try string.append("e");   // 👉 "He"
+    _ = try string.append("llo"); // 👉 "Hello"
+    _ = try string.append(" ");   // 👉 "Hello "
+    _ = try string.append("👨‍🏭");  // 👉 "Hello 👨‍🏭"
+    _ = try string.append("!");   // 👉 "Hello 👨‍🏭!"
+    ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

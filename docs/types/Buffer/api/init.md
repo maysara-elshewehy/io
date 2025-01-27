@@ -19,10 +19,9 @@ pub fn init(comptime size: usize, value: []const u8) initError!Buffer(size)
     | `value`   | `[]const u8`     | The UTF-8 encoded bytes to be viewed.  |
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                                |
     | -------------- | ------------------------------------- |
-    | `InvalidValue` | The `value` is not valid UTF-8.       |
     | `ZeroSize`     | The `value` length is 0.              |
     | `OutOfRange`   | The length of `value` exceeds `size`. |
 
@@ -47,25 +46,19 @@ pub fn init(comptime size: usize, value: []const u8) initError!Buffer(size)
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_ZeroSize._**
 
         ```zig
         _ = try Buffer.init(0, ""); // 👉 error.ZeroSize
         ```
-        
+
         > **_OutOfRange._**
 
         ```zig
         _ = try Buffer.init(1, ".."); // 👉 error.OutOfRange
         ```
-        
-        > **_InvalidValue._**
 
-        ```zig
-        const invalidUtf8 = &[_]u8{0x80, 0x81, 0x82};
-        _ = try Buffer.init(64, invalidUtf8); // 👉 error.InvalidValue
-        ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

@@ -4,10 +4,10 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    _ = b.addModule("io", .{ .root_source_file = b.path("./src/main.zig") });
+    _ = b.addModule("io", .{ .root_source_file = b.path("./lib/io.zig") });
 
     var main_tests = b.addTest(.{
-        .root_source_file = b.path("./src/main.zig"),
+        .root_source_file = b.path("./lib/io.zig"),
         .target = target,
         .optimize = optimize,
     });

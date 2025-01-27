@@ -1,6 +1,6 @@
 # [←](../bytes.md) `bytes`.`insertVisualOne`
 
-> Inserts a `byte` into `destination` at the specified `position` by **visual position**.
+> Inserts a `byte` into `dest` at the specified `visual position`.
 
 ```zig
 pub fn insertVisualOne(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) insertVisualError!void
@@ -21,7 +21,7 @@ pub fn insertVisualOne(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) inser
     | `pos`       | `usize` | The visual position to insert at. |
 
 - #### 🚫 Errors
-    
+
     | Error             | Reason                                      |
     | ----------------- | ------------------------------------------- |
     | `InvalidPosition` | The position is invalid.                    |
@@ -56,7 +56,7 @@ pub fn insertVisualOne(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) inser
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_OutOfRange._**
 
         ```zig

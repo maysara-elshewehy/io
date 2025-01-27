@@ -3,7 +3,7 @@
 > Prepends a `byte` into the `Buffer` instance.
 
 ```zig
-pub fn prependOne(self: *Self, byte: u8) prependError!void
+pub fn prependOne(self: *Self, byte: u8) insertError!void
 ```
 
 
@@ -19,10 +19,9 @@ pub fn prependOne(self: *Self, byte: u8) prependError!void
     | `byte`    | `u8`    | The byte to insert.    |
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                                                     |
     | -------------- | ---------------------------------------------------------- |
-    | `InvalidValue` | The `byte` is not valid UTF-8.                             |
     | `OutOfRange`   | The insertion exceeds the bounds of the `Buffer` instance. |
 
 - #### ✨ Returns : `void`
@@ -53,13 +52,7 @@ pub fn prependOne(self: *Self, byte: u8) prependError!void
         ```
 
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
 
-        ```zig
-        _ = try buffer.prependOne('\x80'); // 👉 error.InvalidValue
-        ```
-        
         > **_OutOfRange._**
 
         ```zig

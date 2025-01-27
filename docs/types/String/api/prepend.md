@@ -3,7 +3,7 @@
 > Prepends a `slice` into the `String` instance.
 
 ```zig
-pub fn prepend(self: *Self, slice: []const u8) prependError!void
+pub fn prepend(self: *Self, slice: []const u8) insertError!void
 ```
 
 
@@ -19,11 +19,10 @@ pub fn prepend(self: *Self, slice: []const u8) prependError!void
     | `slice`   | `[]const u8` | The slice to insert.   |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                                         |
-    | ----------------- | ---------------------------------------------- |
+
+    | Error            | Reason                                         |
+    | ---------------- | ---------------------------------------------- |
     | `AllocatorError` | The allocator returned an error.               |
-    | `InvalidValue`    | The `slice` contains invalid UTF-8 characters. |
 
 - #### ✨ Returns : `void`
 
@@ -41,24 +40,15 @@ pub fn prepend(self: *Self, slice: []const u8) prependError!void
     defer string.deinit();
     ```
 
-    - ##### 🟢 Success Cases
+    ```zig
+    _ = try string.prepend("H");   // 👉 "H"
+    _ = try string.prepend("e");   // 👉 "eH"
+    _ = try string.prepend("oll"); // 👉 "olleH"
+    _ = try string.prepend(" ");   // 👉 " olleH"
+    _ = try string.prepend("👨‍🏭");  // 👉 "👨‍🏭 olleH"
+    _ = try string.prepend("!");   // 👉 "!👨‍🏭 olleH"
+    ```
 
-        ```zig
-        _ = try string.prepend("H");   // 👉 "H"
-        _ = try string.prepend("e");   // 👉 "eH"
-        _ = try string.prepend("oll"); // 👉 "olleH"
-        _ = try string.prepend(" ");   // 👉 " olleH"
-        _ = try string.prepend("👨‍🏭");  // 👉 "👨‍🏭 olleH"
-        _ = try string.prepend("!");   // 👉 "!👨‍🏭 olleH"
-        ```
-
-    - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try string.prepend("\x80"); // 👉 error.InvalidValue
-        ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`clone`
 
-> Returns a copy of the `String` instance. 
+> Returns a copy of the `String` instance.
 
 ```zig
 pub fn clone(self: Self) AllocatorError!Self
@@ -18,7 +18,7 @@ pub fn clone(self: Self) AllocatorError!Self
     | `self`    | `Self` | The `String` instance. |
 
 - #### 🚫 Errors
-    
+
     | Error            | Reason                           |
     | ---------------- | -------------------------------- |
     | `AllocatorError` | The allocator returned an error. |

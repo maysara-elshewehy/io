@@ -3,7 +3,7 @@
 > Appends a `slice` into `dest`.
 
 ```zig
-pub fn append(dest: []u8, slice: []const u8, dest_wlen: usize) appendError!void
+pub fn append(dest: []u8, slice: []const u8, dest_wlen: usize) insertError!void
 ```
 
 
@@ -20,7 +20,7 @@ pub fn append(dest: []u8, slice: []const u8, dest_wlen: usize) appendError!void
     | `dest_wlen` | `usize`      | The write length of `dest`.     |
 
 - #### 🚫 Errors
-    
+
     | Error        | Reason                                      |
     | ------------ | ------------------------------------------- |
     | `OutOfRange` | The insertion exceeds the bounds of `dest`. |
@@ -53,7 +53,7 @@ pub fn append(dest: []u8, slice: []const u8, dest_wlen: usize) appendError!void
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_OutOfRange._**
 
         ```zig

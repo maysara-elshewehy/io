@@ -18,7 +18,7 @@ pub fn initCapacity(comptime size: usize) initCapacityError!Buffer(size)
     | `size`    | `comptime usize` | The total size of the buffer in bytes. |
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                                |
     | -------------- | ------------------------------------- |
     | `ZeroSize`     | The `value` length is 0.              |
@@ -44,13 +44,13 @@ pub fn initCapacity(comptime size: usize) initCapacityError!Buffer(size)
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_ZeroSize._**
 
         ```zig
         _ = try Buffer.initCapacity(0); // 👉 error.ZeroSize
         ```
-        
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>

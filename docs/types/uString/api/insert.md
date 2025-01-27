@@ -21,12 +21,11 @@ pub fn insert(self: *Self, allocator: Allocator, slice: []const u8, pos: usize) 
     | `pos`       | `usize`             | The position to insert at. |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                                         |
-    | ----------------- | ---------------------------------------------- |
+
+    | Error            | Reason                                         |
+    | ---------------- | ---------------------------------------------- |
     | `AllocatorError` | The allocator returned an error.               |
-    | `InvalidValue`    | The `slice` contains invalid UTF-8 characters. |
-    | `OutOfRange`      | The `pos` is greater than `uString` length.    |
+    | `OutOfRange`     | The `pos` is greater than `uString` length.    |
 
 - #### ✨ Returns : `void`
 
@@ -56,12 +55,6 @@ pub fn insert(self: *Self, allocator: Allocator, slice: []const u8, pos: usize) 
         ```
 
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try string.insert(allocator, "\x80", 0); // 👉 error.InvalidValue
-        ```
 
         > **_OutOfRange._**
 

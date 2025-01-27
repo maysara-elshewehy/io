@@ -3,7 +3,7 @@
 > Appends a `byte` into the `String` instance.
 
 ```zig
-pub fn appendOne(self: *Self, byte: u8) appendError!void
+pub fn appendOne(self: *Self, byte: u8) insertError!void
 ```
 
 
@@ -19,11 +19,10 @@ pub fn appendOne(self: *Self, byte: u8) appendError!void
     | `byte`    | `u8`    | The byte to insert.    |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                           |
-    | ----------------- | -------------------------------- |
+
+    | Error            | Reason                           |
+    | ---------------- | -------------------------------- |
     | `AllocatorError` | The allocator returned an error. |
-    | `InvalidValue`    | The `byte` is not valid UTF-8.   |
 
 - #### ✨ Returns : `void`
 
@@ -41,26 +40,16 @@ pub fn appendOne(self: *Self, byte: u8) appendError!void
     defer string.deinit();
     ```
 
-    - ##### 🟢 Success Cases
+    ```zig
+    _ = try string.appendOne('H'); // 👉 "H"
+    _ = try string.appendOne('e'); // 👉 "He"
+    _ = try string.appendOne('l'); // 👉 "Hel"
+    _ = try string.appendOne('l'); // 👉 "Hell"
+    _ = try string.appendOne('o'); // 👉 "Hello"
+    _ = try string.appendOne(' '); // 👉 "Hello "
+    _ = try string.appendOne('!'); // 👉 "Hello !"
+    ```
 
-        ```zig
-        _ = try string.appendOne('H'); // 👉 "H"
-        _ = try string.appendOne('e'); // 👉 "He"
-        _ = try string.appendOne('l'); // 👉 "Hel"
-        _ = try string.appendOne('l'); // 👉 "Hell"
-        _ = try string.appendOne('o'); // 👉 "Hello"
-        _ = try string.appendOne(' '); // 👉 "Hello "
-        _ = try string.appendOne('!'); // 👉 "Hello !"
-        ```
-
-    - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try string.appendOne('\x80'); // 👉 error.InvalidValue
-        ```
-        
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>

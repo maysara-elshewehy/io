@@ -3,7 +3,7 @@
 > Reverses the order of the characters **_(considering unicode)_**.
 
 ```zig
-pub inline fn reverse(self: *Self) void
+pub fn reverse(self: *Self) void
 ```
 
 

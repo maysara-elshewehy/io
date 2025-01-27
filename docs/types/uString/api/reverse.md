@@ -3,7 +3,7 @@
 > Reverses the order of the characters **_(considering unicode)_**.
 
 ```zig
-pub inline fn reverse(self: *Self, allocator: Allocator) AllocatorError!void
+pub fn reverse(self: *Self, allocator: Allocator) AllocatorError!void
 ```
 
 
@@ -19,7 +19,7 @@ pub inline fn reverse(self: *Self, allocator: Allocator) AllocatorError!void
     | `allocator` | `std.mem.Allocator` | The allocator to use.   |
 
 - #### 🚫 Errors
-    
+
     | Error            | Reason                           |
     | ---------------- | -------------------------------- |
     | `AllocatorError` | The allocator returned an error. |

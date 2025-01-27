@@ -1,6 +1,6 @@
 # [←](../uString.md) `uString`.`clone`
 
-> Returns a copy of the `uString` instance. 
+> Returns a copy of the `uString` instance.
 
 ```zig
 pub fn clone(self: Self, allocator: Allocator) AllocatorError!Self
@@ -19,7 +19,7 @@ pub fn clone(self: Self, allocator: Allocator) AllocatorError!Self
     | `allocator` | `std.mem.Allocator` | The allocator to use.   |
 
 - #### 🚫 Errors
-    
+
     | Error            | Reason                           |
     | ---------------- | -------------------------------- |
     | `AllocatorError` | The allocator returned an error. |

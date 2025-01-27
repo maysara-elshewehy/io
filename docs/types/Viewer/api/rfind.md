@@ -1,6 +1,6 @@
 # [←](../Viewer.md) `Viewer`.`rfind`
 
-> Finds the **real position** of the **last** occurrence of `value`.
+> Finds the `position` of the **last** occurrence of `target`.
 
 ```zig
 pub fn rfind(self: Self, target: []const u8) ?usize
@@ -12,9 +12,9 @@ pub fn rfind(self: Self, target: []const u8) ?usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description                        |
-    | --------- | ------------ | ---------------------------------- |
-    | `self`    | `Self`       | The `Viewer` instance.             |
+    | Parameter | Type         | Description              |
+    | --------- | ------------ | ------------------------ |
+    | `self`    | `Self`       | The `Viewer` instance.   |
     | `target`  | `[]const u8` | The value to search for. |
 
 - #### ✨ Returns : `?usize`

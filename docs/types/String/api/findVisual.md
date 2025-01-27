@@ -1,6 +1,6 @@
 # [←](../String.md) `String`.`findVisual`
 
-> Finds the **visual position** of the **first** occurrence of `value`.
+> Finds the `visual position` of the **first** occurrence of `target`.
 
 ```zig
 pub fn findVisual(self: Self, target: []const u8) ?usize
@@ -12,9 +12,9 @@ pub fn findVisual(self: Self, target: []const u8) ?usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description                        |
-    | --------- | ------------ | ---------------------------------- |
-    | `self`    | `Self`       | The `String` instance.             |
+    | Parameter | Type         | Description              |
+    | --------- | ------------ | ------------------------ |
+    | `self`    | `Self`       | The `String` instance.   |
     | `target`  | `[]const u8` | The value to search for. |
 
 - #### ✨ Returns : `?usize`

@@ -20,12 +20,11 @@ pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void
     | `pos`     | `usize` | The position to insert at. |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                                     |
-    | ----------------- | ------------------------------------------ |
+
+    | Error            | Reason                                     |
+    | ---------------- | ------------------------------------------ |
     | `AllocatorError` | The allocator returned an error.           |
-    | `InvalidValue`    | The `byte` is not valid UTF-8.             |
-    | `OutOfRange`      | The `pos` is greater than `String` length. |
+    | `OutOfRange`     | The `pos` is greater than `String` length. |
 
 - #### ✨ Returns : `void`
 
@@ -56,13 +55,7 @@ pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void
         ```
 
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
 
-        ```zig
-        _ = try string.insertOne('\x80', 0); // 👉 error.InvalidValue
-        ```
-        
         > **_OutOfRange._**
 
         ```zig

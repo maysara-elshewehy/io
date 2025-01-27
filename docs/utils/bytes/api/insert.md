@@ -1,6 +1,6 @@
 # [←](../bytes.md) `bytes`.`insert`
 
-> Inserts a `slice` into `destination` at the specified `position` by **real position**.
+> Inserts a `slice` into `dest` at the specified `position`.
 
 ```zig
 pub fn insert(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) insertError!void
@@ -21,7 +21,7 @@ pub fn insert(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) inser
     | `pos`       | `usize`      | The position to insert at.      |
 
 - #### 🚫 Errors
-    
+
     | Error        | Reason                                      |
     | ------------ | ------------------------------------------- |
     | `OutOfRange` | The insertion exceeds the bounds of `dest`. |
@@ -54,7 +54,7 @@ pub fn insert(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) inser
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_OutOfRange._**
 
         ```zig

@@ -47,28 +47,39 @@
 
    - #### ➕ Insert
 
-        | Function                                      | Description                                                                              |
-        | --------------------------------------------- | ---------------------------------------------------------------------------------------- |
-        | [`insert`](./api/insert.md)                   | Inserts a `slice` into `destination` at the specified `position` by **real position**.   |
-        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` into `destination` at the specified `position` by **real position**.    |
-        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` into `destination` at the specified `position` by **visual position**. |
-        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` into `destination` at the specified `position` by **visual position**.  |
-        | [`append`](./api/append.md)                   | Appends a `slice` into `dest`.                                                           |
-        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into `dest`.                                                            |
-        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into `dest`.                                                          |
-        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into `dest`.                                                           |
+        | Function                                      | Description                                                       |
+        | --------------------------------------------- | ----------------------------------------------------------------- |
+        | [`insert`](./api/insert.md)                   | Inserts a `slice` into `dest` at the specified `position`.        |
+        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` into `dest` at the specified `position`.         |
+        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` into `dest` at the specified `visual position`. |
+        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` into `dest` at the specified `visual position`.  |
+        | [`append`](./api/append.md)                   | Appends a `slice` into `dest`.                                    |
+        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into `dest`.                                     |
+        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into `dest`.                                   |
+        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into `dest`.                                    |
+
+   - #### ➖ Remove
+
+        | Function                                          | Description                                                                            |
+        | ------------------------------------------------- | -------------------------------------------------------------------------------------- |
+        | [`remove`](./api/remove.md)                       | Removes a byte from the `dest`.                                                        |
+        | [`removeRange`](./api/removeRange.md)             | Removes a `range` of bytes from the `dest`.                                            |
+        | [`removeVisual`](./api/removeVisual.md)           | Removes a byte from the `dest` by the `visual position`.                               |
+        | [`removeVisualRange`](./api/removeVisualRange.md) | Removes a `range` of bytes from the `dest` by the `visual position`.                   |
+        | [`pop`](./api/pop.md)                             | Returns the length of the last grapheme cluster at the `dest`.                         |
+        | [`shift`](./api/shift.md)                         | Removes the first grapheme cluster at the `dest`, Returns the number of removed bytes. |
 
    - #### 🔍 Search
 
-        | Method                                | Description                                                           |
-        | ------------------------------------- | --------------------------------------------------------------------- |
-        | [`find`](./api/find.md)               | Finds the **real position** of the **first** occurrence of `value`.   |
-        | [`findVisual`](./api/findVisual.md)   | Finds the **visual position** of the **first** occurrence of `value`. |
-        | [`rfind`](./api/rfind.md)             | Finds the **real position** of the **last** occurrence of `value`.    |
-        | [`rfindVisual`](./api/rfindVisual.md) | Finds the **visual position** of the **last** occurrence of `value`.  |
-        | [`includes`](./api/includes.md)       | Returns `true` **if `dest` contains `target`**.                       |
-        | [`startsWith`](./api/startsWith.md)   | Returns `true` **if `dest` starts with `target`**.                    |
-        | [`endsWith`](./api/endsWith.md)       | Returns `true` **if `dest` ends with `target`**.                      |
+        | Method                                | Description                                                          |
+        | ------------------------------------- | -------------------------------------------------------------------- |
+        | [`find`](./api/find.md)               | Finds the `position` of the **first** occurrence of `target`.        |
+        | [`findVisual`](./api/findVisual.md)   | Finds the `visual position` of the **first** occurrence of `target`. |
+        | [`rfind`](./api/rfind.md)             | Finds the `position` of the **last** occurrence of `target`.         |
+        | [`rfindVisual`](./api/rfindVisual.md) | Finds the `visual position` of the **last** occurrence of `target`.  |
+        | [`includes`](./api/includes.md)       | Returns `true` **if `dest` contains `target`**.                      |
+        | [`startsWith`](./api/startsWith.md)   | Returns `true` **if `dest` starts with `target`**.                   |
+        | [`endsWith`](./api/endsWith.md)       | Returns `true` **if `dest` ends with `target`**.                     |
 
    - #### 🌈 Letter Cases
 
@@ -85,7 +96,7 @@
         | [`countWritten`](./api/countWritten.md) | Returns the total number of written bytes.     |
         | [`countVisual`](./api/countVisual.md)   | Returns the total number of visual characters. |
 
-   - #### ✔️ Validation 
+   - #### ✔️ Validation
 
         | Function                      | Description                                                |
         | ----------------------------- | ---------------------------------------------------------- |

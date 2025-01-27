@@ -3,7 +3,7 @@
 > Prepends a `byte` into `dest`.
 
 ```zig
-pub fn prependOne(dest: []u8, byte: u8, dest_wlen: usize) prependError!void
+pub fn prependOne(dest: []u8, byte: u8, dest_wlen: usize) insertError!void
 ```
 
 
@@ -20,7 +20,7 @@ pub fn prependOne(dest: []u8, byte: u8, dest_wlen: usize) prependError!void
     | `dest_wlen` | `usize` | The write length of `dest`.     |
 
 - #### 🚫 Errors
-    
+
     | Error        | Reason                                      |
     | ------------ | ------------------------------------------- |
     | `OutOfRange` | The insertion exceeds the bounds of `dest`. |
@@ -53,7 +53,7 @@ pub fn prependOne(dest: []u8, byte: u8, dest_wlen: usize) prependError!void
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_OutOfRange._**
 
         ```zig

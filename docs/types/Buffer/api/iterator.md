@@ -18,7 +18,7 @@ pub fn iterator(self: Self) utf8.Iterator.Error!utf8.Iterator
     | `self`    | `Self` | The `Buffer` instance. |
 
 - #### 🚫 Errors
-    
+
     | Error                 | Reason                       |
     | --------------------- | ---------------------------- |
     | `utf8.Iterator.Error` | if the initialization failed |
@@ -45,7 +45,7 @@ pub fn iterator(self: Self) utf8.Iterator.Error!utf8.Iterator
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > if the initilization failed, returns `utf8.Iterator.Error`.
 
 <div align="center">
@@ -55,7 +55,7 @@ pub fn iterator(self: Self) utf8.Iterator.Error!utf8.Iterator
 - ##### 🔗 Related
 
   > [`Buffer.init`](./init.md)
-  
+
   > [`io.utils.utf8.Iterator`](../../../utils/utf8/api/Iterator.md)
 
 <div align="center">

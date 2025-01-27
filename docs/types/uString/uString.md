@@ -40,11 +40,10 @@
 
   - #### 🧩 Fields
 
-      | Field      | Type    | Description                                          |
-      | ---------- | ------- | ---------------------------------------------------- |
-      | `source`   | `[]u8`  | The mutable UTF-8 encoded bytes.                     |
-      | `length`   | `usize` | The number of written bytes to `source`.             |
-      | `capacity` | `usize` | The number of bytes that can be written to `source`. |
+      | Field        | Type    | Description                                            |
+      | ------------ | ------- | ------------------------------------------------------ |
+      | `m_source`   | `[]u8`  | The mutable UTF-8 encoded bytes.                       |
+      | `m_capacity` | `usize` | The number of bytes that can be written to `m_source`. |
 
    - #### ✨ Initialization
 
@@ -56,28 +55,39 @@
 
    - #### ➕ Insert
 
-        | Function                                      | Description                                                           |
-        | --------------------------------------------- | --------------------------------------------------------------------- |
-        | [`insert`](./api/insert.md)                   | Inserts a `slice` at the specified `position` by **real position**.   |
-        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` at the specified `position` by **real position**.    |
-        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` at the specified `position` by **visual position**. |
-        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` at the specified `position` by **visual position**.  |
-        | [`append`](./api/append.md)                   | Appends a `slice` into the `uString` instance.                        |
-        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into the `uString` instance.                         |
-        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into the `uString` instance.                       |
-        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into the `uString` instance.                        |
+        | Function                                      | Description                                                         |
+        | --------------------------------------------- | ------------------------------------------------------------------- |
+        | [`insert`](./api/insert.md)                   | Inserts a `slice` at the specified `position` by **real position**. |
+        | [`insertOne`](./api/insertOne.md)             | Inserts a `byte` at the specified `position` by **real position**.  |
+        | [`insertVisual`](./api/insertVisual.md)       | Inserts a `slice` at the specified `visual position`.               |
+        | [`insertVisualOne`](./api/insertVisualOne.md) | Inserts a `byte` at the specified `visual position`.                |
+        | [`append`](./api/append.md)                   | Appends a `slice` into the `uString` instance.                      |
+        | [`appendOne`](./api/appendOne.md)             | Appends a `byte` into the `uString` instance.                       |
+        | [`prepend`](./api/prepend.md)                 | Prepends a `slice` into the `uString` instance.                     |
+        | [`prependOne`](./api/prependOne.md)           | Prepends a `byte` into the `uString` instance.                      |
 
-  - #### 🔍 Search
+   - #### ➖ Remove
 
-      | Method                                | Description                                                           |
-      | ------------------------------------- | --------------------------------------------------------------------- |
-      | [`find`](./api/find.md)               | Finds the **real position** of the **first** occurrence of `value`.   |
-      | [`findVisual`](./api/findVisual.md)   | Finds the **visual position** of the **first** occurrence of `value`. |
-      | [`rfind`](./api/rfind.md)             | Finds the **real position** of the **last** occurrence of `value`.    |
-      | [`rfindVisual`](./api/rfindVisual.md) | Finds the **visual position** of the **last** occurrence of `value`.  |
-      | [`includes`](./api/includes.md)       | Returns `true` **if contains `target`**.                              |
-      | [`startsWith`](./api/startsWith.md)   | Returns `true` **if starts with `target`**.                           |
-      | [`endsWith`](./api/endsWith.md)       | Returns `true` **if ends with `target`**.                             |
+        | Function                                          | Description                                                                                        |
+        | ------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+        | [`remove`](./api/remove.md)                       | Removes a byte from the `uString` instance.                                                        |
+        | [`removeRange`](./api/removeRange.md)             | Removes a `range` of bytes from the `uString` instance.                                            |
+        | [`removeVisual`](./api/removeVisual.md)           | Removes a byte from the `uString` instance by the `visual position`.                               |
+        | [`removeVisualRange`](./api/removeVisualRange.md) | Removes a `range` of bytes from the `uString` instance by the `visual position`.                   |
+        | [`pop`](./api/pop.md)                             | Removes the last grapheme cluster at the `uString` instance, Returns the number of removed bytes.  |
+        | [`shift`](./api/shift.md)                         | Removes the first grapheme cluster at the `uString` instance, Returns the number of removed bytes. |
+
+   - #### 🔍 Search
+
+      | Method                                | Description                                                          |
+      | ------------------------------------- | -------------------------------------------------------------------- |
+      | [`find`](./api/find.md)               | Finds the `position` of the **first** occurrence of `target`.        |
+      | [`findVisual`](./api/findVisual.md)   | Finds the `visual position` of the **first** occurrence of `target`. |
+      | [`rfind`](./api/rfind.md)             | Finds the `position` of the **last** occurrence of `target`.         |
+      | [`rfindVisual`](./api/rfindVisual.md) | Finds the `visual position` of the **last** occurrence of `target`.  |
+      | [`includes`](./api/includes.md)       | Returns `true` **if contains `target`**.                             |
+      | [`startsWith`](./api/startsWith.md)   | Returns `true` **if starts with `target`**.                          |
+      | [`endsWith`](./api/endsWith.md)       | Returns `true` **if ends with `target`**.                            |
 
    - #### 🌈 Letter Cases
 
@@ -89,10 +99,10 @@
 
    - #### 🪄 Counting
 
-        | Function                                | Description                                    |
-        | --------------------------------------- | ---------------------------------------------- |
-        | [`countWritten`](./api/countWritten.md) | Returns the total number of written bytes.     |
-        | [`countVisual`](./api/countVisual.md)   | Returns the total number of visual characters. |
+        | Function                      | Description                                    |
+        | ----------------------------- | ---------------------------------------------- |
+        | [`length`](./api/length.md)   | Returns the total number of written bytes.     |
+        | [`vlength`](./api/vlength.md) | Returns the total number of visual characters. |
 
    - #### 🚀 Iterations
 
@@ -105,7 +115,7 @@
         | Function                                    | Description                                                           |
         | ------------------------------------------- | --------------------------------------------------------------------- |
         | [`allocatedSlice`](./api/allocatedSlice.md) | Returns a slice representing the entire allocated memory range.       |
-        | [`writtenSlice`](./api/writtenSlice.md)     | Returns a slice containing only the written part.                     |
+        | [`slice`](./api/slice.md)                   | Returns a slice containing only the written part.                     |
         | [`reverse`](./api/reverse.md)               | Reverses the order of the characters **_(considering unicode)_**.     |
         | [`clone`](./api/clone.md)                   | Returns a copy of the `uString` instance.                             |
         | [`toManaged`](./api/toManaged.md)           | Converts the `uString` to a `String`, taking ownership of the memory. |

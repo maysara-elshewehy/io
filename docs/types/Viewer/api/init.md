@@ -18,11 +18,10 @@ pub fn init(value: []const u8) initError!Self
     | `value`   | `[]const u8` | The UTF-8 encoded bytes to be viewed. |
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                          |
     | -------------- | ------------------------------- |
     | `ZeroSize`     | The `value` length is 0.        |
-    | `InvalidValue` | The `value` is not valid UTF-8. |
 
 - #### ✨ Returns : `Self`
 
@@ -45,18 +44,11 @@ pub fn init(value: []const u8) initError!Self
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_ZeroSize._**
 
         ```zig
         _ = try Viewer.init("");            // 👉 error.ZeroSize
-        ```
-        
-        > **_InvalidValue._**
-
-        ```zig
-        const invalidUtf8 = &[_]u8{0x80, 0x81, 0x82};
-        _ = try Viewer.init(invalidUtf8);  // 👉 error.InvalidValue
         ```
 
 <div align="center">

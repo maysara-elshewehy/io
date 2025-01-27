@@ -13,12 +13,12 @@ pub fn iterator(self: Self) utf8.Iterator.Error!utf8.Iterator
 
 - #### 🧩 Parameters
 
-    | Parameter | Type   | Description            |
-    | --------- | ------ | ---------------------- |
+    | Parameter | Type   | Description             |
+    | --------- | ------ | ----------------------- |
     | `self`    | `Self` | The `uString` instance. |
 
 - #### 🚫 Errors
-    
+
     | Error                 | Reason                       |
     | --------------------- | ---------------------------- |
     | `utf8.Iterator.Error` | if the initialization failed |
@@ -47,7 +47,7 @@ pub fn iterator(self: Self) utf8.Iterator.Error!utf8.Iterator
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > if the initilization failed, returns `utf8.Iterator.Error`.
 
 <div align="center">
@@ -57,7 +57,7 @@ pub fn iterator(self: Self) utf8.Iterator.Error!utf8.Iterator
 - ##### 🔗 Related
 
   > [`uString.init`](./init.md)
-  
+
   > [`uString.deinit`](./deinit.md)
 
   > [`io.utils.utf8.Iterator`](../../../utils/utf8/api/Iterator.md)

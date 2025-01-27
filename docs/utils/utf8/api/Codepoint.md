@@ -16,14 +16,14 @@ pub const Codepoint = struct
     | Field  | Type                                 | Description                                                          |
     | ------ | ------------------------------------ | -------------------------------------------------------------------- |
     | `mode` | enum of _(`ZWJ` or `Mod` or `None`)_ | The mode of the code point _(`ZeroWidthJointer`/`Modifier`/`None`)_. |
-    | `len`  | `usize`                          | The length of the codepoint slice.                                   |
+    | `len`  | `usize`                              | The length of the codepoint slice.                                   |
 
 - #### 🧩 Functions
 
     - #### init
-        
+
         > Initializes a Codepoint using the given input bytes.
-        
+
         > 🚫 Returns `Error.InvalidValue` **_if the `slice` is not a valid utf8._**
 
         ```zig
@@ -31,7 +31,7 @@ pub const Codepoint = struct
         ```
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                                    |
     | -------------- | ----------------------------------------- |
     | `InvalidValue` | **_if the `slice` is not a valid utf8._** |
@@ -103,7 +103,7 @@ pub const Codepoint = struct
 
 
     - ##### 🔴 Failure Cases
-        
+
         > **_InvalidValue._**
 
         ```zig

@@ -13,12 +13,12 @@ pub fn initAlloc(allocator: Allocator) Self
 
 - #### 🧩 Parameters
 
-    | Parameter   | Type                | Description                      |
-    | ----------- | ------------------- | -------------------------------- |
-    | `allocator` | `std.mem.Allocator` | The allocator to use.            |
+    | Parameter   | Type                | Description           |
+    | ----------- | ------------------- | --------------------- |
+    | `allocator` | `std.mem.Allocator` | The allocator to use. |
 
 - #### 🚫 Errors
-    
+
     | Error                     | Reason                           |
     | ------------------------- | -------------------------------- |
     | `std.mem.Allocator.Error` | The allocator returned an error. |
@@ -48,7 +48,7 @@ pub fn initAlloc(allocator: Allocator) Self
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > if the allocation failed (e.g. due to OOM): **_std.mem.Allocator.Error.errorName._**
 
 <div align="center">
@@ -60,7 +60,7 @@ pub fn initAlloc(allocator: Allocator) Self
   > [`String.init`](./init.md)
 
   > [`String.initCapacity`](./initCapacity.md)
-  
+
   > [`String.deinit`](./deinit.md)
 
 <div align="center">

@@ -3,7 +3,7 @@
 > Returns a slice representing the entire allocated memory range.
 
 ```zig
-pub fn allocatedSlice(self: Self) []const u8 
+pub fn allocatedSlice(self: Self) []const u8
 ```
 
 
@@ -13,8 +13,8 @@ pub fn allocatedSlice(self: Self) []const u8
 
 - #### 🧩 Parameters
 
-    | Parameter | Type   | Description            |
-    | --------- | ------ | ---------------------- |
+    | Parameter | Type   | Description             |
+    | --------- | ------ | ----------------------- |
     | `self`    | `Self` | The `uString` instance. |
 
 - #### ✨ Returns : `[]const u8`
@@ -34,7 +34,7 @@ pub fn allocatedSlice(self: Self) []const u8
     ```
 
     ```zig
-    _ = string.writtenSlice();   // 👉 { '1' }
+    _ = string.slice();          // 👉 { '1' }
     _ = string.allocatedSlice(); // 👉 { '1', 0, 0, 0xAA, 0xAA, 0xAA }
     ```
 
@@ -46,7 +46,7 @@ pub fn allocatedSlice(self: Self) []const u8
 
   > [`uString.init`](./init.md)
 
-  > [`uString.writtenSlice`](./writtenSlice.md)
+  > [`uString.slice`](./slice.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

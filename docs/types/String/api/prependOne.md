@@ -3,7 +3,7 @@
 > Prepends a `byte` into the `String` instance.
 
 ```zig
-pub fn prependOne(self: *Self, byte: u8) prependError!void
+pub fn prependOne(self: *Self, byte: u8) insertError!void
 ```
 
 
@@ -19,11 +19,10 @@ pub fn prependOne(self: *Self, byte: u8) prependError!void
     | `byte`    | `u8`    | The byte to insert.    |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                           |
-    | ----------------- | -------------------------------- |
+
+    | Error            | Reason                           |
+    | ---------------- | -------------------------------- |
     | `AllocatorError` | The allocator returned an error. |
-    | `InvalidValue`    | The `byte` is not valid UTF-8.   |
 
 - #### ✨ Returns : `void`
 
@@ -41,25 +40,15 @@ pub fn prependOne(self: *Self, byte: u8) prependError!void
     defer string.deinit();
     ```
 
-    - ##### 🟢 Success Cases
-
-        ```zig
-        _ = try string.prependOne('H'); // 👉 "H"
-        _ = try string.prependOne('e'); // 👉 "eH"
-        _ = try string.prependOne('l'); // 👉 "leH"
-        _ = try string.prependOne('l'); // 👉 "lleH"
-        _ = try string.prependOne('o'); // 👉 "olleH"
-        _ = try string.prependOne(' '); // 👉 " olleH"
-        _ = try string.prependOne('!'); // 👉 "! olleH"
-        ```
-
-    - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try string.prependOne('\x80'); // 👉 error.InvalidValue
-        ```
+    ```zig
+    _ = try string.prependOne('H'); // 👉 "H"
+    _ = try string.prependOne('e'); // 👉 "eH"
+    _ = try string.prependOne('l'); // 👉 "leH"
+    _ = try string.prependOne('l'); // 👉 "lleH"
+    _ = try string.prependOne('o'); // 👉 "olleH"
+    _ = try string.prependOne(' '); // 👉 " olleH"
+    _ = try string.prependOne('!'); // 👉 "! olleH"
+    ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

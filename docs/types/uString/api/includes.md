@@ -14,7 +14,7 @@ pub fn includes(self: Self, target: []const u8) bool
 
     | Parameter | Type         | Description              |
     | --------- | ------------ | ------------------------ |
-    | `self`    | `Self`       | The `uString` instance.   |
+    | `self`    | `Self`       | The `uString` instance.  |
     | `target`  | `[]const u8` | The value to search for. |
 
 - #### ✨ Returns : `bool`

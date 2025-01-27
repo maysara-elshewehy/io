@@ -3,7 +3,7 @@
 > Initializes a new `uString` instance using `allocator` and `value`.
 
 ```zig
-pub fn init(alloator: Allocator, value: []const u8) initError!Self 
+pub fn init(allocator: Allocator, value: []const u8) initError!Self
 ```
 
 
@@ -19,11 +19,10 @@ pub fn init(alloator: Allocator, value: []const u8) initError!Self
     | `value`     | `[]const u8`        | The UTF-8 encoded bytes to be viewed. |
 
 - #### 🚫 Errors
-    
+
     | Error                     | Reason                           |
     | ------------------------- | -------------------------------- |
     | `ZeroSize`                | The `size` is 0.                 |
-    | `InvalidValue`            | The `value` is not valid UTF-8.  |
     | `std.mem.Allocator.Error` | The allocator returned an error. |
 
 - #### ✨ Returns : `Self`
@@ -51,22 +50,13 @@ pub fn init(alloator: Allocator, value: []const u8) initError!Self
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_ZeroSize._**
 
         ```zig
         _ = try uString.init(allocator, ""); // 👉 error.ZeroSize
         ```
 
-        > **_InvalidValue._**
-
-        ```zig
-        const invalidUtf8 = &[_]u8{0x80, 0x81, 0x82};
-        _ = try uString.init(allocator, invalidUtf8); // 👉 error.InvalidValue
-        ```
-
-        > if the allocation failed (e.g. due to OOM): **_std.mem.Allocator.Error.errorName._**
-        
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>

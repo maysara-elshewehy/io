@@ -13,17 +13,17 @@ pub const Iterator = struct
 
 - #### ✨ Fields
 
-    | Field           | Type           | Description                           |
-    | --------------- | -------------- | ------------------------------------- |
+    | Field           | Type         | Description                           |
+    | --------------- | ------------ | ------------------------------------- |
     | `input_bytes`   | `[]const u8` | The input bytes to iterate over.      |
-    | `current_index` | `usize`    | The current position of the iterator. |
+    | `current_index` | `usize`      | The current position of the iterator. |
 
 - #### 🧩 Functions
 
     - #### init
-        
+
         > Initializes a Codepoint using the given input bytes.
-        
+
         > 🚫 Returns `Error.InvalidValue` **_if the `input_bytes` is not a valid utf8._**
 
         ```zig
@@ -37,7 +37,7 @@ pub const Iterator = struct
         ```zig
         pub fn nextSlice(self: *Self) ?[]const u8
         ```
-        
+
     - #### nextGraphemeCluster
 
         > Retrieves the next grapheme cluster slice and advances the iterator.
@@ -45,7 +45,7 @@ pub const Iterator = struct
         ```zig
         pub fn nextGraphemeCluster(self: *Self) ?[]const u8
         ```
-        
+
     - #### next
 
         > Decodes and returns the next codepoint and advances the iterator.
@@ -63,7 +63,7 @@ pub const Iterator = struct
         ```
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                                    |
     | -------------- | ----------------------------------------- |
     | `InvalidValue` | **_if the `slice` is not a valid utf8._** |
@@ -153,7 +153,7 @@ pub const Iterator = struct
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_InvalidValue._**
 
         ```zig

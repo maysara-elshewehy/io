@@ -3,7 +3,7 @@
 > Appends a `byte` into the `uString` instance.
 
 ```zig
-pub fn appendOne(self: *Self, allocator: Allocator, byte: u8) appendError!void
+pub fn appendOne(self: *Self, allocator: Allocator, byte: u8) insertError!void
 ```
 
 
@@ -20,11 +20,10 @@ pub fn appendOne(self: *Self, allocator: Allocator, byte: u8) appendError!void
     | `byte`      | `u8`                | The byte to insert.     |
 
 - #### 🚫 Errors
-    
-    | Error             | Reason                           |
-    | ----------------- | -------------------------------- |
+
+    | Error            | Reason                           |
+    | ---------------- | -------------------------------- |
     | `AllocatorError` | The allocator returned an error. |
-    | `InvalidValue`    | The `byte` is not valid UTF-8.   |
 
 - #### ✨ Returns : `void`
 
@@ -42,26 +41,16 @@ pub fn appendOne(self: *Self, allocator: Allocator, byte: u8) appendError!void
     defer string.deinit(allocator);
     ```
 
-    - ##### 🟢 Success Cases
+    ```zig
+    _ = try string.appendOne(allocator, 'H'); // 👉 "H"
+    _ = try string.appendOne(allocator, 'e'); // 👉 "He"
+    _ = try string.appendOne(allocator, 'l'); // 👉 "Hel"
+    _ = try string.appendOne(allocator, 'l'); // 👉 "Hell"
+    _ = try string.appendOne(allocator, 'o'); // 👉 "Hello"
+    _ = try string.appendOne(allocator, ' '); // 👉 "Hello "
+    _ = try string.appendOne(allocator, '!'); // 👉 "Hello !"
+    ```
 
-        ```zig
-        _ = try string.appendOne(allocator, 'H'); // 👉 "H"
-        _ = try string.appendOne(allocator, 'e'); // 👉 "He"
-        _ = try string.appendOne(allocator, 'l'); // 👉 "Hel"
-        _ = try string.appendOne(allocator, 'l'); // 👉 "Hell"
-        _ = try string.appendOne(allocator, 'o'); // 👉 "Hello"
-        _ = try string.appendOne(allocator, ' '); // 👉 "Hello "
-        _ = try string.appendOne(allocator, '!'); // 👉 "Hello !"
-        ```
-
-    - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try string.appendOne(allocator, '\x80'); // 👉 error.InvalidValue
-        ```
-        
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>

@@ -50,22 +50,22 @@
 
    - #### 🔍 Search
 
-        | Method                                | Description                                                           |
-        | ------------------------------------- | --------------------------------------------------------------------- |
-        | [`find`](./api/find.md)               | Finds the **real position** of the **first** occurrence of `value`.   |
-        | [`findVisual`](./api/findVisual.md)   | Finds the **visual position** of the **first** occurrence of `value`. |
-        | [`rfind`](./api/rfind.md)             | Finds the **real position** of the **last** occurrence of `value`.    |
-        | [`rfindVisual`](./api/rfindVisual.md) | Finds the **visual position** of the **last** occurrence of `value`.  |
-        | [`includes`](./api/includes.md)       | Returns `true` **if contains `target`**.                              |
-        | [`startsWith`](./api/startsWith.md)   | Returns `true` **if starts with `target`**.                           |
-        | [`endsWith`](./api/endsWith.md)       | Returns `true` **if ends with `target`**.                             |
+        | Method                                | Description                                                          |
+        | ------------------------------------- | -------------------------------------------------------------------- |
+        | [`find`](./api/find.md)               | Finds the `position` of the **first** occurrence of `target`.        |
+        | [`findVisual`](./api/findVisual.md)   | Finds the `visual position` of the **first** occurrence of `target`. |
+        | [`rfind`](./api/rfind.md)             | Finds the `position` of the **last** occurrence of `target`.         |
+        | [`rfindVisual`](./api/rfindVisual.md) | Finds the `visual position` of the **last** occurrence of `target`.  |
+        | [`includes`](./api/includes.md)       | Returns `true` **if contains `target`**.                             |
+        | [`startsWith`](./api/startsWith.md)   | Returns `true` **if starts with `target`**.                          |
+        | [`endsWith`](./api/endsWith.md)       | Returns `true` **if ends with `target`**.                            |
 
    - #### 🪄 Counting
 
-        | Function                                | Description                                    |
-        | --------------------------------------- | ---------------------------------------------- |
-        | [`countWritten`](./api/countWritten.md) | Returns the total number of written bytes.     |
-        | [`countVisual`](./api/countVisual.md)   | Returns the total number of visual characters. |
+        | Function                      | Description                                    |
+        | ----------------------------- | ---------------------------------------------- |
+        | [`length`](./api/length.md)   | Returns the total number of written bytes.     |
+        | [`vlength`](./api/vlength.md) | Returns the total number of visual characters. |
 
    - #### 🚀 Iterations
 
@@ -75,9 +75,9 @@
 
    - #### 🌟 More
 
-        | Function                                | Description                                       |
-        | --------------------------------------- | ------------------------------------------------- |
-        | [`writtenSlice`](./api/writtenSlice.md) | Returns a slice containing only the written part. |
+        | Function                  | Description                                       |
+        | ------------------------- | ------------------------------------------------- |
+        | [`slice`](./api/slice.md) | Returns a slice containing only the written part. |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
@@ -90,7 +90,7 @@
 
   - #### [io.type.String](../String/String.md)
     > Managed dynamic UTF-8 type.
-  
+
   - #### [io.type.uString](../uString/uString.md)
     > Unmanaged dynamic UTF-8 type.
 

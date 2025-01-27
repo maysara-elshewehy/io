@@ -3,7 +3,7 @@
 > Initializes a new `String` instance with `allocator` and `size`.
 
 ```zig
-pub fn initCapacity(allocator: Allocator, size: usize) initCapacityError!Self
+pub fn initCapacity(allocator: Allocator, size: usize) initError!Self
 ```
 
 
@@ -19,7 +19,7 @@ pub fn initCapacity(allocator: Allocator, size: usize) initCapacityError!Self
     | `size`      | `usize`             | The number of bytes to allocate. |
 
 - #### 🚫 Errors
-    
+
     | Error                     | Reason                           |
     | ------------------------- | -------------------------------- |
     | `ZeroSize`                | The `size` is 0.                 |
@@ -50,13 +50,13 @@ pub fn initCapacity(allocator: Allocator, size: usize) initCapacityError!Self
         ```
 
     - ##### 🔴 Failure Cases
-        
+
         > **_ZeroSize._**
 
         ```zig
         _ = try String.initCapacity(allocator, 0); // 👉 error.ZeroSize
         ```
-        
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
@@ -66,7 +66,7 @@ pub fn initCapacity(allocator: Allocator, size: usize) initCapacityError!Self
   > [`String.init`](./init.md)
 
   > [`String.initAlloc`](./initAlloc.md)
-  
+
   > [`String.deinit`](./deinit.md)
 
 <div align="center">

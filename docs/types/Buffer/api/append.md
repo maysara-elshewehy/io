@@ -3,7 +3,7 @@
 > Appends a `slice` into the `Buffer` instance.
 
 ```zig
-pub fn append(self: *Self, slice: []const u8) appendError!void
+pub fn append(self: *Self, slice: []const u8) insertError!void
 ```
 
 
@@ -19,10 +19,9 @@ pub fn append(self: *Self, slice: []const u8) appendError!void
     | `slice`   | `[]const u8` | The slice to insert.   |
 
 - #### 🚫 Errors
-    
+
     | Error          | Reason                                                     |
     | -------------- | ---------------------------------------------------------- |
-    | `InvalidValue` | The `slice` contains invalid UTF-8 characters.             |
     | `OutOfRange`   | The insertion exceeds the bounds of the `Buffer` instance. |
 
 - #### ✨ Returns : `void`
@@ -52,12 +51,6 @@ pub fn append(self: *Self, slice: []const u8) appendError!void
         ```
 
     - ##### 🔴 Failure Cases
-        
-        > **_InvalidValue._**
-
-        ```zig
-        _ = try buffer.append("\x80"); // 👉 error.InvalidValue
-        ```
 
         > **_OutOfRange._**
 
