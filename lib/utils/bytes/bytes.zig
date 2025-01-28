@@ -3,6 +3,8 @@
     const std = @import("std");
     const utf8 = @import("../utf8/utf8.zig");
 
+    pub const Allocator = std.mem.Allocator;
+
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
 
@@ -354,6 +356,11 @@
             }
         }
 
+        /// Reverses the order of the bytes.
+        pub inline fn reverse(value: []u8) void {
+            std.mem.reverse(u8, value);
+        }
+
     // └──────────────────────────────────────────────────────────────┘
 
 
@@ -392,6 +399,9 @@
 
     // ┌──────────────────────────── Count ───────────────────────────┐
 
+        pub const countVisualError = error { InvalidValue };
+
+
         /// Returns the total number of written bytes, stopping at the first null byte.
         pub inline fn countWritten(value: []const u8) usize {
             for(0..value.len) |i| if(value[i] == 0) return i;
@@ -410,21 +420,71 @@
             }
             return count;
         }
-        pub const countVisualError = error { InvalidValue };
-
-    // └──────────────────────────────────────────────────────────────┘
-
-
-    // ┌──────────────────────────── Utils ───────────────────────────┐
 
         /// Returns a slice containing only the written part.
         pub inline fn writtenSlice(value: []const u8) []const u8 {
             return value[0..countWritten(value)];
         }
 
-        /// Reverses the order of the bytes.
-        pub inline fn reverse(value: []u8) void {
-            std.mem.reverse(u8, value);
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── Utils ───────────────────────────┐
+
+        /// Splits the written portion of the string into substrings separated by the delimiter,
+        /// returning the substring at the specified index.
+        pub fn split(dest: []const u8, dest_wlen: usize, delimiters: []const u8, index: usize) ?[]const u8 {
+            var current_index: usize = 0;
+            var start: usize = 0;
+            var i: usize = 0;
+
+            while (i < dest_wlen) {
+                const slice = dest[i..dest_wlen];
+                if (utf8.utils.firstGcSlice(slice)) |gc| {
+                    const gc_len = gc.len;
+                    const gc_bytes = dest[i..@min(i + gc_len, dest_wlen)];
+
+                    // Check for delimiter match
+                    if (gc_len == delimiters.len and i + gc_len <= dest_wlen and std.mem.eql(u8, delimiters, gc_bytes)) {
+                        if (current_index == index) return dest[start..i];
+                        current_index += 1;
+                        start = i + gc_len;
+                        i = start;
+                    } else i += gc_len;
+                } else {
+                    // Handle invalid UTF-8
+                    if (delimiters.len == 1 and i < dest_wlen and dest[i] == delimiters[0]) {
+                        if (current_index == index) return dest[start..i];
+                        current_index += 1;
+                        start = i + 1;
+                        i = start;
+                    } else i += 1;
+                }
+            }
+
+            // Handle final segment
+            if (current_index == index and start <= dest_wlen) return dest[start..dest_wlen];
+
+            return null;
+        }
+
+        /// Splits the written portion of the string into all substrings separated by the delimiter,
+        /// returning an array of slices. Caller must free the returned memory.
+        /// `include_empty` controls whether empty strings are included in the result.
+        pub fn splitAll(allocator: Allocator, dest: []const u8, dest_wlen: usize, delimiters: []const u8, include_empty: bool) Allocator.Error![]const []const u8 {
+            var parts = std.ArrayList([]const u8).init(allocator);
+            errdefer parts.deinit();
+
+            var i: usize = 0;
+            while (split(dest, dest_wlen, delimiters, i)) |slice| : (i += 1) {
+                // Include empty strings based on the flag
+                if (include_empty or slice.len > 0) try parts.append(slice);
+            }
+
+            // Handle case where no splits occurred but content exists
+            if (parts.items.len == 0 and dest_wlen > 0) try parts.append(dest[0..dest_wlen]);
+
+            return try parts.toOwnedSlice();
         }
 
     // └──────────────────────────────────────────────────────────────┘

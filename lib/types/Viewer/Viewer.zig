@@ -1,7 +1,10 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
-    pub const utf8 = @import("../../utils/utf8/utf8.zig");
-    pub const Bytes = @import("../../utils/bytes/bytes.zig");
+    const std = @import("std");
+    const utf8 = @import("../../utils/utf8/utf8.zig");
+    const Bytes = @import("../../utils/bytes/bytes.zig");
+    const Allocator = std.mem.Allocator;
+    pub const AllocatorError = Allocator.Error;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -88,8 +91,13 @@
             }
 
             /// Returns the total number of visual characters.
-            pub fn countVisual(self: Self) usize {
+            pub fn vlength(self: Self) usize {
                 return Bytes.countVisual(self.m_source[0..self.m_source.len]) catch unreachable;
+            }
+
+            /// Returns a slice containing only the written part.
+            pub fn slice(self: Self) []const u8 {
+                return if(self.m_source.len > 0 ) self.m_source[0..self.m_source.len] else "";
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -110,9 +118,24 @@
 
         // ┌──────────────────────────── Utils ───────────────────────────┐
 
-            /// Returns a slice containing only the written part.
-            pub fn slice(self: Self) []const u8 {
-                return if(self.m_source.len > 0 ) self.m_source[0..self.m_source.len] else "";
+            /// Returns a copy of the `Viewer` instance.
+            pub fn clone(self: Self) Self {
+                return .{
+                    .m_source = self.m_source
+                };
+            }
+
+            /// Splits the written portion of the string into substrings separated by the delimiter,
+            /// returning the substring at the specified index.
+            pub fn split(self: Self, delimiters: []const u8, index: usize) ?[]const u8 {
+                return Bytes.split(self.slice(), self.length(), delimiters, index);
+            }
+
+            /// Splits the written portion of the string into all substrings separated by the delimiter,
+            /// returning an array of slices. Caller must free the returned memory.
+            /// `include_empty` controls whether empty strings are included in the result.
+            pub fn splitAll(self: Self, allocator: Allocator, delimiters: []const u8, include_empty: bool) AllocatorError![]const []const u8 {
+                return Bytes.splitAll(allocator, self.slice(), self.length(), delimiters, include_empty);
             }
 
         // └──────────────────────────────────────────────────────────────┘

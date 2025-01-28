@@ -52,9 +52,21 @@
 
         > Benchmarks have been performed and a `bench` section has been added to the documentation.
 
+- ## January 28, 2025
+
+    - ### `Phase 5` Split Functions _(Completed)_
+
+        > Functionality to split strings into substrings based on a delimiter.
+
+      - **Deliverables:**
+
+        > More than **20** _(total added functions for all sections)_ split functions have been added to all sections (types and utilities).
+
+        > Codes have been reduced.
+
     - **Todo:**
 
-        - ### `Phase 5` Standard Library Integration
+        - ### `Phase 6` Standard Library Integration
 
             > Add commonly used utility functions to align with Zig's standard library conventions, ensuring compatibility and ease of integration.
 

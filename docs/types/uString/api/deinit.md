@@ -3,7 +3,7 @@
 > Release all allocated memory.
 
 ```zig
-pub fn deinit(self: *Self, allocator: Allocator) void
+pub fn deinit(self: Self, allocator: Allocator) void
 ```
 
 
@@ -15,7 +15,7 @@ pub fn deinit(self: *Self, allocator: Allocator) void
 
     | Parameter   | Type                | Description             |
     | ----------- | ------------------- | ----------------------- |
-    | `self`      | `*Self`             | The `uString` instance. |
+    | `self`      | `Self`              | The `uString` instance. |
     | `allocator` | `std.mem.Allocator` | The allocator to use.   |
 
 - #### ✨ Returns : `void`
@@ -32,21 +32,10 @@ pub fn deinit(self: *Self, allocator: Allocator) void
     const String = @import("io").types.uString;
     ```
 
-    - ##### 🟢 Success Cases
-
-        ```zig
-        var myString = try uString.init(allocator, "..");   // allocate
-        defer myString.deinit(allocator);                   // deallocate
-        ```
-
-    - ##### 🔴 Failure Cases
-
-        > **_Common misuse of `deinit`._**
-
-        ```zig
-        const myString = try uString.initCapacity(allocator, 64);
-        defer myString.deinit(allocator); // `myString` should be mutable `var`.
-        ```
+    ```zig
+    var myString = try uString.init(allocator, "..");   // allocate
+    defer myString.deinit(allocator);                   // deallocate
+    ```
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

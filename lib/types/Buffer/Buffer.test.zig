@@ -521,15 +521,54 @@
             try expectStrings("Hello 👨‍🏭!", buffer.m_source[0..buffer.length()]);
         }
 
+        test "reverse" {
+            var buffer = try Buffer.init(18, "Hello 👨‍🏭!");
+            buffer.reverse();
+            try expectStrings("!👨‍🏭 olleH", buffer.m_source[0..buffer.length()]);
+        }
+
     // └──────────────────────────────────────────────────────────────┘
 
 
     // ┌──────────────────────────── Utils ───────────────────────────┐
 
-        test "reverse" {
-            var buffer = try Buffer.init(18, "Hello 👨‍🏭!");
-            buffer.reverse();
-            try expectStrings("!👨‍🏭 olleH", buffer.m_source[0..buffer.length()]);
+        test "split" {
+            const myArray = try Buffer.init(64, "0👨‍🏭11👨‍🏭2👨‍🏭33");
+
+            // Test basic splits
+            try expectStrings("0", myArray.split("👨‍🏭", 0).?);
+            try expectStrings("11", myArray.split("👨‍🏭", 1).?);
+            try expectStrings("2", myArray.split("👨‍🏭", 2).?);
+            try expectStrings("33", myArray.split("👨‍🏭", 3).?);
+
+            // Test out-of-bounds indices
+            try expect(myArray.split("👨‍🏭", 4) == null);
+
+            // Test empty input
+            var myArray2 = try Buffer.initCapacity(64);
+            try expectStrings("", myArray2.split("👨‍🏭", 0).?);
+
+            // Test non-existent delimiter
+            try expectStrings(myArray.m_source[0..myArray.m_length], myArray.split("X", 0).?);
+        }
+
+        test "splitAll edge cases" {
+            const allocator = std.testing.allocator;
+
+            // Leading/trailing delimiters
+            const myArray = try Buffer.init(35, "👨‍🏭a👨‍🏭b👨‍🏭"); // the size of the buffer must be the same as the contents.
+            const parts2 = try myArray.splitAll(allocator, "👨‍🏭", true);
+            defer allocator.free(parts2);
+            try expectStrings("", parts2[0]);
+            try expectStrings("a", parts2[1]);
+            try expectStrings("b", parts2[2]);
+            try expectStrings("", parts2[3]);
+
+            // Test with include_empty = false
+            const parts3 = try myArray.splitAll(allocator, "👨‍🏭", false);
+            defer allocator.free(parts3);
+            try expectStrings("a", parts3[0]);
+            try expectStrings("b", parts3[1]);
         }
 
     // └──────────────────────────────────────────────────────────────┘

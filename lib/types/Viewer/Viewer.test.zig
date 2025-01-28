@@ -157,12 +157,67 @@
     // └──────────────────────────────────────────────────────────────┘
 
 
-    // ┌──────────────────────────── Utils ───────────────────────────┐
+    // ┌───────────────────────────── DATA ───────────────────────────┐
 
         test "slice" {
             const txt = &[_]u8{ '1', 0, 0 };
             const viewer = try Viewer.init(txt);
             try expectStrings("1", viewer.slice());
+        }
+
+        test "length" {
+            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            try expectEqual(18, viewer.length());
+        }
+
+        test "vlength" {
+            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            try expectEqual(8, viewer.vlength());
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── Utils ───────────────────────────┐
+
+        test "split" {
+            const viewer = try Viewer.init("0👨‍🏭11👨‍🏭2👨‍🏭33");
+
+            // Test basic splits
+            try expectStrings("0", viewer.split("👨‍🏭", 0).?);
+            try expectStrings("11", viewer.split("👨‍🏭", 1).?);
+            try expectStrings("2", viewer.split("👨‍🏭", 2).?);
+            try expectStrings("33", viewer.split("👨‍🏭", 3).?);
+
+            // Test out-of-bounds indices
+            try expect(viewer.split("👨‍🏭", 4) == null);
+
+            // // Test empty input
+            // var viewer2 = try Viewer.init("0");
+            // try viewer2.remove(0);
+            // try expectStrings("", viewer2.split("👨‍🏭", 0).?);
+
+            // Test non-existent delimiter
+            try expectStrings(viewer.slice(), viewer.split("X", 0).?);
+        }
+
+        test "splitAll edge cases" {
+            const allocator = std.testing.allocator;
+
+            // Leading/trailing delimiters
+            const viewer = try Viewer.init("👨‍🏭a👨‍🏭b👨‍🏭");
+            const parts2 = try viewer.splitAll(allocator, "👨‍🏭", true);
+            defer allocator.free(parts2);
+            try expectStrings("", parts2[0]);
+            try expectStrings("a", parts2[1]);
+            try expectStrings("b", parts2[2]);
+            try expectStrings("", parts2[3]);
+
+            // Test with include_empty = false
+            const parts3 = try viewer.splitAll(allocator, "👨‍🏭", false);
+            defer allocator.free(parts3);
+            try expectStrings("a", parts3[0]);
+            try expectStrings("b", parts3[1]);
         }
 
     // └──────────────────────────────────────────────────────────────┘

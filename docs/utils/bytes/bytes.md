@@ -89,12 +89,13 @@
         | [`toUpper`](./api/toUpper.md) | Converts all (ASCII) letters to uppercase. |
         | [`toTitle`](./api/toTitle.md) | Converts all (ASCII) letters to titlecase. |
 
-   - #### 🪄 Counting
+   - #### 🪄 Data
 
-        | Function                                | Description                                    |
-        | --------------------------------------- | ---------------------------------------------- |
-        | [`countWritten`](./api/countWritten.md) | Returns the total number of written bytes.     |
-        | [`countVisual`](./api/countVisual.md)   | Returns the total number of visual characters. |
+        | Function                                | Description                                       |
+        | --------------------------------------- | ------------------------------------------------- |
+        | [`countWritten`](./api/countWritten.md) | Returns the total number of written bytes.        |
+        | [`countVisual`](./api/countVisual.md)   | Returns the total number of visual characters.    |
+        | [`writtenSlice`](./api/writtenSlice.md) | Returns a slice containing only the written part. |
 
    - #### ✔️ Validation
 
@@ -103,12 +104,18 @@
         | [`isByte`](./api/isByte.md)   | Returns `true` **if the value is a valid byte**.           |
         | [`isBytes`](./api/isbytes.md) | Returns `true` **if the value is a valid array of bytes**. |
 
+   - #### ✂️ Split
+
+        | Function                        | Description                                                                    |
+        | ------------------------------- | ------------------------------------------------------------------------------ |
+        | [`split`](./api/split.md)       | Splits string into substrings by delimiter and returns substring at index.     |
+        | [`splitAll`](./api/splitAll.md) | Splits string into substrings by delimiter and returns an array of substrings. |
+
    - #### 🌟 More
 
-        | Function                                | Description                                       |
-        | --------------------------------------- | ------------------------------------------------- |
-        | [`writtenSlice`](./api/writtenSlice.md) | Returns a slice containing only the written part. |
-        | [`reverse`](./api/reverse.md)           | Reverses the order of the bytes.                  |
+        | Function                      | Description                      |
+        | ----------------------------- | -------------------------------- |
+        | [`reverse`](./api/reverse.md) | Reverses the order of the bytes. |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

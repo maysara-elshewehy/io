@@ -3,6 +3,7 @@
     const std = @import("std");
     const utf8 = @import("../../utils/utf8/utf8.zig");
     const Bytes = @import("../../utils/bytes/bytes.zig");
+    const Allocator = std.mem.Allocator;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -42,9 +43,9 @@
                 /// - `insertError.OutOfRange` **_if the `pos` is greater than `self.length`._**
                 ///
                 /// Modifies the `Buffer` instance in place **_if `slice` length is greater than 0_.**
-                pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void {
-                    try Bytes.insert(&self.m_source, slice, self.m_length, pos);
-                    self.m_length += slice.len;
+                pub fn insert(self: *Self, _slice: []const u8, pos: usize) insertError!void {
+                    try Bytes.insert(&self.m_source, _slice, self.m_length, pos);
+                    self.m_length += _slice.len;
                 }
 
                 /// Inserts a `byte` into the `Buffer` instance at the specified `position` by **real position**.
@@ -63,9 +64,9 @@
                 /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `self.length`._**
                 ///
                 /// Modifies the `Buffer` instance in place **_if `slice` length is greater than 0_.**
-                pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualError!void {
-                    try Bytes.insertVisual(&self.m_source, slice, self.m_length, pos);
-                    self.m_length += slice.len;
+                pub fn insertVisual(self: *Self, _slice: []const u8, pos: usize) insertVisualError!void {
+                    try Bytes.insertVisual(&self.m_source, _slice, self.m_length, pos);
+                    self.m_length += _slice.len;
                 }
 
                 /// Inserts a `byte` into the `Buffer` instance at the specified `visual position`.
@@ -83,9 +84,9 @@
                 /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
                 ///
                 /// Modifies the `Buffer` instance in place **_if `slice` length is greater than 0_.**
-                pub fn append(self: *Self, slice: []const u8) insertError!void {
-                    try Bytes.append(&self.m_source, slice, self.m_length);
-                    self.m_length += slice.len;
+                pub fn append(self: *Self, _slice: []const u8) insertError!void {
+                    try Bytes.append(&self.m_source, _slice, self.m_length);
+                    self.m_length += _slice.len;
                 }
 
                 /// Appends a `byte` into the `Buffer` instance.
@@ -101,9 +102,9 @@
                 /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
                 ///
                 /// Modifies the `Buffer` instance in place **_if `slice` length is greater than 0_.**
-                pub fn prepend(self: *Self, slice: []const u8) insertError!void {
-                    try Bytes.prepend(&self.m_source, slice, self.m_length);
-                    self.m_length += slice.len;
+                pub fn prepend(self: *Self, _slice: []const u8) insertError!void {
+                    try Bytes.prepend(&self.m_source, _slice, self.m_length);
+                    self.m_length += _slice.len;
                 }
 
                 /// Prepends a `byte` into the `Buffer` instance.
@@ -242,6 +243,20 @@
                     Bytes.toTitle(self.m_source[0..self.m_length]);
                 }
 
+                /// Reverses the order of the characters **_(considering unicode)_**.
+                pub fn reverse(self: *Self) void {
+                    if (self.m_length == 0) return;
+                    const original_data = self.clone();
+                    var utf8_iterator = utf8.Iterator.unsafeInit(original_data.m_source[0..original_data.m_length]);
+                    var i: usize = self.m_length;
+
+                    while (utf8_iterator.nextGraphemeCluster()) |gc| {
+                        i -= gc.len;
+                        @memcpy(self.m_source[i..i + gc.len], gc);
+                        if (i == 0) break; // to avoid underflow.
+                    }
+                }
+
             // └──────────────────────────────────────────────────────────────┘
 
 
@@ -281,18 +296,17 @@
                     };
                 }
 
-                /// Reverses the order of the characters **_(considering unicode)_**.
-                pub fn reverse(self: *Self) void {
-                    if (self.m_length == 0) return;
-                    const original_data = self.clone();
-                    var utf8_iterator = utf8.Iterator.unsafeInit(original_data.m_source[0..original_data.m_length]);
-                    var i: usize = self.m_length;
+                /// Splits the written portion of the string into substrings separated by the delimiter,
+                /// returning the substring at the specified index.
+                pub fn split(self: Self, delimiters: []const u8, index: usize) ?[]const u8 {
+                    return Bytes.split(&self.m_source, self.m_length, delimiters, index);
+                }
 
-                    while (utf8_iterator.nextGraphemeCluster()) |gc| {
-                        i -= gc.len;
-                        @memcpy(self.m_source[i..i + gc.len], gc);
-                        if (i == 0) break; // to avoid underflow.
-                    }
+                /// Splits the written portion of the string into all substrings separated by the delimiter,
+                /// returning an array of slices. Caller must free the returned memory.
+                /// `include_empty` controls whether empty strings are included in the result.
+                pub fn splitAll(self: Self, allocator: Allocator, delimiters: []const u8, include_empty: bool) ![]const []const u8 {
+                    return Bytes.splitAll(allocator, self.m_source[0..], self.m_length, delimiters, include_empty);
                 }
 
             // └──────────────────────────────────────────────────────────────┘

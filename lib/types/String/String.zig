@@ -39,19 +39,19 @@
 
         // ┌─────────────────────── Initialization ───────────────────────┐
 
-            pub const initError = internal_initError;
+            pub const initError = internal.initError;
 
             /// Initializes a new `String` instance with the given `allocator` and `value`.
             /// - `initError.ZeroSize` **_if the length of `value` is 0._**
             /// - `std.mem.Allocator` **_if the allocator returned an error._**
             pub fn init(allocator: Allocator, value: []const u8) initError!Self {
-                return try internal_init(Self, allocator, value);
+                return try internal.init(Self, allocator, value);
             }
 
             /// Initializes a new `String` instance with `allocator` and `size`.
             /// - `initError.ZeroSize` _if the `size` is 0._
             pub fn initCapacity(allocator: Allocator, size: usize) initError!Self {
-                return try internal_initCapacity(Self, allocator, size);
+                return try internal.initCapacity(Self, allocator, size);
             }
 
             /// Initializes a new `String` instance with the given `allocator`.
@@ -312,7 +312,37 @@
 
             /// Returns a copy of the `String` instance.
             pub fn clone(self: Self) AllocatorError!Self {
-                return internal_clone(Self, self, self.m_allocator);
+                return internal.clone(Self, self, self.m_allocator);
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌──────────────────────────── Split ───────────────────────────┐
+
+            /// Splits the written portion of the string into substrings separated by the delimiter,
+            /// returning the substring at the specified index.
+            pub fn split(self: Self, delimiters: []const u8, index: usize) ?[]const u8 {
+                return internal.split(self, delimiters, index);
+            }
+
+            /// Splits the written portion of the string into all substrings separated by the delimiter,
+            /// returning an array of slices. Caller must free the returned memory.
+            /// `include_empty` controls whether empty strings are included in the result.
+            pub fn splitAll(self: Self, delimiters: []const u8, include_empty: bool) ![]const []const u8 {
+                return Bytes.splitAll(self.m_allocator, self.slice(), self.length(), delimiters, include_empty);
+            }
+
+            /// Splits the written portion of the string into substrings separated by the delimiter,
+            /// returning the substring at the specified index as a new `String` instance.
+            pub fn splitToString(self: Self, delimiters: []const u8, index: usize) Allocator.Error!?Self {
+                return internal.splitToString(Self, self, self.m_allocator, delimiters, index);
+            }
+
+            /// Splits the written portion of the string into all substrings separated by the delimiter,
+            /// returning an array of new `String` instances. Caller must free the returned memory.
+            pub fn splitAllToStrings(self: anytype, delimiters: []const u8) Allocator.Error![]Self {
+                return internal.splitAllToStrings(Self, self, self.m_allocator, delimiters);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -345,26 +375,31 @@
 
         // ┌─────────────────────── Initialization ───────────────────────┐
 
-            pub const initError = internal_initError;
+            pub const initError = internal.initError;
 
             /// Initializes a new `uString` instance using `allocator` and `value`.
             /// - `initError.ZeroSize` **_if the length of `value` is 0._**
             /// - `std.mem.Allocator` **_if the allocator returned an error._**
             pub fn init(allocator: Allocator, value: []const u8) initError!Self {
-                return try internal_init(Self, allocator, value);
+                return try internal.init(Self, allocator, value);
             }
 
             /// Initializes a new `uString` instance using `allocator` and `size`.
             /// - `initError.ZeroSize` _if the `size` is 0._
             pub fn initCapacity(allocator: Allocator, size: usize) initError!Self {
-                return try internal_initCapacity(Self, allocator, size);
+                return try internal.initCapacity(Self, allocator, size);
+            }
+
+            /// The purpose of this function is to integrate with the internal functions.
+            pub fn initAlloc(_: Allocator) Self {
+                return Self{};
             }
 
             /// Release all allocated memory.
-            pub fn deinit(self: *Self, allocator: Allocator) void {
+            pub fn deinit(self: Self, allocator: Allocator) void {
                 if (self.m_capacity > 0) {
                     allocator.free(self.allocatedSlice());
-                    self.* = undefined;
+                    // self.* = undefined;
                 }
             }
 
@@ -614,7 +649,7 @@
 
             /// Returns a copy of the `uString` instance.
             pub fn clone(self: Self, allocator: Allocator) AllocatorError!Self {
-                return internal_clone(Self, self, allocator);
+                return internal.clone(Self, self, allocator);
             }
 
             /// Converts the `uString` to a `String`, taking ownership of the memory.
@@ -623,44 +658,36 @@
             }
 
         // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌──────────────────────────── Split ───────────────────────────┐
+
+            /// Splits the written portion of the string into substrings separated by the delimiter,
+            /// returning the substring at the specified index.
+            pub fn split(self: Self, delimiters: []const u8, index: usize) ?[]const u8 {
+                return internal.split(self, delimiters, index);
+            }
+
+            /// Splits the written portion of the string into all substrings separated by the delimiter,
+            /// returning an array of slices. Caller must free the returned memory.
+            /// `include_empty` controls whether empty strings are included in the result.
+            pub fn splitAll(self: Self, allocator: Allocator, delimiters: []const u8, include_empty: bool) ![]const []const u8 {
+                return Bytes.splitAll(allocator, self.slice(), self.length(), delimiters, include_empty);
+            }
+
+            /// Splits the written portion of the string into substrings separated by the delimiter,
+            /// returning the substring at the specified index as a new `uString` instance.
+            pub fn splitToString(self: Self, allocator: Allocator, delimiters: []const u8, index: usize) Allocator.Error!?Self {
+                return internal.splitToUString(Self, self, allocator, delimiters, index);
+            }
+
+            /// Splits the written portion of the string into all substrings separated by the delimiter,
+            /// returning an array of new `uString` instances. Caller must free the returned memory.
+            pub fn splitAllToStrings(self: anytype, allocator: Allocator, delimiters: []const u8) Allocator.Error![]Self {
+                return internal.splitAllToUStrings(Self, self, allocator, delimiters);
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
     };
-
-// ╚══════════════════════════════════════════════════════════════════════════════════╝
-
-
-
-// ╔════════════════════════════════════ Internal ════════════════════════════════════╗
-
-    const internal_initError = AllocatorError || error { ZeroSize };
-
-    /// Initializes a new `String` instance with the given `allocator` and `value`.
-    /// - `internal_initError.ZeroSize` **_if the length of `value` is 0._**
-    /// - `std.mem.Allocator` **_if the allocator returned an error._**
-    inline fn internal_init(Self: type, allocator: Allocator, value: []const u8) internal_initError!Self {
-        var self = try internal_initCapacity(Self, allocator, value.len*2);
-        Bytes.unsafeAppend(self.allocatedSlice(), value, 0);
-        self.m_source.len = Bytes.countWritten(value);
-
-        return self;
-    }
-
-    /// Initializes a new `uString` instance using `allocator` and `size`.
-    /// - `internal_initError.ZeroSize` _if the `size` is 0._
-    inline fn internal_initCapacity(Self: type, allocator: Allocator, size: usize) internal_initError!Self {
-        if(size == 0) return internal_initError.ZeroSize;
-
-        var self = if(Self == String) Self{ .m_allocator = allocator } else Self{};
-        try internal.ensureCapacity(&self, allocator, size, false);
-        return self;
-    }
-
-    /// Returns a copy of the `String` instance.
-    inline fn internal_clone(Self: type, self: Self, allocator: Allocator) AllocatorError!Self {
-        var new_string = if(@typeName(Self) == String) Self{ .m_allocator = allocator } else Self{};
-        try internal.ensureUnusedCapacity(&new_string, allocator, self.m_capacity);
-        Bytes.unsafeAppend(new_string.allocatedSlice(), self.slice(), 0);
-        new_string.m_source.len = self.m_source.len;
-        return new_string;
-    }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

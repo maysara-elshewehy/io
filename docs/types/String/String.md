@@ -99,27 +99,36 @@
         | [`toUpper`](./api/toUpper.md) | Converts all (ASCII) letters to uppercase. |
         | [`toTitle`](./api/toTitle.md) | Converts all (ASCII) letters to titlecase. |
 
-   - #### 🪄 Counting
+   - #### 🪄 Data
 
-        | Function                      | Description                                    |
-        | ----------------------------- | ---------------------------------------------- |
-        | [`length`](./api/length.md)   | Returns the total number of written bytes.     |
-        | [`vlength`](./api/vlength.md) | Returns the total number of visual characters. |
+        | Function                                    | Description                                                     |
+        | ------------------------------------------- | --------------------------------------------------------------- |
+        | [`length`](./api/length.md)                 | Returns the total number of written bytes.                      |
+        | [`vlength`](./api/vlength.md)               | Returns the total number of visual characters.                  |
+        | [`slice`](./api/slice.md)                   | Returns a slice containing only the written part.               |
+        | [`allocatedSlice`](./api/allocatedSlice.md) | Returns a slice representing the entire allocated memory range. |
 
-   - #### 🚀 Iterations
+   - #### ➰ Iterations
 
         | Function                        | Description                                         |
         | ------------------------------- | --------------------------------------------------- |
         | [`iterator`](./api/iterator.md) | Creates an iterator for traversing the UTF-8 bytes. |
 
+   - #### ✂️ Split
+
+        | Function                                        | Description                                                                                           |
+        | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+        | [`split`](./api/split.md)                       | Splits string into substrings by delimiter and returns substring at index.                            |
+        | [`splitAll`](./api/splitAll.md)                 | Splits string into substrings by delimiter and returns an array of substrings.                        |
+        | [`splitToString`](./api/splitToString.md)       | Splits string into substrings by delimiter and returns substring at index as a new `String` instance. |
+        | [`splitAllToString`](./api/splitAllToString.md) | Splits string into substrings by delimiter and returns an array of new `String` instances.            |
+
    - #### 🌟 More
 
-        | Function                                    | Description                                                       |
-        | ------------------------------------------- | ----------------------------------------------------------------- |
-        | [`allocatedSlice`](./api/allocatedSlice.md) | Returns a slice representing the entire allocated memory range.   |
-        | [`slice`](./api/slice.md)                   | Returns a slice containing only the written part.                 |
-        | [`reverse`](./api/reverse.md)               | Reverses the order of the characters **_(considering unicode)_**. |
-        | [`clone`](./api/clone.md)                   | Returns a copy of the `String` instance.                          |
+        | Function                      | Description                                                       |
+        | ----------------------------- | ----------------------------------------------------------------- |
+        | [`reverse`](./api/reverse.md) | Reverses the order of the characters **_(considering unicode)_**. |
+        | [`clone`](./api/clone.md)     | Returns a copy of the `String` instance.                          |
 
 
 <div align="center">

@@ -60,24 +60,27 @@
         | [`startsWith`](./api/startsWith.md)   | Returns `true` **if starts with `target`**.                          |
         | [`endsWith`](./api/endsWith.md)       | Returns `true` **if ends with `target`**.                            |
 
-   - #### 🪄 Counting
+   - #### 🪄 Data
 
-        | Function                      | Description                                    |
-        | ----------------------------- | ---------------------------------------------- |
-        | [`length`](./api/length.md)   | Returns the total number of written bytes.     |
-        | [`vlength`](./api/vlength.md) | Returns the total number of visual characters. |
+        | Function                      | Description                                       |
+        | ----------------------------- | ------------------------------------------------- |
+        | [`length`](./api/length.md)   | Returns the total number of written bytes.        |
+        | [`vlength`](./api/vlength.md) | Returns the total number of visual characters.    |
+        | [`slice`](./api/slice.md)     | Returns a slice containing only the written part. |
 
-   - #### 🚀 Iterations
+   - #### ➰ Iterations
 
         | Function                        | Description                                         |
         | ------------------------------- | --------------------------------------------------- |
         | [`iterator`](./api/iterator.md) | Creates an iterator for traversing the UTF-8 bytes. |
 
-   - #### 🌟 More
+   - #### ✂️ Split
 
-        | Function                  | Description                                       |
-        | ------------------------- | ------------------------------------------------- |
-        | [`slice`](./api/slice.md) | Returns a slice containing only the written part. |
+        | Function                        | Description                                                                    |
+        | ------------------------------- | ------------------------------------------------------------------------------ |
+        | [`split`](./api/split.md)       | Splits string into substrings by delimiter and returns substring at index.     |
+        | [`splitAll`](./api/splitAll.md) | Splits string into substrings by delimiter and returns an array of substrings. |
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
