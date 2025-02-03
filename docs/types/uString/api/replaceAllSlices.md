@@ -8,7 +8,7 @@ pub fn replaceAllSlices(self: *Self, allocator: Allocator, match: []const u8, re
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧩 Parameters
@@ -31,7 +31,7 @@ pub fn replaceAllSlices(self: *Self, allocator: Allocator, match: []const u8, re
     > Modifies `uString` instance in place and returns the number of replacements.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧪 Examples
@@ -49,7 +49,7 @@ pub fn replaceAllSlices(self: *Self, allocator: Allocator, match: []const u8, re
     ```
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### 🔗 Related
@@ -63,7 +63,7 @@ pub fn replaceAllSlices(self: *Self, allocator: Allocator, match: []const u8, re
   > [`uString.replaceVisualRange`](./replaceVisualRange.md)
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

@@ -8,7 +8,7 @@ pub fn initCapacity(comptime array_size: usize) initCapacityError![array_size]u8
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧩 Parameters
@@ -28,7 +28,7 @@ pub fn initCapacity(comptime array_size: usize) initCapacityError![array_size]u8
     > Produces an array of bytes of the specified size, initialized with null Bytes.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧪 Examples
@@ -55,7 +55,7 @@ pub fn initCapacity(comptime array_size: usize) initCapacityError![array_size]u8
         ```
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### 🔗 Related
@@ -63,7 +63,7 @@ pub fn initCapacity(comptime array_size: usize) initCapacityError![array_size]u8
   > [`Bytes.init`](./init.md)
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

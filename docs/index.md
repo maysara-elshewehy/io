@@ -1,4 +1,4 @@
-> For more details on how to use this library in your project, run tests, and benchmarks, please read the [Installation Guide](#).
+> For more details on how to use this library in your project, run tests, and benchmarks, please read the [Installation Guide](https://github.com/Super-ZIG/io/wiki/installation.md).
 
 - ## API
 
@@ -8,8 +8,8 @@
 
       | Utility                                 | Description                                         | Progress |
       | --------------------------------------- | --------------------------------------------------- | -------- |
-      | [`Bytes`](./utils/Bytes/Bytes.md)       | A set of useful functions for working with Bytes.   | `85%`    |
-      | [`Unicode`](./utils/Unicode/Unicode.md) | A set of useful functions for working with unicode. | `90%`    |
+      | [`Bytes`](./utils/Bytes/Bytes.md)       | A set of useful functions for working with Bytes.   | `95%`    |
+      | [`Unicode`](./utils/Unicode/Unicode.md) | A set of useful functions for working with unicode. | `99%`    |
 
   - ### Types
 
@@ -18,6 +18,6 @@
       | Type                                    | Description                                 | Progress |
       | --------------------------------------- | ------------------------------------------- | -------- |
       | [`Viewer`](./types/Viewer/Viewer.md)    | Immutable fixed array of `unicode` Bytes.   | `99%`    |
-      | [`Buffer`](./types/Buffer/Buffer.md)    | Mutable fixed array of `unicode` Bytes.     | `85%`    |
-      | [`String`](./types/String/String.md)    | Managed dynamic array of `unicode` Bytes.   | `80%`    |
-      | [`uString`](./types/uString/uString.md) | Unmanaged dynamic array of `unicode` Bytes. | `80%`    |
+      | [`Buffer`](./types/Buffer/Buffer.md)    | Mutable fixed array of `unicode` Bytes.     | `95%`    |
+      | [`String`](./types/String/String.md)    | Managed dynamic array of `unicode` Bytes.   | `95%`    |
+      | [`uString`](./types/uString/uString.md) | Unmanaged dynamic array of `unicode` Bytes. | `95%`    |

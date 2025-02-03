@@ -11,7 +11,7 @@
       - Well-suited for general-purpose use cases involving dynamic data structures.
 
     <div align="center">
-    <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+    <img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
     </div>
 
     - ### Overview of `io.types.String` 🚀
@@ -21,11 +21,11 @@
       - Provides additional functionalities tailored to text processing needs.
 
     <div align="center">
-    <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+    <img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
     </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ## Performance Comparison 📈
@@ -54,7 +54,7 @@
     > You can find the benchmarks at [io-bench](https://github.com/maysara-elshewehy/io-bench/blob/main/String_vs_ArrayList_append.zig) repository.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 ## Conclusion 🏆

@@ -8,7 +8,7 @@ pub fn remove(dest: []u8, dest_wlen: usize, pos: usize) removeError!void
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧩 Parameters
@@ -30,7 +30,7 @@ pub fn remove(dest: []u8, dest_wlen: usize, pos: usize) removeError!void
     > Modifies `dest` in place.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧪 Examples
@@ -61,7 +61,7 @@ pub fn remove(dest: []u8, dest_wlen: usize, pos: usize) removeError!void
         ```
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### 🔗 Related
@@ -75,7 +75,7 @@ pub fn remove(dest: []u8, dest_wlen: usize, pos: usize) removeError!void
   > [`Bytes.removeVisualRange`](./removeVisualRange.md)
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>
