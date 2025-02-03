@@ -24,10 +24,10 @@
 
   - #### 🧩 Fields
 
-      | Field    | Type    | Description                              |
-      | -------- | ------- | ---------------------------------------- |
-      | `source` | `[]u8`  | The unicode encoded bytes to be viewed.  |
-      | `length` | `usize` | The number of written bytes to `source`. |
+      | Field      | Type    | Description                              |
+      | ---------- | ------- | ---------------------------------------- |
+      | `m_source` | `[]u8`  | The unicode encoded bytes to be viewed.  |
+      | `m_length` | `usize` | The number of written bytes to `source`. |
 
    - #### ✨ Initialization
 

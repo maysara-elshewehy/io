@@ -23,9 +23,9 @@
 
   - #### 🧩 Fields
 
-      | Field    | Type         | Description                             |
-      | -------- | ------------ | --------------------------------------- |
-      | `source` | `[]const u8` | The unicode encoded bytes to be viewed. |
+      | Field      | Type         | Description                             |
+      | ---------- | ------------ | --------------------------------------- |
+      | `m_source` | `[]const u8` | The unicode encoded bytes to be viewed. |
 
    - #### ✨ Initialization
 

@@ -30,9 +30,6 @@ pub fn isEmpty(self: Self) bool
     ```zig
     const String = @import("io").types.String;
 
-    const stringA = try String.init(allocator, "A");
-    defer stringA.deinit();
-
     const empty    = try String.init(allocator, "");
     defer empty.deinit();
 
