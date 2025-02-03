@@ -1,5 +1,5 @@
 <p align="center"> <br>
-  <img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/logo/uString/logo.png" alt="uString" width="1000" />
+  <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/uString/logo.png" alt="uString" width="1000" />
 </p>
 
 <p align="center">
