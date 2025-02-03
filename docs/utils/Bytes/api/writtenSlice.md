@@ -29,11 +29,11 @@ pub fn writtenSlice(value: []const u8) []const u8
 
     ```zig
     const Bytes = @import("io").utils.Bytes;
-    const myArray = try Bytes.init(64, "Hello  🌍!");
+    const array = try Bytes.init(64, "Hello  🌍!");
     ```
 
     ```zig
-    _ = Bytes.writtenSlice(&myArray); // 👉 "Hello  🌍!"
+    _ = Bytes.writtenSlice(&array); // 👉 "Hello  🌍!"
     ```
 
 <div align="center">

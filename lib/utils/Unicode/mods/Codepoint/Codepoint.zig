@@ -40,6 +40,7 @@
             /// Initializes a Codepoint using the given input Bytes.
             /// - `Error.InvalidValue` **_if the `slice` is not a valid Unicode._**
             pub fn init(slice: []const u8) Error!Self {
+                if(slice.len == 0) return Error.InvalidValue;
                 if(!utils.Utf8Validate(slice)) return Error.InvalidValue;
 
                 const decoded_value = utils.Utf8Decode(slice) catch return Error.InvalidValue;

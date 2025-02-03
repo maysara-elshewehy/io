@@ -31,7 +31,7 @@ pub fn split(self: Self, delimiters: []const u8, index: usize) ?[]const u8
 
     ```zig
     const Viewer = @import("io").types.Viewer;
-    const viewer = try Viewer.init("0👨‍🏭11👨‍🏭2👨‍🏭33");
+    const viewer = Viewer.init("0👨‍🏭11👨‍🏭2👨‍🏭33");
     ```
 
     > Basic splits

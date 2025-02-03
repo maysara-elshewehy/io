@@ -29,7 +29,7 @@ pub fn slice(self: Self) []const u8
 
     ```zig
     const Viewer = @import("io").types.Viewer;
-    const viewer = try Viewer.init(&[_]u8{ '1', 0, 0 });
+    const viewer = Viewer.init(&[_]u8{ '1', 0, 0 });
     ```
 
     ```zig

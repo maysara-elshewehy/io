@@ -1,9 +1,9 @@
-# [←](../Bytes.md) `Bytes`.`countWritten`
+# [←](../Bytes.md) `Bytes`.`isEmpty`
 
-> Returns the total number of written bytes, stopping at the first null byte.
+> Checks if the array is empty.
 
 ```zig
-pub fn countWritten(value: []const u8) usize
+pub fn isEmpty(value: []const u8) bool
 ```
 
 
@@ -13,13 +13,13 @@ pub fn countWritten(value: []const u8) usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description          |
-    | --------- | ------------ | -------------------- |
-    | `value`   | `[]const u8` | The value to count. |
+    | Parameter | Type         | Description         |
+    | --------- | ------------ | ------------------- |
+    | `value`   | `[]const u8` | The value to check. |
 
-- #### ✨ Returns : `usize`
+- #### ✨ Returns : `bool`
 
-    > Returns the number of the bytes written, stopping at the first null byte.
+    > Returns true if the `value` is empty.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -29,14 +29,11 @@ pub fn countWritten(value: []const u8) usize
 
     ```zig
     const Bytes = @import("io").utils.Bytes;
-    const array = try Bytes.init(64, "Hello 👨‍🏭!");
     ```
 
     ```zig
-    _ = array.len;                     // 👉 64 (Size of array)
-    _ = Bytes.countWritten(&array);    // 👉 18 (Number of written bytes)
-    _ = try Bytes.countVisual(&array); // 👉 8  (Number of Visual characters)
-
+    _ = Bytes.isEmpty("");  // 👉 true
+    _ = Bytes.isEmpty("#"); // 👉 false
     ```
 
 <div align="center">
@@ -45,9 +42,7 @@ pub fn countWritten(value: []const u8) usize
 
 - ##### 🔗 Related
 
-  > [`Bytes.init`](./init.md)
-
-  > [`Bytes.countVisual`](./countVisual.md)
+  > [`Bytes.equals`](./equals.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

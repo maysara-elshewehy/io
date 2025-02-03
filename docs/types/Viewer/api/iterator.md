@@ -40,7 +40,7 @@ pub fn iterator(self: Self) Unicode.Iterator.Error!Unicode.Iterator
     - ##### 🟢 Success Cases
 
         ```zig
-        const viewer = try Viewer.init("..");
+        const viewer = Viewer.init("..");
         _ = try viewer.iterator();
         ```
 

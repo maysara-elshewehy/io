@@ -40,8 +40,8 @@ pub fn iterator(self: Self) Unicode.Iterator.Error!Unicode.Iterator
     - ##### 🟢 Success Cases
 
         ```zig
-        const myBuffer = try Buffer.init(64, "..");
-        _ = try myBuffer.iterator();
+        const buffer = try Buffer.init(64, "..");
+        _ = try buffer.iterator();
         ```
 
     - ##### 🔴 Failure Cases

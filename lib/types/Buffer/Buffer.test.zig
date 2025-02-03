@@ -19,15 +19,18 @@
 
         test "initialization" {
             // empty input
-            const emptyUtf8: []const u8 = "";
-            try expectError(error.ZeroSize, Buffer.init(64, emptyUtf8));
+            const _empty: []const u8 = "";
+            const empty = try Buffer.init(64, _empty);
+            try expect(empty.length() == _empty.len);
+            try expect(empty.m_source.len == 64);
+            try expectStrings(_empty, empty.m_source[0..empty.length()]);
 
             // non empty input (valid unicode)
-            const validUtf8: []const u8 = "Hello, 世界!";
-            const buffer = try Buffer.init(64, validUtf8);
-            try expect(buffer.length() == validUtf8.len);
-            try expect(buffer.m_source.len == 64);
-            try expectStrings(validUtf8, buffer.m_source[0..buffer.length()]);
+            const _nonEmpty: []const u8 = "Hello, 世界!";
+            const nonEmpty = try Buffer.init(64, _nonEmpty);
+            try expect(nonEmpty.length() == _nonEmpty.len);
+            try expect(nonEmpty.m_source.len == 64);
+            try expectStrings(_nonEmpty, nonEmpty.m_source[0..nonEmpty.length()]);
             // try expectError(error.InvalidValue, Buffer.init(64, &[_]u8{0x80, 0x81, 0x82}));
         }
 
@@ -37,8 +40,8 @@
     // ┌────────────────────────── Iterator ──────────────────────────┐
 
         test "iterator" {
-            const validUtf8: []const u8 = "Hello, 世界!";
-            var buffer = try Buffer.init(64, validUtf8[0..]);
+            const validUnicode: []const u8 = "Hello, 世界!";
+            var buffer = try Buffer.init(64, validUnicode[0..]);
             var iter = try buffer.iterator();
 
             while(iter.nextSlice()) |slice| {
@@ -530,31 +533,31 @@
     // ┌──────────────────────────── Split ───────────────────────────┐
 
         test "split" {
-            const myArray = try Buffer.init(64, "0👨‍🏭11👨‍🏭2👨‍🏭33");
+            const array = try Buffer.init(64, "0👨‍🏭11👨‍🏭2👨‍🏭33");
 
             // Test basic splits
-            try expectStrings("0", myArray.split("👨‍🏭", 0).?);
-            try expectStrings("11", myArray.split("👨‍🏭", 1).?);
-            try expectStrings("2", myArray.split("👨‍🏭", 2).?);
-            try expectStrings("33", myArray.split("👨‍🏭", 3).?);
+            try expectStrings("0", array.split("👨‍🏭", 0).?);
+            try expectStrings("11", array.split("👨‍🏭", 1).?);
+            try expectStrings("2", array.split("👨‍🏭", 2).?);
+            try expectStrings("33", array.split("👨‍🏭", 3).?);
 
             // Test out-of-bounds indices
-            try expect(myArray.split("👨‍🏭", 4) == null);
+            try expect(array.split("👨‍🏭", 4) == null);
 
             // Test empty input
-            var myArray2 = try Buffer.initCapacity(64);
-            try expectStrings("", myArray2.split("👨‍🏭", 0).?);
+            var array2 = try Buffer.initCapacity(64);
+            try expectStrings("", array2.split("👨‍🏭", 0).?);
 
             // Test non-existent delimiter
-            try expectStrings(myArray.m_source[0..myArray.m_length], myArray.split("X", 0).?);
+            try expectStrings(array.m_source[0..array.m_length], array.split("X", 0).?);
         }
 
         test "splitAll edge cases" {
             const allocator = std.testing.allocator;
 
             // Leading/trailing delimiters
-            const myArray = try Buffer.init(35, "👨‍🏭a👨‍🏭b👨‍🏭"); // the size of the buffer must be the same as the contents.
-            const parts2 = try myArray.splitAll(allocator, "👨‍🏭", true);
+            const array = try Buffer.init(35, "👨‍🏭a👨‍🏭b👨‍🏭"); // the size of the buffer must be the same as the contents.
+            const parts2 = try array.splitAll(allocator, "👨‍🏭", true);
             defer allocator.free(parts2);
             try expectStrings("", parts2[0]);
             try expectStrings("a", parts2[1]);
@@ -562,7 +565,7 @@
             try expectStrings("", parts2[3]);
 
             // Test with include_empty = false
-            const parts3 = try myArray.splitAll(allocator, "👨‍🏭", false);
+            const parts3 = try array.splitAll(allocator, "👨‍🏭", false);
             defer allocator.free(parts3);
             try expectStrings("a", parts3[0]);
             try expectStrings("b", parts3[1]);
@@ -640,6 +643,28 @@
             var buffer = try Buffer.init(18, "Hello 👨‍🏭!");
             try buffer.replaceVisualRange(6, 1, "World");
             try expectStrings("Hello World!", buffer.m_source[0..12]);
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+    // ┌──────────────────────────── Utils ───────────────────────────┐
+
+        test "equals" {
+            const buffer1 = try Buffer.init(64, "Hello, World!");
+            const buffer2 = try Buffer.init(54, "Hello, World!");
+            const buffer3 = try Buffer.init(44, "Goodbye, World!");
+
+            try expect(buffer1.equals(buffer2.m_source[0..buffer2.m_length]));
+            try expect(!buffer1.equals(buffer3.m_source[0..buffer3.m_length]));
+        }
+
+        test "isEmpty" {
+            const empty = try Buffer.init(64, "");
+            const nonEmpty = try Buffer.init(54, "Hello, World!");
+
+            try expect(empty.isEmpty());
+            try expect(!nonEmpty.isEmpty());
+
         }
 
     // └──────────────────────────────────────────────────────────────┘

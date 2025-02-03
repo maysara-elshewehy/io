@@ -40,11 +40,11 @@ pub fn initAlloc(allocator: Allocator) Self
     - ##### 🟢 Success Cases
 
         ```zig
-        const myString = try String.initAlloc(allocator);
-        defer myString.deinit();
+        const string = try String.initAlloc(allocator);
+        defer string.deinit();
 
-        _ = myString.length;   // 👉 0
-        _ = myString.capacity; // 👉 0
+        _ = string.length();   // 👉 0
+        _ = string.capacity; // 👉 0
         ```
 
     - ##### 🔴 Failure Cases

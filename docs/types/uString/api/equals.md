@@ -1,10 +1,11 @@
-# [←](../Viewer.md) `Viewer`.`includes`
+# [←](../uString.md) `uString`.`equals`
 
-> Returns `true` **if contains `target`**.
+> Returns true if the `uString` instance equals the given `target`.
 
 ```zig
-pub fn includes(self: Self, target: []const u8) bool
+pub fn equals(self: Self, target: []const u8) bool
 ```
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -12,14 +13,14 @@ pub fn includes(self: Self, target: []const u8) bool
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description              |
-    | --------- | ------------ | ------------------------ |
-    | `self`    | `Self`       | The `Viewer` instance.   |
-    | `target`  | `[]const u8` | The value to search for. |
+    | Parameter | Type         | Description                 |
+    | --------- | ------------ | --------------------------- |
+    | `self`    | `Self`       | The `uString` instance.      |
+    | `target`  | `[]const u8` | The string to compare with. |
 
 - #### ✨ Returns : `bool`
 
-    > Returns `true` **if the `Viewer` instance contains `target`**.
+    > Returns true if the `uString` instance is equal to `target`.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -28,14 +29,18 @@ pub fn includes(self: Self, target: []const u8) bool
 - #### 🧪 Examples
 
     ```zig
-    const Viewer = @import("io").types.Viewer;
-    const viewer = Viewer.init("Hello 👨‍🏭!");
+    const uString = @import("io").types.uString;
+
+    const stringA = try uString.init(allocator, "A");
+    defer stringA.deinit(allocator);
+
+    const stringB = try uString.init(allocator, "B");
+    defer stringB.deinit(allocator);
     ```
 
     ```zig
-    _ = viewer.includes("H");   // 👉 true
-    _ = viewer.includes("👨‍🏭");  // 👉 true
-    _ = viewer.includes("@");   // 👉 false
+    _ = stringA.equals(stringA.slice());  // 👉 true
+    _ = stringA.equals(stringB.slice());  // 👉 false
     ```
 
 <div align="center">
@@ -44,11 +49,9 @@ pub fn includes(self: Self, target: []const u8) bool
 
 - ##### 🔗 Related
 
-  > [`Viewer.init`](./init.md)
+  > [`uString.init`](./init.md)
 
-  > [`Viewer.startsWith`](./startsWith.md)
-
-  > [`Viewer.endsWith`](./endsWith.md)
+  > [`uString.isEmpty`](./isEmpty.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

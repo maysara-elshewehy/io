@@ -1,9 +1,9 @@
-# [←](../Bytes.md) `Bytes`.`countWritten`
+# [←](../String.md) `String`.`equals`
 
-> Returns the total number of written bytes, stopping at the first null byte.
+> Returns true if the `String` instance equals the given `target`.
 
 ```zig
-pub fn countWritten(value: []const u8) usize
+pub fn equals(self: Self, target: []const u8) bool
 ```
 
 
@@ -13,13 +13,14 @@ pub fn countWritten(value: []const u8) usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description          |
-    | --------- | ------------ | -------------------- |
-    | `value`   | `[]const u8` | The value to count. |
+    | Parameter | Type         | Description                 |
+    | --------- | ------------ | --------------------------- |
+    | `self`    | `Self`       | The `String` instance.      |
+    | `target`  | `[]const u8` | The string to compare with. |
 
-- #### ✨ Returns : `usize`
+- #### ✨ Returns : `bool`
 
-    > Returns the number of the bytes written, stopping at the first null byte.
+    > Returns true if the `String` instance is equal to `target`.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -28,15 +29,18 @@ pub fn countWritten(value: []const u8) usize
 - #### 🧪 Examples
 
     ```zig
-    const Bytes = @import("io").utils.Bytes;
-    const array = try Bytes.init(64, "Hello 👨‍🏭!");
+    const String = @import("io").types.String;
+
+    const stringA = try String.init(allocator, "A");
+    defer stringA.deinit();
+
+    const stringB = try String.init(allocator, "B");
+    defer stringB.deinit();
     ```
 
     ```zig
-    _ = array.len;                     // 👉 64 (Size of array)
-    _ = Bytes.countWritten(&array);    // 👉 18 (Number of written bytes)
-    _ = try Bytes.countVisual(&array); // 👉 8  (Number of Visual characters)
-
+    _ = stringA.equals(stringA.slice());  // 👉 true
+    _ = stringA.equals(stringB.slice());  // 👉 false
     ```
 
 <div align="center">
@@ -45,9 +49,9 @@ pub fn countWritten(value: []const u8) usize
 
 - ##### 🔗 Related
 
-  > [`Bytes.init`](./init.md)
+  > [`String.init`](./init.md)
 
-  > [`Bytes.countVisual`](./countVisual.md)
+  > [`String.isEmpty`](./isEmpty.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

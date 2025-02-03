@@ -18,9 +18,13 @@
 
     > Added more than **20** replacement functions to all sections (types and utilities).
 
+    > Added more than **10** checking functions to all sections (types and utilities).
+
     > `utils.utf8` renamed to `utils.Unicode`.
 
     > Many codes and documents have been improved.
+
+    > All types can now be initialized with an empty value.
 
 - ## Todo
 

@@ -1,9 +1,9 @@
-# [←](../Bytes.md) `Bytes`.`countWritten`
+# [←](../Viewer.md) `Viewer`.`isEmpty`
 
-> Returns the total number of written bytes, stopping at the first null byte.
+> Returns true if the `Viewer` instance is empty.
 
 ```zig
-pub fn countWritten(value: []const u8) usize
+pub fn isEmpty(self: Self) bool
 ```
 
 
@@ -13,13 +13,13 @@ pub fn countWritten(value: []const u8) usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description          |
-    | --------- | ------------ | -------------------- |
-    | `value`   | `[]const u8` | The value to count. |
+    | Parameter | Type   | Description            |
+    | --------- | ------ | ---------------------- |
+    | `self`    | `Self` | The `Viewer` instance. |
 
-- #### ✨ Returns : `usize`
+- #### ✨ Returns : `bool`
 
-    > Returns the number of the bytes written, stopping at the first null byte.
+    > Returns true if the `Viewer` instance is empty.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -28,15 +28,15 @@ pub fn countWritten(value: []const u8) usize
 - #### 🧪 Examples
 
     ```zig
-    const Bytes = @import("io").utils.Bytes;
-    const array = try Bytes.init(64, "Hello 👨‍🏭!");
+    const Viewer = @import("io").types.Viewer;
+
+    const empty = Viewer.init(&[1]u8{0} ** 64);
+    const nonEmpty = Viewer.init("Hello, World!");
     ```
 
     ```zig
-    _ = array.len;                     // 👉 64 (Size of array)
-    _ = Bytes.countWritten(&array);    // 👉 18 (Number of written bytes)
-    _ = try Bytes.countVisual(&array); // 👉 8  (Number of Visual characters)
-
+    _ = empty.isEmpty();    // 👉 true
+    _ = nonEmpty.isEmpty(); // 👉 false
     ```
 
 <div align="center">
@@ -45,9 +45,9 @@ pub fn countWritten(value: []const u8) usize
 
 - ##### 🔗 Related
 
-  > [`Bytes.init`](./init.md)
+  > [`Viewer.init`](./init.md)
 
-  > [`Bytes.countVisual`](./countVisual.md)
+  > [`Viewer.equals`](./equals.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

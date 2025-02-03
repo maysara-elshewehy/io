@@ -53,8 +53,8 @@ pub fn firstGcLength(value: []const u8) error{InvalidValue}!usize
         > **_InvalidValue._**
 
         ```zig
-        const invalidUtf8 : u8 = &[_]u8{0x80, 0x81, 0x82};
-        _ = Unicode.utils.lengthOfStartByte(invalidUtf8); // 👉 error.InvalidValue
+        const invalidUnicode : u8 = &[_]u8{0x80, 0x81, 0x82};
+        _ = Unicode.utils.lengthOfStartByte(invalidUnicode); // 👉 error.InvalidValue
         ```
 
 <div align="center">

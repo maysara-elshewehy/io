@@ -34,15 +34,15 @@ pub fn countVisual(value: []const u8) countVisualError!usize
 - #### 🧪 Examples
 
     ```zig
-    const myArray = try Bytes.init(64, "Hello 👨‍🏭!");
+    const array = try Bytes.init(64, "Hello 👨‍🏭!");
     ```
 
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = myArray.len;                     // 👉 64 (Size of array)
-        _ = Bytes.countWritten(&myArray);    // 👉 18 (Number of written bytes)
-        _ = try Bytes.countVisual(&myArray); // 👉 8  (Number of Visual characters)
+        _ = array.len;                     // 👉 64 (Size of array)
+        _ = Bytes.countWritten(&array);    // 👉 18 (Number of written bytes)
+        _ = try Bytes.countVisual(&array); // 👉 8  (Number of Visual characters)
         ```
 
     - ##### 🔴 Failure Cases
@@ -50,8 +50,8 @@ pub fn countVisual(value: []const u8) countVisualError!usize
         > **_InvalidValue._**
 
         ```zig
-        const invalidUtf8 = &[_]u8{0x80, 0x81, 0x82};
-        _ = Bytes.countVisual(invalidUtf8); // 👉 error.InvalidValue
+        const invalidUnicode = &[_]u8{0x80, 0x81, 0x82};
+        _ = Bytes.countVisual(invalidUnicode); // 👉 error.InvalidValue
         ```
 
 <div align="center">

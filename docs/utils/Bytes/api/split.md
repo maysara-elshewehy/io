@@ -34,30 +34,30 @@ pub fn split(dest: []const u8, dest_wlen: usize, delimiters: []const u8, index: 
     const Bytes = @import("io").utils.Bytes;
 
     const input = "0👨‍🏭11👨‍🏭2👨‍🏭33";
-    const myArray = try Bytes.init(64, input);
+    const array = try Bytes.init(64, input);
     ```
 
     > Basic splits
     ```zig
-    _ = Bytes.split(&myArray, input.len, "👨‍🏭", 0).?; // 👉 "0"
-    _ = Bytes.split(&myArray, input.len, "👨‍🏭", 1).?; // 👉 "11"
-    _ = Bytes.split(&myArray, input.len, "👨‍🏭", 2).?; // 👉 "2"
-    _ = Bytes.split(&myArray, input.len, "👨‍🏭", 3).?; // 👉 "33"
+    _ = Bytes.split(&array, input.len, "👨‍🏭", 0).?; // 👉 "0"
+    _ = Bytes.split(&array, input.len, "👨‍🏭", 1).?; // 👉 "11"
+    _ = Bytes.split(&array, input.len, "👨‍🏭", 2).?; // 👉 "2"
+    _ = Bytes.split(&array, input.len, "👨‍🏭", 3).?; // 👉 "33"
     ```
 
     > Out-of-bounds indices
     ```zig
-    _ = Bytes.split(&myArray, input.len, "👨‍🏭", 4);  // 👉 null
+    _ = Bytes.split(&array, input.len, "👨‍🏭", 4);  // 👉 null
     ```
 
     > Empty input.
     ```zig
-    _ = Bytes.split(&myArray, 0, "👨‍🏭", 0).?;        // 👉 ""
+    _ = Bytes.split(&array, 0, "👨‍🏭", 0).?;        // 👉 ""
     ```
 
     > Non-existent delimiter.
     ```zig
-    _ = Bytes.split(&myArray, input.len, "X", 0).?; // 👉 "0👨‍🏭11👨‍🏭2👨‍🏭33"
+    _ = Bytes.split(&array, input.len, "X", 0).?; // 👉 "0👨‍🏭11👨‍🏭2👨‍🏭33"
     ```
 
 <div align="center">

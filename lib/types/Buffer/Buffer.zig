@@ -273,19 +273,6 @@
             // └──────────────────────────────────────────────────────────────┘
 
 
-            // ┌──────────────────────────── Utils ───────────────────────────┐
-
-                /// Returns a copy of the `Buffer` instance.
-                pub fn clone(self: Self) Self {
-                    return .{
-                        .m_source = Bytes.unsafeInit(array_size, self.m_source[0..self.m_length]),
-                        .m_length = self.m_length
-                    };
-                }
-
-            // └──────────────────────────────────────────────────────────────┘
-
-
             // ┌──────────────────────────── Split ───────────────────────────┐
 
                 /// Splits the written portion of the string into substrings separated by the delimiter,
@@ -335,6 +322,29 @@
 
             // └──────────────────────────────────────────────────────────────┘
 
+
+            // ┌──────────────────────────── Utils ───────────────────────────┐
+
+                /// Returns a copy of the `Buffer` instance.
+                pub fn clone(self: Self) Self {
+                    return .{
+                        .m_source = Bytes.unsafeInit(array_size, self.m_source[0..self.m_length]),
+                        .m_length = self.m_length
+                    };
+                }
+
+                /// Returns true if the `Buffer` instance equals the given `target`.
+                pub fn equals(self: Self, target: []const u8) bool {
+                    return Bytes.equals(self.m_source[0..self.m_length], target);
+                }
+
+                /// Returns true if the `Buffer` instance is empty.
+                pub fn isEmpty(self: Self) bool {
+                    return self.m_length == 0;
+                }
+
+            // └──────────────────────────────────────────────────────────────┘
+
         };
     }
 
@@ -357,9 +367,10 @@
     }
 
     /// Initializes a `Buffer` of a pre-specified `size` and `value`.
-    /// - `initError.ZeroSize` **_if the length of `value` is 0._**
     /// - `initError.OutOfRange` **_if the length of `value` exceeds `size`._**
     pub fn init(comptime size: usize, value: []const u8) initError!Buffer(size) {
+        if(value.len == 0) return .{ };
+
         return .{
             .m_source = try Bytes.init(size, value),
             .m_length = Bytes.countWritten(value)

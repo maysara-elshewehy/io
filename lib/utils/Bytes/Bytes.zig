@@ -555,4 +555,22 @@
 
     // └──────────────────────────────────────────────────────────────┘
 
+
+    // ┌──────────────────────────── Utils ───────────────────────────┐
+
+        /// Returns true if the `a` is equal to `b`.
+        pub fn equals(a: []const u8, b: []const u8) bool {
+            if(a.len != b.len) return false;
+            if(a.len == 0) return true;
+
+            return std.mem.eql(u8, a, b);
+        }
+
+        /// Returns true if the `value` is empty.
+        pub fn isEmpty(value: []const u8) bool {
+            return countWritten(value) == 0;
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

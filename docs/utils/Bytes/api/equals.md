@@ -1,9 +1,9 @@
-# [←](../Bytes.md) `Bytes`.`countWritten`
+# [←](../Bytes.md) `Bytes`.`equals`
 
-> Returns the total number of written bytes, stopping at the first null byte.
+> Checks if two arrays are equal.
 
 ```zig
-pub fn countWritten(value: []const u8) usize
+pub fn equals(a: []const u8, b: []const u8) bool
 ```
 
 
@@ -13,13 +13,14 @@ pub fn countWritten(value: []const u8) usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description          |
-    | --------- | ------------ | -------------------- |
-    | `value`   | `[]const u8` | The value to count. |
+    | Parameter | Type         | Description                  |
+    | --------- | ------------ | ---------------------------- |
+    | `a`       | `[]const u8` | The first value to compare.  |
+    | `b`       | `[]const u8` | The second value to compare. |
 
-- #### ✨ Returns : `usize`
+- #### ✨ Returns : `bool`
 
-    > Returns the number of the bytes written, stopping at the first null byte.
+    > Returns true if the `a` is equal to `b`.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -29,14 +30,13 @@ pub fn countWritten(value: []const u8) usize
 
     ```zig
     const Bytes = @import("io").utils.Bytes;
-    const array = try Bytes.init(64, "Hello 👨‍🏭!");
     ```
 
     ```zig
-    _ = array.len;                     // 👉 64 (Size of array)
-    _ = Bytes.countWritten(&array);    // 👉 18 (Number of written bytes)
-    _ = try Bytes.countVisual(&array); // 👉 8  (Number of Visual characters)
-
+    _ = Bytes.equals("", "");   // 👉 true
+    _ = Bytes.equals("", "b");  // 👉 false
+    _ = Bytes.equals("a", "b"); // 👉 false
+    _ = Bytes.equals("a", "a"); // 👉 true
     ```
 
 <div align="center">
@@ -45,9 +45,7 @@ pub fn countWritten(value: []const u8) usize
 
 - ##### 🔗 Related
 
-  > [`Bytes.init`](./init.md)
-
-  > [`Bytes.countVisual`](./countVisual.md)
+  > [`Bytes.isEmpty`](./isEmpty.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

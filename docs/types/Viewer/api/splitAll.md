@@ -38,7 +38,7 @@ pub fn splitAll(self: Self, allocator: Allocator, delimiters: []const u8, includ
 
     ```zig
     const Viewer = @import("io").types.Viewer;
-    const viewer = try Viewer.init("👨‍🏭a👨‍🏭b👨‍🏭");
+    const viewer = Viewer.init("👨‍🏭a👨‍🏭b👨‍🏭");
     ```
 
     > Basic usage

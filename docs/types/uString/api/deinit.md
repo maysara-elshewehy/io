@@ -33,8 +33,8 @@ pub fn deinit(self: Self, allocator: Allocator) void
     ```
 
     ```zig
-    var myString = try uString.init(allocator, "..");   // allocate
-    defer myString.deinit(allocator);                   // deallocate
+    var string = try uString.init(allocator, "..");   // allocate
+    defer string.deinit(allocator);                   // deallocate
     ```
 
 <div align="center">

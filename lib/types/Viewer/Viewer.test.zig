@@ -19,13 +19,14 @@
 
         test "initialization" {
             // empty input
-            const emptyUtf8: []const u8 = "";
-            try expectError(error.ZeroSize, Viewer.init(emptyUtf8));
+            const _empty: []const u8 = "";
+            const empty = Viewer.init(_empty);
+            try expectStrings(_empty, empty.slice());
 
             // non empty input (valid unicode)
-            const validUtf8: []const u8 = "Hello, 世界!";
-            const buffer = try Viewer.init(validUtf8);
-            try expectStrings(validUtf8, buffer.m_source[0..]);
+            const _nonEmpty: []const u8 = "Hello, 世界!";
+            const nonEmpty = Viewer.init(_nonEmpty);
+            try expectStrings(_nonEmpty, nonEmpty.slice());
 
             // non empty input (invalid unicode)
             // try expectError(unreachable, Viewer.init(&[_]u8{0x80, 0x81, 0x82}));
@@ -37,8 +38,8 @@
     // ┌────────────────────────── Iterator ──────────────────────────┐
 
         test "iterator" {
-            const validUtf8: []const u8 = "Hello, 世界!";
-            const viewer = try Viewer.init(validUtf8);
+            const validUnicode: []const u8 = "Hello, 世界!";
+            const viewer = Viewer.init(validUnicode);
             var iter = try viewer.iterator();
 
             while(iter.nextSlice()) |slice| {
@@ -52,7 +53,7 @@
     // ┌──────────────────────────── Find ────────────────────────────┐
 
         test "Viewer.find" {
-            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            const viewer = Viewer.init("Hello 👨‍🏭!");
             const Cases = struct { value : []const u8 = undefined, expected  :? usize = null, };
             const cases = &[_]Cases{
                 .{ .value  = "H", .expected = 0 },
@@ -71,7 +72,7 @@
         }
 
         test "Viewer.findVisual" {
-            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            const viewer = Viewer.init("Hello 👨‍🏭!");
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
             const cases = &[_]Cases{
                 .{ .value  = "H", .expected = 0 },
@@ -90,7 +91,7 @@
         }
 
         test "Viewer.rfind" {
-            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            const viewer = Viewer.init("Hello 👨‍🏭!");
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
             const cases = &[_]Cases{
                 .{ .value  = "H", .expected = 0 },
@@ -109,7 +110,7 @@
         }
 
         test "Viewer.rfindVisual" {
-            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            const viewer = Viewer.init("Hello 👨‍🏭!");
             const Cases = struct { value  : []const u8 = undefined, expected  :? usize = null, };
             const cases = &[_]Cases{
                 .{ .value  = "H", .expected = 0 },
@@ -128,7 +129,7 @@
         }
 
         test "Viewer.includes" {
-            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            const viewer = Viewer.init("Hello 👨‍🏭!");
             try expect(viewer.includes("H"));
             try expect(viewer.includes("e"));
             try expect(viewer.includes("l"));
@@ -140,13 +141,13 @@
         }
 
         test "Viewer.startsWith" {
-            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            const viewer = Viewer.init("Hello 👨‍🏭!");
             try expect(viewer.startsWith("H"));
             try expect(!viewer.startsWith("👨‍🏭"));
         }
 
         test "Viewer.endsWith" {
-            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            const viewer = Viewer.init("Hello 👨‍🏭!");
             try expect(viewer.endsWith("!"));
             try expect(!viewer.endsWith("👨‍🏭"));
         }
@@ -154,31 +155,31 @@
     // └──────────────────────────────────────────────────────────────┘
 
 
-    // ┌───────────────────────────── DATA ───────────────────────────┐
+    // ┌───────────────────────────── Data ───────────────────────────┐
 
         test "slice" {
             const txt = &[_]u8{ '1', 0, 0 };
-            const viewer = try Viewer.init(txt);
+            const viewer = Viewer.init(txt);
             try expectStrings("1", viewer.slice());
         }
 
         test "length" {
-            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            const viewer = Viewer.init("Hello 👨‍🏭!");
             try expectEqual(18, viewer.length());
         }
 
         test "vlength" {
-            const viewer = try Viewer.init("Hello 👨‍🏭!");
+            const viewer = Viewer.init("Hello 👨‍🏭!");
             try expectEqual(8, viewer.vlength());
         }
 
     // └──────────────────────────────────────────────────────────────┘
 
 
-    // ┌──────────────────────────── Utils ───────────────────────────┐
+    // ┌──────────────────────────── Split ───────────────────────────┐
 
         test "split" {
-            const viewer = try Viewer.init("0👨‍🏭11👨‍🏭2👨‍🏭33");
+            const viewer = Viewer.init("0👨‍🏭11👨‍🏭2👨‍🏭33");
 
             // Test basic splits
             try expectStrings("0", viewer.split("👨‍🏭", 0).?);
@@ -190,7 +191,7 @@
             try expect(viewer.split("👨‍🏭", 4) == null);
 
             // // Test empty input
-            // var viewer2 = try Viewer.init("0");
+            // var viewer2 = Viewer.init("0");
             // try viewer2.remove(0);
             // try expectStrings("", viewer2.split("👨‍🏭", 0).?);
 
@@ -202,7 +203,7 @@
             const allocator = std.testing.allocator;
 
             // Leading/trailing delimiters
-            const viewer = try Viewer.init("👨‍🏭a👨‍🏭b👨‍🏭");
+            const viewer = Viewer.init("👨‍🏭a👨‍🏭b👨‍🏭");
             const parts2 = try viewer.splitAll(allocator, "👨‍🏭", true);
             defer allocator.free(parts2);
             try expectStrings("", parts2[0]);
@@ -215,6 +216,29 @@
             defer allocator.free(parts3);
             try expectStrings("a", parts3[0]);
             try expectStrings("b", parts3[1]);
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── Utils ───────────────────────────┐
+
+        test "equals" {
+            const viewer1 = Viewer.init("Hello, World!");
+            const viewer2 = Viewer.init("Hello, World!");
+            const viewer3 = Viewer.init("Goodbye, World!");
+
+            try expect(viewer1.equals(viewer2.slice()));
+            try expect(!viewer1.equals(viewer3.slice()));
+        }
+
+        test "isEmpty" {
+            const empty = Viewer.init(&[1]u8{0} ** 64);
+            const nonEmpty = Viewer.init("Hello, World!");
+
+            try expect(empty.isEmpty());
+            try expect(!nonEmpty.isEmpty());
+
         }
 
     // └──────────────────────────────────────────────────────────────┘

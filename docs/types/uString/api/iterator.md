@@ -40,10 +40,10 @@ pub fn iterator(self: Self) Unicode.Iterator.Error!Unicode.Iterator
     - ##### 🟢 Success Cases
 
         ```zig
-        var myString = try uString.init(allocator, "..");
-        defer myString.deinit(allocator);
+        var string = try uString.init(allocator, "..");
+        defer string.deinit(allocator);
 
-        _ = try myString.iterator();
+        _ = try string.iterator();
         ```
 
     - ##### 🔴 Failure Cases

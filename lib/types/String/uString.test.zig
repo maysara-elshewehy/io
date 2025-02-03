@@ -34,16 +34,20 @@
             // Init
             {
                 // empty input
-                const emptyUtf8: []const u8 = "";
-                try expectError(error.ZeroSize, uString.init(allocator, emptyUtf8));
+                const _empty: []const u8 = "";
+                const empty = try uString.init(allocator, _empty);
+                defer empty.deinit(allocator);
+                try expectEqual(_empty.len, empty.length());
+                try expectEqual(0, empty.capacity());
+                try expectStrings(_empty, empty.slice());
 
                 // non empty input (valid unicode)
-                const validUtf8: []const u8 = "Hello, 世界!";
-                var ustring = try uString.init(allocator, validUtf8);
+                const validUnicode: []const u8 = "Hello, 世界!";
+                var ustring = try uString.init(allocator, validUnicode);
                 defer ustring.deinit(allocator);
-                try expectEqual(validUtf8.len, ustring.length());
+                try expectEqual(validUnicode.len, ustring.length());
                 try expectEqual(28, ustring.capacity());
-                try expectStrings(validUtf8, ustring.slice());
+                try expectStrings(validUnicode, ustring.slice());
 
                 // non empty input (invalid unicode)
                 // try expectError(unreachable, uString.init(allocator, &[_]u8{0x80, 0x81, 0x82}));
@@ -57,8 +61,8 @@
 
 
         test "iterator" {
-            const validUtf8: []const u8 = "Hello, 世界!";
-            var ustring = try uString.init(allocator, validUtf8);
+            const validUnicode: []const u8 = "Hello, 世界!";
+            var ustring = try uString.init(allocator, validUnicode);
             defer ustring.deinit(allocator);
             var iter = try ustring.iterator();
 
@@ -67,7 +71,7 @@
             }
 
             // Ensure all characters were iterated
-            try expectEqual(validUtf8.len, iter.current_index);
+            try expectEqual(validUnicode.len, iter.current_index);
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -747,6 +751,35 @@
             defer string.deinit(allocator);
             try string.replaceVisualRange(allocator, 6, 1, "World");
             try expectStrings("Hello World!", string.slice());
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+    // ┌──────────────────────────── Utils ───────────────────────────┐
+
+        test "equals" {
+            const string1 = try uString.init(allocator, "Hello, World!");
+            defer string1.deinit(allocator);
+
+            const string2 = try uString.init(allocator, "Hello, World!");
+            defer string2.deinit(allocator);
+
+            const string3 = try uString.init(allocator, "Goodbye, World!");
+            defer string3.deinit(allocator);
+
+            try expect(string1.equals(string2.slice()));
+            try expect(!string1.equals(string3.slice()));
+        }
+
+        test "isEmpty" {
+            const empty = try uString.init(allocator, "");
+            defer empty.deinit(allocator);
+
+            const nonEmpty = try uString.init(allocator, "Hello, World!");
+            defer nonEmpty.deinit(allocator);
+
+            try expect(empty.isEmpty());
+            try expect(!nonEmpty.isEmpty());
         }
 
     // └──────────────────────────────────────────────────────────────┘

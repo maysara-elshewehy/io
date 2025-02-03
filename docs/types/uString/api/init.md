@@ -22,7 +22,6 @@ pub fn init(allocator: Allocator, value: []const u8) initError!Self
 
     | Error                     | Reason                           |
     | ------------------------- | -------------------------------- |
-    | `ZeroSize`                | The `size` is 0.                 |
     | `std.mem.Allocator.Error` | The allocator returned an error. |
 
 - #### ✨ Returns : `Self`
@@ -41,20 +40,24 @@ pub fn init(allocator: Allocator, value: []const u8) initError!Self
 
     - ##### 🟢 Success Cases
 
-        ```zig
-        var myString = try uString.init(allocator, "Hello World!");
-        defer myString.deinit(allocator);
+        > nonEmpty.
 
-        _ = myString.length;   // 👉 12
-        _ = myString.capacity; // 👉 24
+        ```zig
+        var string = try uString.init(allocator, "Hello World!");
+        defer string.deinit(allocator);
+
+        _ = string.length();   // 👉 12
+        _ = string.capacity; // 👉 24
         ```
 
-    - ##### 🔴 Failure Cases
-
-        > **_ZeroSize._**
+        > Empty
 
         ```zig
-        _ = uString.init(allocator, ""); // 👉 error.ZeroSize
+        var string = try uString.init(allocator, "");
+        defer string.deinit(allocator);
+
+        _ = string.length();   // 👉 0
+        _ = string.capacity; // 👉 0
         ```
 
 <div align="center">

@@ -13,17 +13,16 @@ pub fn init(comptime size: usize, value: []const u8) initError!Buffer(size)
 
 - #### 🧩 Parameters
 
-    | Parameter | Type             | Description                            |
-    | --------- | ---------------- | -------------------------------------- |
-    | `size`    | `comptime usize` | The total size of the buffer in Bytes. |
-    | `value`   | `[]const u8`     | The unicode encoded bytes to be viewed.  |
+    | Parameter | Type             | Description                             |
+    | --------- | ---------------- | --------------------------------------- |
+    | `size`    | `comptime usize` | The total size of the buffer in Bytes.  |
+    | `value`   | `[]const u8`     | The unicode encoded bytes to be viewed. |
 
 - #### 🚫 Errors
 
-    | Error          | Reason                                |
-    | -------------- | ------------------------------------- |
-    | `ZeroSize`     | The `value` length is 0.              |
-    | `OutOfRange`   | The length of `value` exceeds `size`. |
+    | Error        | Reason                                |
+    | ------------ | ------------------------------------- |
+    | `OutOfRange` | The length of `value` exceeds `size`. |
 
 - #### ✨ Returns : `Self`
 
@@ -41,17 +40,23 @@ pub fn init(comptime size: usize, value: []const u8) initError!Buffer(size)
 
     - ##### 🟢 Success Cases
 
+        > nonEmpty.
+
         ```zig
-        _ = try Buffer.init(64, "..");
+        var buffer = try Buffer.init(64, "Hello World!");
+
+        _ = buffer.length(); // 👉 12
+        ```
+
+        > Empty
+
+        ```zig
+        var buffer = try Buffer.init(64, "");
+
+        _ = buffer.length(); // 👉 0
         ```
 
     - ##### 🔴 Failure Cases
-
-        > **_ZeroSize._**
-
-        ```zig
-        _ = Buffer.init(0, ""); // 👉 error.ZeroSize
-        ```
 
         > **_OutOfRange._**
 

@@ -29,7 +29,7 @@ pub fn findVisual(self: Self, target: []const u8) ?usize
 
     ```zig
     const Viewer = @import("io").types.Viewer;
-    const viewer = try Viewer.init("Hello 👨‍🏭!");
+    const viewer = Viewer.init("Hello 👨‍🏭!");
     ```
 
     ```zig

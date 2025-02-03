@@ -23,14 +23,14 @@
 
   - #### 🧩 Fields
 
-      | Field    | Type         | Description                           |
-      | -------- | ------------ | ------------------------------------- |
+      | Field    | Type         | Description                             |
+      | -------- | ------------ | --------------------------------------- |
       | `source` | `[]const u8` | The unicode encoded bytes to be viewed. |
 
    - #### ✨ Initialization
 
-        | Function                | Description                                                   |
-        | ----------------------- | ------------------------------------------------------------- |
+        | Function                | Description                                                     |
+        | ----------------------- | --------------------------------------------------------------- |
         | [`init`](./api/init.md) | Initializes a new Viewer instance with the given unicode bytes. |
 
    - #### 🔍 Search
@@ -55,8 +55,8 @@
 
    - #### ➰ Iterations
 
-        | Function                        | Description                                         |
-        | ------------------------------- | --------------------------------------------------- |
+        | Function                        | Description                                           |
+        | ------------------------------- | ----------------------------------------------------- |
         | [`iterator`](./api/iterator.md) | Creates an iterator for traversing the unicode bytes. |
 
    - #### ✂️ Split
@@ -66,6 +66,13 @@
         | [`split`](./api/split.md)       | Splits string into substrings by delimiter and returns substring at index.     |
         | [`splitAll`](./api/splitAll.md) | Splits string into substrings by delimiter and returns an array of substrings. |
 
+   - #### 🌟 More
+
+        | Function                      | Description                              |
+        | ----------------------------- | ---------------------------------------- |
+        | [`clone`](./api/clone.md)     | Returns a copy of the `Viewer` instance. |
+        | [`equals`](./api/equals.md)   | Checks if two strings are equal.         |
+        | [`isEmpty`](./api/isEmpty.md) | Checks if the string is empty.           |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

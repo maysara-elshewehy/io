@@ -42,11 +42,11 @@ pub fn initCapacity(allocator: Allocator, size: usize) initCapacityError!Self
     - ##### 🟢 Success Cases
 
         ```zig
-        var myString = try uString.initCapacity(allocator, 64);
-        defer myString.deinit(allocator);
+        var string = try uString.initCapacity(allocator, 64);
+        defer string.deinit(allocator);
 
-        _ = myString.length;   // 👉 0
-        _ = myString.capacity; // 👉 64
+        _ = string.length();   // 👉 0
+        _ = string.capacity; // 👉 64
         ```
 
     - ##### 🔴 Failure Cases

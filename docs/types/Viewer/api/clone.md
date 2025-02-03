@@ -1,9 +1,9 @@
-# [←](../Bytes.md) `Bytes`.`countWritten`
+# [←](../Viewer.md) `Viewer`.`clone`
 
-> Returns the total number of written bytes, stopping at the first null byte.
+> Returns a copy of the `Viewer` instance.
 
 ```zig
-pub fn countWritten(value: []const u8) usize
+pub fn clone(self: Self) Self
 ```
 
 
@@ -13,13 +13,13 @@ pub fn countWritten(value: []const u8) usize
 
 - #### 🧩 Parameters
 
-    | Parameter | Type         | Description          |
-    | --------- | ------------ | -------------------- |
-    | `value`   | `[]const u8` | The value to count. |
+    | Parameter | Type   | Description            |
+    | --------- | ------ | ---------------------- |
+    | `self`    | `Self` | The `Viewer` instance. |
 
-- #### ✨ Returns : `usize`
+- #### ✨ Returns : `Self`
 
-    > Returns the number of the bytes written, stopping at the first null byte.
+    > Creates and returns a new `Viewer` instance that is a copy of the current `Viewer` instance.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -28,15 +28,12 @@ pub fn countWritten(value: []const u8) usize
 - #### 🧪 Examples
 
     ```zig
-    const Bytes = @import("io").utils.Bytes;
-    const array = try Bytes.init(64, "Hello 👨‍🏭!");
+    const Viewer = @import("io").types.Viewer;
     ```
 
     ```zig
-    _ = array.len;                     // 👉 64 (Size of array)
-    _ = Bytes.countWritten(&array);    // 👉 18 (Number of written bytes)
-    _ = try Bytes.countVisual(&array); // 👉 8  (Number of Visual characters)
-
+    const viewer_one = Viewer.init("..");   // 👉 length: 2, written bytes: ".."
+    const viewer_two = viewer_one.clone();      // 👉 length: 2, written bytes: ".."
     ```
 
 <div align="center">
@@ -45,9 +42,7 @@ pub fn countWritten(value: []const u8) usize
 
 - ##### 🔗 Related
 
-  > [`Bytes.init`](./init.md)
-
-  > [`Bytes.countVisual`](./countVisual.md)
+  > [`Viewer.init`](./init.md)
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

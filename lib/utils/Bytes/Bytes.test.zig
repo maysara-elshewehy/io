@@ -565,8 +565,8 @@
                 try expectEqual(c[1], Bytes.countWritten(c[0]));
             }
 
-            const myArray = try Bytes.init(64, "Hello 👨‍🏭!");
-            try expectEqual(18, Bytes.countWritten(&myArray));
+            const array = try Bytes.init(64, "Hello 👨‍🏭!");
+            try expectEqual(18, Bytes.countWritten(&array));
         }
 
         test "countVisual" {
@@ -576,70 +576,38 @@
                 try expectEqual(c[1], try Bytes.countVisual(c[0]));
             }
 
-            const myArray = try Bytes.init(64, "Hello 👨‍🏭!");
-            try expectEqual(8, try Bytes.countVisual(&myArray));
+            const array = try Bytes.init(64, "Hello 👨‍🏭!");
+            try expectEqual(8, try Bytes.countVisual(&array));
         }
 
         test "writtenSlice" {
-            const myArray = try Bytes.init(64, "Hello 🌍!");
-            try expectStrings("Hello 🌍!", Bytes.writtenSlice(&myArray));
+            const array = try Bytes.init(64, "Hello 🌍!");
+            try expectStrings("Hello 🌍!", Bytes.writtenSlice(&array));
         }
 
     // └──────────────────────────────────────────────────────────────┘
 
 
-    // ┌──────────────────────────── Utils ───────────────────────────┐
-
-        test "isByte" {
-            // True cases.
-            try expect(Bytes.isByte(0));
-            try expect(Bytes.isByte(255));
-
-            // False cases.
-            try expect(!Bytes.isByte(256));
-            try expect(!Bytes.isByte(-1));
-            try expect(!Bytes.isByte(@as(u7, 0)));
-        }
-
-        test "isBytes" {
-            // True cases.
-            try expect(Bytes.isBytes(""));
-            try expect(Bytes.isBytes([_]u8{}));
-            try expect(Bytes.isBytes(&[_]u8{}));
-
-            try expect(Bytes.isBytes("#"));
-            try expect(Bytes.isBytes([_]u8{0}));
-            try expect(Bytes.isBytes(&[_]u8{0}));
-
-            // False cases.
-            try expect(!Bytes.isBytes(0));
-            try expect(!Bytes.isBytes(1000));
-            try expect(!Bytes.isBytes('c'));
-            try expect(!Bytes.isBytes(true));
-            try expect(!Bytes.isBytes(42));
-            try expect(!Bytes.isBytes(1.5));
-            try expect(!Bytes.isBytes([_]u7{0}));
-            try expect(!Bytes.isBytes(&[_]u7{0}));
-        }
+    // ┌──────────────────────────── Split ───────────────────────────┐
 
         test "split" {
             const input = "0👨‍🏭11👨‍🏭2👨‍🏭33";
-            const myArray = try Bytes.init(64, input);
+            const array = try Bytes.init(64, input);
 
             // Test basic splits
-            try expectStrings("0", Bytes.split(&myArray, input.len, "👨‍🏭", 0).?);
-            try expectStrings("11", Bytes.split(&myArray, input.len, "👨‍🏭", 1).?);
-            try expectStrings("2", Bytes.split(&myArray, input.len, "👨‍🏭", 2).?);
-            try expectStrings("33", Bytes.split(&myArray, input.len, "👨‍🏭", 3).?);
+            try expectStrings("0", Bytes.split(&array, input.len, "👨‍🏭", 0).?);
+            try expectStrings("11", Bytes.split(&array, input.len, "👨‍🏭", 1).?);
+            try expectStrings("2", Bytes.split(&array, input.len, "👨‍🏭", 2).?);
+            try expectStrings("33", Bytes.split(&array, input.len, "👨‍🏭", 3).?);
 
             // Test out-of-bounds indices
-            try expect(Bytes.split(&myArray, input.len, "👨‍🏭", 4) == null);
+            try expect(Bytes.split(&array, input.len, "👨‍🏭", 4) == null);
 
             // Test empty input
-            try expectStrings("", Bytes.split(&myArray, 0, "👨‍🏭", 0).?);
+            try expectStrings("", Bytes.split(&array, 0, "👨‍🏭", 0).?);
 
             // Test non-existent delimiter
-            try expectStrings(input, Bytes.split(&myArray, input.len, "X", 0).?);
+            try expectStrings(input, Bytes.split(&array, input.len, "X", 0).?);
         }
 
         test "splitAll" {
@@ -765,6 +733,62 @@
             var array1 = try Bytes.init(18, "Hello 👨‍🏭!");
             try Bytes.replaceVisualRange(&array1, 18, 6, 1, "World");
             try expectStrings("Hello World!", array1[0..12]);
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌──────────────────────────── Utils ───────────────────────────┐
+
+        test "isByte" {
+            // True cases.
+            try expect(Bytes.isByte(0));
+            try expect(Bytes.isByte(255));
+
+            // False cases.
+            try expect(!Bytes.isByte(256));
+            try expect(!Bytes.isByte(-1));
+            try expect(!Bytes.isByte(@as(u7, 0)));
+        }
+
+        test "isBytes" {
+            // True cases.
+            try expect(Bytes.isBytes(""));
+            try expect(Bytes.isBytes([_]u8{}));
+            try expect(Bytes.isBytes(&[_]u8{}));
+
+            try expect(Bytes.isBytes("#"));
+            try expect(Bytes.isBytes([_]u8{0}));
+            try expect(Bytes.isBytes(&[_]u8{0}));
+
+            // False cases.
+            try expect(!Bytes.isBytes(0));
+            try expect(!Bytes.isBytes(1000));
+            try expect(!Bytes.isBytes('c'));
+            try expect(!Bytes.isBytes(true));
+            try expect(!Bytes.isBytes(42));
+            try expect(!Bytes.isBytes(1.5));
+            try expect(!Bytes.isBytes([_]u7{0}));
+            try expect(!Bytes.isBytes(&[_]u7{0}));
+        }
+
+        test "equals" {
+            // Case 1: Empty strings
+            try expect(Bytes.equals("", ""));
+            try expect(!Bytes.equals("", "a"));
+
+            // Case 2: Strings with only one element
+            try expect(Bytes.equals("a", "a"));
+            try expect(!Bytes.equals("a", "b"));
+
+            // Case 3: Strings with multiple elements
+            try expect(Bytes.equals("abc", "abc"));
+            try expect(!Bytes.equals("abc", "abcd"));
+        }
+
+        test "isEmpty" {
+            try expect(Bytes.isEmpty(""));
+            try expect(!Bytes.isEmpty("a"));
         }
 
     // └──────────────────────────────────────────────────────────────┘

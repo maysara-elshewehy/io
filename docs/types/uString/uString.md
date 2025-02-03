@@ -25,7 +25,7 @@
 
       | Field        | Type    | Description                                            |
       | ------------ | ------- | ------------------------------------------------------ |
-      | `m_source`   | `[]u8`  | The mutable unicode encoded Bytes.                       |
+      | `m_source`   | `[]u8`  | The mutable unicode encoded Bytes.                     |
       | `m_capacity` | `usize` | The number of bytes that can be written to `m_source`. |
 
    - #### ✨ Initialization
@@ -91,8 +91,8 @@
 
    - #### ➰ Iterations
 
-        | Function                        | Description                                         |
-        | ------------------------------- | --------------------------------------------------- |
+        | Function                        | Description                                           |
+        | ------------------------------- | ----------------------------------------------------- |
         | [`iterator`](./api/iterator.md) | Creates an iterator for traversing the unicode bytes. |
 
    - #### ✂️ Split
@@ -120,7 +120,8 @@
         | [`reverse`](./api/reverse.md) | Reverses the order of the characters **_(considering unicode)_**.     |
         | [`clone`](./api/clone.md)     | Returns a copy of the `uString` instance.                             |
         | [`toManaged`](#)              | Converts the `uString` to a `String`, taking ownership of the memory. |
-
+        | [`equals`](./api/equals.md)   | Checks if two strings are equal.                                      |
+        | [`isEmpty`](./api/isEmpty.md) | Checks if the string is empty.                                        |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

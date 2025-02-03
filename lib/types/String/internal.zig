@@ -55,9 +55,10 @@
         pub const initError = AllocatorError || error { ZeroSize };
 
         /// Initializes a new `String` instance with the given `allocator` and `value`.
-        /// - `initError.ZeroSize` **_if the length of `value` is 0._**
         /// - `std.mem.Allocator` **_if the allocator returned an error._**
         pub inline fn init(Self: type, allocator: Allocator, value: []const u8) initError!Self {
+            if(value.len == 0) return Self.initAlloc(allocator);
+
             var self = try initCapacity(Self, allocator, value.len*2);
             Bytes.unsafeAppend(self.allocatedSlice(), value, 0);
             self.m_source.len = Bytes.countWritten(value);
@@ -568,6 +569,20 @@
             }
 
             try replaceRange(self, allocator, start, new_len, replacement);
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+    // ┌──────────────────────────── Utils ───────────────────────────┐
+
+        /// Returns true if the `String` instance equals the given `target`.
+        pub fn equals(self: anytype, target: []const u8) bool {
+            return Bytes.equals(self.slice(), target);
+        }
+
+        /// Returns true if the `String` instance is empty.
+        pub fn isEmpty(self: anytype) bool {
+            return Bytes.isEmpty(self.slice());
         }
 
     // └──────────────────────────────────────────────────────────────┘

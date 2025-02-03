@@ -108,6 +108,8 @@
         | Function                      | Description                      |
         | ----------------------------- | -------------------------------- |
         | [`reverse`](./api/reverse.md) | Reverses the order of the Bytes. |
+        | [`equals`](./api/equals.md)   | Checks if two arrays are equal.  |
+        | [`isEmpty`](./api/isEmpty.md) | Checks if the array is empty.    |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

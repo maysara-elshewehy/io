@@ -26,7 +26,7 @@
 
       | Field    | Type    | Description                              |
       | -------- | ------- | ---------------------------------------- |
-      | `source` | `[]u8`  | The unicode encoded bytes to be viewed.    |
+      | `source` | `[]u8`  | The unicode encoded bytes to be viewed.  |
       | `length` | `usize` | The number of written bytes to `source`. |
 
    - #### ✨ Initialization
@@ -89,8 +89,8 @@
 
    - #### ➰ Iterations
 
-        | Function                        | Description                                         |
-        | ------------------------------- | --------------------------------------------------- |
+        | Function                        | Description                                           |
+        | ------------------------------- | ----------------------------------------------------- |
         | [`iterator`](./api/iterator.md) | Creates an iterator for traversing the unicode bytes. |
 
    - #### ✂️ Split
@@ -115,7 +115,8 @@
         | ----------------------------- | ----------------------------------------------------------------- |
         | [`reverse`](./api/reverse.md) | Reverses the order of the characters **_(considering unicode)_**. |
         | [`clone`](./api/clone.md)     | Returns a copy of the `Buffer` instance.                          |
-
+        | [`equals`](./api/equals.md)   | Checks if two strings are equal.                                  |
+        | [`isEmpty`](./api/isEmpty.md) | Checks if the string is empty.                                    |
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>

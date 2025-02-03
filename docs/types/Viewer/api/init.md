@@ -3,7 +3,7 @@
 > Initializes a new Viewer instance with the given unicode bytes.
 
 ```zig
-pub fn init(value: []const u8) initError!Self
+pub fn init(value: []const u8) Self
 ```
 
 
@@ -16,12 +16,6 @@ pub fn init(value: []const u8) initError!Self
     | Parameter | Type         | Description                           |
     | --------- | ------------ | ------------------------------------- |
     | `value`   | `[]const u8` | The unicode encoded bytes to be viewed. |
-
-- #### 🚫 Errors
-
-    | Error      | Reason                   |
-    | ---------- | ------------------------ |
-    | `ZeroSize` | The `value` length is 0. |
 
 - #### ✨ Returns : `Self`
 
@@ -39,16 +33,20 @@ pub fn init(value: []const u8) initError!Self
 
     - ##### 🟢 Success Cases
 
+        > nonEmpty.
+
         ```zig
-        _ = try Viewer.init("..");
+        var viewer = try Viewer.init("Hello World!");
+
+        _ = viewer.length(); // 👉 12
         ```
 
-    - ##### 🔴 Failure Cases
-
-        > **_ZeroSize._**
+        > Empty
 
         ```zig
-        _ = Viewer.init("");            // 👉 error.ZeroSize
+        var viewer = try Viewer.init("");
+
+        _ = viewer.length(); // 👉 0
         ```
 
 <div align="center">

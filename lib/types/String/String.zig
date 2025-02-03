@@ -295,16 +295,6 @@
         // └──────────────────────────────────────────────────────────────┘
 
 
-        // ┌──────────────────────────── Utils ───────────────────────────┐
-
-            /// Returns a copy of the `String` instance.
-            pub fn clone(self: Self) AllocatorError!Self {
-                return internal.clone(Self, self, self.m_allocator);
-            }
-
-        // └──────────────────────────────────────────────────────────────┘
-
-
         // ┌──────────────────────────── Split ───────────────────────────┐
 
             /// Splits the written portion of the string into substrings separated by the delimiter,
@@ -358,6 +348,26 @@
             }
 
         // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌──────────────────────────── Utils ───────────────────────────┐
+
+            /// Returns a copy of the `String` instance.
+            pub fn clone(self: Self) AllocatorError!Self {
+                return internal.clone(Self, self, self.m_allocator);
+            }
+
+            /// Returns true if the `String` instance equals the given `target`.
+            pub fn equals(self: Self, target: []const u8) bool {
+                return internal.equals(self, target);
+            }
+
+            /// Returns true if the `String` instance is empty.
+            pub fn isEmpty(self: Self) bool {
+                return internal.isEmpty(self);
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
     };
 
 
@@ -402,9 +412,10 @@
                 return internal.initCapacity(Self, allocator, size);
             }
 
+            /// Initializes a new empty `uString` instance.
             /// The purpose of this function is to integrate with the internal functions.
             pub fn initAlloc(_: Allocator) Self {
-                return Self{};
+                return Self{ };
             }
 
             /// Release all allocated memory.
@@ -423,18 +434,18 @@
             pub const insertError       = AllocatorError || error { OutOfRange };
             pub const insertVisualError = insertError || internal.insertVisualError;
 
-            /// Inserts a `slice` into the `String` instance at the specified `position` by **real position**.
+            /// Inserts a `slice` into the `uString` instance at the specified `position` by **real position**.
             /// - `Allocator.Error` **_if the `allocator` returned an error._**
             /// - `.OutOfRange` **_if the `pos` is greater than `self.m_source.len`._**
             ///
-            /// Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
+            /// Modifies the `uString` instance in place **_if `slice` length is greater than 0_.**
             pub fn insert(self: *Self, allocator: Allocator, _slice: []const u8, pos: usize) insertError!void {
                 if (_slice.len == 0) return;
                 if (pos > self.m_source.len) return insertError.OutOfRange;
                 try internal.insert(self, allocator, _slice, pos);
             }
 
-            /// Inserts a `byte` into the `String` instance at the specified `position` by **real position**.
+            /// Inserts a `byte` into the `uString` instance at the specified `position` by **real position**.
             /// - `Allocator.Error` **_if the `allocator` returned an error._**
             /// - `.OutOfRange` **_if the `pos` is greater than `self.m_source.len`._**
             pub fn insertOne(self: *Self, allocator: Allocator, byte: u8, pos: usize) insertError!void {
@@ -442,17 +453,17 @@
                 try internal.insertOne(self, allocator, byte, pos);
             }
 
-            /// Inserts a `slice` into the `String` instance at the specified `visual position`.
+            /// Inserts a `slice` into the `uString` instance at the specified `visual position`.
             /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `self.m_source.len`._**
             /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
             ///
-            /// Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
+            /// Modifies the `uString` instance in place **_if `slice` length is greater than 0_.**
             pub fn insertVisual(self: *Self, allocator: Allocator, _slice: []const u8, pos: usize) insertVisualError!void {
                 if (pos > self.m_source.len) return insertVisualError.OutOfRange;
                 try internal.insertVisual(self, allocator, _slice, pos);
             }
 
-            /// Inserts a `byte` into the `String` instance at the specified `visual position`.
+            /// Inserts a `byte` into the `uString` instance at the specified `visual position`.
             /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `self.m_source.len`._**
             /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
             pub fn insertVisualOne(self: *Self, allocator: Allocator, byte: u8, pos: usize) insertVisualError!void {
@@ -460,27 +471,27 @@
                 try internal.insertVisualOne(self, allocator, byte, pos);
             }
 
-            /// Appends a `slice` into the `String` instance.
+            /// Appends a `slice` into the `uString` instance.
             ///
-            /// Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
+            /// Modifies the `uString` instance in place **_if `slice` length is greater than 0_.**
             pub fn append(self: *Self, allocator: Allocator, _slice: []const u8) AllocatorError!void {
                 try internal.append(self, allocator, _slice);
             }
 
-            /// Appends a `byte` into the `String` instance.
+            /// Appends a `byte` into the `uString` instance.
             pub fn appendOne(self: *Self, allocator: Allocator, byte: u8) AllocatorError!void {
                 try internal.appendOne(self, allocator, byte);
             }
 
-            /// Prepends a `slice` into the `String` instance.
+            /// Prepends a `slice` into the `uString` instance.
             ///
-            /// Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
+            /// Modifies the `uString` instance in place **_if `slice` length is greater than 0_.**
             pub fn prepend(self: *Self, allocator: Allocator, _slice: []const u8) AllocatorError!void {
                 if(_slice.len > 0)
                 try internal.insert(self, allocator, _slice, 0);
             }
 
-            /// Prepends a `byte` into the `String` instance.
+            /// Prepends a `byte` into the `uString` instance.
             pub fn prependOne(self: *Self, allocator: Allocator, byte: u8) AllocatorError!void {
                 try internal.insertOne(self, allocator, byte, 0);
             }
@@ -645,21 +656,6 @@
         // └──────────────────────────────────────────────────────────────┘
 
 
-        // ┌──────────────────────────── Utils ───────────────────────────┐
-
-            /// Returns a copy of the `uString` instance.
-            pub fn clone(self: Self, allocator: Allocator) AllocatorError!Self {
-                return internal.clone(Self, self, allocator);
-            }
-
-            /// Converts the `uString` to a `String`, taking ownership of the memory.
-            pub fn toManaged(self: *Self, allocator: Allocator) String {
-                return .{ .m_source = self.m_source, .m_capacity = self.m_capacity, .m_allocator = allocator };
-            }
-
-        // └──────────────────────────────────────────────────────────────┘
-
-
         // ┌──────────────────────────── Split ───────────────────────────┐
 
             /// Splits the written portion of the string into substrings separated by the delimiter,
@@ -713,6 +709,32 @@
             }
 
         // └──────────────────────────────────────────────────────────────┘
+
+
+        // ┌──────────────────────────── Utils ───────────────────────────┐
+
+            /// Returns a copy of the `uString` instance.
+            pub fn clone(self: Self, allocator: Allocator) AllocatorError!Self {
+                return internal.clone(Self, self, allocator);
+            }
+
+            /// Converts the `uString` to a `uString`, taking ownership of the memory.
+            pub fn toManaged(self: *Self, allocator: Allocator) uString {
+                return .{ .m_source = self.m_source, .m_capacity = self.m_capacity, .m_allocator = allocator };
+            }
+
+            /// Returns true if the `uString` instance equals the given `target`.
+            pub fn equals(self: Self, target: []const u8) bool {
+                return internal.equals(self, target);
+            }
+
+            /// Returns true if the `uString` instance is empty.
+            pub fn isEmpty(self: Self) bool {
+                return internal.isEmpty(self);
+            }
+
+        // └──────────────────────────────────────────────────────────────┘
+
     };
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

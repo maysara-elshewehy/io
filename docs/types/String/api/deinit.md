@@ -32,8 +32,8 @@ pub fn deinit(self: Self) void
     ```
 
         ```zig
-        const myString = try String.init(allocator, "..");  // allocate
-        defer myString.deinit();                            // deallocate
+        const string = try String.init(allocator, "..");  // allocate
+        defer string.deinit();                            // deallocate
         ```
 
 <div align="center">
