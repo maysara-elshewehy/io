@@ -136,7 +136,7 @@
   - #### [io.type.Viewer](../Viewer/Viewer.md)
     > Immutable fixed-size string type that supports Unicode.
 
-  - #### [io.type.String](../String/String.md)
+  - #### [io.type.Buffer](../String/Buffer.md)
     > Mutable fixed-size string type that supports Unicode.
 
 <div align="center"><br>
