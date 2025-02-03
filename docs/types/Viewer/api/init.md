@@ -1,6 +1,6 @@
 # [←](../Viewer.md) `Viewer`.`init`
 
-> Initializes a new Viewer instance with the given UTF-8 bytes.
+> Initializes a new Viewer instance with the given unicode bytes.
 
 ```zig
 pub fn init(value: []const u8) initError!Self
@@ -15,17 +15,17 @@ pub fn init(value: []const u8) initError!Self
 
     | Parameter | Type         | Description                           |
     | --------- | ------------ | ------------------------------------- |
-    | `value`   | `[]const u8` | The UTF-8 encoded bytes to be viewed. |
+    | `value`   | `[]const u8` | The unicode encoded bytes to be viewed. |
 
 - #### 🚫 Errors
 
-    | Error          | Reason                          |
-    | -------------- | ------------------------------- |
-    | `ZeroSize`     | The `value` length is 0.        |
+    | Error      | Reason                   |
+    | ---------- | ------------------------ |
+    | `ZeroSize` | The `value` length is 0. |
 
 - #### ✨ Returns : `Self`
 
-    > Produces a `Viewer` instance initialized with the given UTF-8 bytes.
+    > Produces a `Viewer` instance initialized with the given unicode bytes.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -48,7 +48,7 @@ pub fn init(value: []const u8) initError!Self
         > **_ZeroSize._**
 
         ```zig
-        _ = try Viewer.init("");            // 👉 error.ZeroSize
+        _ = Viewer.init("");            // 👉 error.ZeroSize
         ```
 
 <div align="center">

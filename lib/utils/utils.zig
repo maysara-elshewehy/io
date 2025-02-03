@@ -1,10 +1,10 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
-    /// A set of useful functions for working with bytes.
-    pub const bytes = @import("./bytes/bytes.zig");
+    /// A set of useful functions for working with Bytes.
+    pub const Bytes = @import("./Bytes/Bytes.zig");
 
-    /// A set of useful functions for working with utf-8.
-    pub const utf8 = @import("./utf8/utf8.zig");
+    /// A set of useful functions for working with unicode.
+    pub const Unicode = @import("./Unicode/Unicode.zig");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -13,8 +13,8 @@
 // ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
 
     test {
-        _ = @import("./bytes/bytes.test.zig");
-        _ = @import("./utf8/utf8.zig");
+        _ = @import("./Bytes/Bytes.test.zig");
+        _ = @import("./Unicode/Unicode.zig");
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

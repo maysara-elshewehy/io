@@ -16,7 +16,7 @@ pub fn init(allocator: Allocator, value: []const u8) initError!Self
     | Parameter   | Type                | Description                           |
     | ----------- | ------------------- | ------------------------------------- |
     | `allocator` | `std.mem.Allocator` | The allocator to use.                 |
-    | `value`     | `[]const u8`        | The UTF-8 encoded bytes to be viewed. |
+    | `value`     | `[]const u8`        | The unicode encoded bytes to be viewed. |
 
 - #### 🚫 Errors
 
@@ -54,7 +54,7 @@ pub fn init(allocator: Allocator, value: []const u8) initError!Self
         > **_ZeroSize._**
 
         ```zig
-        _ = try String.init(allocator, ""); // 👉 error.ZeroSize
+        _ = String.init(allocator, ""); // 👉 error.ZeroSize
         ```
 
 <div align="center">

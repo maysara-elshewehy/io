@@ -13,27 +13,10 @@
     <img src="https://img.shields.io/github/stars/Super-ZIG/io?style=social" alt="GitHub Repo stars" />
 </p>
 
-<p align="center"> <b>Unmanaged dynamic UTF-8 string done right.</b> </p>
+<p align="center"> <b>Unmanaged dynamic-size string type that supports Unicode.</b> </p>
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
-</div>
-
-- ### Usage
-
-    ```zig
-    const uString = @import("io").types.uString;
-    ```
-
-    > **..?**
-
-    ```zig
-    ..?  // 👉 ..?
-    ```
-
-
-<div align="center"><br>
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### API
@@ -42,7 +25,7 @@
 
       | Field        | Type    | Description                                            |
       | ------------ | ------- | ------------------------------------------------------ |
-      | `m_source`   | `[]u8`  | The mutable UTF-8 encoded bytes.                       |
+      | `m_source`   | `[]u8`  | The mutable unicode encoded Bytes.                       |
       | `m_capacity` | `usize` | The number of bytes that can be written to `m_source`. |
 
    - #### ✨ Initialization
@@ -74,8 +57,8 @@
         | [`removeRange`](./api/removeRange.md)             | Removes a `range` of bytes from the `uString` instance.                                            |
         | [`removeVisual`](./api/removeVisual.md)           | Removes a byte from the `uString` instance by the `visual position`.                               |
         | [`removeVisualRange`](./api/removeVisualRange.md) | Removes a `range` of bytes from the `uString` instance by the `visual position`.                   |
-        | [`pop`](./api/pop.md)                             | Removes the last grapheme cluster at the `uString` instance, Returns the number of removed bytes.  |
-        | [`shift`](./api/shift.md)                         | Removes the first grapheme cluster at the `uString` instance, Returns the number of removed bytes. |
+        | [`pop`](./api/pop.md)                             | Removes the last grapheme cluster at the `uString` instance, Returns the number of removed Bytes.  |
+        | [`shift`](./api/shift.md)                         | Removes the first grapheme cluster at the `uString` instance, Returns the number of removed Bytes. |
 
    - #### 🔍 Search
 
@@ -101,7 +84,7 @@
 
         | Function                                    | Description                                                     |
         | ------------------------------------------- | --------------------------------------------------------------- |
-        | [`length`](./api/length.md)                 | Returns the total number of written bytes.                      |
+        | [`length`](./api/length.md)                 | Returns the total number of written Bytes.                      |
         | [`vlength`](./api/vlength.md)               | Returns the total number of visual characters.                  |
         | [`slice`](./api/slice.md)                   | Returns a slice containing only the written part.               |
         | [`allocatedSlice`](./api/allocatedSlice.md) | Returns a slice representing the entire allocated memory range. |
@@ -110,7 +93,7 @@
 
         | Function                        | Description                                         |
         | ------------------------------- | --------------------------------------------------- |
-        | [`iterator`](./api/iterator.md) | Creates an iterator for traversing the UTF-8 bytes. |
+        | [`iterator`](./api/iterator.md) | Creates an iterator for traversing the unicode bytes. |
 
    - #### ✂️ Split
 
@@ -120,6 +103,15 @@
         | [`splitAll`](./api/splitAll.md)                 | Splits string into substrings by delimiter and returns an array of substrings.                         |
         | [`splitToString`](./api/splitToString.md)       | Splits string into substrings by delimiter and returns substring at index as a new `uString` instance. |
         | [`splitAllToString`](./api/splitAllToString.md) | Splits string into substrings by delimiter and returns an array of new `uString` instances.            |
+
+   - #### 🛠️ Replace
+
+        | Function                                            | Description                                          |
+        | --------------------------------------------------- | ---------------------------------------------------- |
+        | [`replaceAllChars`](./api/replaceAllChars.md)       | Replaces all occurrence of a character with another. |
+        | [`replaceAllSlices`](./api/replaceAllSlices.md)     | Replaces all occurrences of a slice with another.    |
+        | [`replaceRange`](./api/replaceRange.md)             | Replaces a range of bytes with another.              |
+        | [`replaceVisualRange`](./api/replaceVisualRange.md) | Replaces a visual range of bytes with another.       |
 
    - #### 🌟 More
 
@@ -137,13 +129,13 @@
 - #### 🔗 Related
 
   - #### [io.type.String](../String/String.md)
-    > Managed dynamic UTF-8 type.
+    > Managed dynamic-size string type that supports Unicode.
 
   - #### [io.type.Viewer](../Viewer/Viewer.md)
-    > Immutable fixed UTF-8 type.
+    > Immutable fixed-size string type that supports Unicode.
 
   - #### [io.type.Buffer](../Buffer/Buffer.md)
-    > Mutable fixed UTF-8 type.
+    > Mutable fixed-size string type that supports Unicode.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

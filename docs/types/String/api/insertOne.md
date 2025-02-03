@@ -45,13 +45,13 @@ pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try string.insertOne('H', 0); // 👉 "H"
-        _ = try string.insertOne('!', 1); // 👉 "H!"
-        _ = try string.insertOne('o', 1); // 👉 "Ho!"
-        _ = try string.insertOne('l', 1); // 👉 "Hello!"
-        _ = try string.insertOne('e', 1); // 👉 "Hello!"
-        _ = try string.insertOne('l', 2); // 👉 "Hello!"
-        _ = try string.insertOne(' ', 5); // 👉 "Hello !"
+        try string.insertOne('H', 0); // 👉 "H"
+        try string.insertOne('!', 1); // 👉 "H!"
+        try string.insertOne('o', 1); // 👉 "Ho!"
+        try string.insertOne('l', 1); // 👉 "Hello!"
+        try string.insertOne('e', 1); // 👉 "Hello!"
+        try string.insertOne('l', 2); // 👉 "Hello!"
+        try string.insertOne(' ', 5); // 👉 "Hello !"
         ```
 
     - ##### 🔴 Failure Cases
@@ -59,7 +59,7 @@ pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void
         > **_OutOfRange._**
 
         ```zig
-        _ = try String.insertOne('@', 99); // 👉 error.OutOfRange
+        _ = string.insertOne('@', 99); // 👉 error.OutOfRange
         ```
 
 <div align="center">

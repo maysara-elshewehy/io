@@ -13,25 +13,10 @@
     <img src="https://img.shields.io/github/stars/Super-ZIG/io?style=social" alt="GitHub Repo stars" />
 </p>
 
-<p align="center"> <b>Immutable fixed UTF-8 string done right.</b> </p>
+<p align="center"> <b>Immutable fixed-size string type that supports Unicode.</b> </p>
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
-</div>
-
-- ### Usage
-
-    ```zig
-    const Viewer = @import("io").types.Viewer;
-    ```
-
-    ```zig
-    ..?  // 👉 ..?
-    ```
-
-
-<div align="center"><br>
-<img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### API
@@ -40,13 +25,13 @@
 
       | Field    | Type         | Description                           |
       | -------- | ------------ | ------------------------------------- |
-      | `source` | `[]const u8` | The UTF-8 encoded bytes to be viewed. |
+      | `source` | `[]const u8` | The unicode encoded bytes to be viewed. |
 
    - #### ✨ Initialization
 
         | Function                | Description                                                   |
         | ----------------------- | ------------------------------------------------------------- |
-        | [`init`](./api/init.md) | Initializes a new Viewer instance with the given UTF-8 bytes. |
+        | [`init`](./api/init.md) | Initializes a new Viewer instance with the given unicode bytes. |
 
    - #### 🔍 Search
 
@@ -64,7 +49,7 @@
 
         | Function                      | Description                                       |
         | ----------------------------- | ------------------------------------------------- |
-        | [`length`](./api/length.md)   | Returns the total number of written bytes.        |
+        | [`length`](./api/length.md)   | Returns the total number of written Bytes.        |
         | [`vlength`](./api/vlength.md) | Returns the total number of visual characters.    |
         | [`slice`](./api/slice.md)     | Returns a slice containing only the written part. |
 
@@ -72,7 +57,7 @@
 
         | Function                        | Description                                         |
         | ------------------------------- | --------------------------------------------------- |
-        | [`iterator`](./api/iterator.md) | Creates an iterator for traversing the UTF-8 bytes. |
+        | [`iterator`](./api/iterator.md) | Creates an iterator for traversing the unicode bytes. |
 
    - #### ✂️ Split
 
@@ -89,13 +74,13 @@
 - #### 🔗 Related
 
   - #### [io.type.Buffer](../Buffer/Buffer.md)
-    > Mutable fixed UTF-8 type.
+    > Mutable fixed-size string type that supports Unicode.
 
   - #### [io.type.String](../String/String.md)
-    > Managed dynamic UTF-8 type.
+    > Managed dynamic-size string type that supports Unicode.
 
   - #### [io.type.uString](../uString/uString.md)
-    > Unmanaged dynamic UTF-8 type.
+    > Unmanaged dynamic-size string type that supports Unicode.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

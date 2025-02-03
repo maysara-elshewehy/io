@@ -21,10 +21,10 @@ pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void
 
 - #### 🚫 Errors
 
-    | Error            | Reason                                         |
-    | ---------------- | ---------------------------------------------- |
-    | `AllocatorError` | The allocator returned an error.               |
-    | `OutOfRange`     | The `pos` is greater than `String` length.     |
+    | Error            | Reason                                     |
+    | ---------------- | ------------------------------------------ |
+    | `AllocatorError` | The allocator returned an error.           |
+    | `OutOfRange`     | The `pos` is greater than `String` length. |
 
 - #### ✨ Returns : `void`
 
@@ -45,12 +45,12 @@ pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try string.insert("H",   0); // 👉 "H"
-        _ = try string.insert("!",   1); // 👉 "H!"
-        _ = try string.insert("o",   1); // 👉 "Ho!"
-        _ = try string.insert("ell", 1); // 👉 "Hello!"
-        _ = try string.insert(" ",   5); // 👉 "Hello !"
-        _ = try string.insert("👨‍🏭",  6); // 👉 "Hello 👨‍🏭!"
+        try string.insert("H",   0); // 👉 "H"
+        try string.insert("!",   1); // 👉 "H!"
+        try string.insert("o",   1); // 👉 "Ho!"
+        try string.insert("ell", 1); // 👉 "Hello!"
+        try string.insert(" ",   5); // 👉 "Hello !"
+        try string.insert("👨‍🏭",  6); // 👉 "Hello 👨‍🏭!"
         ```
 
     - ##### 🔴 Failure Cases
@@ -58,7 +58,7 @@ pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void
         > **_OutOfRange._**
 
         ```zig
-        _ = try string.insert("@", 99); // 👉 error.OutOfRange
+        _ = string.insert("@", 99); // 👉 error.OutOfRange
         ```
 
 <div align="center">

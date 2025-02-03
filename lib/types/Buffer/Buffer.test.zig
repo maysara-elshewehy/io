@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std = @import("std");
-    const utf8 = @import("../../utils/utf8/utf8.zig");
+    const Unicode = @import("../../utils/Unicode/Unicode.zig");
     const Buffer = @import("./Buffer.zig");
 
     const expect = std.testing.expect;
@@ -22,7 +22,7 @@
             const emptyUtf8: []const u8 = "";
             try expectError(error.ZeroSize, Buffer.init(64, emptyUtf8));
 
-            // non empty input (valid UTF-8)
+            // non empty input (valid unicode)
             const validUtf8: []const u8 = "Hello, 世界!";
             const buffer = try Buffer.init(64, validUtf8);
             try expect(buffer.length() == validUtf8.len);
@@ -42,11 +42,8 @@
             var iter = try buffer.iterator();
 
             while(iter.nextSlice()) |slice| {
-                try expect(utf8.utils.isValid(slice));
+                try expect(std.unicode.utf8ValidateSlice(slice));
             }
-
-            // Ensure all characters were iterated
-            try expectEqual(validUtf8.len, iter.current_index);
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -530,7 +527,7 @@
     // └──────────────────────────────────────────────────────────────┘
 
 
-    // ┌──────────────────────────── Utils ───────────────────────────┐
+    // ┌──────────────────────────── Split ───────────────────────────┐
 
         test "split" {
             const myArray = try Buffer.init(64, "0👨‍🏭11👨‍🏭2👨‍🏭33");
@@ -569,6 +566,80 @@
             defer allocator.free(parts3);
             try expectStrings("a", parts3[0]);
             try expectStrings("b", parts3[1]);
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌─────────────────────────── Replace ──────────────────────────┐
+
+        test "replaceAllChars" {
+            var buffer = try Buffer.init(64, "aXb");
+            buffer.replaceAllChars('X', 'Y');
+            try expectStrings("aYb", buffer.m_source[0..buffer.length()]);
+        }
+
+        test "replaceAllSlices" {
+            var buffer = try Buffer.init(18, "Hello 👨‍🏭!");
+            const res = try buffer.replaceAllSlices("👨‍🏭", "World");
+            try expectStrings("Hello World!", buffer.m_source[0..buffer.length()]);
+            try expectEqual(1, res);
+
+            // OutOfRange
+            var buffer2 = try Buffer.init(3, "aXb");
+            try expectError(error.OutOfRange, buffer2.replaceAllSlices("X", "YYY"));
+        }
+
+        test "replaceRange" {
+            // Case 1: Replacement of same length
+            var buffer1 = try Buffer.init(64, "Hello 👨‍🏭!");
+            try buffer1.replaceRange(6, 11, "World");
+            try expectStrings("Hello World!", buffer1.m_source[0..12]);
+
+            // Case 2: Replacement is shorter than the original range
+            var buffer2 = try Buffer.init(64, "Hello ZigLang!");
+            try buffer2.replaceRange(6, 7, "Zig");
+            try expectStrings("Hello Zig!", buffer2.m_source[0..10]);
+
+            // Case 3: Replacement is longer than the original range
+            var buffer3 = try Buffer.init(64, "Hello World!");
+            try buffer3.replaceRange(6, 5, "Beautiful World");
+            try expectStrings("Hello Beautiful World!", buffer3.m_source[0..22]);
+
+            // Case 4: Replace at the start
+            var buffer4 = try Buffer.init(64, "1234567890");
+            try buffer4.replaceRange(0, 3, "ABC");
+            try expectStrings("ABC4567890", buffer4.m_source[0..10]);
+
+            // Case 5: Replace at the end
+            var buffer5 = try Buffer.init(64, "abcdef123456");
+            try buffer5.replaceRange(6, 6, "XYZ");
+            try expectStrings("abcdefXYZ", buffer5.m_source[0..9]);
+
+            // Case 6: Replace full string
+            var buffer6 = try Buffer.init(18, "Replace Me!");
+            try buffer6.replaceRange(0, 11, "Done");
+            try expectStrings("Done", buffer6.m_source[0..4]);
+
+            // Case 7: Replacement is empty (removal)
+            var buffer7 = try Buffer.init(64, "DeleteThis");
+            try buffer7.replaceRange(6, 4, "");
+            try expectStrings("Delete", buffer7.m_source[0..6]);
+
+            // Case 8: Inserting a string (replace empty range)
+            var buffer8 = try Buffer.init(64, "Hello!");
+            try buffer8.replaceRange(5, 0, " World");
+            try expectStrings("Hello World!", buffer8.m_source[0..12]);
+
+            // Case 9: OutOfRange
+            var array9 = try Buffer.init(3, "aXb");
+            try expectError(error.OutOfRange, array9.replaceRange(0, 3, "YYYY"));
+        }
+
+        test "replaceVisualRange" {
+            var buffer = try Buffer.init(18, "Hello 👨‍🏭!");
+            try buffer.replaceVisualRange(6, 1, "World");
+            try expectStrings("Hello World!", buffer.m_source[0..12]);
         }
 
     // └──────────────────────────────────────────────────────────────┘

@@ -15,13 +15,13 @@ pub fn remove(self: *Self, pos: usize) removeError!void
 
     | Parameter | Type    | Description                         |
     | --------- | ------- | ----------------------------------- |
-    | `self`    | `*Self` | The `uString` instance.              |
+    | `self`    | `*Self` | The `uString` instance.             |
     | `pos`     | `usize` | The position of the byte to remove. |
 
 - #### 🚫 Errors
 
-    | Error        | Reason                                              |
-    | ------------ | --------------------------------------------------- |
+    | Error        | Reason                                               |
+    | ------------ | ---------------------------------------------------- |
     | `OutOfRange` | The `pos` is greater than `uString` instance length. |
 
 - #### ✨ Returns : `void`
@@ -57,7 +57,7 @@ pub fn remove(self: *Self, pos: usize) removeError!void
         > **_OutOfRange._**
 
         ```zig
-        try string.remove(1); // 👉 error.OutOfRange
+        _ = string.remove(1); // 👉 error.OutOfRange
         ```
 
 <div align="center">

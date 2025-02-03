@@ -15,7 +15,7 @@ pub fn initCapacity(comptime size: usize) initCapacityError!Buffer(size)
 
     | Parameter | Type             | Description                            |
     | --------- | ---------------- | -------------------------------------- |
-    | `size`    | `comptime usize` | The total size of the buffer in bytes. |
+    | `size`    | `comptime usize` | The total size of the buffer in Bytes. |
 
 - #### 🚫 Errors
 
@@ -48,7 +48,7 @@ pub fn initCapacity(comptime size: usize) initCapacityError!Buffer(size)
         > **_ZeroSize._**
 
         ```zig
-        _ = try Buffer.initCapacity(0); // 👉 error.ZeroSize
+        _ = Buffer.initCapacity(0); // 👉 error.ZeroSize
         ```
 
 <div align="center">

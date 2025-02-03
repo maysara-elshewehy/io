@@ -20,9 +20,9 @@ pub fn append(self: *Self, slice: []const u8) insertError!void
 
 - #### 🚫 Errors
 
-    | Error          | Reason                                                     |
-    | -------------- | ---------------------------------------------------------- |
-    | `OutOfRange`   | The insertion exceeds the bounds of the `Buffer` instance. |
+    | Error        | Reason                                                     |
+    | ------------ | ---------------------------------------------------------- |
+    | `OutOfRange` | The insertion exceeds the bounds of the `Buffer` instance. |
 
 - #### ✨ Returns : `void`
 
@@ -42,12 +42,12 @@ pub fn append(self: *Self, slice: []const u8) insertError!void
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try buffer.append("H");   // 👉 "H"
-        _ = try buffer.append("e");   // 👉 "He"
-        _ = try buffer.append("llo"); // 👉 "Hello"
-        _ = try buffer.append(" ");   // 👉 "Hello "
-        _ = try buffer.append("👨‍🏭");  // 👉 "Hello 👨‍🏭"
-        _ = try buffer.append("!");   // 👉 "Hello 👨‍🏭!"
+        try buffer.append("H");   // 👉 "H"
+        try buffer.append("e");   // 👉 "He"
+        try buffer.append("llo"); // 👉 "Hello"
+        try buffer.append(" ");   // 👉 "Hello "
+        try buffer.append("👨‍🏭");  // 👉 "Hello 👨‍🏭"
+        try buffer.append("!");   // 👉 "Hello 👨‍🏭!"
         ```
 
     - ##### 🔴 Failure Cases
@@ -55,7 +55,7 @@ pub fn append(self: *Self, slice: []const u8) insertError!void
         > **_OutOfRange._**
 
         ```zig
-        _ = try buffer.append("@"); // 👉 error.OutOfRange
+        _ = buffer.append("@"); // 👉 error.OutOfRange
         ```
 
 <div align="center">

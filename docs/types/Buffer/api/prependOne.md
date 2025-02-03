@@ -42,13 +42,13 @@ pub fn prependOne(self: *Self, byte: u8) insertError!void
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try buffer.prependOne('H'); // 👉 "H"
-        _ = try buffer.prependOne('e'); // 👉 "eH"
-        _ = try buffer.prependOne('l'); // 👉 "leH"
-        _ = try buffer.prependOne('l'); // 👉 "lleH"
-        _ = try buffer.prependOne('o'); // 👉 "olleH"
-        _ = try buffer.prependOne(' '); // 👉 " olleH"
-        _ = try buffer.prependOne('!'); // 👉 "! olleH"
+        try buffer.prependOne('H'); // 👉 "H"
+        try buffer.prependOne('e'); // 👉 "eH"
+        try buffer.prependOne('l'); // 👉 "leH"
+        try buffer.prependOne('l'); // 👉 "lleH"
+        try buffer.prependOne('o'); // 👉 "olleH"
+        try buffer.prependOne(' '); // 👉 " olleH"
+        try buffer.prependOne('!'); // 👉 "! olleH"
         ```
 
     - ##### 🔴 Failure Cases
@@ -56,7 +56,7 @@ pub fn prependOne(self: *Self, byte: u8) insertError!void
         > **_OutOfRange._**
 
         ```zig
-        _ = try Buffer.prependOne('@'); // 👉 error.OutOfRange
+        _ = Buffer.prependOne('@'); // 👉 error.OutOfRange
         ```
 
 <div align="center">

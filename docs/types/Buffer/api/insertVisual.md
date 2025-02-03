@@ -45,19 +45,19 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try buffer.insertVisual("H",   0); // 👉 "H"
-        _ = try buffer.insertVisual("👨‍🏭",  1); // 👉 "H👨‍🏭"
-        _ = try buffer.insertVisual("o",   1); // 👉 "Ho👨‍🏭"
-        _ = try buffer.insertVisual("ell", 1); // 👉 "Hello👨‍🏭"
-        _ = try buffer.insertVisual(" ",   5); // 👉 "Hello 👨‍🏭"
-        _ = try buffer.insertVisual("!",   7); // 👉 "Hello 👨‍🏭!"
+        try buffer.insertVisual("H",   0); // 👉 "H"
+        try buffer.insertVisual("👨‍🏭",  1); // 👉 "H👨‍🏭"
+        try buffer.insertVisual("o",   1); // 👉 "Ho👨‍🏭"
+        try buffer.insertVisual("ell", 1); // 👉 "Hello👨‍🏭"
+        try buffer.insertVisual(" ",   5); // 👉 "Hello 👨‍🏭"
+        try buffer.insertVisual("!",   7); // 👉 "Hello 👨‍🏭!"
         ```
     - ##### 🔴 Failure Cases
 
         > **_OutOfRange._**
 
         ```zig
-        _ = try buffer.insertVisual("@", 17); // 👉 error.OutOfRange
+        _ = buffer.insertVisual("@", 17); // 👉 error.OutOfRange
         ```
 
 <div align="center">

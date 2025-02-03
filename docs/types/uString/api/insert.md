@@ -46,12 +46,12 @@ pub fn insert(self: *Self, allocator: Allocator, slice: []const u8, pos: usize) 
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try string.insert(allocator, "H",   0); // 👉 "H"
-        _ = try string.insert(allocator, "!",   1); // 👉 "H!"
-        _ = try string.insert(allocator, "o",   1); // 👉 "Ho!"
-        _ = try string.insert(allocator, "ell", 1); // 👉 "Hello!"
-        _ = try string.insert(allocator, " ",   5); // 👉 "Hello !"
-        _ = try string.insert(allocator, "👨‍🏭",  6); // 👉 "Hello 👨‍🏭!"
+        try string.insert(allocator, "H",   0); // 👉 "H"
+        try string.insert(allocator, "!",   1); // 👉 "H!"
+        try string.insert(allocator, "o",   1); // 👉 "Ho!"
+        try string.insert(allocator, "ell", 1); // 👉 "Hello!"
+        try string.insert(allocator, " ",   5); // 👉 "Hello !"
+        try string.insert(allocator, "👨‍🏭",  6); // 👉 "Hello 👨‍🏭!"
         ```
 
     - ##### 🔴 Failure Cases
@@ -59,7 +59,7 @@ pub fn insert(self: *Self, allocator: Allocator, slice: []const u8, pos: usize) 
         > **_OutOfRange._**
 
         ```zig
-        _ = try string.insert(allocator, "@", 99); // 👉 error.OutOfRange
+        _ = string.insert(allocator, "@", 99); // 👉 error.OutOfRange
         ```
 
 <div align="center">

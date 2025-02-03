@@ -58,14 +58,14 @@ pub fn removeVisual(self: *Self, pos: usize) removeVisualError![]const u8
         > **_OutOfRange._**
 
         ```zig
-        _ = try buffer.removeVisual(1); // 👉 error.OutOfRange
+        _ = buffer.removeVisual(1); // 👉 error.OutOfRange
         ```
 
         > **_InvalidPosition._**
 
         ```zig
         var buffer = try Buffer.init(11, "👨‍🏭");
-        _ = try buffer.removeVisual(2); // 👉 error.InvalidPosition
+        _ = buffer.removeVisual(2); // 👉 error.InvalidPosition
         ```
 
 

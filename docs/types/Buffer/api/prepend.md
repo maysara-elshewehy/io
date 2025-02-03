@@ -42,12 +42,12 @@ pub fn prepend(self: *Self, slice: []const u8) insertError!void
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try buffer.prepend("H");   // 👉 "H"
-        _ = try buffer.prepend("e");   // 👉 "eH"
-        _ = try buffer.prepend("oll"); // 👉 "olleH"
-        _ = try buffer.prepend(" ");   // 👉 " olleH"
-        _ = try buffer.prepend("👨‍🏭");  // 👉 "👨‍🏭 olleH"
-        _ = try buffer.prepend("!");   // 👉 "!👨‍🏭 olleH"
+        try buffer.prepend("H");   // 👉 "H"
+        try buffer.prepend("e");   // 👉 "eH"
+        try buffer.prepend("oll"); // 👉 "olleH"
+        try buffer.prepend(" ");   // 👉 " olleH"
+        try buffer.prepend("👨‍🏭");  // 👉 "👨‍🏭 olleH"
+        try buffer.prepend("!");   // 👉 "!👨‍🏭 olleH"
         ```
 
     - ##### 🔴 Failure Cases
@@ -55,7 +55,7 @@ pub fn prepend(self: *Self, slice: []const u8) insertError!void
         > **_OutOfRange._**
 
         ```zig
-        _ = try buffer.prepend("@"); // 👉 error.OutOfRange
+        _ = buffer.prepend("@"); // 👉 error.OutOfRange
         ```
 
 <div align="center">

@@ -45,13 +45,13 @@ pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try buffer.insertVisualOne('H', 1); // 👉 "👨‍🏭H"
-        _ = try buffer.insertVisualOne('!', 2); // 👉 "👨‍🏭H!"
-        _ = try buffer.insertVisualOne('o', 2); // 👉 "👨‍🏭Ho!"
-        _ = try buffer.insertVisualOne('l', 2); // 👉 "👨‍🏭Hlo!"
-        _ = try buffer.insertVisualOne('e', 2); // 👉 "👨‍🏭Helo!"
-        _ = try buffer.insertVisualOne('l', 3); // 👉 "👨‍🏭Hello!"
-        _ = try buffer.insertVisualOne(' ', 6); // 👉 "👨‍🏭Hello !"
+        try buffer.insertVisualOne('H', 1); // 👉 "👨‍🏭H"
+        try buffer.insertVisualOne('!', 2); // 👉 "👨‍🏭H!"
+        try buffer.insertVisualOne('o', 2); // 👉 "👨‍🏭Ho!"
+        try buffer.insertVisualOne('l', 2); // 👉 "👨‍🏭Hlo!"
+        try buffer.insertVisualOne('e', 2); // 👉 "👨‍🏭Helo!"
+        try buffer.insertVisualOne('l', 3); // 👉 "👨‍🏭Hello!"
+        try buffer.insertVisualOne(' ', 6); // 👉 "👨‍🏭Hello !"
         ```
 
     - ##### 🔴 Failure Cases
@@ -59,7 +59,7 @@ pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void
         > **_OutOfRange._**
 
         ```zig
-        _ = try buffer.insertVisualOne('@', 6); // 👉 error.OutOfRange
+        _ = buffer.insertVisualOne('@', 6); // 👉 error.OutOfRange
         ```
 
 <div align="center">

@@ -47,19 +47,19 @@ pub fn insertVisual(self: *Self, allocator: Allocator, slice: []const u8, pos: u
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try string.insertVisual(allocator, "H",   0); // 👉 "H"
-        _ = try string.insertVisual(allocator, "👨‍🏭",  1); // 👉 "H👨‍🏭"
-        _ = try string.insertVisual(allocator, "o",   1); // 👉 "Ho👨‍🏭"
-        _ = try string.insertVisual(allocator, "ell", 1); // 👉 "Hello👨‍🏭"
-        _ = try string.insertVisual(allocator, " ",   5); // 👉 "Hello 👨‍🏭"
-        _ = try string.insertVisual(allocator, "!",   7); // 👉 "Hello 👨‍🏭!"
+        try string.insertVisual(allocator, "H",   0); // 👉 "H"
+        try string.insertVisual(allocator, "👨‍🏭",  1); // 👉 "H👨‍🏭"
+        try string.insertVisual(allocator, "o",   1); // 👉 "Ho👨‍🏭"
+        try string.insertVisual(allocator, "ell", 1); // 👉 "Hello👨‍🏭"
+        try string.insertVisual(allocator, " ",   5); // 👉 "Hello 👨‍🏭"
+        try string.insertVisual(allocator, "!",   7); // 👉 "Hello 👨‍🏭!"
         ```
     - ##### 🔴 Failure Cases
 
         > **_OutOfRange._**
 
         ```zig
-        _ = try string.insertVisual(allocator, "@", 99); // 👉 error.OutOfRange
+        _ = string.insertVisual(allocator, "@", 99); // 👉 error.OutOfRange
         ```
 
 <div align="center">

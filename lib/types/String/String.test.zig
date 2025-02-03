@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std = @import("std");
-    const utf8 = @import("../../utils/utf8/utf8.zig");
+    const Unicode = @import("../../utils/Unicode/Unicode.zig");
     const String = @import("./String.zig").String;
 
     const expect = std.testing.expect;
@@ -44,7 +44,7 @@
                 const emptyUtf8: []const u8 = "";
                 try expectError(error.ZeroSize, String.init(allocator, emptyUtf8));
 
-                // non empty input (valid UTF-8)
+                // non empty input (valid unicode)
                 const validUtf8: []const u8 = "Hello, 世界!";
                 const string = try String.init(allocator, validUtf8);
                 defer string.deinit();
@@ -52,7 +52,7 @@
                 try expectEqual(28, string.capacity());
                 try expectStrings(validUtf8, string.slice());
 
-                // non empty input (invalid UTF-8)
+                // non empty input (invalid unicode)
                 // try expectError(unreachable, String.init(allocator, &[_]u8{0x80, 0x81, 0x82}));
             }
         }
@@ -69,7 +69,7 @@
             var iter = try string.iterator();
 
             while(iter.nextSlice()) |slice| {
-                try expect(utf8.utils.isValid(slice));
+                try expect(Unicode.utils.Utf8Validate(slice));
             }
 
             // Ensure all characters were iterated
@@ -721,6 +721,40 @@
             try expectStrings("b", parts2[2].slice());
             try expectStrings("", parts2[3].slice());
             for(0..parts2.len) |i| { defer parts2[i].deinit(); }
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌─────────────────────────── Replace ──────────────────────────┐
+
+        test "replaceAllChars" {
+            var string = try String.init(allocator, "aXb");
+            defer string.deinit();
+            string.replaceAllChars('X', 'Y');
+            try expectStrings("aYb", string.slice());
+        }
+
+        test "replaceAllSlices" {
+            var string = try String.init(allocator, "Hello 👨‍🏭!");
+            defer string.deinit();
+            const res = try string.replaceAllSlices("👨‍🏭", "World");
+            try expectStrings("Hello World!", string.slice());
+            try expectEqual(1, res);
+        }
+
+        test "replaceRange" {
+            var string = try String.init(allocator, "Hello 👨‍🏭!");
+            defer string.deinit();
+            try string.replaceRange(6, 11, "World");
+            try expectStrings("Hello World!", string.slice());
+        }
+
+        test "replaceVisualRange" {
+            var string = try String.init(allocator, "Hello 👨‍🏭!");
+            defer string.deinit();
+            try string.replaceVisualRange(6, 1, "World");
+            try expectStrings("Hello World!", string.slice());
         }
 
     // └──────────────────────────────────────────────────────────────┘

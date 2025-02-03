@@ -1,8 +1,8 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std = @import("std");
-    const utf8 = @import("../../utils/utf8/utf8.zig");
-    const Bytes = @import("../../utils/bytes/bytes.zig");
+    const Unicode = @import("../../utils/Unicode/Unicode.zig");
+    const Bytes = @import("../../utils/Bytes/Bytes.zig");
     const Allocator = std.mem.Allocator;
     pub const AllocatorError = Allocator.Error;
 
@@ -12,7 +12,7 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-    /// Immutable fixed utf8 string type.
+    /// Immutable fixed-size string type that supports Unicode.
     pub const Viewer = struct {
 
         // ┌──────────────────────────── ---- ────────────────────────────┐
@@ -24,7 +24,7 @@
 
         // ┌─────────────────────────── Fields ───────────────────────────┐
 
-            /// The UTF-8 encoded bytes to be viewed.
+            /// The unicode encoded bytes to be viewed.
             m_source: []const u8,
 
         // └──────────────────────────────────────────────────────────────┘
@@ -32,7 +32,7 @@
 
         // ┌─────────────────────── Initialization ───────────────────────┐
 
-            /// Initializes a new `Viewer` instance with the given UTF-8 bytes.
+            /// Initializes a new `Viewer` instance with the given unicode bytes.
             /// - `initError.ZeroSize` **_if the length of `value` is 0._**
             pub fn init(value: []const u8) initError!Self {
                 if(value.len == 0) return initError.ZeroSize;
@@ -51,7 +51,7 @@
             }
 
             /// Finds the `visual position` of the **first** occurrence of `target`.
-            pub fn findVisual(self: Self, target: []const u8) !?usize {
+            pub fn findVisual(self: Self, target: []const u8) ?usize {
                 return Bytes.findVisual(self.slice(), target);
             }
 
@@ -105,12 +105,10 @@
 
         // ┌────────────────────────── Iterator ──────────────────────────┐
 
-            /// Creates an iterator for traversing the UTF-8 bytes.
-            pub fn iterator(self: Self) utf8.Iterator {
-                // why Unchecked version ?
-                // because we already checked the validity of the input bytes
-                // when we initialized this instance of the `Viewer` struct.
-                return utf8.Iterator.unsafeInit(self.m_source);
+            /// Creates an iterator for traversing the unicode bytes.
+            /// - `Unicode.Iterator.Error` **_if the initialization failed._**
+            pub fn iterator(self: Self) Unicode.Iterator.Error!Unicode.Iterator {
+                return Unicode.Iterator.init(self.m_source[0..]);
             }
 
         // └──────────────────────────────────────────────────────────────┘

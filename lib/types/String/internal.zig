@@ -1,8 +1,8 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std = @import("std");
-    const utf8 = @import("../../utils/utf8/utf8.zig");
-    const Bytes = @import("../../utils/bytes/bytes.zig");
+    const Unicode = @import("../../utils/Unicode/Unicode.zig");
+    const Bytes = @import("../../utils/Bytes/Bytes.zig");
 
     pub const Allocator = std.mem.Allocator;
     pub const AllocatorError = Allocator.Error || error { OutOfMemory };
@@ -16,7 +16,7 @@
     // ┌──────────────────────────── ----- ───────────────────────────┐
 
         /// If the current capacity is less than `new_capacity`, this function will
-        /// modify the array so that it can hold exactly `new_capacity` bytes.
+        /// modify the array so that it can hold exactly `new_capacity` Bytes.
         /// Invalidates element pointers if additional memory is needed.
         pub inline fn ensureCapacity(self: anytype, allocator: Allocator, required_capacity: usize, mul: bool) AllocatorError!void {
             if (self.m_capacity >= required_capacity) return;
@@ -41,10 +41,10 @@
         }
 
         /// If the current capacity is less than `new_capacity`, this function will
-        /// modify the array so that it can hold exactly `new_capacity` bytes.
+        /// modify the array so that it can hold exactly `new_capacity` Bytes.
         /// Invalidates element pointers if additional memory is needed.
         pub inline fn ensureUnusedCapacity(self: anytype, allocator: Allocator, extra_capacity: usize) AllocatorError!void {
-            return try ensureCapacity(self, allocator, try addOrOom(self.m_source.len, extra_capacity), true);
+            return ensureCapacity(self, allocator, try addOrOom(self.m_source.len, extra_capacity), true);
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -103,7 +103,7 @@
         }
 
         /// Inserts a `byte` into the `String` instance at the specified `position` by **real position**.
-        /// - `insertError.OutOfRange` **_if the `pos` is greater than `self.source.len`._**
+        /// - `insertError.OutOfRange` **_if the `pos` is greater than `self.m_source.len`._**
         ///
         /// Modifies the `String` instance in place.
         pub inline fn insertOne(self: anytype, allocator: Allocator, byte: u8, pos: usize) AllocatorError!void {
@@ -116,7 +116,7 @@
         ///
         /// Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
         pub inline fn insertVisual(self: anytype, allocator: Allocator, _slice: []const u8, pos: usize) insertVisualError!void {
-            const real_pos = utf8.utils.getRealPosition(self.slice(), pos) catch return insertVisualError.InvalidPosition;
+            const real_pos = Unicode.utils.getRealPosition(self.slice(), pos) catch return insertVisualError.InvalidPosition;
             const dst = try addManyAt(self, allocator, real_pos, _slice.len);
             @memcpy(dst, _slice);
         }
@@ -126,7 +126,7 @@
         ///
         /// Modifies the `String` instance in place.
         pub inline fn insertVisualOne(self: anytype, allocator: Allocator, byte: u8, pos: usize) insertVisualError!void {
-            const real_pos = utf8.utils.getRealPosition(self.slice(), pos) catch return insertVisualError.InvalidPosition;
+            const real_pos = Unicode.utils.getRealPosition(self.slice(), pos) catch return insertVisualError.InvalidPosition;
             const dst = try addManyAt(self, allocator, real_pos, 1);
             dst[0] = byte;
         }
@@ -293,7 +293,7 @@
         }
 
         /// Removes the first grapheme cluster at the `uString` instance,
-        /// Returns the number of removed bytes.
+        /// Returns the number of removed Bytes.
         pub inline fn shift(self: anytype) usize {
             const len = Bytes.shift(self.allocatedSlice()[0..self.m_source.len]);
             self.m_source.len -= len;
@@ -311,7 +311,7 @@
         }
 
         /// Finds the `visual position` of the **first** occurrence of `target`.
-        pub inline fn findVisual(self: anytype, target: []const u8) !?usize {
+        pub inline fn findVisual(self: anytype, target: []const u8) ?usize {
             return Bytes.findVisual(self.slice(), target);
         }
 
@@ -370,10 +370,10 @@
             defer original_data.deinit();
             try original_data.appendSlice(self.slice());
 
-            var utf8_iterator = Iterator.unsafeInit(original_data.items[0..]);
+            var unicode_iterator = Iterator.unsafeInit(original_data.items[0..]);
             var i: usize = self.m_source.len;
 
-            while (utf8_iterator.nextGraphemeCluster()) |gc| {
+            while (unicode_iterator.nextGraphemeCluster()) |gc| {
                 i -= gc.len;
                 @memcpy(self.allocatedSlice()[i..i + gc.len], gc);
                 if (i == 0) break; // to avoid underflow.
@@ -415,12 +415,12 @@
 
     // ┌────────────────────────── Iterator ──────────────────────────┐
 
-        pub const Iterator = utf8.Iterator;
+        pub const Iterator = Unicode.Iterator;
 
-        /// Creates an iterator for traversing the UTF-8 bytes.
+        /// Creates an iterator for traversing the unicode bytes.
         /// - `Iterator.Error` **_if the initialization failed._**
         pub inline fn iterator(self: anytype) Iterator.Error!Iterator {
-            return try Iterator.init(self.slice());
+            return Iterator.init(self.slice());
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -464,7 +464,7 @@
                 try splitArr.append(splitStr);
             }
 
-            return try splitArr.toOwnedSlice();
+            return splitArr.toOwnedSlice();
         }
 
         /// Splits the written portion of the string into substrings separated by the delimiter,
@@ -490,7 +490,84 @@
                 try splitArr.append(splitStr);
             }
 
-            return try splitArr.toOwnedSlice();
+            return splitArr.toOwnedSlice();
+        }
+
+    // └──────────────────────────────────────────────────────────────┘
+
+
+    // ┌─────────────────────────── Replace ──────────────────────────┐
+
+        /// Replaces all occurrence of a character with another.
+        pub fn replaceAllChars(self: anytype, match: u8, replacement: u8) void {
+            Bytes.replaceAllChars(self.allocatedSlice(), match, replacement);
+        }
+
+        /// Replaces all occurrences of a slice with another.
+        pub fn replaceAllSlices(self: anytype, allocator: Allocator, match: []const u8, replacement: []const u8) Allocator.Error!usize {
+            const replacementSize = std.mem.replacementSize(u8, self.allocatedSlice(), match, replacement);
+            if(replacementSize > self.capacity()) try ensureUnusedCapacity(self, allocator, replacementSize);
+            const res = Bytes.unsafeReplace(self.allocatedSlice(), match, replacement);
+            if(res > 0) {
+                self.m_source.len -= match.len*res;
+                self.m_source.len += replacement.len*res;
+            }
+            return res;
+        }
+
+        /// Grows or shrinks the list as necessary.
+        /// Invalidates element pointers if additional capacity is allocated.
+        /// Asserts that the range is in bounds.
+        pub fn replaceRange(self: anytype, allocator: Allocator, start: usize, len: usize, replacement: []const u8) Allocator.Error!void {
+            const after_range = start + len;
+            const range = self.m_source[start..after_range];
+            if (range.len < replacement.len) {
+                const first = replacement[0..range.len];
+                const rest = replacement[range.len..];
+                @memcpy(range[0..first.len], first);
+                try insert(self, allocator, rest, after_range);
+            } else {
+                replaceRangeAssumeCapacity(self, start, len, replacement);
+            }
+        }
+
+        /// Grows or shrinks the list as necessary.
+        /// Never invalidates element pointers.
+        /// Asserts the capacity is enough for additional items.
+        pub fn replaceRangeAssumeCapacity(self: anytype, start: usize, len: usize, replacement: []const u8) void {
+            const after_range = start + len;
+            const range = self.m_source[start..after_range];
+
+            if (range.len == replacement.len)
+                @memcpy(range[0..replacement.len], replacement)
+            else if (range.len < replacement.len) {
+                const first = replacement[0..range.len];
+                const rest = replacement[range.len..];
+                @memcpy(range[0..first.len], first);
+                const dst = addManyAtAssumeCapacity(self, after_range, rest.len);
+                @memcpy(dst, rest);
+            } else {
+                const extra = range.len - replacement.len;
+                @memcpy(range[0..replacement.len], replacement);
+                std.mem.copyForwards( u8, self.m_source[after_range - extra ..], self.m_source[after_range..], );
+                @memset(self.m_source[self.m_source.len - extra ..], undefined);
+                self.m_source.len -= extra;
+            }
+        }
+
+        /// Replaces a visual range of bytes with another.
+        pub fn replaceVisualRange(self: anytype, allocator: Allocator, start: usize, len: usize, replacement: []const u8) Allocator.Error!void {
+            var new_len : usize = 0;
+            var iter = Unicode.Iterator.init(self.slice()[start..]) catch unreachable;
+            var i : usize = 0;
+
+            while(iter.nextGraphemeCluster()) |gc| {
+                new_len += gc.len;
+                i += 1;
+                if(i == len) break;
+            }
+
+            try replaceRange(self, allocator, start, new_len, replacement);
         }
 
     // └──────────────────────────────────────────────────────────────┘

@@ -44,12 +44,12 @@ pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try buffer.insert("H",   0); // 👉 "H"
-        _ = try buffer.insert("!",   1); // 👉 "H!"
-        _ = try buffer.insert("o",   1); // 👉 "Ho!"
-        _ = try buffer.insert("ell", 1); // 👉 "Hello!"
-        _ = try buffer.insert(" ",   5); // 👉 "Hello !"
-        _ = try buffer.insert("👨‍🏭",  6); // 👉 "Hello 👨‍🏭!"
+        try buffer.insert("H",   0); // 👉 "H"
+        try buffer.insert("!",   1); // 👉 "H!"
+        try buffer.insert("o",   1); // 👉 "Ho!"
+        try buffer.insert("ell", 1); // 👉 "Hello!"
+        try buffer.insert(" ",   5); // 👉 "Hello !"
+        try buffer.insert("👨‍🏭",  6); // 👉 "Hello 👨‍🏭!"
         ```
 
     - ##### 🔴 Failure Cases
@@ -57,7 +57,7 @@ pub fn insert(self: *Self, slice: []const u8, pos: usize) insertError!void
         > **_OutOfRange._**
 
         ```zig
-        _ = try buffer.insert("@", 17); // 👉 error.OutOfRange
+        _ = buffer.insert("@", 17); // 👉 error.OutOfRange
         ```
 
 <div align="center">

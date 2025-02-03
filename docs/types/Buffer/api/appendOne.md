@@ -42,13 +42,13 @@ pub fn appendOne(self: *Self, byte: u8) insertError!void
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try buffer.appendOne('H'); // 👉 "H"
-        _ = try buffer.appendOne('e'); // 👉 "He"
-        _ = try buffer.appendOne('l'); // 👉 "Hel"
-        _ = try buffer.appendOne('l'); // 👉 "Hell"
-        _ = try buffer.appendOne('o'); // 👉 "Hello"
-        _ = try buffer.appendOne(' '); // 👉 "Hello "
-        _ = try buffer.appendOne('!'); // 👉 "Hello !"
+        try buffer.appendOne('H'); // 👉 "H"
+        try buffer.appendOne('e'); // 👉 "He"
+        try buffer.appendOne('l'); // 👉 "Hel"
+        try buffer.appendOne('l'); // 👉 "Hell"
+        try buffer.appendOne('o'); // 👉 "Hello"
+        try buffer.appendOne(' '); // 👉 "Hello "
+        try buffer.appendOne('!'); // 👉 "Hello !"
         ```
 
     - ##### 🔴 Failure Cases
@@ -56,7 +56,7 @@ pub fn appendOne(self: *Self, byte: u8) insertError!void
         > **_OutOfRange._**
 
         ```zig
-        _ = try Buffer.appendOne('@'); // 👉 error.OutOfRange
+        _ = Buffer.appendOne('@'); // 👉 error.OutOfRange
         ```
 
 <div align="center">

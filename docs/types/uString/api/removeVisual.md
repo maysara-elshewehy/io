@@ -15,14 +15,14 @@ pub fn removeVisual(self: *Self, pos: usize) removeVisualError![]const u8
 
     | Parameter | Type    | Description                                     |
     | --------- | ------- | ----------------------------------------------- |
-    | `self`    | `*Self` | The `uString` instance.                          |
+    | `self`    | `*Self` | The `uString` instance.                         |
     | `pos`     | `usize` | The visual position of the character to remove. |
 
 - #### 🚫 Errors
 
-    | Error             | Reason                                              |
-    | ----------------- | --------------------------------------------------- |
-    | `InvalidPosition` | The `pos` is invalid.                               |
+    | Error             | Reason                                               |
+    | ----------------- | ---------------------------------------------------- |
+    | `InvalidPosition` | The `pos` is invalid.                                |
     | `OutOfRange`      | The `pos` is greater than `uString` instance length. |
 
 - #### ✨ Returns : `[]const u8`
@@ -59,7 +59,7 @@ pub fn removeVisual(self: *Self, pos: usize) removeVisualError![]const u8
         > **_OutOfRange._**
 
         ```zig
-        _ = try string.removeVisual(1); // 👉 error.OutOfRange
+        _ = string.removeVisual(1); // 👉 error.OutOfRange
         ```
 
         > **_InvalidPosition._**
@@ -68,7 +68,7 @@ pub fn removeVisual(self: *Self, pos: usize) removeVisualError![]const u8
         var string = try uString.init(allocator, "👨‍🏭");
         defer string.deinit(allocator);
 
-        _ = try string.removeVisual(2); // 👉 error.InvalidPosition
+        _ = string.removeVisual(2); // 👉 error.InvalidPosition
         ```
 
 

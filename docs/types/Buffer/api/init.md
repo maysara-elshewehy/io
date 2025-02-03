@@ -15,8 +15,8 @@ pub fn init(comptime size: usize, value: []const u8) initError!Buffer(size)
 
     | Parameter | Type             | Description                            |
     | --------- | ---------------- | -------------------------------------- |
-    | `size`    | `comptime usize` | The total size of the buffer in bytes. |
-    | `value`   | `[]const u8`     | The UTF-8 encoded bytes to be viewed.  |
+    | `size`    | `comptime usize` | The total size of the buffer in Bytes. |
+    | `value`   | `[]const u8`     | The unicode encoded bytes to be viewed.  |
 
 - #### 🚫 Errors
 
@@ -27,7 +27,7 @@ pub fn init(comptime size: usize, value: []const u8) initError!Buffer(size)
 
 - #### ✨ Returns : `Self`
 
-    > Produces a `Buffer` instance initialized with the given UTF-8 bytes and size.
+    > Produces a `Buffer` instance initialized with the given unicode bytes and size.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
@@ -50,13 +50,13 @@ pub fn init(comptime size: usize, value: []const u8) initError!Buffer(size)
         > **_ZeroSize._**
 
         ```zig
-        _ = try Buffer.init(0, ""); // 👉 error.ZeroSize
+        _ = Buffer.init(0, ""); // 👉 error.ZeroSize
         ```
 
         > **_OutOfRange._**
 
         ```zig
-        _ = try Buffer.init(1, ".."); // 👉 error.OutOfRange
+        _ = Buffer.init(1, ".."); // 👉 error.OutOfRange
         ```
 
 

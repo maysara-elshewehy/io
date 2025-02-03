@@ -1,6 +1,6 @@
 # [←](../Buffer.md) `Buffer`.`shift`
 
-> Removes the first grapheme cluster at the `Buffer` instance, Returns the number of removed bytes.
+> Removes the first grapheme cluster at the `Buffer` instance, Returns the number of removed Bytes.
 
 ```zig
 pub fn shift(self: *Self) usize
@@ -19,7 +19,7 @@ pub fn shift(self: *Self) usize
 
 - #### ✨ Returns : `usize`
 
-    > Returns the number of removed bytes.
+    > Returns the number of removed Bytes.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/Super-ZIG/io/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>

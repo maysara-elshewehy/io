@@ -54,7 +54,7 @@ pub fn initCapacity(allocator: Allocator, size: usize) initCapacityError!Self
         > **_ZeroSize._**
 
         ```zig
-        _ = try uString.initCapacity(allocator, 0); // 👉 error.ZeroSize
+        _ = uString.initCapacity(allocator, 0); // 👉 error.ZeroSize
         ```
 
 <div align="center">

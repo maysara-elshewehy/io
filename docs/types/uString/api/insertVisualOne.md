@@ -47,13 +47,13 @@ pub fn insertVisualOne(self: *Self, allocator: Allocator, byte: u8, pos: usize) 
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try string.insertVisualOne(allocator, 'H', 1); // 👉 "👨‍🏭H"
-        _ = try string.insertVisualOne(allocator, '!', 2); // 👉 "👨‍🏭H!"
-        _ = try string.insertVisualOne(allocator, 'o', 2); // 👉 "👨‍🏭Ho!"
-        _ = try string.insertVisualOne(allocator, 'l', 2); // 👉 "👨‍🏭Hlo!"
-        _ = try string.insertVisualOne(allocator, 'e', 2); // 👉 "👨‍🏭Helo!"
-        _ = try string.insertVisualOne(allocator, 'l', 3); // 👉 "👨‍🏭Hello!"
-        _ = try string.insertVisualOne(allocator, ' ', 6); // 👉 "👨‍🏭Hello !"
+        try string.insertVisualOne(allocator, 'H', 1); // 👉 "👨‍🏭H"
+        try string.insertVisualOne(allocator, '!', 2); // 👉 "👨‍🏭H!"
+        try string.insertVisualOne(allocator, 'o', 2); // 👉 "👨‍🏭Ho!"
+        try string.insertVisualOne(allocator, 'l', 2); // 👉 "👨‍🏭Hlo!"
+        try string.insertVisualOne(allocator, 'e', 2); // 👉 "👨‍🏭Helo!"
+        try string.insertVisualOne(allocator, 'l', 3); // 👉 "👨‍🏭Hello!"
+        try string.insertVisualOne(allocator, ' ', 6); // 👉 "👨‍🏭Hello !"
         ```
 
     - ##### 🔴 Failure Cases
@@ -61,7 +61,7 @@ pub fn insertVisualOne(self: *Self, allocator: Allocator, byte: u8, pos: usize) 
         > **_OutOfRange._**
 
         ```zig
-        _ = try string.insertVisualOne(allocator, '@', 99); // 👉 error.OutOfRange
+        _ = string.insertVisualOne(allocator, '@', 99); // 👉 error.OutOfRange
         ```
 
 <div align="center">

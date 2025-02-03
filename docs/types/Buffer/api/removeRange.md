@@ -57,7 +57,7 @@ pub fn removeRange(self: *Self, pos: usize, len: usize) removeError!void
         > **_OutOfRange._**
 
         ```zig
-        try buffer.removeRange(1, 1); // 👉 error.OutOfRange
+        _ = buffer.removeRange(1, 1); // 👉 error.OutOfRange
         ```
 
 <div align="center">

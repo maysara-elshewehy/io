@@ -60,7 +60,7 @@ pub fn removeVisualRange(self: *Self, pos: usize, len: usize) removeVisualError!
         > **_OutOfRange._**
 
         ```zig
-        _ = try string.removeVisualRange(1, 1); // 👉 error.OutOfRange
+        _ = string.removeVisualRange(1, 1); // 👉 error.OutOfRange
         ```
 
         > **_InvalidPosition._**
@@ -69,7 +69,7 @@ pub fn removeVisualRange(self: *Self, pos: usize, len: usize) removeVisualError!
         var string = try String.init(allocator, "👨‍🏭");
         defer string.deinit();
 
-        _ = try string.removeVisualRange(2, 1); // 👉 error.InvalidPosition
+        _ = string.removeVisualRange(2, 1); // 👉 error.InvalidPosition
         ```
 
 <div align="center">

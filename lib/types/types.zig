@@ -1,15 +1,15 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
-    /// Immutable fixed array of `UTF-8` bytes.
+    /// Immutable fixed-size string type that supports Unicode.
     pub const Viewer = @import("./Viewer/Viewer.zig").Viewer;
 
-    /// Mutable fixed array of `UTF-8` bytes.
+    /// Mutable Immutable fixed-size string type that supports Unicode.
     pub const Buffer = @import("./Buffer/Buffer.zig");
 
-    /// Managed dynamic array of `UTF-8` bytes.
+    /// Managed dynamic-size string type that supports Unicode.
     pub const String = @import("./String/String.zig").String;
 
-    /// Unmanaged dynamic array of `UTF-8` bytes.
+    /// Unmanaged dynamic-size string type that supports Unicode.
     pub const uString = @import("./String/String.zig").uString;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

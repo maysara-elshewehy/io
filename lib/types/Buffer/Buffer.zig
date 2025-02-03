@@ -1,9 +1,8 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
-    const std = @import("std");
-    const utf8 = @import("../../utils/utf8/utf8.zig");
-    const Bytes = @import("../../utils/bytes/bytes.zig");
-    const Allocator = std.mem.Allocator;
+    const Unicode = @import("../../utils/Unicode/Unicode.zig");
+    const Bytes = @import("../../utils/Bytes/Bytes.zig");
+    const Allocator = Bytes.Allocator;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -11,7 +10,7 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-    /// Mutable fixed utf8 string type.
+    /// Mutable fixed-size string type that supports Unicode.
     pub fn Buffer(comptime array_size: usize) type {
         return struct {
 
@@ -24,7 +23,7 @@
 
             // ┌─────────────────────────── Fields ───────────────────────────┐
 
-                /// The mutable UTF-8 encoded bytes.
+                /// The mutable unicode encoded Bytes.
                 m_source: [array_size]u8 = .{0} ** array_size,
 
                 /// The number of written bytes to `source`.
@@ -51,8 +50,6 @@
                 /// Inserts a `byte` into the `Buffer` instance at the specified `position` by **real position**.
                 /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
                 /// - `insertError.OutOfRange` **_if the `pos` is greater than `self.length`._**
-                ///
-                /// Modifies the `Buffer` instance in place.
                 pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void {
                     try Bytes.insertOne(&self.m_source, byte, self.m_length, pos);
                     self.m_length += 1;
@@ -73,8 +70,6 @@
                 /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
                 /// - `insertVisualError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
                 /// - `insertVisualError.OutOfRange` **_if the `pos` is greater than `self.length`._**
-                ///
-                /// Modifies the `Buffer` instance in place.
                 pub fn insertVisualOne(self: *Self, byte: u8, pos: usize) insertVisualError!void {
                     try Bytes.insertVisualOne(&self.m_source, byte, self.m_length, pos);
                     self.m_length += 1;
@@ -91,8 +86,6 @@
 
                 /// Appends a `byte` into the `Buffer` instance.
                 /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
-                ///
-                /// Modifies the `Buffer` instance in place.
                 pub fn appendOne(self: *Self, byte: u8) insertError!void {
                     try Bytes.appendOne(&self.m_source, byte, self.m_length);
                     self.m_length += 1;
@@ -109,8 +102,6 @@
 
                 /// Prepends a `byte` into the `Buffer` instance.
                 /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of the `Buffer` instance._**
-                ///
-                /// Modifies the `Buffer` instance in place.
                 pub fn prependOne(self: *Self, byte: u8) insertError!void {
                     try Bytes.prependOne(&self.m_source, byte, self.m_length);
                     self.m_length += 1;
@@ -126,8 +117,6 @@
 
                 /// Removes a byte from the `Buffer` instance.
                 /// - `removeError.OutOfRange` **_if the `pos` is greater than `self.length`._**
-                ///
-                /// Modifies the `Buffer` instance in place.
                 pub fn remove(self: *Self, pos: usize) removeError!void {
                     try Bytes.remove(&self.m_source, self.m_length, pos);
                     self.m_length -= 1;
@@ -136,8 +125,6 @@
                 /// Removes a `range` of bytes from the `Buffer` instance.
                 /// - `insertVisualError.InvalidPosition` **_if the `pos` is invalid._**
                 /// - `removeError.OutOfRange` **_if the `pos` is greater than `self.length`._**
-                ///
-                /// Modifies the `Buffer` instance in place.
                 pub fn removeRange(self: *Self, pos: usize, len: usize) removeError!void {
                     try Bytes.removeRange(&self.m_source, self.m_length, pos, len);
                     self.m_length -= len;
@@ -176,7 +163,7 @@
                 }
 
                 /// Removes the first grapheme cluster at the `Buffer` instance,
-                /// Returns the number of removed bytes.
+                /// Returns the number of removed Bytes.
                 pub inline fn shift(self: *Self) usize {
                     const len = Bytes.shift(self.m_source[0..self.m_length]);
                     self.m_length -= len;
@@ -194,7 +181,7 @@
                 }
 
                 /// Finds the `visual position` of the **first** occurrence of `target`.
-                pub fn findVisual(self: Self, target: []const u8) !?usize {
+                pub fn findVisual(self: Self, target: []const u8) ?usize {
                     return Bytes.findVisual(self.m_source[0..self.m_length], target);
                 }
 
@@ -247,10 +234,10 @@
                 pub fn reverse(self: *Self) void {
                     if (self.m_length == 0) return;
                     const original_data = self.clone();
-                    var utf8_iterator = utf8.Iterator.unsafeInit(original_data.m_source[0..original_data.m_length]);
+                    var unicode_iterator = Unicode.Iterator.unsafeInit(original_data.m_source[0..original_data.m_length]);
                     var i: usize = self.m_length;
 
-                    while (utf8_iterator.nextGraphemeCluster()) |gc| {
+                    while (unicode_iterator.nextGraphemeCluster()) |gc| {
                         i -= gc.len;
                         @memcpy(self.m_source[i..i + gc.len], gc);
                         if (i == 0) break; // to avoid underflow.
@@ -277,10 +264,10 @@
 
             // ┌────────────────────────── Iterator ──────────────────────────┐
 
-                /// Creates an iterator for traversing the UTF-8 bytes.
-                /// - `utf8.Iterator.Error` **_if the initialization failed._**
-                pub fn iterator(self: Self) utf8.Iterator.Error!utf8.Iterator {
-                    return try utf8.Iterator.init(self.m_source[0..self.m_length]);
+                /// Creates an iterator for traversing the unicode bytes.
+                /// - `Unicode.Iterator.Error` **_if the initialization failed._**
+                pub fn iterator(self: Self) Unicode.Iterator.Error!Unicode.Iterator {
+                    return Unicode.Iterator.init(self.m_source[0..self.m_length]);
                 }
 
             // └──────────────────────────────────────────────────────────────┘
@@ -296,6 +283,11 @@
                     };
                 }
 
+            // └──────────────────────────────────────────────────────────────┘
+
+
+            // ┌──────────────────────────── Split ───────────────────────────┐
+
                 /// Splits the written portion of the string into substrings separated by the delimiter,
                 /// returning the substring at the specified index.
                 pub fn split(self: Self, delimiters: []const u8, index: usize) ?[]const u8 {
@@ -307,6 +299,38 @@
                 /// `include_empty` controls whether empty strings are included in the result.
                 pub fn splitAll(self: Self, allocator: Allocator, delimiters: []const u8, include_empty: bool) ![]const []const u8 {
                     return Bytes.splitAll(allocator, self.m_source[0..], self.m_length, delimiters, include_empty);
+                }
+
+            // └──────────────────────────────────────────────────────────────┘
+
+
+            // ┌─────────────────────────── Replace ──────────────────────────┐
+
+                pub const replaceError = Bytes.replaceError;
+
+                /// Replaces all occurrence of a character with another.
+                pub fn replaceAllChars(self: *Self, match: u8, replacement: u8) void {
+                    Bytes.replaceAllChars(self.m_source[0..], match, replacement);
+                }
+
+                /// Replaces all occurrences of a slice with another.
+                pub fn replaceAllSlices(self: *Self, match: []const u8, replacement: []const u8) replaceError!usize {
+                    const res = try Bytes.replaceAllSlices(self.m_source[0..], match, replacement);
+                    if(res > 0) {
+                        self.m_length -= match.len*res;
+                        self.m_length += replacement.len*res;
+                    }
+                    return res;
+                }
+
+                /// Replaces a range of bytes with another.
+                pub fn replaceRange(self: anytype, start: usize, len: usize, replacement: []const u8) replaceError!void {
+                    return Bytes.replaceRange(&self.m_source, self.m_length, start, len, replacement);
+                }
+
+                /// Replaces a visual range of bytes with another.
+                pub fn replaceVisualRange(self: anytype, start: usize, len: usize, replacement: []const u8) replaceError!void {
+                    return Bytes.replaceVisualRange(&self.m_source, self.m_length, start, len, replacement);
                 }
 
             // └──────────────────────────────────────────────────────────────┘

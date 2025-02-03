@@ -44,13 +44,13 @@ pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try buffer.insertOne('H', 0); // 👉 "H"
-        _ = try buffer.insertOne('!', 1); // 👉 "H!"
-        _ = try buffer.insertOne('o', 1); // 👉 "Ho!"
-        _ = try buffer.insertOne('l', 1); // 👉 "Hello!"
-        _ = try buffer.insertOne('e', 1); // 👉 "Hello!"
-        _ = try buffer.insertOne('l', 2); // 👉 "Hello!"
-        _ = try buffer.insertOne(' ', 5); // 👉 "Hello !"
+        try buffer.insertOne('H', 0); // 👉 "H"
+        try buffer.insertOne('!', 1); // 👉 "H!"
+        try buffer.insertOne('o', 1); // 👉 "Ho!"
+        try buffer.insertOne('l', 1); // 👉 "Hello!"
+        try buffer.insertOne('e', 1); // 👉 "Hello!"
+        try buffer.insertOne('l', 2); // 👉 "Hello!"
+        try buffer.insertOne(' ', 5); // 👉 "Hello !"
         ```
 
     - ##### 🔴 Failure Cases
@@ -58,7 +58,7 @@ pub fn insertOne(self: *Self, byte: u8, pos: usize) insertError!void
         > **_OutOfRange._**
 
         ```zig
-        _ = try Buffer.insertOne('@', 6); // 👉 error.OutOfRange
+        _ = Buffer.insertOne('@', 6); // 👉 error.OutOfRange
         ```
 
 <div align="center">

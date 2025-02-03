@@ -59,14 +59,14 @@ pub fn removeVisualRange(self: *Self, pos: usize, len: usize) removeVisualError!
         > **_OutOfRange._**
 
         ```zig
-        _ = try buffer.removeVisualRange(1, 1); // 👉 error.OutOfRange
+        _ = buffer.removeVisualRange(1, 1); // 👉 error.OutOfRange
         ```
 
         > **_InvalidPosition._**
 
         ```zig
         var buffer = try Buffer.init(11, "👨‍🏭");
-        _ = try buffer.removeVisualRange(2, 1); // 👉 error.InvalidPosition
+        _ = buffer.removeVisualRange(2, 1); // 👉 error.InvalidPosition
         ```
 
 <div align="center">

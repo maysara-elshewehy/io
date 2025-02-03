@@ -21,11 +21,11 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
 
 - #### 🚫 Errors
 
-    | Error             | Reason                                         |
-    | ----------------- | ---------------------------------------------- |
-    | `AllocatorError`  | The allocator returned an error.               |
-    | `InvalidPosition` | The position is invalid.                       |
-    | `OutOfRange`      | The `pos` is greater than `String` length.     |
+    | Error             | Reason                                     |
+    | ----------------- | ------------------------------------------ |
+    | `AllocatorError`  | The allocator returned an error.           |
+    | `InvalidPosition` | The position is invalid.                   |
+    | `OutOfRange`      | The `pos` is greater than `String` length. |
 
 - #### ✨ Returns : `void`
 
@@ -46,19 +46,19 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
     - ##### 🟢 Success Cases
 
         ```zig
-        _ = try string.insertVisual("H",   0); // 👉 "H"
-        _ = try string.insertVisual("👨‍🏭",  1); // 👉 "H👨‍🏭"
-        _ = try string.insertVisual("o",   1); // 👉 "Ho👨‍🏭"
-        _ = try string.insertVisual("ell", 1); // 👉 "Hello👨‍🏭"
-        _ = try string.insertVisual(" ",   5); // 👉 "Hello 👨‍🏭"
-        _ = try string.insertVisual("!",   7); // 👉 "Hello 👨‍🏭!"
+        try string.insertVisual("H",   0); // 👉 "H"
+        try string.insertVisual("👨‍🏭",  1); // 👉 "H👨‍🏭"
+        try string.insertVisual("o",   1); // 👉 "Ho👨‍🏭"
+        try string.insertVisual("ell", 1); // 👉 "Hello👨‍🏭"
+        try string.insertVisual(" ",   5); // 👉 "Hello 👨‍🏭"
+        try string.insertVisual("!",   7); // 👉 "Hello 👨‍🏭!"
         ```
     - ##### 🔴 Failure Cases
 
         > **_OutOfRange._**
 
         ```zig
-        _ = try string.insertVisual("@", 99); // 👉 error.OutOfRange
+        _ = string.insertVisual("@", 99); // 👉 error.OutOfRange
         ```
 
 <div align="center">

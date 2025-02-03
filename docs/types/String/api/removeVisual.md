@@ -59,7 +59,7 @@ pub fn removeVisual(self: *Self, pos: usize) removeVisualError![]const u8
         > **_OutOfRange._**
 
         ```zig
-        _ = try string.removeVisual(1); // 👉 error.OutOfRange
+        _ = string.removeVisual(1); // 👉 error.OutOfRange
         ```
 
         > **_InvalidPosition._**
@@ -68,7 +68,7 @@ pub fn removeVisual(self: *Self, pos: usize) removeVisualError![]const u8
         var string = try String.init(allocator, "👨‍🏭");
         defer string.deinit();
 
-        _ = try string.removeVisual(2); // 👉 error.InvalidPosition
+        _ = string.removeVisual(2); // 👉 error.InvalidPosition
         ```
 
 
