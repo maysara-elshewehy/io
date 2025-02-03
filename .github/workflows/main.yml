@@ -5,8 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -21,7 +23,7 @@ jobs:
         run: tar -xf zig-linux-x86_64-0.14.0-dev.2639+15fe99957.tar.xz
 
       - name: Alias
-        run: alias zig=$PWD/zig-linux-x86_64-0.14.0-dev.2639+15fe99957/zig
+        run: echo "alias zig=$PWD/zig-linux-x86_64-0.14.0-dev.2639+15fe99957/zig" >> $GITHUB_ENV
 
       - name: Version
         run: $PWD/zig-linux-x86_64-0.14.0-dev.2639+15fe99957/zig version
