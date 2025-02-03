@@ -8,7 +8,7 @@ pub fn countVisual(value: []const u8) countVisualError!usize
 
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧩 Parameters
@@ -28,7 +28,7 @@ pub fn countVisual(value: []const u8) countVisualError!usize
     > Returns the number of the visual characters, stopping at the first null byte.
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧪 Examples
@@ -55,7 +55,7 @@ pub fn countVisual(value: []const u8) countVisualError!usize
         ```
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### 🔗 Related
@@ -65,7 +65,7 @@ pub fn countVisual(value: []const u8) countVisualError!usize
   > [`Bytes.countWritten`](./countWritten.md)
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

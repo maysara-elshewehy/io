@@ -12,7 +12,7 @@
     - Uses a simple concatenation approach without pre-allocating memory, resulting in slower performance for frequent modifications.
 
     <div align="center">
-    <img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
     </div>
 
   - ### Overview of `io.types.String` 🚀
@@ -23,7 +23,7 @@
     - Pre-allocates memory to reduce allocation frequency, resulting in faster performance for frequent modifications.
 
     <div align="center">
-    <img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
     </div>
 
 
@@ -38,7 +38,7 @@
     In contrast, `io.types.String` was designed from the ground up to handle these cases efficiently, offering both speed and correctness in text processing.
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ## Performance Comparison 📈
@@ -68,7 +68,7 @@
     > You can find the benchmarks at [io-bench](https://github.com/maysara-elshewehy/io-bench/blob/main/String_vs_zigstring.zig) repository.
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 ## Unicode Handling Test 🧪
@@ -102,7 +102,7 @@ const txt = "-☹️";
 ```
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 ## Conclusion 🏆

@@ -8,7 +8,7 @@ pub fn remove(self: *Self, pos: usize) removeError!void
 
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧩 Parameters
@@ -29,7 +29,7 @@ pub fn remove(self: *Self, pos: usize) removeError!void
     > Modifies `Buffer` instance in place.
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧪 Examples
@@ -60,7 +60,7 @@ pub fn remove(self: *Self, pos: usize) removeError!void
         ```
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### 🔗 Related
@@ -74,7 +74,7 @@ pub fn remove(self: *Self, pos: usize) removeError!void
   > [`Buffer.removeVisualRange`](./removeVisualRange.md)
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

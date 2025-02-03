@@ -7,7 +7,7 @@ pub fn pop(self: *Self) ?[]const u8
 ```
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧩 Parameters
@@ -21,7 +21,7 @@ pub fn pop(self: *Self) ?[]const u8
     > Returns the removed slice or `null`.
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧪 Examples
@@ -45,7 +45,7 @@ pub fn pop(self: *Self) ?[]const u8
     ```
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### 🔗 Related
@@ -55,7 +55,7 @@ pub fn pop(self: *Self) ?[]const u8
   > [`String.shift`](./shift.md)
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

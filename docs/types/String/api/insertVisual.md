@@ -8,7 +8,7 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
 
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧩 Parameters
@@ -32,7 +32,7 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
     > Modifies the `String` instance in place **_if `slice` length is greater than 0_.**
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧪 Examples
@@ -62,7 +62,7 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
         ```
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### 🔗 Related
@@ -84,7 +84,7 @@ pub fn insertVisual(self: *Self, slice: []const u8, pos: usize) insertVisualErro
   > [`String.prependOne`](./prependOne.md)
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>

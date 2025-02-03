@@ -8,7 +8,7 @@ pub fn replaceAllSlices(self: *Self, match: []const u8, replacement: []const u8)
 
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧩 Parameters
@@ -30,7 +30,7 @@ pub fn replaceAllSlices(self: *Self, match: []const u8, replacement: []const u8)
     > Modifies `Buffer` instance in place and returns the number of replacements.
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - #### 🧪 Examples
@@ -58,7 +58,7 @@ pub fn replaceAllSlices(self: *Self, match: []const u8, replacement: []const u8)
         ```
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 - ##### 🔗 Related
@@ -72,7 +72,7 @@ pub fn replaceAllSlices(self: *Self, match: []const u8, replacement: []const u8)
   > [`Buffer.replaceVisualRange`](./replaceVisualRange.md)
 
 <div align="center">
-<img src="https://github.com/maysara-elshewehy/io-bench/tree/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="width:500px;"/>
 </div>
 
 <p align="center" style="color:grey;"><br />Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>
