@@ -26,8 +26,8 @@
 
     > All types can now be initialized with an empty value.
 
+    > A new logo has been designed for `utils.Unicode`.
+
 - ## Todo
 
     > Add commonly used utility functions to align with Zig's standard library conventions, ensuring compatibility and ease of integration.
-
-    > Design a new logo for the `utils.Unicode` documentation.
