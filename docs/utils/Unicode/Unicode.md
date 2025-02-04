@@ -39,6 +39,8 @@
 
    - #### 🌟 More
 
+        > TODO: complete this documentation.
+
         | Function                                | Description                                    |
         | --------------------------------------- | ---------------------------------------------- |
         | [`lastCp`](./api/lastCp.md)             | Returns the last codepoint.                    |
@@ -59,4 +61,6 @@
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-<p align="center" style="color:grey;"><br>Made with ❤️ by <a href="http://github.com/maysara-elshewehy" target="blank">Maysara</a>.</p>
+<div align="center"><br>
+<a href="https://github.com/maysara-elshewehy"> <img src="https://img.shields.io/badge/Made with ❤️ by-Maysara-orange"/> </a>
+</div>
