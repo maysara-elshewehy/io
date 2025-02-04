@@ -82,10 +82,10 @@ const txt = "-☹️";
 {
     var string = try io.types.String.init(std.testing.allocator, txt);
     defer string.deinit();
-    try std.testing.expectEqualStrings(txt, string.writtenSlice());
+    try std.testing.expectEqualStrings(txt, string.slice());
 
     try std.testing.expectEqualStrings("☹️", string.pop().?); // Correctly handles grapheme clusters.
-    try std.testing.expectEqualStrings("-", string.writtenSlice());
+    try std.testing.expectEqualStrings("-", string.slice());
 }
 
 // @JakubSzark/zig-string
