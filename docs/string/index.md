@@ -28,9 +28,11 @@
 </div>
 
 <div align="center">
-    <b><i><sup> Use dark mode for a better reading experience. 👽 </i></b></sup>
-</div><br>
-
+    <b><i>
+        <sup> Use dark mode for a better reading experience. 👽 </sup>
+    </i></b>
+</div>
+<br>
 
 
 > This library provides several types, each with its own approach to handling strings in the ZIG language.
