@@ -28,7 +28,7 @@
 </div>
 
 <div align="center">
-    <b><i><sup> Use dark mode for a better reading experience. 👽 </b></i></sup>
+    <b><i><sup> Use dark mode for a better reading experience. 👽 </i></b></sup>
 </div><br>
 
 
