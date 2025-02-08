@@ -13,15 +13,38 @@
     <img src="https://img.shields.io/github/stars/Super-ZIG/io?style=social" alt="GitHub Repo stars" />
 </p>
 
-<p align="center"> <b>Easy input and output in ZIG. </b> </p>
+<p align="center">
+    <b> Easy input and output in ZIG. </b>
+</p>
+<div align="center">
+    <b><i>
+        <sup> part of <a href="https://github.com/Super-ZIG">SuperZIG</a> framework.</sup>
+    </i></b>
+</div>
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
 </div><br>
 
-- ### [`Documents`](https://super-zig.github.io/io/)
+> This library is considered as a container for several other sub-libraries that are generally related to the concept of input and output in the ZIG language.
 
-- ### [`Benchmarks`](./bench/index.md)
+> The currently available sections are as follows, please click on the desired section to access more information about it.
+
+<br><div align="center" style="display: flex; flex-direction: row; justify-content: center;"><br>
+  <a href="https://super-zig.github.io/io/string/"><img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/String/short.png" alt="String" height="50" /></a>
+</div>
+
+<div align="center"><br>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+</div>
+
+
+  - #### [installation](https://github.com/Super-ZIG/io/wiki/installation)
+    > to learn how to add dependencies to your ZIG project.
+
+  - #### [Documentation](https://super-zig.github.io/io/)
+    > to learn more about the library and its features.
+
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
