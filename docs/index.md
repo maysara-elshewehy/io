@@ -30,7 +30,8 @@
 
 > The currently available sections are as follows, please click on the desired section to access more information about it.
 
-<br><div align="center" style="display: flex; flex-direction: row; justify-content: center;"><br>
+<br>
+<div align="center" style="display: flex; flex-direction: row; justify-content: center;"><br>
   <a href="https://super-zig.github.io/io/string/"><img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/String/short.png" alt="String" height="50" /></a>
 </div>
 
