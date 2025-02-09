@@ -22,34 +22,36 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-    // All the functions here are designed to be used internally across a lot of other modules and its functions,
-    // so most of the functions here are `inline` as expected and required,
-    // and this module can be considered internal only, so to speak.
-    // I have reasons for this that may not be obvious in the current form of the project.
+    // Todo: refactor this module.
+    // The new version of the `string module` uses a different API, so integration is needed.
+
+    // This module provides various utility functions for char arrays, including initialization,
+    // insertion, removal, searching, case conversion, and more. These functions are designed
+    // to be used internally across other modules and are optimized for performance.
 
 
     // ┌─────────────────────── Initialization ───────────────────────┐
 
         pub const initError = error { OutOfRange };
 
-        /// Initializes an array of bytes of a given `size`, filled with null bytes.
-        pub inline fn initWithCapacity(comptime initial_size: usize) [initial_size]u8 {
+        /// Initializes an array of chars of a given `size`, filled with null chars.
+        pub inline fn initWithCapacity(comptime T: type, comptime initial_size: usize) [initial_size]T {
             return .{0} ** initial_size;
         }
 
-        /// Initializes an array of bytes of a given `size` and `value`,
-        /// terminated with a null byte **if the `array_size` is greater than the length of `value`**.
+        /// Initializes an array of chars of a given `size` and `value`,
+        /// terminated with a null char **if the `array_size` is greater than the length of `value`**.
         /// - `initError.OutOfRange` **_if the length of `value` exceeds `size`._**
-        pub inline fn initWithSlice(comptime initial_size: usize, initial_value: []const u8) initError![initial_size]u8 {
+        pub inline fn initWithSlice(comptime T: type, comptime initial_size: usize, initial_value: []const T) initError![initial_size]T {
             if(initial_value.len > initial_size) return initError.OutOfRange;
-            if(initial_size == 0 or initial_value.len == 0) return initWithCapacity(initial_size);
+            if(initial_size == 0 or initial_value.len == 0) return initWithCapacity(T, initial_size);
 
-            return initWithSliceAssumeCapacity(initial_size, initial_value);
+            return initWithSliceAssumeCapacity(T, initial_size, initial_value);
         }
 
-        /// Initializes an array of bytes of a given `size` and `value`,
-        pub inline fn initWithSliceAssumeCapacity(comptime initial_size: usize, initial_value: []const u8) [initial_size]u8 {
-            var result: [initial_size]u8 = undefined;
+        /// Initializes an array of chars of a given `size` and `value`,
+        pub inline fn initWithSliceAssumeCapacity(comptime T: type, comptime initial_size: usize, initial_value: []const T) [initial_size]T {
+            var result: [initial_size]T = undefined;
             @memcpy(result[0..initial_value.len], initial_value[0..initial_value.len]);
             if(initial_value.len < initial_size) result[initial_value.len] = 0;
             return result;
@@ -65,99 +67,116 @@
         /// Inserts a `slice` into `dest` at the specified `position` by **real position**.
         /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
         /// - `insertError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
-        pub inline fn insertSlice(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) InsertError!void {
+        pub inline fn insertSlice(comptime T: type, dest: []T, slice: []const T, dest_wlen: usize, pos: usize) InsertError!void {
 
             if (slice.len == 0) return;
             if (pos > dest_wlen) return InsertError.OutOfRange;
             if (dest_wlen+slice.len > dest.len) return InsertError.OutOfMemory;
 
-            insertSliceAssumeCapacity(dest, slice, dest_wlen, pos);
+            insertSliceAssumeCapacity(T, dest, slice, dest_wlen, pos);
         }
-        pub inline fn insertSliceAssumeCapacity(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) void {
+
+        /// -
+        pub inline fn insertSliceAssumeCapacity(comptime T: type, dest: []T, slice: []const T, dest_wlen: usize, pos: usize) void {
             const shiftLen = slice.len;
-            std.mem.copyBackwards(u8, dest[pos + shiftLen..], dest[pos..dest_wlen]);
+            std.mem.copyBackwards(T, dest[pos + shiftLen..], dest[pos..dest_wlen]);
             @memcpy(dest[pos..pos + shiftLen], slice);
         }
 
-        /// Inserts a `byte` into `dest` at the specified `position` by **real position**.
+        /// Inserts a `char` into `dest` at the specified `position` by **real position**.
         /// - `insertError.OutOfRange` **_if the insertion exceeds the bounds of `dest`._**
         /// - `insertError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
-        pub inline fn insertByte(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) InsertError!void {
+        pub inline fn insertChar(comptime T: type, dest: []T, char: T, dest_wlen: usize, pos: usize) InsertError!void {
             if (pos > dest_wlen) return InsertError.OutOfRange;
             if (dest_wlen+1 > dest.len) return InsertError.OutOfMemory;
 
-            insertByteAssumeCapacity(dest, byte, dest_wlen, pos);
+            insertCharAssumeCapacity(T, dest, char, dest_wlen, pos);
         }
-        pub inline fn insertByteAssumeCapacity(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) void {
-            std.mem.copyBackwards(u8, dest[pos+1..], dest[pos..dest_wlen]);
-            dest[pos] = byte;
+
+        /// -
+        pub inline fn insertCharAssumeCapacity(comptime T: type, dest: []T, char: T, dest_wlen: usize, pos: usize) void {
+            std.mem.copyBackwards(T, dest[pos+1..], dest[pos..dest_wlen]);
+            dest[pos] = char;
         }
 
         /// Inserts a `slice` into `dest` at the specified `visual position`.
         /// - `visualInsertSliceError.OutOfMemory` **_if the insertion exceeds the bounds of `dest`._**
         /// - `visualInsertSliceError.OutOfRange` **_if the `pos` is invalid or greater than `dest_wlen`._**
-        pub inline fn visualInsertSlice(dest: []u8, slice: []const u8, dest_wlen: usize, pos: usize) InsertError!void {
+        pub inline fn visualInsertSlice(comptime T: type, dest: []T, slice: []const T, dest_wlen: usize, pos: usize) InsertError!void {
+            if(T != u8) @panic("visualInsertSlice is only available for u8 (i will improve it in the future)");
+
             const real_pos = unicode.getRealPosition(dest[0..dest_wlen], pos) catch return InsertError.OutOfRange;
-            return insertSlice(dest, slice, dest_wlen, real_pos);
+            return insertSlice(T, dest, slice, dest_wlen, real_pos);
         }
 
-        /// Inserts a `byte` into `dest` at the specified `visual position`.
+        /// Inserts a `char` into `dest` at the specified `visual position`.
         /// - `visualInsertSliceError.OutOfMemory` **_if the insertion exceeds the bounds of `dest`._**
         /// - `visualInsertSliceError.OutOfRange` **_if the `pos` is invalid or greater than `dest_wlen`._**
-        pub inline fn visualInsertByte(dest: []u8, byte: u8, dest_wlen: usize, pos: usize) InsertError!void {
+        pub inline fn visualInsertChar(comptime T: type, dest: []T, char: T, dest_wlen: usize, pos: usize) InsertError!void {
+            if(T != u8) @panic("visualInsertChar is only available for u8 (i will improve it in the future)");
+
             const real_pos = unicode.getRealPosition(dest[0..dest_wlen], pos) catch return InsertError.OutOfRange;
-            return insertByte(dest, byte, dest_wlen, real_pos);
+            return insertChar(T, dest, char, dest_wlen, real_pos);
         }
 
         /// Appends a `slice` into `dest`.
         /// - `insertError.OutOfMemory` **_if the insertion exceeds the bounds of `dest`._**
-        pub inline fn appendSlice(dest: []u8, slice: []const u8, dest_wlen: usize) InsertError!void {
+        pub inline fn appendSlice(comptime T: type, dest: []T, slice: []const T, dest_wlen: usize) InsertError!void {
             if (slice.len == 0) return;
             if (dest_wlen+slice.len > dest.len) return InsertError.OutOfMemory;
 
-            appendSliceAssumeCapacity(dest, slice, dest_wlen);
+            appendSliceAssumeCapacity(T, dest, slice, dest_wlen);
         }
-        pub inline fn appendSliceAssumeCapacity(dest: []u8, slice: []const u8, dest_wlen: usize) void {
+
+        /// -
+        pub inline fn appendSliceAssumeCapacity(comptime T: type, dest: []T, slice: []const T, dest_wlen: usize) void {
             const old_len = dest_wlen;
             const new_len = old_len + slice.len;
             std.debug.assert(new_len <= dest.len);
             @memcpy(dest[old_len..new_len], slice);
         }
 
-        /// Appends a `byte` into `dest`.
+        /// Appends a `char` into `dest`.
         /// - `insertError.OutOfMemory` **_if the insertion exceeds the bounds of `dest`._**
-        pub inline fn appendByte(dest: []u8, byte: u8, dest_wlen: usize) InsertError!void {
+        pub inline fn appendChar(comptime T: type, dest: []T, char: T, dest_wlen: usize) InsertError!void {
             if (dest_wlen+1 > dest.len) return InsertError.OutOfMemory;
 
-            appendByteAssumeCapacity(dest, byte, dest_wlen);
+            appendCharAssumeCapacity(T, dest, char, dest_wlen);
         }
-        pub inline fn appendByteAssumeCapacity(dest: []u8, byte: u8, dest_wlen: usize) void {
-            dest[dest_wlen] = byte;
+
+        /// -
+        pub inline fn appendCharAssumeCapacity(comptime T: type, dest: []T, char: T, dest_wlen: usize) void {
+            dest[dest_wlen] = char;
         }
 
         /// Prepends a `slice` into `dest`.
         /// - `insertError.OutOfMemory` **_if the insertion exceeds the bounds of `dest`._**
-        pub inline fn prepend(dest: []u8, slice: []const u8, dest_wlen: usize) InsertError!void {
-            try insertSlice(dest, slice, dest_wlen, 0);
-        }
-        pub inline fn prependAssumeCapacity(dest: []u8, slice: []const u8, dest_wlen: usize) void {
-            insertSliceAssumeCapacity(dest, slice, dest_wlen, 0);
+        pub inline fn prependSlice(comptime T: type, dest: []T, slice: []const T, dest_wlen: usize) InsertError!void {
+            try insertSlice(T, dest, slice, dest_wlen, 0);
         }
 
-        /// Prepends a `byte` into `dest`.
+        /// -
+        pub inline fn prependAssumeCapacity(comptime T: type, dest: []T, slice: []const T, dest_wlen: usize) void {
+            insertSliceAssumeCapacity(T, dest, slice, dest_wlen, 0);
+        }
+
+        /// Prepends a `char` into `dest`.
         /// - `insertError.OutOfMemory` **_if the insertion exceeds the bounds of `dest`._**
-        pub inline fn prependByte(dest: []u8, byte: u8, dest_wlen: usize) InsertError!void {
-            try insertByte(dest, byte, dest_wlen, 0);
-        }
-        pub inline fn prependByteAssumeCapacity(dest: []u8, byte: u8, dest_wlen: usize) void {
-            insertByteAssumeCapacity(dest, byte, dest_wlen, 0);
+        pub inline fn prependChar(comptime T: type, dest: []T, char: T, dest_wlen: usize) InsertError!void {
+            try insertChar(T, dest, char, dest_wlen, 0);
         }
 
-        pub inline fn addManyAtAssumeCapacity(dest: []u8, dest_wlen: usize, index: usize, count: usize) []u8 {
+        /// -
+        pub inline fn prependCharAssumeCapacity(comptime T: type, dest: []T, char: T, dest_wlen: usize) void {
+            insertCharAssumeCapacity(T, dest, char, dest_wlen, 0);
+        }
+
+        /// -
+        pub inline fn addManyAtAssumeCapacity(comptime T: type, dest: []T, dest_wlen: usize, index: usize, count: usize) []T {
             const new_len = dest_wlen + count;
             std.debug.assert(dest.len >= new_len);
             const to_move = dest[index..];
-            std.mem.copyBackwards(u8, dest[index + count ..], to_move);
+            std.mem.copyBackwards(T, dest[index + count ..], to_move);
             const result = dest[index..][0..count];
             @memset(result, undefined);
             return result;
@@ -171,49 +190,55 @@
         pub const removeIndexError = error { OutOfRange };
         pub const removeVisualIndexError = removeIndexError || error { InvalidPosition };
 
-        /// Removes a byte from the `dest`.
+        /// Removes a char from the `dest`.
         /// - `removeIndexError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
-        pub inline fn removeIndex(dest: []u8, dest_wlen: usize, pos: usize) removeIndexError!void {
+        pub inline fn removeIndex(comptime T: type, dest: []T, dest_wlen: usize, pos: usize) removeIndexError!void {
             if (pos > dest_wlen) return removeIndexError.OutOfRange;
-            return removeUnchecked(dest, dest_wlen, pos);
+            return removeUnchecked(T, dest, dest_wlen, pos);
         }
-        pub inline fn removeUnchecked(dest: []u8, dest_wlen: usize, pos: usize) void {
-            std.mem.copyForwards(u8, dest[pos..], dest[pos+1..dest_wlen]);
+        pub inline fn removeUnchecked(comptime T: type, dest: []T, dest_wlen: usize, pos: usize) void {
+            std.mem.copyForwards(T, dest[pos..], dest[pos+1..dest_wlen]);
         }
 
-        /// Removes a byte from the `dest` by the `visual position`.
+        /// Removes a char from the `dest` by the `visual position`.
         /// - `removeVisualIndexError.InvalidPosition` **_if the `pos` is invalid._**
         /// - `removeVisualIndexError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
         ///
         /// Returns the removed slice.
-        pub inline fn removeVisualIndex(dest: []u8, dest_wlen: usize, pos: usize) removeVisualIndexError![]const u8 {
+        pub inline fn removeVisualIndex(comptime T: type, dest: []T, dest_wlen: usize, pos: usize) removeVisualIndexError![]const T {
+            if(T != u8) @panic("removeVisualIndex is only available for u8 (i will improve it in the future)");
+
             if (pos > dest_wlen) return removeVisualIndexError.OutOfRange;
             const real_pos = unicode.getRealPosition(dest[0..dest_wlen], pos) catch return removeVisualIndexError.InvalidPosition;
             if(unicode.getFirstGraphemeClusterSlice(dest[real_pos..dest_wlen])) |gc| {
-                removeRangeUnchecked(dest, dest_wlen, real_pos, gc.len);
+                removeRangeUnchecked(T, dest, dest_wlen, real_pos, gc.len);
                 return gc;
             }
 
             return removeVisualIndexError.InvalidPosition;
         }
 
-        /// Removes a `range` of bytes from the `dest`.
+        /// Removes a `range` of chars from the `dest`.
         /// - `removeIndexError.InvalidPosition` **_if the `pos` is invalid._**
         /// - `removeIndexError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
-        pub inline fn removeRange(dest: []u8, dest_wlen: usize, pos: usize, len: usize) removeIndexError!void {
+        pub inline fn removeRange(comptime T: type, dest: []T, dest_wlen: usize, pos: usize, len: usize) removeIndexError!void {
             if (pos+len > dest_wlen) return removeIndexError.OutOfRange;
-            return removeRangeUnchecked(dest, dest_wlen, pos, len);
-        }
-        pub inline fn removeRangeUnchecked(dest: []u8, dest_wlen: usize, pos: usize, len: usize) void {
-            std.mem.copyForwards(u8, dest[pos..], dest[pos+len..dest_wlen]);
+            return removeRangeUnchecked(T, dest, dest_wlen, pos, len);
         }
 
-        /// Removes a `range` of bytes from the `dest` by the `visual position`.
+        /// -
+        pub inline fn removeRangeUnchecked(comptime T: type, dest: []T, dest_wlen: usize, pos: usize, len: usize) void {
+            std.mem.copyForwards(T, dest[pos..], dest[pos+len..dest_wlen]);
+        }
+
+        /// Removes a `range` of chars from the `dest` by the `visual position`.
         /// - `removeVisualIndexError.InvalidPosition` **_if the `pos` is invalid._**
         /// - `removeVisualIndexError.OutOfRange` **_if the `pos` is greater than `dest_wlen`._**
         ///
         /// Returns the removed slice.
-        pub inline fn removeVisualRange(dest: []u8, dest_wlen: usize, pos: usize, len: usize) removeVisualIndexError![]const u8 {
+        pub inline fn removeVisualRange(comptime T: type, dest: []T, dest_wlen: usize, pos: usize, len: usize) removeVisualIndexError![]const T {
+            if(T != u8) @panic("removeVisualRange is only available for u8 (i will improve it in the future)");
+
             if (pos+len > dest_wlen) return removeVisualIndexError.OutOfRange;
             const real_pos = unicode.getRealPosition(dest[0..dest_wlen], pos) catch return removeVisualIndexError.InvalidPosition;
 
@@ -225,7 +250,7 @@
             }
 
             if(unicode.getFirstGraphemeClusterSlice(dest[real_pos..dest_wlen])) |gc| {
-                removeRangeUnchecked(dest, dest_wlen, real_pos, real_len);
+                removeRangeUnchecked(T, dest, dest_wlen, real_pos, real_len);
                 return gc;
             }
 
@@ -239,16 +264,16 @@
         // so it should be left as is or considered an internal function only.
         //
         /// Returns the length of the last grapheme cluster at the `dest`.
-        pub inline fn pop(dest: []const u8) usize {
+        pub inline fn pop(comptime T: type, dest: []const T) usize {
             const len = (unicode.getLastGraphemeClusterSlice(dest[0..]) orelse return 0).len;
             return len;
         }
 
         /// Removes the first grapheme cluster at the `dest`,
-        /// Returns the number of removed bytes.
-        pub inline fn shift(dest: []u8) usize {
+        /// Returns the number of removed chars.
+        pub inline fn shift(comptime T: type, dest: []T) usize {
             const len = (unicode.getFirstGraphemeClusterSlice(dest[0..]) orelse return 0).len;
-            std.mem.copyForwards(u8, dest[0..], dest[len..]);
+            std.mem.copyForwards(T, dest[0..], dest[len..]);
             return len;
         }
 
@@ -258,41 +283,45 @@
     // ┌──────────────────────────── Find ────────────────────────────┐
 
         /// Finds the `position` of the **first** occurrence of `target`.
-        pub inline fn find(dest: []const u8, target: []const u8) ?usize {
-            return std.mem.indexOf(u8, dest, target);
+        pub inline fn find(comptime T: type, dest: []const T, target: []const T) ?usize {
+            return std.mem.indexOf(T, dest, target);
         }
 
         /// Finds the `visual position` of the **first** occurrence of `target`.
-        pub inline fn findVisual(dest: []const u8, target: []const u8) ?usize {
-            if(find(dest, target)) |pos| return unicode.getVisualPosition(dest, pos) catch null;
+        pub inline fn findVisual(comptime T: type, dest: []const T, target: []const T) ?usize {
+            if(T != u8) @panic("findVisual is only available for u8 (i will improve it in the future)");
+
+            if(find(T, dest, target)) |pos| return unicode.getVisualPosition(dest, pos) catch null;
             return null;
         }
 
         /// Finds the `position` of the **last** occurrence of `target`.
-        pub inline fn findLast(dest: []const u8, target: []const u8) ?usize {
-            return std.mem.lastIndexOf(u8, dest, target);
+        pub inline fn findLast(comptime T: type, dest: []const T, target: []const T) ?usize {
+            return std.mem.lastIndexOf(T, dest, target);
         }
 
         /// Finds the `visual position` of the **last** occurrence of `target`.
-        pub inline fn findLastVisual(dest: []const u8, target: []const u8) ?usize {
-            if(findLast(dest, target)) |pos| return unicode.getVisualPosition(dest, pos) catch null;
+        pub inline fn findLastVisual(comptime T: type, dest: []const T, target: []const T) ?usize {
+            if(T != u8) @panic("findVisual is only available for u8 (i will improve it in the future)");
+
+            if(findLast(T, dest, target)) |pos| return unicode.getVisualPosition(dest, pos) catch null;
             return null;
         }
 
         /// Returns `true` **if `dest` contains `target`**.
-        pub inline fn includes(dest: []const u8, target: []const u8) bool {
-            if(find(dest, target)) |_| return true;
+        pub inline fn includes(comptime T: type, dest: []const T, target: []const T) bool {
+            if(find(T, dest, target)) |_| return true;
             return false;
         }
 
         /// Returns `true` **if `dest` starts with `target`**.
-        pub inline fn startsWith(dest: []const u8, target: []const u8) bool {
-            return std.mem.startsWith(u8, dest, target);
+        pub inline fn startsWith(comptime T: type, dest: []const T, target: []const T) bool {
+            return std.mem.startsWith(T, dest, target);
         }
 
         /// Returns `true` **if `dest` ends with `target`**.
-        pub inline fn endsWith(dest: []const u8, target: []const u8) bool {
-            return std.mem.endsWith(u8, dest, target);
+        pub inline fn endsWith(comptime T: type, dest: []const T, target: []const T) bool {
+            return std.mem.endsWith(T, dest, target);
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -301,27 +330,27 @@
     // ┌──────────────────────────── Case ────────────────────────────┐
 
         /// Converts all (ASCII) letters to lowercase.
-        pub inline fn toLower(value: []u8) void {
+        pub inline fn toLower(comptime T: type, value: []T) void {
             var i: usize = 0;
             while (i < value.len) {
-                const first_byte_size = unicode.getLengthOfStartByte(value[i]) catch 1;
-                if (first_byte_size == 1) value[i] = std.ascii.toLower(value[i]);
-                i += first_byte_size;
+                const first_char_size = unicode.getLengthOfStartChar(value[i]) catch 1;
+                if (first_char_size == 1) value[i] = std.ascii.toLower(value[i]);
+                i += first_char_size;
             }
         }
 
         /// Converts all (ASCII) letters to uppercase.
-        pub inline fn toUpper(value: []u8) void {
+        pub inline fn toUpper(comptime T: type, value: []T) void {
             var i: usize = 0;
             while (i < value.len) {
-                const first_byte_size = unicode.getLengthOfStartByte(value[i]) catch 1;
-                if (first_byte_size == 1) value[i] = std.ascii.toUpper(value[i]);
-                i += first_byte_size;
+                const first_char_size = unicode.getLengthOfStartChar(value[i]) catch 1;
+                if (first_char_size == 1) value[i] = std.ascii.toUpper(value[i]);
+                i += first_char_size;
             }
         }
 
         // Converts all (ASCII) letters to titlecase.
-        pub inline fn toTitle(value: []u8) void {
+        pub inline fn toTitle(comptime T: type, value: []T) void {
             if (value.len == 0) return;
 
             var i: usize = 0;
@@ -345,13 +374,13 @@
             }
         }
 
-        /// Reverses the order of the bytes.
-        pub inline fn reverse(value: []u8) void {
-            std.mem.reverse(u8, value);
+        /// Reverses the order of the chars.
+        pub inline fn reverse(comptime T: type, value: []T) void {
+            std.mem.reverse(T, value);
         }
 
-        /// Reverses the order of the characters in the `Self` instance (considering Unicode).
-        pub inline fn reverseUnicode(dist: []u8, dist_wlen: usize, temp: []const u8) void {
+        /// Reverses the order of the chars in the `Self` instance (considering Unicode).
+        pub inline fn reverseUnicode(comptime T: type, dist: []T, dist_wlen: usize, temp: []const T) void {
             var unicode_iterator = unicode.Iterator.initUnchecked(temp[0..]);
             var i: usize = dist_wlen;
 
@@ -367,30 +396,30 @@
 
     // ┌──────────────────────────── Check ───────────────────────────┐
 
-        /// Returns `true` **if the value is a valid byte**.
-        pub inline fn isByte(value: anytype) bool {
+        /// Returns `true` **if the value is a valid char**.
+        pub inline fn isChar(comptime T: type, value: anytype) bool {
             const value_type = @TypeOf(value);
-            return value_type == u8
+            return value_type == T
                 or (value_type == comptime_int and value >= 0 and value <= 255);
         }
 
-        /// Returns `true` **if the value is a valid array of bytes**.
-        pub inline fn isBytes(value: anytype) bool {
+        /// Returns `true` **if the value is a valid array of chars**.
+        pub inline fn isSlice(comptime T: type, value: anytype) bool {
             const value_type = @TypeOf(value);
 
-            // Direct match for known byte types
-            if (value_type == []u8 or value_type == []const u8) return true;
+            // Direct match for known char types
+            if (value_type == []T or value_type == []const T) return true;
 
             const type_info = @typeInfo(value_type);
 
-            // Check if it's a pointer to an array of bytes
+            // Check if it's a pointer to an array of chars
             if (type_info == .pointer) {
                 const child_type_info = @typeInfo(type_info.pointer.child);
-                if (child_type_info == .array) return child_type_info.array.child == u8;
+                if (child_type_info == .array) return child_type_info.array.child == T;
             }
 
-            // Check if it's a direct array of bytes
-            if (type_info == .array) return type_info.array.child == u8;
+            // Check if it's a direct array of chars
+            if (type_info == .array) return type_info.array.child == T;
 
             return false;
         }
@@ -403,16 +432,18 @@
         pub const countVisualError = error { InvalidValue };
 
 
-        /// Returns the total number of written bytes, stopping at the first null byte.
-        pub inline fn countWritten(value: []const u8) usize {
+        /// Returns the total number of written chars, stopping at the first null char.
+        pub inline fn countWritten(comptime T: type, value: []const T) usize {
             for(0..value.len) |i| if(value[i] == 0) return i;
             return value.len;
         }
 
-        /// Returns the total number of visual characters.
+        /// Returns the total number of visual chars.
         /// - `countVisualError.InvalidValue` **_if the `value` is not a valid unicode format._**
-        pub inline fn countVisual(value: []const u8) countVisualError!usize {
-            const len = countWritten(value);
+        pub inline fn countVisual(comptime T: type, value: []const T) countVisualError!usize {
+            if(T != u8) @panic("countVisual is only available for u8 (i will improve it in the future)");
+
+            const len = countWritten(u8, value);
             var count : usize = 0;
             var i : usize = 0;
             while (i < len) {
@@ -423,8 +454,8 @@
         }
 
         /// Returns a slice containing only the written part.
-        pub inline fn writtenSlice(value: []const u8) []const u8 {
-            return value[0..countWritten(value)];
+        pub inline fn writtenSlice(comptime T: type, value: []const T) []const T {
+            return value[0..countWritten(u8, value)];
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -434,7 +465,7 @@
 
         /// Splits the written portion of the string into substrings separated by the delimiter,
         /// returning the substring at the specified index.
-        pub inline fn split(dest: []const u8, dest_wlen: usize, delimiters: []const u8, index: usize) ?[]const u8 {
+        pub inline fn split(comptime T: type, dest: []const T, dest_wlen: usize, delimiters: []const T, index: usize) ?[]const T {
             var current_index: usize = 0;
             var start: usize = 0;
             var i: usize = 0;
@@ -443,10 +474,10 @@
                 const slice = dest[i..dest_wlen];
                 if (unicode.getFirstGraphemeClusterSlice(slice)) |gc| {
                     const gc_len = gc.len;
-                    const gc_bytes = dest[i..@min(i + gc_len, dest_wlen)];
+                    const gc_chars = dest[i..@min(i + gc_len, dest_wlen)];
 
                     // Check for delimiter match
-                    if (gc_len == delimiters.len and i + gc_len <= dest_wlen and std.mem.eql(u8, delimiters, gc_bytes)) {
+                    if (gc_len == delimiters.len and i + gc_len <= dest_wlen and std.mem.eql(T, delimiters, gc_chars)) {
                         if (current_index == index) return dest[start..i];
                         current_index += 1;
                         start = i + gc_len;
@@ -472,12 +503,12 @@
         /// Splits the written portion of the string into all substrings separated by the delimiter,
         /// returning an array of slices. Caller must free the returned memory.
         /// `include_empty` controls whether empty strings are included in the result.
-        pub inline fn splitAll(allocator: Allocator, dest: []const u8, dest_wlen: usize, delimiters: []const u8, include_empty: bool) Allocator.Error![]const []const u8 {
-            var parts = std.ArrayList([]const u8).init(allocator);
+        pub inline fn splitAll(comptime T: type, allocator: Allocator, dest: []const T, dest_wlen: usize, delimiters: []const T, include_empty: bool) Allocator.Error![]const []const T {
+            var parts = std.ArrayList([]const T).init(allocator);
             errdefer parts.deinit();
 
             var i: usize = 0;
-            while (split(dest, dest_wlen, delimiters, i)) |slice| : (i += 1) {
+            while (split(T, dest, dest_wlen, delimiters, i)) |slice| : (i += 1) {
                 // Include empty strings based on the flag
                 if (include_empty or slice.len > 0) try parts.append(slice);
             }
@@ -496,36 +527,36 @@
         pub const replaceError = error{ OutOfRange };
 
         /// Replaces all occurrence of a character with another.
-        pub inline fn replaceAllChars(dest: []u8, match: u8, replacement: u8) void {
-            std.mem.replaceScalar(u8, dest, match, replacement);
+        pub inline fn replaceAllChars(comptime T: type, dest: []T, match: T, replacement: T) void {
+            std.mem.replaceScalar(T, dest, match, replacement);
         }
 
         /// Replaces all occurrences of a slice with another.
-        pub inline fn replaceAllSlices(dest: [] u8, dest_wlen: usize, match: []const u8, replacement: []const u8) replaceError!usize {
+        pub inline fn replaceAllSlices(comptime T: type, dest: [] T, dest_wlen: usize, match: []const T, replacement: []const T) replaceError!usize {
             var res : usize = 0;
-            while(find(dest[0..dest_wlen], match)) |find_res| {
-                try replaceRange(dest, dest_wlen, find_res, match.len, replacement);
+            while(find(T, dest[0..dest_wlen], match)) |find_res| {
+                try replaceRange(T, dest, dest_wlen, find_res, match.len, replacement);
                 res += 1;
             }
 
             return res;
         }
 
-        /// Replaces a range of bytes with another.
-        pub inline fn replaceRange(dest: []u8, dest_wlen: usize, start: usize, len: usize, replacement: []const u8) replaceError!void {
+        /// Replaces a range of chars with another.
+        pub inline fn replaceRange(comptime T: type, dest: []T, dest_wlen: usize, start: usize, len: usize, replacement: []const T) replaceError!void {
             const after_range = start + len;
             const range = dest[start..after_range];
             if (range.len < replacement.len) {
                 const first = replacement[0..range.len];
                 const rest = replacement[range.len..];
                 @memcpy(range[0..first.len], first);
-                insertSlice(dest, rest, dest_wlen, after_range) catch return replaceError.OutOfRange;
+                insertSlice(T, dest, rest, dest_wlen, after_range) catch return replaceError.OutOfRange;
             } else {
-                replaceRangeAssumeCapacity(dest, dest_wlen, start, len, replacement);
+                replaceRangeAssumeCapacity(T, dest, dest_wlen, start, len, replacement);
             }
         }
 
-        pub inline fn replaceRangeAssumeCapacity(dest: []u8, dest_wlen: usize, start: usize, len: usize, replacement: []const u8) void {
+        pub inline fn replaceRangeAssumeCapacity(comptime T: type, dest: []T, dest_wlen: usize, start: usize, len: usize, replacement: []const T) void {
             const after_range = start + len;
             const range = dest[start..after_range];
 
@@ -535,18 +566,20 @@
                 const first = replacement[0..range.len];
                 const rest = replacement[range.len..];
                 @memcpy(range[0..first.len], first);
-                const dst = addManyAtAssumeCapacity(dest, dest_wlen, after_range, rest.len);
+                const dst = addManyAtAssumeCapacity(T, dest, dest_wlen, after_range, rest.len);
                 @memcpy(dst, rest);
             } else {
                 const extra = range.len - replacement.len;
                 @memcpy(range[0..replacement.len], replacement);
-                std.mem.copyForwards( u8, dest[after_range - extra ..], dest[after_range..], );
+                std.mem.copyForwards( T, dest[after_range - extra ..], dest[after_range..], );
                 @memset(dest[dest_wlen - extra ..], undefined);
             }
         }
 
-        /// Replaces a visual range of bytes with another.
-        pub inline fn replaceVisualRange(dest: []u8, dest_wlen: usize, start: usize, len: usize, replacement: []const u8) replaceError!void {
+        /// Replaces a visual range of chars with another.
+        pub inline fn replaceVisualRange(comptime T: type, dest: []T, dest_wlen: usize, start: usize, len: usize, replacement: []const T) replaceError!void {
+            if(T != u8) @panic("replaceVisualRange is only available for u8 (i will improve it in the future)");
+
             var new_len : usize = 0;
             var iter = unicode.Iterator.init(dest[start..dest_wlen]) catch unreachable;
             var i : usize = 0;
@@ -557,7 +590,7 @@
                 if(i == len) break;
             }
 
-            try replaceRange(dest, dest_wlen, start, new_len, replacement);
+            try replaceRange(T, dest, dest_wlen, start, new_len, replacement);
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -566,16 +599,16 @@
     // ┌──────────────────────────── Utils ───────────────────────────┐
 
         /// Returns true if the `a` is equal to `b`.
-        pub inline fn equals(a: []const u8, b: []const u8) bool {
+        pub inline fn equals(comptime T: type, a: []const T, b: []const T) bool {
             if(a.len != b.len) return false;
             if(a.len == 0) return true;
 
-            return std.mem.eql(u8, a, b);
+            return std.mem.eql(T, a, b);
         }
 
         /// Returns true if the `value` is empty.
-        pub inline fn isEmpty(value: []const u8) bool {
-            return countWritten(value) == 0;
+        pub inline fn isEmpty(comptime T: type, value: []const T) bool {
+            return countWritten(u8, value) == 0;
         }
 
     // └──────────────────────────────────────────────────────────────┘

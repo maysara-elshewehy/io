@@ -29,29 +29,66 @@
 
 <div align="center">
     <b><i>
-        <sup> Use dark mode for a better reading experience. 👽 </sup>
+        <sup> 🔥 Built for power. Designed for speed. Ready for production. 🔥 </sup>
     </i></b>
 </div>
 <br>
 
 
-> This library provides several types, each with its own approach to handling strings in the ZIG language.
 
-> You can choose from the following types according to the intended purpose:
+- ### ✨ Features ✨
 
-| Type                      | Description                                               |
-| ------------------------- | --------------------------------------------------------- |
-| [`Viewer`](./viewer.md)   | Immutable fixed-size string type that supports unicode.   |
-| [`Buffer`](./buffer.md)   | Mutable fixed-size string type that supports unicode.     |
-| [`String`](./string.md)   | Managed dynamic-size string type that supports unicode.   |
-| [`uString`](./ustring.md) | Unmanaged dynamic-size string type that supports unicode. |
+    - 🚀 **Unified Internal Logic**
+        > All string types share the same core logic, acting as simple containers. The real functionality resides in internal modules like `utils.chars` and `utils.unicode`, ensuring efficiency, maintainability, and elegance.
+
+    - 🔢 **Integer Type Support**
+        > Works seamlessly with various integer types, including `u8`, `u16`, `u32`, `u64`, and beyond.
+
+    - 🌍 **Full Unicode Compatibility**
+        > Properly handles Unicode, preserving character integrity, including complex grapheme clusters like emojis and modifiers.
+
+    - ⚡ **Blazing Fast Performance**
+        > Matches the speed of Zig’s standard library and outperforms competitors by **488x** times in benchmarks.
+
+    - 🛡️ **Rock-Solid Stability**
+        > Every function is rigorously tested, making the library safe, reliable, and ready for production.
+
+    - 🏗️ **Optimized for Scalability**
+        > Designed with efficiency in mind, avoiding unnecessary allocations while maintaining flexibility.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
+- ### 📖 Table of Contents
+
+    🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
+
+    🔹 [⚡ Performance & Benchmarks](#benchmarking) – Speed comparisons with other implementations.
+
+    🔹 [🌍 Unicode Handling](#unicode-handling-comparison) – How the library correctly processes Unicode text.
+
+
+<div align="center"><br>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+</div>
 
 - ### API
+
+    > This library provides several types, each with its own approach to handling strings in the ZIG language.
+
+    > You can choose from the following types according to the intended purpose:
+
+    | Type                      | Description                                               |
+    | ------------------------- | --------------------------------------------------------- |
+    | [`Viewer`](./viewer.md)   | Immutable fixed-size string type that supports unicode.   |
+    | [`Buffer`](./buffer.md)   | Mutable fixed-size string type that supports unicode.     |
+    | [`String`](./string.md)   | Managed dynamic-size string type that supports unicode.   |
+    | [`uString`](./ustring.md) | Unmanaged dynamic-size string type that supports unicode. |
+
+    <div align="center">
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+    </div>
 
     > 🟢 Implemented and tested.
     >
@@ -67,7 +104,7 @@
     | initEmpty          | 🟢      | 🟢      | 🟢      | 🟢       |
     | initWithSelf       | 🟢      | 🟢      | 🟢      | 🟢       |
     | initWithSlice      | 🟢      | 🟢      | 🟢      | 🟢       |
-    | initWithByte       | ⚫      | 🟢      | 🟢      | 🟢       |
+    | initWithChar       | ⚫      | 🟢      | 🟢      | 🟢       |
     | initWithCapacity   | ⚫      | 🟢      | 🟢      | 🟢       |
     | initWithFmt        | ⚫      | 🟢      | 🟢      | 🟢       |
     | initWithAllocator  | ⚫      | ⚫      | 🟢      | 🟣       |
@@ -94,22 +131,22 @@
     | isEmpty            | 🟢      | 🟢      | 🟢      | 🟢       |
     | insert             | ⚫      | 🟢      | 🟢      | 🟢       |
     | insertSlice        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | insertByte         | ⚫      | 🟢      | 🟢      | 🟢       |
+    | insertChar         | ⚫      | 🟢      | 🟢      | 🟢       |
     | insertSelf         | ⚫      | 🟢      | 🟢      | 🟢       |
     | insertFmt          | ⚫      | 🟢      | 🟢      | 🟢       |
     | visualInsert       | ⚫      | 🟢      | 🟢      | 🟢       |
     | visualInsertSlice  | ⚫      | 🟢      | 🟢      | 🟢       |
-    | visualInsertByte   | ⚫      | 🟢      | 🟢      | 🟢       |
+    | visualInsertChar   | ⚫      | 🟢      | 🟢      | 🟢       |
     | visualInsertSelf   | ⚫      | 🟢      | 🟢      | 🟢       |
     | visualInsertFmt    | ⚫      | 🟢      | 🟢      | 🟢       |
     | append             | ⚫      | 🟢      | 🟢      | 🟢       |
     | appendSlice        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | appendByte         | ⚫      | 🟢      | 🟢      | 🟢       |
+    | appendChar         | ⚫      | 🟢      | 🟢      | 🟢       |
     | appendSelf         | ⚫      | 🟢      | 🟢      | 🟢       |
     | appendFmt          | ⚫      | 🟢      | 🟢      | 🟢       |
     | prepend            | ⚫      | 🟢      | 🟢      | 🟢       |
     | prependSlice       | ⚫      | 🟢      | 🟢      | 🟢       |
-    | prependByte        | ⚫      | 🟢      | 🟢      | 🟢       |
+    | prependChar        | ⚫      | 🟢      | 🟢      | 🟢       |
     | prependSelf        | ⚫      | 🟢      | 🟢      | 🟢       |
     | prependFmt         | ⚫      | 🟢      | 🟢      | 🟢       |
     | repeat             | ⚫      | 🟢      | 🟢      | 🟢       |

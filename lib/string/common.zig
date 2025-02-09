@@ -29,11 +29,16 @@
 
     // ┌─────────────────────── Ensure Capacity ──────────────────────┐
 
-        /// Ensures that the array can hold at least `required_capacity` bytes.
+        /// Ensures that the array can hold at least `required_capacity` chars.
         /// If the current capacity is less than `required_capacity`, this function will
-        /// modify the array to hold exactly `required_capacity` bytes.
+        /// modify the array to hold exactly `required_capacity` chars.
         /// Invalidates element pointers if additional memory is needed.
-        pub inline fn ensureCapacity(self: anytype, allocator: Allocator, required_capacity: usize) Allocator.Error!void {
+        pub inline fn ensureCapacity(comptime Self: type, self: anytype, allocator: Allocator, required_capacity: usize) Allocator.Error!void {
+            if (@sizeOf(Self.getType()) == 0) {
+                self.capacity = std.math.maxInt(usize);
+                return;
+            }
+
             if (self.m_src.len >= required_capacity) return;
 
             // Attempt to resize in place to avoid unnecessary memory copies.
@@ -51,11 +56,11 @@
 
         /// Ensures that there is enough unused capacity in the array to accommodate `extra_capacity`.
         /// If the current capacity is less than the required capacity, this function will modify the array.
-        pub inline fn ensureExtraCapacity(self: anytype, allocator: Allocator, extra_capacity: usize) Allocator.Error!void {
+        pub inline fn ensureExtraCapacity(comptime Self: type, self: anytype, allocator: Allocator, extra_capacity: usize) Allocator.Error!void {
             if(self.m_len+extra_capacity <= self.m_src.len) return;
             const n1 = try addOrOom(self.m_src.len, extra_capacity);
             const n2 = growCapacity(self.m_src.len, n1);
-            return ensureCapacity(self, allocator, n2);
+            return ensureCapacity(Self, self, allocator, n2);
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -63,36 +68,36 @@
 
     // ┌─────────────────────── Initialization ───────────────────────┐
 
-        /// Initializes a new `Self` instance with the specified allocator and initial bytes.
-        pub inline fn initWithSlice(Self: type, allocator: Allocator, initial_bytes: []const u8) Allocator.Error!Self {
-            if (initial_bytes.len == 0) return Self.initWithAllocator(allocator);
+        /// Initializes a new `Self` instance with the specified allocator and initial chars.
+        pub inline fn initWithSlice(comptime Self: type, allocator: Allocator, initial_chars: []const u8) Allocator.Error!Self {
+            if (initial_chars.len == 0) return Self.initWithAllocator(allocator);
 
-            var self = try Self.initWithCapacity(allocator, initial_bytes.len);
-            utils.bytes.appendSliceAssumeCapacity(self.allocatedSlice(), initial_bytes, 0);
-            self.m_len = utils.bytes.countWritten(initial_bytes);
+            var self = try Self.initWithCapacity(allocator, initial_chars.len);
+            utils.chars.appendSliceAssumeCapacity(Self.getType(), self.allocatedSlice(), initial_chars, 0);
+            self.m_len = utils.chars.countWritten(Self.getType(), initial_chars);
 
             return self;
         }
 
-        /// Initializes a new `Self` instance with the specified allocator and initial byte.
-        pub inline fn initWithByte(Self: type, allocator: Allocator, initial_byte: u8) Allocator.Error!Self {
+        /// Initializes a new `Self` instance with the specified allocator and initial char.
+        pub inline fn initWithChar(comptime Self: type, allocator: Allocator, initial_char: u8) Allocator.Error!Self {
             var self = try Self.initWithCapacity(allocator, 1);
-            self.m_src.ptr[0] = initial_byte;
+            self.m_src.ptr[0] = initial_char;
             self.m_len = 1;
             return self;
         }
 
         /// Initializes a new `Self` instance with the specified allocator and initial `Self`.
-        pub inline fn initWithSelf(Self: type, allocator: Allocator, initial_self: Self) Allocator.Error!Self {
+        pub inline fn initWithSelf(comptime Self: type, allocator: Allocator, initial_self: Self) Allocator.Error!Self {
             var self = try Self.initWithCapacity(allocator, initial_self.len());
-            utils.bytes.appendSliceAssumeCapacity(self.allocatedSlice(), initial_self.src(), 0);
+            utils.chars.appendSliceAssumeCapacity(Self.getType(), self.allocatedSlice(), initial_self.src(), 0);
             self.m_len = initial_self.len();
             return self;
         }
 
         /// Initializes a `Self` instance with the specified allocator and formatted string.
         /// - `Allocator.Error` **if the allocator returned an error.**
-        pub inline fn initWithFmt(Self: type, allocator: Allocator, comptime fmt: []const u8, args: anytype) Allocator.Error!Self {
+        pub inline fn initWithFmt(comptime Self: type, allocator: Allocator, comptime fmt: []const u8, args: anytype) Allocator.Error!Self {
             const TI = @typeInfo(@TypeOf(args));
             const new_fmt = if(fmt.len > 0) fmt else if(TI == .@"struct" or TI == .@"array") "{any}" else "{}";
             const new_args = if(fmt.len > 0) args else .{ args };
@@ -106,15 +111,15 @@
         /// Initializes a `Self` instance with the specified allocator and anytype.
         /// the value will be converted to a string if necessary.
         /// - `Allocator.Error` **if the allocator returned an error.**
-        pub inline fn init(Self: type, allocator: Allocator, initial_value: anytype) Allocator.Error!Self {
-            if(utils.bytes.isByte(initial_value)) return Self.initWithByte(allocator, initial_value)
-            else if(utils.bytes.isBytes(initial_value)) return Self.initWithSlice(allocator, initial_value)
+        pub inline fn init(comptime Self: type, allocator: Allocator, initial_value: anytype) Allocator.Error!Self {
+            if(utils.chars.isChar(Self.getType(), initial_value)) return Self.initWithChar(allocator, initial_value)
+            else if(utils.chars.isSlice(Self.getType(), initial_value)) return Self.initWithSlice(allocator, initial_value)
             else if(@TypeOf(initial_value) == Self) return Self.initWithSelf(allocator, initial_value)
             else return Self.initWithFmt(allocator, "", initial_value);
         }
 
         /// Releases all allocated memory associated with the `Self` instance.
-        pub inline fn deinit(self: anytype, allocator: Allocator) void {
+        pub inline fn deinit(comptime _: type, self: anytype, allocator: Allocator) void {
             if (self.size() > 0) allocator.free(self.allocatedSlice());
         }
 
@@ -124,7 +129,9 @@
     // ┌──────────────────────────── Data ─────────────────────────────┐
 
         /// Returns a character at the specified visual position.
-        pub inline fn atVisual(self: anytype, visual_pos: usize) ?[]const u8 {
+        pub inline fn atVisual(comptime Self: type, self: anytype, visual_pos: usize) ?[]const u8 {
+            if(Self.getType() != u8) @panic("atVisual is only available for u8 (i will improve it in the future)");
+
             if(visual_pos >= self.len()) return null;
             const index = if(visual_pos == 0) 0 else utils.unicode.getRealPosition(self.src(), visual_pos) catch return null;
             const gc = utils.unicode.getFirstGraphemeClusterSlice(self.m_src[index..self.m_len]) orelse return null;
@@ -132,7 +139,7 @@
         }
 
         /// Returns a sub-slice of the `Self`.
-        pub inline fn sub(self: anytype, start: usize, end: usize) RangeError![]const u8 {
+        pub inline fn sub(comptime _: type, self: anytype, start: usize, end: usize) RangeError![]const u8 {
             if(start > end or end > self.len()) return RangeError.OutOfRange;
             return self.m_src[start..end];
         }
@@ -146,49 +153,53 @@
 
 
         /// Inserts a slice into the `Self` instance at the specified position.
-        pub inline fn insertSlice(self: anytype, allocator: Allocator, slice: []const u8, position: usize) InsertError!void {
-            if(self.m_len == 0 or position == self.m_src.len) return appendSlice(self, allocator, slice);
+        pub inline fn insertSlice(comptime Self: type, self: anytype, allocator: Allocator, slice: []const u8, position: usize) InsertError!void {
+            if(self.m_len == 0 or position == self.m_src.len) return appendSlice(Self, self, allocator, slice);
             if (slice.len == 0) return;
             if (position > self.m_src.len) return InsertError.OutOfRange;
-            try insertSliceAssumeCapacity(self, allocator, slice, position);
+            try insertSliceAssumeCapacity(Self, self, allocator, slice, position);
         }
 
-        /// Inserts a byte into the `Self` instance at the specified position.
-        pub inline fn insertByte(self: anytype, allocator: Allocator, byte: u8, position: usize) InsertError!void {
-            if(self.m_len == 0 or position == self.m_src.len) return appendByte(self, allocator, byte);
+        /// Inserts a char into the `Self` instance at the specified position.
+        pub inline fn insertChar(comptime Self: type, self: anytype, allocator: Allocator, char: u8, position: usize) InsertError!void {
+            if(self.m_len == 0 or position == self.m_src.len) return appendChar(Self, self, allocator, char);
             if (position > self.m_src.len) return InsertError.OutOfRange;
-            try insertByteAssumeCapacity(self, allocator, byte, position);
+            try insertCharAssumeCapacity(Self, self, allocator, char, position);
         }
 
         /// Inserts a slice into the `Self` instance at the specified visual position.
-        pub inline fn visualInsertSlice(self: anytype, allocator: Allocator, slice: []const u8, visual_pos: usize) InsertError!void {
-            if(self.m_len == 0) return appendSlice(self, allocator, slice);
+        pub inline fn visualInsertSlice(comptime Self: type, self: anytype, allocator: Allocator, slice: []const u8, visual_pos: usize) InsertError!void {
+            if(Self.getType() != u8) @panic("visualInsertSlice is only available for u8 (i will improve it in the future)");
+
+            if(self.m_len == 0) return appendSlice(Self, self, allocator, slice);
             if (slice.len == 0) return;
             if (visual_pos > self.m_src.len) return InsertError.OutOfRange;
             const real_pos = utils.unicode.getRealPosition(self.src(), visual_pos) catch return InsertError.OutOfRange;
-            try insertSliceAssumeCapacity(self, allocator, slice, real_pos);
+            try insertSliceAssumeCapacity(Self, self, allocator, slice, real_pos);
         }
 
-        /// Inserts a byte into the `Self` instance at the specified visual position.
-        pub inline fn visualInsertByte(self: anytype, allocator: Allocator, byte: u8, visual_pos: usize) InsertError!void {
-            if(self.m_len == 0) return appendByte(self, allocator, byte);
+        /// Inserts a char into the `Self` instance at the specified visual position.
+        pub inline fn visualInsertChar(comptime Self: type, self: anytype, allocator: Allocator, char: u8, visual_pos: usize) InsertError!void {
+            if(Self.getType() != u8) @panic("visualInsertChar is only available for u8 (i will improve it in the future)");
+
+            if(self.m_len == 0) return appendChar(Self, self, allocator, char);
             if (visual_pos > self.m_src.len) return InsertError.OutOfRange;
             const real_pos = utils.unicode.getRealPosition(self.src(), visual_pos) catch return InsertError.OutOfRange;
-            try insertByteAssumeCapacity(self, allocator, byte, real_pos);
+            try insertCharAssumeCapacity(Self, self, allocator, char, real_pos);
         }
 
         /// Appends a slice to the end of the `Self` instance.
-        pub inline fn appendSlice(self: anytype, allocator: Allocator, slice: []const u8) Allocator.Error!void {
+        pub inline fn appendSlice(comptime Self: type, self: anytype, allocator: Allocator, slice: []const u8) Allocator.Error!void {
             if (slice.len == 0) return;
-            try ensureExtraCapacity(self, allocator, slice.len);
-            appendSliceAssumeCapacity(self, slice);
+            try ensureExtraCapacity(Self, self, allocator, slice.len);
+            appendSliceAssumeCapacity(Self, self, slice);
         }
 
-        /// Appends a byte to the end of the `Self` instance.
-        pub inline fn appendByte(self: anytype, allocator: Allocator, byte: u8) Allocator.Error!void {
-            try ensureExtraCapacity(self, allocator, 1);
-            const new_src_ptr = addByteAssumeCapacity(self);
-            new_src_ptr.* = byte;
+        /// Appends a char to the end of the `Self` instance.
+        pub inline fn appendChar(comptime Self: type, self: anytype, allocator: Allocator, char: u8) Allocator.Error!void {
+            try ensureExtraCapacity(Self, self, allocator, 1);
+            const new_src_ptr = addCharAssumeCapacity(Self, self);
+            new_src_ptr.* = char;
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -196,47 +207,51 @@
 
     // ┌─────────────────────────── Remove ───────────────────────────┐
 
-        pub const removeIndexError = utils.bytes.removeIndexError;
-        pub const removeVisualIndexError = utils.bytes.removeVisualIndexError;
+        pub const removeIndexError = utils.chars.removeIndexError;
+        pub const removeVisualIndexError = utils.chars.removeVisualIndexError;
 
-        /// Removes a byte from the `Self` instance at the specified position.
-        pub inline fn removeIndex(self: anytype, pos: usize) removeIndexError!void {
-            try utils.bytes.removeIndex(self.m_src[0..self.size()], self.len(), pos);
+        /// Removes a char from the `Self` instance at the specified position.
+        pub inline fn removeIndex(comptime Self: type, self: anytype, pos: usize) removeIndexError!void {
+            try utils.chars.removeIndex(Self.getType(), self.m_src[0..self.size()], self.len(), pos);
             self.m_len -= 1;
         }
 
-        /// Removes a byte from the `Self` instance by the specified visual position.
-        pub inline fn removeVisualIndex(self: anytype, pos: usize) removeVisualIndexError![]const u8 {
-            const removed_slice = try utils.bytes.removeVisualIndex(self.m_src[0..self.size()], self.len(), pos);
+        /// Removes a char from the `Self` instance by the specified visual position.
+        pub inline fn removeVisualIndex(comptime Self: type, self: anytype, pos: usize) removeVisualIndexError![]const u8 {
+            if(Self.getType() != u8) @panic("removeVisualIndex is only available for u8 (i will improve it in the future)");
+
+            const removed_slice = try utils.chars.removeVisualIndex(Self.getType(), self.m_src[0..self.size()], self.len(), pos);
             self.m_len -= removed_slice.len;
             return removed_slice;
         }
 
-        /// Removes a range of bytes from the `Self` instance.
-        pub inline fn removeRange(self: anytype, pos: usize, len: usize) removeIndexError!void {
-            try utils.bytes.removeRange(self.m_src[0..self.size()], self.len(), pos, len);
+        /// Removes a range of chars from the `Self` instance.
+        pub inline fn removeRange(comptime Self: type, self: anytype, pos: usize, len: usize) removeIndexError!void {
+            try utils.chars.removeRange(Self.getType(), self.m_src[0..self.size()], self.len(), pos, len);
             self.m_len -= len;
         }
 
-        /// Removes a range of bytes from the `Self` instance by the specified visual position.
-        pub inline fn removeVisualRange(self: anytype, pos: usize, len: usize) removeVisualIndexError![]const u8 {
-            const removed_slice = try utils.bytes.removeVisualRange(self.m_src[0..self.size()], self.len(), pos, len);
+        /// Removes a range of chars from the `Self` instance by the specified visual position.
+        pub inline fn removeVisualRange(comptime Self: type, self: anytype, pos: usize, len: usize) removeVisualIndexError![]const u8 {
+            if(Self.getType() != u8) @panic("removeVisualRange is only available for u8 (i will improve it in the future)");
+
+            const removed_slice = try utils.chars.removeVisualRange(Self.getType(), self.m_src[0..self.size()], self.len(), pos, len);
             self.m_len -= removed_slice.len;
             return removed_slice;
         }
 
         /// Removes the last grapheme cluster from the `Self` instance, Returns the removed slice.
-        pub inline fn pop(self: anytype) ?[]const u8 {
-            const len = utils.bytes.pop(self.src());
+        pub inline fn pop(comptime Self: type, self: anytype) ?[]const u8 {
+            const len = utils.chars.pop(Self.getType(), self.src());
             if (len == 0) return null;
 
             self.m_len -= len;
             return self.m_src[self.m_len..self.m_len + len];
         }
 
-        /// Removes the first grapheme cluster from the `Self` instance, Returns the number of removed bytes.
-        pub inline fn shift(self: anytype) usize {
-            const len = utils.bytes.shift(self.m_src[0..self.m_len]);
+        /// Removes the first grapheme cluster from the `Self` instance, Returns the number of removed chars.
+        pub inline fn shift(comptime Self: type, self: anytype) usize {
+            const len = utils.chars.shift(Self.getType(), self.m_src[0..self.m_len]);
             self.m_len -= len;
             return len;
         }
@@ -273,21 +288,21 @@
     // ┌─────────────────────────── Replace ──────────────────────────┐
 
         /// -
-        pub inline fn replaceRange(self: anytype, allocator: Allocator, start: usize, len: usize, replacement: []const u8) InsertError!void {
+        pub inline fn replaceRange(comptime Self: type, self: anytype, allocator: Allocator, start: usize, len: usize, replacement: []const u8) InsertError!void {
             const after_range = start + len;
             const range = self.m_src[start..after_range];
             if (range.len < replacement.len) {
                 const first = replacement[0..range.len];
                 const rest = replacement[range.len..];
                 @memcpy(range[0..first.len], first);
-                try insertSlice(self, allocator, rest, after_range);
+                try insertSlice(Self, self, allocator, rest, after_range);
             } else {
-                replaceRangeAssumeCapacity(self, start, len, replacement);
+                replaceRangeAssumeCapacity(Self, self, start, len, replacement);
             }
         }
 
         /// -
-        pub inline fn replaceRangeForFixed(self: anytype, start: usize, len: usize, replacement: []const u8) !void {
+        pub inline fn replaceRangeForFixed(comptime Self: type, self: anytype, start: usize, len: usize, replacement: []const u8) !void {
             const after_range = start + len;
             const range = self.m_src[start..after_range];
             if (range.len < replacement.len) {
@@ -296,12 +311,12 @@
                 @memcpy(range[0..first.len], first);
                 try self.insertSlice(rest, after_range);
             } else {
-                replaceRangeAssumeCapacity(self, start, len, replacement);
+                replaceRangeAssumeCapacity(Self, self, start, len, replacement);
             }
         }
 
         /// -
-        pub inline fn replaceRangeAssumeCapacity(self: anytype, start: usize, len: usize, replacement: []const u8) void {
+        pub inline fn replaceRangeAssumeCapacity(comptime Self: type, self: anytype, start: usize, len: usize, replacement: []const u8) void {
             const after_range = start + len;
             const range = self.m_src[start..after_range];
 
@@ -311,7 +326,7 @@
                 const first = replacement[0..range.len];
                 const rest = replacement[range.len..];
                 @memcpy(range[0..first.len], first);
-                const dst = addManyAtAssumeCapacity(self, after_range, rest.len);
+                const dst = addManyAtAssumeCapacity(Self, self, after_range, rest.len);
                 @memcpy(dst, rest);
             } else {
                 const extra = range.len - replacement.len;
@@ -323,25 +338,27 @@
         }
 
         /// -
-        pub inline fn replaceVisualRange(self: anytype, allocator: Allocator, start: usize, length: usize, replacement: []const u8) InsertError!void {
-            const new_length = getNewLengthForReplaceVisualRange(self, start, length);
-            try replaceRange(self, allocator, start, new_length, replacement);
+        pub inline fn replaceVisualRange(comptime Self: type, self: anytype, allocator: Allocator, start: usize, length: usize, replacement: []const u8) InsertError!void {
+            const new_length = getNewLengthForReplaceVisualRange(Self, self, start, length);
+            try replaceRange(Self, self, allocator, start, new_length, replacement);
         }
 
         /// -
-        pub inline fn replaceVisualRangeForFixed(self: anytype, start: usize, length: usize, replacement: []const u8) !void {
-            const new_length = getNewLengthForReplaceVisualRange(self, start, length);
-            try replaceRangeForFixed(self, start, new_length, replacement);
+        pub inline fn replaceVisualRangeForFixed(comptime Self: type, self: anytype, start: usize, length: usize, replacement: []const u8) !void {
+            const new_length = getNewLengthForReplaceVisualRange(Self, self, start, length);
+            try replaceRangeForFixed(Self, self, start, new_length, replacement);
         }
 
         /// -
-        pub inline fn replaceVisualRangeAssumeCapacity(self: anytype, start: usize, length: usize, replacement: []const u8) !void {
-            const new_length = getNewLengthForReplaceVisualRange(self, start, length);
-            replaceRangeAssumeCapacity(self, start, new_length, replacement);
+        pub inline fn replaceVisualRangeAssumeCapacity(comptime Self: type, self: anytype, start: usize, length: usize, replacement: []const u8) !void {
+            const new_length = getNewLengthForReplaceVisualRange(Self, self, start, length);
+            replaceRangeAssumeCapacity(Self, self, start, new_length, replacement);
         }
 
         /// -
-        pub inline fn getNewLengthForReplaceVisualRange(self: anytype, start: usize, length: usize) usize {
+        pub inline fn getNewLengthForReplaceVisualRange(comptime Self: type, self: anytype, start: usize, length: usize) usize {
+            if(Self.getType() != u8) @panic("getNewLengthForReplaceVisualRange is only available for u8 (i will improve it in the future)");
+
             var new_length: usize = 0;
             var iter = utils.unicode.Iterator.initUnchecked(self.m_src[start..self.m_len]);
             var i: usize = 0;
@@ -356,62 +373,62 @@
         }
 
         /// -
-        pub inline fn replaceFirst(self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8) InsertError!void {
-            if(self.find(target)) |index| try replaceRange(self, allocator, index, target.len, replacement);
+        pub inline fn replaceFirst(comptime Self: type, self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8) InsertError!void {
+            if(self.find(target)) |index| try replaceRange(Self, self, allocator, index, target.len, replacement);
         }
 
 
         /// -
-        pub inline fn replaceFirstN(self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8, count: usize) InsertError!void {
+        pub inline fn replaceFirstN(comptime Self: type, self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8, count: usize) InsertError!void {
             for(0..count) |_|
-            if(self.find(target)) |index| try replaceRange(self, allocator, index, target.len, replacement);
+            if(self.find(target)) |index| try replaceRange(Self, self, allocator, index, target.len, replacement);
         }
 
         /// -
-        pub inline fn replaceFirstForFixed(self: anytype, target: []const u8, replacement: []const u8) !void {
-            if(self.find(target)) |index| try replaceRangeForFixed(self, index, target.len, replacement);
+        pub inline fn replaceFirstForFixed(comptime Self: type, self: anytype, target: []const u8, replacement: []const u8) !void {
+            if(self.find(target)) |index| try replaceRangeForFixed(Self, self, index, target.len, replacement);
         }
 
         /// -
-        pub inline fn replaceFirstForFixedN(self: anytype, target: []const u8, replacement: []const u8, count: usize) !void {
+        pub inline fn replaceFirstForFixedN(comptime Self: type, self: anytype, target: []const u8, replacement: []const u8, count: usize) !void {
             for(0..count) |_|
-            if(self.find(target)) |index| try replaceRangeForFixed(self, index, target.len, replacement);
+            if(self.find(target)) |index| try replaceRangeForFixed(Self, self, index, target.len, replacement);
         }
 
         /// -
-        pub inline fn replaceLast(self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8) InsertError!void {
-            if(self.findLast(target)) |index| try replaceRange(self, allocator, index, target.len, replacement);
+        pub inline fn replaceLast(comptime Self: type, self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8) InsertError!void {
+            if(self.findLast(target)) |index| try replaceRange(Self, self, allocator, index, target.len, replacement);
         }
 
         /// -
-        pub inline fn replaceLastN(self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8, count: usize) InsertError!void {
+        pub inline fn replaceLastN(comptime Self: type, self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8, count: usize) InsertError!void {
             for(0..count) |_|
-            if(self.findLast(target)) |index| try replaceRange(self, allocator, index, target.len, replacement);
+            if(self.findLast(target)) |index| try replaceRange(Self, self, allocator, index, target.len, replacement);
         }
 
         /// -
-        pub inline fn replaceLastForFixed(self: anytype, target: []const u8, replacement: []const u8) !void {
-            if(self.findLast(target)) |index| try replaceRangeForFixed(self, index, target.len, replacement);
+        pub inline fn replaceLastForFixed(comptime Self: type, self: anytype, target: []const u8, replacement: []const u8) !void {
+            if(self.findLast(target)) |index| try replaceRangeForFixed(Self, self, index, target.len, replacement);
         }
 
         /// -
-        pub inline fn replaceLastForFixedN(self: anytype, target: []const u8, replacement: []const u8, count: usize) !void {
+        pub inline fn replaceLastForFixedN(comptime Self: type, self: anytype, target: []const u8, replacement: []const u8, count: usize) !void {
             for(0..count) |_|
-            if(self.findLast(target)) |index| try replaceRangeForFixed(self, index, target.len, replacement);
+            if(self.findLast(target)) |index| try replaceRangeForFixed(Self, self, index, target.len, replacement);
         }
 
         /// -
-        pub inline fn replaceNth(self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8, nth: usize) InsertError!void {
+        pub inline fn replaceNth(comptime Self: type, self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8, nth: usize) InsertError!void {
             const slice = self.src();
             var occurrence: usize = 0;
-            var index: ?usize = utils.bytes.find(slice[0..], target);
+            var index: ?usize = utils.chars.find(Self.getType(), slice[0..], target);
             while (index) |i| {
                 if (occurrence == nth) {
-                    try replaceRange(self, allocator, i, target.len, replacement);
+                    try replaceRange(Self, self, allocator, i, target.len, replacement);
                     break;
                 }
                 occurrence += 1;
-                index = utils.bytes.find(slice[i + target.len ..], target) orelse null;
+                index = utils.chars.find(Self.getType(), slice[i + target.len ..], target) orelse null;
                 if (index) |next_i| {
                     index = next_i + i + target.len;
                 }
@@ -419,17 +436,17 @@
         }
 
         /// -
-        pub inline fn replaceNthForFixed(self: anytype, target: []const u8, replacement: []const u8, nth: usize) !void {
+        pub inline fn replaceNthForFixed(comptime Self: type, self: anytype, target: []const u8, replacement: []const u8, nth: usize) !void {
             const slice = self.src();
             var occurrence: usize = 0;
-            var index: ?usize = utils.bytes.find(slice[0..], target);
+            var index: ?usize = utils.chars.find(Self.getType(), slice[0..], target);
             while (index) |i| {
                 if (occurrence == nth) {
-                    try replaceRangeForFixed(self, i, target.len, replacement);
+                    try replaceRangeForFixed(Self, self, i, target.len, replacement);
                     break;
                 }
                 occurrence += 1;
-                index = utils.bytes.find(slice[i + target.len ..], target) orelse null;
+                index = utils.chars.find(Self.getType(), slice[i + target.len ..], target) orelse null;
                 if (index) |next_i| {
                     index = next_i + i + target.len;
                 }
@@ -437,19 +454,19 @@
         }
 
         /// -
-        pub inline fn replaceAll(self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8) InsertError!void {
+        pub inline fn replaceAll(comptime Self: type, self: anytype, allocator: Allocator, target: []const u8, replacement: []const u8) InsertError!void {
             var index = self.find(target);
             while (index) |i| {
-                try replaceRange(self, allocator, i, target.len, replacement);
+                try replaceRange(Self, self, allocator, i, target.len, replacement);
                 index = self.find(target);
             }
         }
 
         /// -
-        pub inline fn replaceAllForFixed(self: anytype, target: []const u8, replacement: []const u8) !void {
+        pub inline fn replaceAllForFixed(comptime Self: type, self: anytype, target: []const u8, replacement: []const u8) !void {
             var index = self.find(target);
             while (index) |i| {
-                try replaceRangeForFixed(self, i, target.len, replacement);
+                try replaceRangeForFixed(Self, self, i, target.len, replacement);
                 index = self.find(target);
             }
         }
@@ -459,24 +476,24 @@
 
     // ┌─────────────────────────── Repeat ───────────────────────────┐
 
-        /// Repeats a byte `count` times and appends it to the `Self` instance.
-        pub fn appendNTimes(self: anytype, allocator : Allocator, byte: u8, count: usize) InsertError!void {
+        /// Repeats a char `count` times and appends it to the `Self` instance.
+        pub fn appendNTimes(comptime Self: type, self: anytype, allocator : Allocator, char: u8, count: usize) InsertError!void {
             if(count == 0) return;
             const old_len = self.m_len;
-            try ensureExtraCapacity(self, allocator, old_len+count);
-            @memset(self.m_src[old_len..][0..count], byte);
+            try ensureExtraCapacity(Self, self, allocator, old_len+count);
+            @memset(self.m_src[old_len..][0..count], char);
             self.m_len += count;
         }
 
         /// Append a value to the list `n` times.
         /// Never invalidates element pointers.
         /// The function is inline so that a comptime-known `value` parameter will
-        /// have a more optimal memset codegen in case it has a repeated byte pattern.
+        /// have a more optimal memset codegen in case it has a repeated char pattern.
         /// Asserts that the list can hold the additional items.
-        pub inline fn appendNTimesAssumeCapacity(self: anytype, byte: u8, count: usize) void {
+        pub inline fn appendNTimesAssumeCapacity(comptime _: type, self: anytype, char: u8, count: usize) void {
             if(count == 0) return;
             const old_len = self.m_len;
-            @memset(self.m_src[old_len..][0..count], byte);
+            @memset(self.m_src[old_len..][0..count], char);
             self.m_len += count;
         }
 
@@ -486,17 +503,17 @@
     // ┌──────────────────────────── Utils ────────────────────────────┐
 
         /// Reverses the order of the characters in the `Self` instance (considering Unicode).
-        pub inline fn reverse(self: anytype, allocator: Allocator) Allocator.Error!void {
+        pub inline fn reverse(comptime Self: type, self: anytype, allocator: Allocator) Allocator.Error!void {
             if (self.m_src.len == 0) return;
             var original_data = std.ArrayList(u8).init(allocator);
             defer original_data.deinit();
             try original_data.appendSlice(self.src());
 
-            utils.bytes.reverseUnicode(self.allocatedSlice(), self.m_len, original_data.items[0..]);
+            utils.chars.reverseUnicode(Self.getType(), self.allocatedSlice(), self.m_len, original_data.items[0..]);
         }
 
         /// Invalidates all element pointers and clears the memory.
-        pub inline fn clearAndFree(self: anytype, allocator: Allocator) void {
+        pub inline fn clearAndFree(comptime _: type, self: anytype, allocator: Allocator) void {
             allocator.free(self.allocatedSlice());
             self.m_src.len = 0;
             self.m_len = 0;
@@ -504,7 +521,7 @@
 
         /// The caller owns the returned memory. Empties this ArrayList.
         /// Its capacity is cleared, making deinit() safe but unnecessary to call.
-        pub inline fn toOwnedSlice(self: anytype, allocator: Allocator) Allocator.Error![]u8 {
+        pub inline fn toOwnedSlice(comptime Self: type, self: anytype, allocator: Allocator) Allocator.Error![]u8 {
             const old_memory = self.allocatedSlice();
             if (allocator.resize(old_memory, self.m_src.len)) {
                 const result = self.m_src;
@@ -515,12 +532,12 @@
             const new_memory = try allocator.alloc(u8, self.m_src.len);
             @memcpy(new_memory, self.m_src);
             @memset(self.m_src, undefined);
-            clearAndFree(self, allocator);
+            clearAndFree(Self, self, allocator);
             return new_memory;
         }
 
         /// Reduce allocated capacity to `new_len`.
-        pub inline fn shrinkAndFree(self: anytype, allocator: Allocator, new_len: usize) void {
+        pub inline fn shrinkAndFree(comptime _: type, self: anytype, allocator: Allocator, new_len: usize) void {
             if(new_len > self.m_len) return;
 
             const old_memory = self.allocatedSlice();
@@ -549,9 +566,9 @@
         /// Adjust the list length to `new_len`.
         /// Additional elements contain the value `undefined`.
         /// Invalidates element pointers if additional memory is needed.
-        pub inline fn resize(Self: type, self: anytype, allocator: Allocator, new_len: usize) Allocator.Error!void {
+        pub inline fn resize(comptime Self: type, self: anytype, allocator: Allocator, new_len: usize) Allocator.Error!void {
             if (new_len > self.size()) {
-                try ensureCapacity(self, allocator, new_len);
+                try ensureCapacity(Self, self, allocator, new_len);
                 @memset(self.m_src[self.m_len..][0..new_len-self.m_len], 0);
                 self.m_src.len = new_len;
             } else if (new_len < self.size()) {
@@ -591,21 +608,21 @@
 
         /// Adds `count` new elements at the specified index, which have undefined values.
         /// Returns a slice pointing to the newly allocated elements.
-        pub inline fn addManyAt(self: anytype, allocator: Allocator, index: usize, count: usize) Allocator.Error![]u8 {
+        pub inline fn addManyAt(comptime Self: type, self: anytype, allocator: Allocator, index: usize, count: usize) Allocator.Error![]u8 {
             const new_len = try addOrOom(self.m_len, count);
 
             if (self.m_len == 0)
                 return self.m_src[index..][0..count];
 
             if (self.m_src.len > new_len)
-                return addManyAtAssumeCapacity(self, index, count);
+                return addManyAtAssumeCapacity(Self, self, index, count);
 
             // Attempt to resize in place to avoid unnecessary memory copies.
             const new_capacity = growCapacity(self.m_src.len, new_len);
             const old_memory = self.allocatedSlice();
             if (allocator.resize(old_memory, new_capacity)) {
                 self.m_src.len = new_capacity;
-                return addManyAtAssumeCapacity(self, index, count);
+                return addManyAtAssumeCapacity(Self, self, index, count);
             }
 
             // Make a new allocation, avoiding `ensureCapacity` to prevent extra memory copies.
@@ -621,7 +638,7 @@
 
         /// Adds `count` new elements at the specified index, which have undefined values.
         /// Returns a slice pointing to the newly allocated elements.
-        pub inline fn addManyAtAssumeCapacity(self: anytype, index: usize, count: usize) []u8 {
+        pub inline fn addManyAtAssumeCapacity(comptime _: type, self: anytype, index: usize, count: usize) []u8 {
             const new_len = self.len() + count;
             std.debug.assert(self.size() >= new_len);
             const to_move = self.m_src[index..new_len-1];
@@ -634,21 +651,21 @@
         }
 
         /// Inserts the specified slice at the specified position in the string.
-        pub inline fn insertSliceAssumeCapacity(self: anytype, allocator: Allocator, slice: []const u8, position: usize) InsertError!void {
-            const dst = try addManyAt(self, allocator, position, slice.len);
+        pub inline fn insertSliceAssumeCapacity(comptime Self: type, self: anytype, allocator: Allocator, slice: []const u8, position: usize) InsertError!void {
+            const dst = try addManyAt(Self, self, allocator, position, slice.len);
             @memcpy(dst, slice);
             self.m_len += slice.len;
         }
 
-        /// Inserts the specified byte at the specified position in the string.
-        pub inline fn insertByteAssumeCapacity(self: anytype, allocator: Allocator, byte: u8, position: usize) InsertError!void {
-            const dst = try addManyAt(self, allocator, position, 1);
-            dst[0] = byte;
+        /// Inserts the specified char at the specified position in the string.
+        pub inline fn insertCharAssumeCapacity(comptime Self: type, self: anytype, allocator: Allocator, char: u8, position: usize) InsertError!void {
+            const dst = try addManyAt(Self, self, allocator, position, 1);
+            dst[0] = char;
             self.m_len += 1;
         }
 
         /// Appends a slice to the `Self` instance without checking capacity.
-        pub inline fn appendSliceAssumeCapacity(self: anytype, slice: []const u8) void {
+        pub inline fn appendSliceAssumeCapacity(comptime _: type, self: anytype, slice: []const u8) void {
             const old_len = self.m_len;
             std.debug.assert(old_len + slice.len <= self.m_src.len);
             self.m_len += slice.len;
@@ -656,7 +673,7 @@
         }
 
         /// Increases the length by 1, returning a pointer to the new item.
-        pub inline fn addByteAssumeCapacity(self: anytype) *u8 {
+        pub inline fn addCharAssumeCapacity(comptime _: type, self: anytype) *u8 {
             std.debug.assert(self.m_len < self.m_src.len);
             self.m_len += 1;
             return &self.m_src[self.m_len - 1];

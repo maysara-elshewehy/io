@@ -33,13 +33,13 @@ const Viewer = @import("io").Viewer;
 
 pub fn main() void {
     // Init with slice.
-    var viewer = Viewer.initWithSlice("Hello 👨‍🏭!");
+    var viewer = Viewer(u8).initWithSlice("Hello 👨‍🏭!");
 
     // Fast printing
     viewer.print(); // "true!=false👨‍🏭"
 
     // Detect the correct data.
-    _ = viewer.len(); // 18 (👨‍🏭 = 11 byte)
+    _ = viewer.len(); // 18 (👨‍🏭 = 11 char)
     _ = viewer.vlen(); // 8 (👨‍🏭 = 1 character)
 
     // and more ..
@@ -57,15 +57,15 @@ pub fn main() void {
 | init               | Initializes a `Viewer` instance with anytype.             |
 | initEmpty          | Initializes a new empty `Viewer` instance.                |
 | initWithSelf       | Initializes a new `Viewer` instance with the specified initial `Viewer`. |
-| initWithSlice      | Initializes a new `Viewer` instance with the specified initial `bytes`. |
-| size               | Returns the number of bytes that can be written.          |
-| len                | Returns the total number of written bytes.                |
+| initWithSlice      | Initializes a new `Viewer` instance with the specified initial `chars`. |
+| size               | Returns the number of chars that can be written.          |
+| len                | Returns the total number of written chars.                |
 | vlen               | Returns the total number of visual characters.            |
 | src                | Returns a slice containing only the written part.         |
 | sub                | Returns a sub-slice of the `Viewer`.                      |
 | charAt             | Returns a character at the specified index.               |
 | atVisual           | Returns a character at the specified visual position.     |
-| iterator           | Creates an iterator for traversing the Unicode bytes.     |
+| iterator           | Creates an iterator for traversing the Unicode chars.     |
 | find               | Finds the position of the first occurrence of the target slice. |
 | findVisual         | Finds the visual position of the first occurrence of the target slice. |
 | findLast           | Finds the position of the last occurrence of the target slice. |

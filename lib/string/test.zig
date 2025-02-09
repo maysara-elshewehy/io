@@ -31,37 +31,37 @@
 
     // ┌─────────────────────── Initialization ───────────────────────┐
 
-        test "Viewer.initEmpty" {
-            const s = Viewer.initEmpty();
+        test "Viewer(u8).initEmpty" {
+            const s = Viewer(u8).initEmpty();
             try expectEqual(0, s.len());
             try expectEqual(0, s.size());
             try expectStrings("", s.src());
         }
 
-        test "Viewer.initWithSlice" {
-            const s = Viewer.initWithSlice("Hello");
+        test "Viewer(u8).initWithSlice" {
+            const s = Viewer(u8).initWithSlice("Hello");
             try expectEqual(5, s.len());
             try expectEqual(5, s.size());
             try expectStrings("Hello", s.src());
         }
 
-        test "Viewer.initWithSelf" {
-            const s = Viewer.initWithSlice("Hello");
-            const s2 = Viewer.initWithSelf(s);
+        test "Viewer(u8).initWithSelf" {
+            const s = Viewer(u8).initWithSlice("Hello");
+            const s2 = Viewer(u8).initWithSelf(s);
             try expectEqual(5, s2.len());
             try expectEqual(5, s2.size());
             try expectStrings("Hello", s2.src());
         }
 
-        test "Viewer.init (all types)" {
+        test "Viewer(u8).init (all types)" {
             // with slice
-            const s = try Viewer.init("H");
+            const s = try Viewer(u8).init("H");
             try expectEqual(1, s.len());
             try expectEqual(1, s.size());
             try expectStrings("H", s.src());
 
             // with self
-            const s2 = try Viewer.init(s);
+            const s2 = try Viewer(u8).init(s);
             try expectEqual(1, s2.len());
             try expectEqual(1, s2.size());
             try expectStrings("H", s2.src());
@@ -72,8 +72,8 @@
 
     // ┌──────────────────────────── Find ────────────────────────────┐
 
-        test "Viewer.find" {
-            var s = Viewer.initWithSlice("Hello 👨‍🏭!");
+        test "Viewer(u8).find" {
+            var s = Viewer(u8).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { value : []const u8 = undefined, expected  :? usize = null, };
             const cases = &[_]Cases{
@@ -92,8 +92,8 @@
             }
         }
 
-        test "Viewer.findVisual" {
-            var s = Viewer.initWithSlice("Hello 👨‍🏭!");
+        test "Viewer(u8).findVisual" {
+            var s = Viewer(u8).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
             const cases = &[_]Cases{
@@ -112,8 +112,8 @@
             }
         }
 
-        test "Viewer.findLast" {
-            var s = Viewer.initWithSlice("Hello 👨‍🏭!");
+        test "Viewer(u8).findLast" {
+            var s = Viewer(u8).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
             const cases = &[_]Cases{
@@ -132,8 +132,8 @@
             }
         }
 
-        test "Viewer.findLastVisual" {
-            var s = Viewer.initWithSlice("Hello 👨‍🏭!");
+        test "Viewer(u8).findLastVisual" {
+            var s = Viewer(u8).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { value  : []const u8 = undefined, expected  :? usize = null, };
             const cases = &[_]Cases{
@@ -152,8 +152,8 @@
             }
         }
 
-        test "Viewer.includes" {
-            var s = Viewer.initWithSlice("Hello 👨‍🏭!");
+        test "Viewer(u8).includes" {
+            var s = Viewer(u8).initWithSlice("Hello 👨‍🏭!");
 
             try expect(s.includes("H"));
             try expect(s.includes("e"));
@@ -165,15 +165,15 @@
             try expect(!s.includes("@"));
         }
 
-        test "Viewer.startsWith" {
-            var s = Viewer.initWithSlice("Hello 👨‍🏭!");
+        test "Viewer(u8).startsWith" {
+            var s = Viewer(u8).initWithSlice("Hello 👨‍🏭!");
 
             try expect(s.startsWith("H"));
             try expect(!s.startsWith("👨‍🏭"));
         }
 
-        test "Viewer.endsWith" {
-            var s = Viewer.initWithSlice("Hello 👨‍🏭!");
+        test "Viewer(u8).endsWith" {
+            var s = Viewer(u8).initWithSlice("Hello 👨‍🏭!");
 
             try expect(s.endsWith("!"));
             try expect(!s.endsWith("👨‍🏭"));
@@ -184,18 +184,18 @@
 
     // ┌──────────────────────────── Check ───────────────────────────┐
 
-        test "Viewer.isEqual" {
-            const s1 = Viewer.initWithSlice("Hello, World!");
-            const s2 = Viewer.initWithSlice("Hello, World!");
-            const s3 = Viewer.initWithSlice("Goodbye, World!");
+        test "Viewer(u8).isEqual" {
+            const s1 = Viewer(u8).initWithSlice("Hello, World!");
+            const s2 = Viewer(u8).initWithSlice("Hello, World!");
+            const s3 = Viewer(u8).initWithSlice("Goodbye, World!");
 
             try expect(s1.isEqual(s2.src()));
             try expect(!s1.isEqual(s3.src()));
         }
 
-        test "Viewer.isEmpty" {
-            const empty = Viewer.initWithSlice("");
-            const nonEmpty = Viewer.initWithSlice("Hello, World!");
+        test "Viewer(u8).isEmpty" {
+            const empty = Viewer(u8).initWithSlice("");
+            const nonEmpty = Viewer(u8).initWithSlice("Hello, World!");
 
             try expect(empty.isEmpty());
             try expect(!nonEmpty.isEmpty());
@@ -206,8 +206,8 @@
 
     // ┌──────────────────────────── Data ────────────────────────────┐
 
-        test "Viewer.iterator" {
-            var s = Viewer.initWithSlice("!👨‍🏭@👨‍🏭#");
+        test "Viewer(u8).iterator" {
+            var s = Viewer(u8).initWithSlice("!👨‍🏭@👨‍🏭#");
             var iter = s.iterator();
 
             while(iter.nextSlice()) |slice| {
@@ -218,8 +218,8 @@
             try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.current_index);
         }
 
-        test "Viewer.charAt and Viewer.atVisual and Viewer.sub" {
-            var s = Viewer.initWithSlice("!👨‍🏭@👨‍🏭#");
+        test "Viewer(u8).charAt and Viewer(u8).atVisual and Viewer(u8).sub" {
+            var s = Viewer(u8).initWithSlice("!👨‍🏭@👨‍🏭#");
 
             try expectEqual('!',  s.charAt(0).?);
             try expectEqual('@',  s.charAt(12).?);
@@ -241,8 +241,8 @@
 
     // ┌──────────────────────────── Split ───────────────────────────┐
 
-        test "Viewer.split" {
-            var s = try Viewer.init("0👨‍🏭11👨‍🏭2👨‍🏭33");
+        test "Viewer(u8).split" {
+            var s = try Viewer(u8).init("0👨‍🏭11👨‍🏭2👨‍🏭33");
 
             // Test basic splits
             try expectStrings("0", s.split("👨‍🏭", 0).?);
@@ -254,16 +254,16 @@
             try expect(s.split("👨‍🏭", 4) == null);
 
             // Test empty input
-            var s2 = Viewer.initEmpty();
+            var s2 = Viewer(u8).initEmpty();
             try expectStrings("", s2.split("👨‍🏭", 0).?);
 
             // Test non-existent delimiter
             try expectStrings(s.src(), s.split("X", 0).?);
         }
 
-        test "Viewer.splitAll" {
+        test "Viewer(u8).splitAll" {
             // Leading/trailing delimiters
-            var s = try Viewer.init("👨‍🏭a👨‍🏭b👨‍🏭");
+            var s = try Viewer(u8).init("👨‍🏭a👨‍🏭b👨‍🏭");
 
             const parts2 = try s.splitAll(Allocator, "👨‍🏭", true);
             defer Allocator.free(parts2);
@@ -279,8 +279,8 @@
             try expectStrings("b", parts3[1]);
         }
 
-        test "Viewer.splitToSelf" {
-            var s = try Viewer.init("0👨‍🏭11👨‍🏭2👨‍🏭33");
+        test "Viewer(u8).splitToSelf" {
+            var s = try Viewer(u8).init("0👨‍🏭11👨‍🏭2👨‍🏭33");
 
             // Test basic splits
             if(s.splitToSelf( "👨‍🏭", 0)) |res| {
@@ -300,7 +300,7 @@
             try expect(s.splitToSelf("👨‍🏭", 4) == null);
 
             // Test empty input
-            var s2 = Buffer(100).initEmpty();
+            var s2 = Buffer(u8, 100).initEmpty();
             try expectStrings("", (try s2.splitToSelf("👨‍🏭", 0)).?.src());
 
             // Test non-existent delimiter
@@ -309,9 +309,9 @@
             }
         }
 
-        test "Viewer.splitAllToSelf" {
+        test "Viewer(u8).splitAllToSelf" {
             // Leading/trailing delimiters
-            var s = try Viewer.init("👨‍🏭a👨‍🏭b👨‍🏭");
+            var s = try Viewer(u8).init("👨‍🏭a👨‍🏭b👨‍🏭");
 
             const parts2 = try s.splitAllToSelf(Allocator, "👨‍🏭");
             defer Allocator.free(parts2);
@@ -331,82 +331,82 @@
 
     // ┌─────────────────────── Initialization ───────────────────────┐
 
-        test "Buffer.initEmpty" {
-            const s = Buffer(16).initEmpty();
+        test "Buffer(u8, N).initEmpty" {
+            const s = Buffer(u8, 16).initEmpty();
             try expectEqual(0, s.len());
             try expectEqual(16, s.size());
             try expectStrings("", s.src());
         }
 
-        test "Buffer.initWithSlice" {
-            const s = Buffer(16).initWithSlice("Hello");
+        test "Buffer(u8, N).initWithSlice" {
+            const s = Buffer(u8, 16).initWithSlice("Hello");
             try expectEqual(5, s.len());
             try expectEqual(16, s.size());
             try expectStrings("Hello", s.src());
         }
 
-        test "Buffer.initWithByte" {
-            const s = Buffer(16).initWithByte('H');
+        test "Buffer(u8, N).initWithChar" {
+            const s = Buffer(u8, 16).initWithChar('H');
             try expectEqual(1, s.len());
             try expectEqual(16, s.size());
             try expectStrings("H", s.src());
         }
 
-        test "Buffer.initWithSelf" {
-            const s = Buffer(16).initWithSlice("Hello");
-            const s2 = Buffer(16).initWithSelf(s);
+        test "Buffer(u8, N).initWithSelf" {
+            const s = Buffer(u8, 16).initWithSlice("Hello");
+            const s2 = Buffer(u8, 16).initWithSelf(s);
             try expectEqual(5, s2.len());
             try expectEqual(16, s2.size());
             try expectStrings("Hello", s2.src());
         }
 
-        test "Buffer.initWithFmt" {
-            var s = try Buffer(20).initWithFmt("{s}", .{"Hello"});
+        test "Buffer(u8, N).initWithFmt" {
+            var s = try Buffer(u8, 20).initWithFmt("{s}", .{"Hello"});
             try expectStrings("Hello", s.src());
 
-            var s2 = try Buffer(20).initWithFmt("{s} {s}", .{"Hello", "World"});
+            var s2 = try Buffer(u8, 20).initWithFmt("{s} {s}", .{"Hello", "World"});
             try expectStrings("Hello World", s2.src());
 
-            var s3 = try Buffer(20).initWithFmt("{s}{s}", .{"Hello", "!"});
+            var s3 = try Buffer(u8, 20).initWithFmt("{s}{s}", .{"Hello", "!"});
             try expectStrings("Hello!", s3.src());
 
-            const s4 = Buffer(2).initWithFmt("{s}{s}", .{"Hello", "!"});
+            const s4 = Buffer(u8, 2).initWithFmt("{s}{s}", .{"Hello", "!"});
             try expectError(error.OutOfMemory, s4);
         }
 
-        test "Buffer.init (all types)" {
-            // with byte
-            const s = try Buffer(16).init('H');
+        test "Buffer(u8, N).init (all types)" {
+            // with char
+            const s = try Buffer(u8, 16).init('H');
             try expectEqual(1, s.len());
             try expectEqual(16, s.size());
             try expectStrings("H", s.src());
 
             // with slice
-            const s2 = try Buffer(16).init("H");
+            const s2 = try Buffer(u8, 16).init("H");
             try expectEqual(1, s2.len());
             try expectEqual(16, s2.size());
             try expectStrings("H", s2.src());
 
             // with self
-            const s3 = try Buffer(16).init(s2);
+            const s3 = try Buffer(u8, 16).init(s2);
             try expectEqual(1, s3.len());
             try expectEqual(16, s3.size());
             try expectStrings("H", s3.src());
 
             // with positive integer
-            const s4 = try Buffer(16).init(2099);
+            const s4 = try Buffer(u8, 16).init(2099);
             try expectEqual(4, s4.len());
             try expectEqual(16, s4.size());
             try expectStrings("2099", s4.src());
 
             // with negative integer
-            const s5 = try Buffer(16).init(-2099);
+            const s5 = try Buffer(u8, 16).init(-2099);
             try expectEqual(5, s5.len());
             try expectEqual(16, s5.size());
             try expectStrings("-2099", s5.src());
 
             // with float
-            const s6 = try Buffer(16).init(20.99);
+            const s6 = try Buffer(u8, 16).init(20.99);
             try expectEqual(7, s6.len());
             try expectEqual(16, s6.size());
             try expectStrings("2.099e1", s6.src());
@@ -415,33 +415,33 @@
             // rules
             // 1. u8 is a character.
             // 2. comptime_int between the `u8` range is a character.
-            const s7 = try Buffer(16).init(@as(u16, 2));
+            const s7 = try Buffer(u8, 16).init(@as(u16, 2));
             try expectEqual(1, s7.len());
             try expectEqual(16, s7.size());
             try expectStrings("2", s7.src());
 
             // with boolean
-            const s8 = try Buffer(16).init(true);
+            const s8 = try Buffer(u8, 16).init(true);
             try expectEqual(4, s8.len());
             try expectEqual(16, s8.size());
             try expectStrings("true", s8.src());
 
             // with array (not a s)
             const arr = [_]bool{ true, false };
-            const s9 = try Buffer(16).init(arr);
+            const s9 = try Buffer(u8, 16).init(arr);
             try expectEqual(15, s9.len());
             try expectEqual(16, s9.size());
             try expectStrings("{ true, false }", s9.src());
 
             // with structure
-            const s10 = try Buffer(256).init(.{ .value = "Hello" });
+            const s10 = try Buffer(u8, 256).init(.{ .value = "Hello" });
             try expectEqual(256, s10.size());
             // the `id` of the struct changed every time, so i will comment it.
             // try expectEqual(100, s10.len());
-            // try expectStrings("String.String.test.test.Buffer.init (with byte)__struct_26510{ .value = { 72, 101, 108, 108, 111 } }", s10.src());
+            // try expectStrings("String(u8).String(u8).test.test.Buffer(u8, N).init (with char)__struct_26510{ .value = { 72, 101, 108, 108, 111 } }", s10.src());
 
             // with null
-            const s11 = try Buffer(16).init(null);
+            const s11 = try Buffer(u8, 16).init(null);
             try expectEqual(4, s11.len());
             try expectEqual(16, s11.size());
             try expectStrings("null", s11.src());
@@ -452,8 +452,8 @@
 
     // ┌─────────────────────────── Insert ───────────────────────────┐
 
-        test "Buffer.insertSlice" {
-            var s = Buffer(19).initEmpty();
+        test "Buffer(u8, N).insertSlice" {
+            var s = Buffer(u8, 19).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -479,8 +479,8 @@
             try expectError(error.OutOfMemory, s.insertSlice("@", 0));
         }
 
-        test "Buffer.insertByte" {
-            var s = Buffer(4).initEmpty();
+        test "Buffer(u8, N).insertChar" {
+            var s = Buffer(u8, 4).initEmpty();
 
             const Cases = struct { value: u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -490,20 +490,20 @@
             };
 
             for(cases) |c| {
-                try s.insertByte(c.value, c.pos);
+                try s.insertChar(c.value, c.pos);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
             }
 
             // Failure Cases.
-            try expectError(error.OutOfRange, s.insertByte('@', 4));
-            try s.insertByte('@', 0); // add one to be full for the next test
-            try expectError(error.OutOfMemory, s.insertByte(0, 0));
+            try expectError(error.OutOfRange, s.insertChar('@', 4));
+            try s.insertChar('@', 0); // add one to be full for the next test
+            try expectError(error.OutOfMemory, s.insertChar(0, 0));
         }
 
-        test "Buffer.insertSelf" {
-            var s = Buffer(19).initEmpty();
+        test "Buffer(u8, N).insertSelf" {
+            var s = Buffer(u8, 19).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -517,7 +517,7 @@
             };
 
             for(cases) |c| {
-                const o = Buffer(19).initWithSlice(c.value);
+                const o = Buffer(u8, 19).initWithSlice(c.value);
                 try s.insertSelf(o, c.pos);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
@@ -525,13 +525,13 @@
             }
 
             // Failure Cases.
-            try expectError(error.OutOfRange, s.insertSelf(Buffer(19).initWithSlice("@"), 19));
-            try s.insertSelf(Buffer(19).initWithSlice("@"), 0); // add one to be full for the next test
-            try expectError(error.OutOfMemory, s.insertSelf(Buffer(19).initWithSlice("@"), 0));
+            try expectError(error.OutOfRange, s.insertSelf(Buffer(u8, 19).initWithSlice("@"), 19));
+            try s.insertSelf(Buffer(u8, 19).initWithSlice("@"), 0); // add one to be full for the next test
+            try expectError(error.OutOfMemory, s.insertSelf(Buffer(u8, 19).initWithSlice("@"), 0));
         }
 
-        test "Buffer.insertFmt" {
-            var s = Buffer(19).initEmpty();
+        test "Buffer(u8, N).insertFmt" {
+            var s = Buffer(u8, 19).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -557,8 +557,8 @@
             try expectError(error.OutOfMemory, s.insertFmt("{s}", .{"@"}, 0));
         }
 
-        test "Buffer.insert" {
-            var s = Buffer(19).initEmpty();
+        test "Buffer(u8, N).insert" {
+            var s = Buffer(u8, 19).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -584,8 +584,8 @@
             try expectError(error.OutOfMemory, s.insert("@", 0));
         }
 
-        test "Buffer.visualInsertSlice" {
-            var s = Buffer(20).initEmpty();
+        test "Buffer(u8, N).visualInsertSlice" {
+            var s = Buffer(u8, 20).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -608,12 +608,12 @@
 
             // Failure Cases.
             try expectError(error.OutOfRange, s.visualInsertSlice("@", 20));
-            try s.insertByte('@', 0); // add one to be full for the next test
+            try s.insertChar('@', 0); // add one to be full for the next test
             try expectError(error.OutOfMemory, s.visualInsertSlice("@", 0));
         }
 
-        test "Buffer.visualInsertByte" {
-            var s = Buffer(15).initWithSlice("👨‍🏭");
+        test "Buffer(u8, N).visualInsertChar" {
+            var s = Buffer(u8, 15).initWithSlice("👨‍🏭");
 
             const Cases = struct { value: u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -623,20 +623,20 @@
             };
 
             for(cases) |c| {
-                try s.visualInsertByte(c.value, c.pos);
+                try s.visualInsertChar(c.value, c.pos);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
             }
 
             // Failure Cases.
-            try expectError(error.OutOfRange, s.visualInsertByte('@', 15));
-            try s.visualInsertByte('@', 0); // add one to be full for the next test
-            try expectError(error.OutOfMemory, s.visualInsertByte(0, 0));
+            try expectError(error.OutOfRange, s.visualInsertChar('@', 15));
+            try s.visualInsertChar('@', 0); // add one to be full for the next test
+            try expectError(error.OutOfMemory, s.visualInsertChar(0, 0));
         }
 
-        test "Buffer.visualInsertSelf" {
-            var s = Buffer(20).initEmpty();
+        test "Buffer(u8, N).visualInsertSelf" {
+            var s = Buffer(u8, 20).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -651,7 +651,7 @@
             };
 
             for(cases) |c| {
-                const o = Buffer(20).initWithSlice(c.value);
+                const o = Buffer(u8, 20).initWithSlice(c.value);
                 try s.visualInsertSelf(o, c.pos);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
@@ -659,13 +659,13 @@
             }
 
             // Failure Cases.
-            try expectError(error.OutOfRange, s.visualInsertSelf(Buffer(20).initWithSlice("@"), 20));
-            try s.insertSelf(Buffer(20).initWithSlice("@"), 0); // add one to be full for the next test
-            try expectError(error.OutOfMemory, s.visualInsertSelf(Buffer(20).initWithSlice("@"), 0));
+            try expectError(error.OutOfRange, s.visualInsertSelf(Buffer(u8, 20).initWithSlice("@"), 20));
+            try s.insertSelf(Buffer(u8, 20).initWithSlice("@"), 0); // add one to be full for the next test
+            try expectError(error.OutOfMemory, s.visualInsertSelf(Buffer(u8, 20).initWithSlice("@"), 0));
         }
 
-        test "Buffer.visualInsertFmt" {
-            var s = Buffer(20).initEmpty();
+        test "Buffer(u8, N).visualInsertFmt" {
+            var s = Buffer(u8, 20).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -692,8 +692,8 @@
             try expectError(error.OutOfMemory, s.visualInsertFmt("{s}", .{"@"}, 0));
         }
 
-        test "Buffer.visualInsert" {
-            var s = Buffer(20).initEmpty();
+        test "Buffer(u8, N).visualInsert" {
+            var s = Buffer(u8, 20).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -720,8 +720,8 @@
             try expectError(error.OutOfMemory, s.visualInsert("@", 0));
         }
 
-        test "Buffer.appendSlice" {
-            var s = Buffer(18).initEmpty();
+        test "Buffer(u8, N).appendSlice" {
+            var s = Buffer(u8, 18).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -745,8 +745,8 @@
             try expectError(error.OutOfMemory, s.appendSlice("@"));
         }
 
-        test "Buffer.appendByte" {
-            var s = Buffer(6).initEmpty();
+        test "Buffer(u8, N).appendChar" {
+            var s = Buffer(u8, 6).initEmpty();
 
             const Cases = struct { value: u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -759,18 +759,18 @@
             };
 
             for (cases) |c| {
-                try s.appendByte(c.value);
+                try s.appendChar(c.value);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
             }
 
             // Failure Cases.
-            try expectError(error.OutOfMemory, s.appendByte('@'));
+            try expectError(error.OutOfMemory, s.appendChar('@'));
         }
 
-        test "Buffer.appendSelf" {
-            var s = Buffer(18).initEmpty();
+        test "Buffer(u8, N).appendSelf" {
+            var s = Buffer(u8, 18).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -784,7 +784,7 @@
             };
 
             for(cases) |c| {
-                const o = Buffer(18).initWithSlice(c.value);
+                const o = Buffer(u8, 18).initWithSlice(c.value);
                 try s.appendSelf(o);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
@@ -792,11 +792,11 @@
             }
 
             // Failure Cases.
-            try expectError(error.OutOfMemory, s.appendSelf(Buffer(18).initWithSlice("@")));
+            try expectError(error.OutOfMemory, s.appendSelf(Buffer(u8, 18).initWithSlice("@")));
         }
 
-        test "Buffer.appendFmt" {
-            var s = Buffer(18).initEmpty();
+        test "Buffer(u8, N).appendFmt" {
+            var s = Buffer(u8, 18).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -820,8 +820,8 @@
             try expectError(error.OutOfMemory, s.appendFmt("{s}", .{"@"}));
         }
 
-        test "Buffer.append" {
-            var s = Buffer(18).initEmpty();
+        test "Buffer(u8, N).append" {
+            var s = Buffer(u8, 18).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -845,8 +845,8 @@
             try expectError(error.OutOfMemory, s.append("@"));
         }
 
-        test "Buffer.prependSlice" {
-            var s = Buffer(18).initEmpty();
+        test "Buffer(u8, N).prependSlice" {
+            var s = Buffer(u8, 18).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -870,8 +870,8 @@
             try expectError(error.OutOfMemory, s.prependSlice("@"));
         }
 
-        test "Buffer.prependByte" {
-            var s = Buffer(6).initEmpty();
+        test "Buffer(u8, N).prependChar" {
+            var s = Buffer(u8, 6).initEmpty();
 
             const Cases = struct { value: u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -884,18 +884,18 @@
             };
 
             for (cases) |c| {
-                try s.prependByte(c.value);
+                try s.prependChar(c.value);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
             }
 
             // Failure Cases.
-            try expectError(error.OutOfMemory, s.prependByte('@'));
+            try expectError(error.OutOfMemory, s.prependChar('@'));
         }
 
-        test "Buffer.prependSelf" {
-            var s = Buffer(18).initEmpty();
+        test "Buffer(u8, N).prependSelf" {
+            var s = Buffer(u8, 18).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -909,7 +909,7 @@
             };
 
             for (cases) |c| {
-                const o = Buffer(18).initWithSlice(c.value);
+                const o = Buffer(u8, 18).initWithSlice(c.value);
                 try s.prependSelf(o);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
@@ -917,11 +917,11 @@
             }
 
             // Failure Cases.
-            try expectError(error.OutOfMemory, s.prependSelf(Buffer(18).initWithSlice("@")));
+            try expectError(error.OutOfMemory, s.prependSelf(Buffer(u8, 18).initWithSlice("@")));
         }
 
-        test "Buffer.prependFmt" {
-            var s = Buffer(18).initEmpty();
+        test "Buffer(u8, N).prependFmt" {
+            var s = Buffer(u8, 18).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -945,8 +945,8 @@
             try expectError(error.OutOfMemory, s.prependFmt("{s}", .{"@"}));
         }
 
-        test "Buffer.prepend" {
-            var s = Buffer(18).initEmpty();
+        test "Buffer(u8, N).prepend" {
+            var s = Buffer(u8, 18).initEmpty();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
             const cases = &[_]Cases{
@@ -975,8 +975,8 @@
 
     // ┌─────────────────────────── Remove ───────────────────────────┐
 
-        test "Buffer.removeIndex" {
-            var s = Buffer(20).initWithSlice("Hello !");
+        test "Buffer(u8, N).removeIndex" {
+            var s = Buffer(u8, 20).initWithSlice("Hello !");
 
             const Cases = struct { pos: usize, expected: []const u8 };
             const cases = &[_]Cases{
@@ -998,8 +998,8 @@
             try expectError(error.OutOfRange, s.removeIndex(1));
         }
 
-        test "Buffer.removeVisualIndex" {
-            var s = Buffer(20).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).removeVisualIndex" {
+            var s = Buffer(u8, 20).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { pos: usize, expected: []const u8 };
             const cases = &[_]Cases{
@@ -1022,14 +1022,14 @@
             const res = s.removeVisualIndex(1);
             try expectError(error.OutOfRange, res);
 
-            var s2 = Buffer(20).initWithSlice("👨‍🏭");
+            var s2 = Buffer(u8, 20).initWithSlice("👨‍🏭");
 
             const res2 = s2.removeVisualIndex(2);
             try expectError(error.InvalidPosition, res2);
         }
 
-        test "Buffer.removeRange" {
-            var s = Buffer(20).initWithSlice("Hello !");
+        test "Buffer(u8, N).removeRange" {
+            var s = Buffer(u8, 20).initWithSlice("Hello !");
 
             const Cases = struct { pos: usize, len: usize, expected: []const u8 };
             const cases = &[_]Cases{
@@ -1051,8 +1051,8 @@
             try expectError(error.OutOfRange, s.removeRange(1, 1));
         }
 
-        test "Buffer.removeVisualRange" {
-            var s = Buffer(20).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).removeVisualRange" {
+            var s = Buffer(u8, 20).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { pos: usize, len: usize, expected: []const u8 };
             const cases = &[_]Cases{
@@ -1075,14 +1075,14 @@
             const res = s.removeVisualRange(1, 1);
             try expectError(error.OutOfRange, res);
 
-            var s2 = Buffer(20).initWithSlice("👨‍🏭");
+            var s2 = Buffer(u8, 20).initWithSlice("👨‍🏭");
 
             const res2 = s2.removeVisualRange(2, 1);
             try expectError(error.InvalidPosition, res2);
         }
 
-        test "Buffer.pop" {
-            var s = Buffer(20).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).pop" {
+            var s = Buffer(u8, 20).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { removed: []const u8, expected: []const u8 };
             const cases = &[_]Cases{
@@ -1106,8 +1106,8 @@
             try expectEqual(null, s.pop());
         }
 
-        test "Buffer.shift" {
-            var s = Buffer(20).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).shift" {
+            var s = Buffer(u8, 20).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { removed: []const u8, expected: []const u8 };
             const cases = &[_]Cases{
@@ -1130,24 +1130,24 @@
             }
         }
 
-        test "Buffer.trimStart" {
-            var s = Buffer(64).initWithSlice("   Hello 👨‍🏭!");
+        test "Buffer(u8, N).trimStart" {
+            var s = Buffer(u8, 64).initWithSlice("   Hello 👨‍🏭!");
             s.trimStart(); // x1 (remove empty spaces)
             s.trimStart(); // x2 (no effect)
             try expectStrings("Hello 👨‍🏭!", s.src());
             try expectEqual(18, s.len());
         }
 
-        test "Buffer.trimEnd" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!    ");
+        test "Buffer(u8, N).trimEnd" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!    ");
             s.trimEnd(); // x1 (remove empty spaces)
             s.trimEnd(); // x2 (no effect)
             try expectStrings("Hello 👨‍🏭!", s.src());
             try expectEqual(18, s.len());
         }
 
-        test "Buffer.trim" {
-            var s = Buffer(64).initWithSlice("    Hello 👨‍🏭!    ");
+        test "Buffer(u8, N).trim" {
+            var s = Buffer(u8, 64).initWithSlice("    Hello 👨‍🏭!    ");
             s.trim(); // x1 (remove empty spaces)
             s.trim(); // x2 (no effect)
             try expectStrings("Hello 👨‍🏭!", s.src());
@@ -1159,26 +1159,26 @@
 
     // ┌─────────────────────────── Replace ──────────────────────────┐
 
-        test "Buffer.replaceRange" {
-            var s = try Buffer(64).init("Hello 👨‍🏭!");
+        test "Buffer(u8, N).replaceRange" {
+            var s = try Buffer(u8, 64).init("Hello 👨‍🏭!");
             try s.replaceRange(6, 11, "World");
             try expectStrings("Hello World!", s.src());
         }
 
-        test "Buffer.replaceVisualRange" {
-            var s = try Buffer(64).init("Hello 👨‍🏭!");
+        test "Buffer(u8, N).replaceVisualRange" {
+            var s = try Buffer(u8, 64).init("Hello 👨‍🏭!");
             try s.replaceVisualRange(6, 1, "World");
             try expectStrings("Hello World!", s.src());
         }
 
-        test "Buffer.replaceFirst" {
-            var s = try Buffer(64).init("Hello 👨‍🏭👨‍🏭!");
+        test "Buffer(u8, N).replaceFirst" {
+            var s = try Buffer(u8, 64).init("Hello 👨‍🏭👨‍🏭!");
             try s.replaceFirst("👨‍🏭", "World");
             try expectStrings("Hello World👨‍🏭!", s.src());
         }
 
-        test "Buffer.replaceFirstN" {
-            var s = try Buffer(100).init("Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
+        test "Buffer(u8, N).replaceFirstN" {
+            var s = try Buffer(u8, 100).init("Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
             try s.replaceFirstN("👨‍🏭", "World", 1);
             try expectStrings("Hello World👨‍🏭👨‍🏭👨‍🏭!", s.src());
             try s.replaceFirstN("👨‍🏭", "World", 2);
@@ -1187,14 +1187,14 @@
             try expectStrings("Hello WorldWorldWorldWorld!", s.src());
         }
 
-        test "Buffer.replaceLast" {
-            var s = try Buffer(64).init("Hello 👨‍🏭👨‍🏭!");
+        test "Buffer(u8, N).replaceLast" {
+            var s = try Buffer(u8, 64).init("Hello 👨‍🏭👨‍🏭!");
             try s.replaceLast("👨‍🏭", "World");
             try expectStrings("Hello 👨‍🏭World!", s.src());
         }
 
-        test "Buffer.replaceLastN" {
-            var s = try Buffer(100).init("Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
+        test "Buffer(u8, N).replaceLastN" {
+            var s = try Buffer(u8, 100).init("Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
             try s.replaceLastN("👨‍🏭", "World", 1);
             try expectStrings("Hello 👨‍🏭👨‍🏭👨‍🏭World!", s.src());
             try s.replaceLastN("👨‍🏭", "World", 2);
@@ -1203,14 +1203,14 @@
             try expectStrings("Hello WorldWorldWorldWorld!", s.src());
         }
 
-        test "Buffer.replaceAll" {
-            var s = try Buffer(64).init("Hello 👨‍🏭👨‍🏭!");
+        test "Buffer(u8, N).replaceAll" {
+            var s = try Buffer(u8, 64).init("Hello 👨‍🏭👨‍🏭!");
             try s.replaceAll("👨‍🏭", "World");
             try expectStrings("Hello WorldWorld!", s.src());
         }
 
-        test "Buffer.replaceNth" {
-            var s = try Buffer(100).init("Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
+        test "Buffer(u8, N).replaceNth" {
+            var s = try Buffer(u8, 100).init("Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
             try s.replaceNth("👨‍🏭", "World", 0);
             try expectStrings("Hello World👨‍🏭👨‍🏭👨‍🏭!", s.src());
             try s.replaceNth("👨‍🏭", "World", 1);
@@ -1226,8 +1226,8 @@
 
     // ┌─────────────────────────── Repeat ───────────────────────────┐
 
-        test "Buffer.repeat" {
-            var s = Buffer(10).initEmpty();
+        test "Buffer(u8, N).repeat" {
+            var s = Buffer(u8, 10).initEmpty();
 
             // add 'H'x0
             try s.repeat('H', 0);
@@ -1255,8 +1255,8 @@
 
     // ┌──────────────────────────── Find ────────────────────────────┐
 
-        test "Buffer.find" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).find" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { value : []const u8 = undefined, expected  :? usize = null, };
             const cases = &[_]Cases{
@@ -1275,8 +1275,8 @@
             }
         }
 
-        test "Buffer.findVisual" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).findVisual" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
             const cases = &[_]Cases{
@@ -1295,8 +1295,8 @@
             }
         }
 
-        test "Buffer.findLast" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).findLast" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
             const cases = &[_]Cases{
@@ -1315,8 +1315,8 @@
             }
         }
 
-        test "Buffer.findLastVisual" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).findLastVisual" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
 
             const Cases = struct { value  : []const u8 = undefined, expected  :? usize = null, };
             const cases = &[_]Cases{
@@ -1335,8 +1335,8 @@
             }
         }
 
-        test "Buffer.includes" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).includes" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
 
             try expect(s.includes("H"));
             try expect(s.includes("e"));
@@ -1348,15 +1348,15 @@
             try expect(!s.includes("@"));
         }
 
-        test "Buffer.startsWith" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).startsWith" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
 
             try expect(s.startsWith("H"));
             try expect(!s.startsWith("👨‍🏭"));
         }
 
-        test "Buffer.endsWith" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).endsWith" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
 
             try expect(s.endsWith("!"));
             try expect(!s.endsWith("👨‍🏭"));
@@ -1367,22 +1367,22 @@
 
     // ┌──────────────────────────── Case ────────────────────────────┐
 
-        test "Buffer.toLower" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).toLower" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
 
             s.toLower();
             try expectStrings("hello 👨‍🏭!", s.src());
         }
 
-        test "Buffer.toUpper" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).toUpper" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
 
             s.toUpper();
             try expectStrings("HELLO 👨‍🏭!", s.src());
         }
 
-        test "Buffer.toTitle" {
-            var s = Buffer(64).initWithSlice("heLLo 👨‍🏭!");
+        test "Buffer(u8, N).toTitle" {
+            var s = Buffer(u8, 64).initWithSlice("heLLo 👨‍🏭!");
 
             s.toTitle();
             try expectStrings("Hello 👨‍🏭!", s.src());
@@ -1393,18 +1393,18 @@
 
     // ┌──────────────────────────── Check ───────────────────────────┐
 
-        test "Buffer.isEqual" {
-            const s1 = Buffer(64).initWithSlice("Hello, World!");
-            const s2 = Buffer(64).initWithSlice("Hello, World!");
-            const s3 = Buffer(64).initWithSlice("Goodbye, World!");
+        test "Buffer(u8, N).isEqual" {
+            const s1 = Buffer(u8, 64).initWithSlice("Hello, World!");
+            const s2 = Buffer(u8, 64).initWithSlice("Hello, World!");
+            const s3 = Buffer(u8, 64).initWithSlice("Goodbye, World!");
 
             try expect(s1.isEqual(s2.src()));
             try expect(!s1.isEqual(s3.src()));
         }
 
-        test "Buffer.isEmpty" {
-            const empty = Buffer(64).initWithSlice("");
-            const nonEmpty = Buffer(64).initWithSlice("Hello, World!");
+        test "Buffer(u8, N).isEmpty" {
+            const empty = Buffer(u8, 64).initWithSlice("");
+            const nonEmpty = Buffer(u8, 64).initWithSlice("Hello, World!");
 
             try expect(empty.isEmpty());
             try expect(!nonEmpty.isEmpty());
@@ -1415,8 +1415,8 @@
 
     // ┌──────────────────────────── Data ────────────────────────────┐
 
-        test "Buffer.Writer.write" {
-            var s = Buffer(20).initEmpty();
+        test "Buffer(u8, N).Writer.write" {
+            var s = Buffer(u8, 20).initEmpty();
             var writer = s.writer();
 
             _ = try writer.write("Hello");
@@ -1429,8 +1429,8 @@
             try expectStrings("Hello World!", s.src());
         }
 
-        test "Buffer.iterator" {
-            var s = Buffer(64).initWithSlice("!👨‍🏭@👨‍🏭#");
+        test "Buffer(u8, N).iterator" {
+            var s = Buffer(u8, 64).initWithSlice("!👨‍🏭@👨‍🏭#");
             var iter = s.iterator();
 
             while(iter.nextSlice()) |slice| {
@@ -1441,8 +1441,8 @@
             try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.current_index);
         }
 
-        test "Buffer.charAt and Buffer.atVisual and Buffer.sub" {
-            var s = Buffer(64).initWithSlice("!👨‍🏭@👨‍🏭#");
+        test "Buffer(u8, N).charAt and Buffer(u8, N).atVisual and Buffer(u8, N).sub" {
+            var s = Buffer(u8, 64).initWithSlice("!👨‍🏭@👨‍🏭#");
 
             try expectEqual('!',  s.charAt(0).?);
             try expectEqual('@',  s.charAt(12).?);
@@ -1464,8 +1464,8 @@
 
     // ┌──────────────────────────── Split ───────────────────────────┐
 
-        test "Buffer.split" {
-            var s = try Buffer(100).init("0👨‍🏭11👨‍🏭2👨‍🏭33");
+        test "Buffer(u8, N).split" {
+            var s = try Buffer(u8, 100).init("0👨‍🏭11👨‍🏭2👨‍🏭33");
 
             // Test basic splits
             try expectStrings("0", s.split("👨‍🏭", 0).?);
@@ -1477,16 +1477,16 @@
             try expect(s.split("👨‍🏭", 4) == null);
 
             // Test empty input
-            var s2 = Buffer(100).initEmpty();
+            var s2 = Buffer(u8, 100).initEmpty();
             try expectStrings("", s2.split("👨‍🏭", 0).?);
 
             // Test non-existent delimiter
             try expectStrings(s.src(), s.split("X", 0).?);
         }
 
-        test "Buffer.splitAll" {
+        test "Buffer(u8, N).splitAll" {
             // Leading/trailing delimiters
-            var s = try Buffer(100).init("👨‍🏭a👨‍🏭b👨‍🏭");
+            var s = try Buffer(u8, 100).init("👨‍🏭a👨‍🏭b👨‍🏭");
 
             const parts2 = try s.splitAll(Allocator, "👨‍🏭", true);
             defer Allocator.free(parts2);
@@ -1502,8 +1502,8 @@
             try expectStrings("b", parts3[1]);
         }
 
-        test "Buffer.splitToSelf" {
-            var s = try Buffer(100).init("0👨‍🏭11👨‍🏭2👨‍🏭33");
+        test "Buffer(u8, N).splitToSelf" {
+            var s = try Buffer(u8, 100).init("0👨‍🏭11👨‍🏭2👨‍🏭33");
 
             // Test basic splits
             if(try s.splitToSelf( "👨‍🏭", 0)) |res| {
@@ -1523,7 +1523,7 @@
             try expect(try s.splitToSelf("👨‍🏭", 4) == null);
 
             // Test empty input
-            var s2 = Buffer(100).initEmpty();
+            var s2 = Buffer(u8, 100).initEmpty();
             try expectStrings("", (try s2.splitToSelf("👨‍🏭", 0)).?.src());
 
             // Test non-existent delimiter
@@ -1532,9 +1532,9 @@
             }
         }
 
-        test "Buffer.splitAllToSelf" {
+        test "Buffer(u8, N).splitAllToSelf" {
             // Leading/trailing delimiters
-            var s = try Buffer(100).init("👨‍🏭a👨‍🏭b👨‍🏭");
+            var s = try Buffer(u8, 100).init("👨‍🏭a👨‍🏭b👨‍🏭");
 
             const parts2 = try s.splitAllToSelf(Allocator, "👨‍🏭");
             defer Allocator.free(parts2);
@@ -1549,8 +1549,8 @@
 
     // ┌──────────────────────────── Utils ───────────────────────────┐
 
-        test "Buffer.reverse" {
-            var s = Buffer(64).initWithSlice("Hello 👨‍🏭!");
+        test "Buffer(u8, N).reverse" {
+            var s = Buffer(u8, 64).initWithSlice("Hello 👨‍🏭!");
             s.reverse();
             try expectStrings("!👨‍🏭 olleH", s.src());
         }
@@ -1565,102 +1565,102 @@
 
     // ┌─────────────────────── Initialization ───────────────────────┐
 
-        test "uString.initEmpty" {
-            const s = uString.initEmpty();
+        test "uString(u8).initEmpty" {
+            const s = uString(u8).initEmpty();
             try expectEqual(0, s.len());
             try expectEqual(0, s.size());
             try expectStrings("", s.src());
         }
 
-        test "uString.initWithAllocator" {
-            const s = try uString.initWithAllocator(Allocator);
+        test "uString(u8).initWithAllocator" {
+            const s = try uString(u8).initWithAllocator(Allocator);
             try expectEqual(0, s.len());
             try expectEqual(0, s.size());
             try expectStrings("", s.src());
         }
 
-        test "uString.initWithCapacity" {
-            var s = try uString.initWithCapacity(Allocator, 10);
+        test "uString(u8).initWithCapacity" {
+            var s = try uString(u8).initWithCapacity(Allocator, 10);
             defer s.deinit(Allocator);
             try expectEqual(0, s.len());
             try expectEqual(10, s.size());
             try expectStrings("", s.src());
 
             // zero
-            const s2 = try uString.initWithCapacity(Allocator, 0);
+            const s2 = try uString(u8).initWithCapacity(Allocator, 0);
             try expectEqual(0, s2.len());
             try expectEqual(0, s2.size());
             try expectStrings("", s2.src());
         }
 
-        test "uString.initWithSlice" {
-            var s = try uString.initWithSlice(Allocator, "Hello");
+        test "uString(u8).initWithSlice" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello");
             defer s.deinit(Allocator);
             try expectEqual(5, s.len());
             try expectEqual(5, s.size());
             try expectStrings("Hello", s.src());
         }
 
-        test "uString.initWithByte" {
-            var s = try uString.initWithByte(Allocator, 'H');
+        test "uString(u8).initWithChar" {
+            var s = try uString(u8).initWithChar(Allocator, 'H');
             defer s.deinit(Allocator);
             try expectEqual(1, s.len());
             try expectEqual(1, s.size());
             try expectStrings("H", s.src());
         }
 
-        test "uString.initWithSelf" {
-            var s = try uString.initWithSlice(Allocator, "Hello");
+        test "uString(u8).initWithSelf" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello");
             defer s.deinit(Allocator);
-            var s2 = try uString.initWithSelf(Allocator, s);
+            var s2 = try uString(u8).initWithSelf(Allocator, s);
             defer s2.deinit(Allocator);
             try expectEqual(5, s2.len());
             try expectEqual(5, s2.size());
             try expectStrings("Hello", s2.src());
         }
 
-        test "uString.initWithFmt" {
-            var s = try uString.initWithFmt(Allocator, "{s}", .{"Hello"});
+        test "uString(u8).initWithFmt" {
+            var s = try uString(u8).initWithFmt(Allocator, "{s}", .{"Hello"});
             defer s.deinit(Allocator);
             try expectStrings("Hello", s.src());
 
-            var s2 = try uString.initWithFmt(Allocator, "{s} {s}", .{"Hello", "World"});
+            var s2 = try uString(u8).initWithFmt(Allocator, "{s} {s}", .{"Hello", "World"});
             defer s2.deinit(Allocator);
             try expectStrings("Hello World", s2.src());
 
-            var s3 = try uString.initWithFmt(Allocator, "{s}{s}", .{"Hello", "!"});
+            var s3 = try uString(u8).initWithFmt(Allocator, "{s}{s}", .{"Hello", "!"});
             defer s3.deinit(Allocator);
             try expectStrings("Hello!", s3.src());
         }
 
-        test "uString.init (all types)" {
-            // with byte
-            const s = try uString.init(Allocator, 'H'); defer s.deinit(Allocator);
+        test "uString(u8).init (all types)" {
+            // with char
+            const s = try uString(u8).init(Allocator, 'H'); defer s.deinit(Allocator);
             try expectEqual(1, s.len());
             try expectStrings("H", s.src());
 
             // with slice
-            const s2 = try uString.init(Allocator, "H"); defer s2.deinit(Allocator);
+            const s2 = try uString(u8).init(Allocator, "H"); defer s2.deinit(Allocator);
             try expectEqual(1, s2.len());
             try expectStrings("H", s2.src());
 
             // with self
-            const s3 = try uString.init(Allocator, s2); defer s3.deinit(Allocator);
+            const s3 = try uString(u8).init(Allocator, s2); defer s3.deinit(Allocator);
             try expectEqual(1, s3.len());
             try expectStrings("H", s3.src());
 
             // with positive integer
-            const s4 = try uString.init(Allocator, 2099); defer s4.deinit(Allocator);
+            const s4 = try uString(u8).init(Allocator, 2099); defer s4.deinit(Allocator);
             try expectEqual(4, s4.len());
             try expectStrings("2099", s4.src());
 
             // with negative integer
-            const s5 = try uString.init(Allocator, -2099); defer s5.deinit(Allocator);
+            const s5 = try uString(u8).init(Allocator, -2099); defer s5.deinit(Allocator);
             try expectEqual(5, s5.len());
             try expectStrings("-2099", s5.src());
 
             // with float
-            const s6 = try uString.init(Allocator, 20.99); defer s6.deinit(Allocator);
+            const s6 = try uString(u8).init(Allocator, 20.99); defer s6.deinit(Allocator);
             try expectEqual(7, s6.len());
             try expectStrings("2.099e1", s6.src());
 
@@ -1668,29 +1668,29 @@
             // rules
             // 1. u8 is a character.
             // 2. comptime_int between the `u8` range is a character.
-            const s7 = try uString.init(Allocator, @as(u16, 2)); defer s7.deinit(Allocator);
+            const s7 = try uString(u8).init(Allocator, @as(u16, 2)); defer s7.deinit(Allocator);
             try expectEqual(1, s7.len());
             try expectStrings("2", s7.src());
 
             // with boolean
-            const s8 = try uString.init(Allocator, true); defer s8.deinit(Allocator);
+            const s8 = try uString(u8).init(Allocator, true); defer s8.deinit(Allocator);
             try expectEqual(4, s8.len());
             try expectStrings("true", s8.src());
 
             // with array (not a s)
             const arr = [_]bool{ true, false };
-            const s9 = try uString.init(Allocator, arr); defer s9.deinit(Allocator);
+            const s9 = try uString(u8).init(Allocator, arr); defer s9.deinit(Allocator);
             try expectEqual(15, s9.len());
             try expectStrings("{ true, false }", s9.src());
 
             // with structure
-            const s10 = try uString.init(Allocator, .{ .value = "Hello" }); defer s10.deinit(Allocator);
+            const s10 = try uString(u8).init(Allocator, .{ .value = "Hello" }); defer s10.deinit(Allocator);
             // the `id` of the struct changed every time, so i will comment it.
             // try expectEqual(101, s10.len());
-            // try expectStrings("String.String.test.test.uString.init (with byte)__struct_26510{ .value = { 72, 101, 108, 108, 111 } }", s10.src());
+            // try expectStrings("String(u8).String(u8).test.test.uString(u8).init (with char)__struct_26510{ .value = { 72, 101, 108, 108, 111 } }", s10.src());
 
             // with null
-            const s11 = try uString.init(Allocator, null); defer s11.deinit(Allocator);
+            const s11 = try uString(u8).init(Allocator, null); defer s11.deinit(Allocator);
             try expectEqual(4, s11.len());
             try expectStrings("null", s11.src());
         }
@@ -1700,8 +1700,8 @@
 
     // ┌─────────────────────────── Insert ───────────────────────────┐
 
-        test "uString.insertSlice" {
-            var s = uString.initEmpty();
+        test "uString(u8).insertSlice" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -1725,8 +1725,8 @@
             try expectError(error.OutOfRange, s.insertSlice(Allocator, "@", 99));
         }
 
-        test "uString.insertByte" {
-            var s = uString.initEmpty();
+        test "uString(u8).insertChar" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: u8, expected: []const u8, pos: usize, size: usize };
@@ -1742,18 +1742,18 @@
             };
 
             for(cases) |c| {
-                try s.insertByte(Allocator, c.value, c.pos);
+                try s.insertChar(Allocator, c.value, c.pos);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
             }
 
             // Failure Cases.
-            try expectError(error.OutOfRange, s.insertByte(Allocator, '@', 99));
+            try expectError(error.OutOfRange, s.insertChar(Allocator, '@', 99));
         }
 
-        test "uString.insertSelf" {
-            var s = uString.initEmpty();
+        test "uString(u8).insertSelf" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -1767,7 +1767,7 @@
             };
 
             for(cases) |c| {
-                var o = try uString.initWithSlice(Allocator, c.value);
+                var o = try uString(u8).initWithSlice(Allocator, c.value);
                 defer o.deinit(Allocator);
                 try s.insertSelf(Allocator, o, c.pos);
                 try expectStrings(c.expected, s.src());
@@ -1776,13 +1776,13 @@
             }
 
             // Failure Cases.
-            var o = try uString.initWithSlice(Allocator, "@");
+            var o = try uString(u8).initWithSlice(Allocator, "@");
             defer o.deinit(Allocator);
             try expectError(error.OutOfRange, s.insertSelf(Allocator, o, 99));
         }
 
-        test "uString.insertFmt" {
-            var s = uString.initEmpty();
+        test "uString(u8).insertFmt" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -1806,8 +1806,8 @@
             try expectError(error.OutOfRange, s.insertFmt(Allocator, "{s}", .{"@"}, 99));
         }
 
-        test "uString.insert" {
-            var s = uString.initEmpty();
+        test "uString(u8).insert" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -1831,8 +1831,8 @@
             try expectError(error.OutOfRange, s.insert(Allocator, "@", 99));
         }
 
-        test "uString.visualInsertSlice" {
-            var s = uString.initEmpty();
+        test "uString(u8).visualInsertSlice" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
@@ -1858,8 +1858,8 @@
             try expectError(error.OutOfRange, s.visualInsertSlice(Allocator, "@", 99));
         }
 
-        test "uString.visualInsertByte" {
-            var s = try uString.initWithSlice(Allocator, "👨‍🏭");
+        test "uString(u8).visualInsertChar" {
+            var s = try uString(u8).initWithSlice(Allocator, "👨‍🏭");
             defer s.deinit(Allocator);
 
             const Cases = struct { value: u8, expected: []const u8, pos: usize, size: usize };
@@ -1875,18 +1875,18 @@
             };
 
             for(cases) |c| {
-                try s.visualInsertByte(Allocator, c.value, c.pos);
+                try s.visualInsertChar(Allocator, c.value, c.pos);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
             }
 
             // Failure Cases.
-            try expectError(error.OutOfRange, s.visualInsertByte(Allocator, '@', 99));
+            try expectError(error.OutOfRange, s.visualInsertChar(Allocator, '@', 99));
         }
 
-        test "uString.visualInsertSelf" {
-            var s = uString.initEmpty();
+        test "uString(u8).visualInsertSelf" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
@@ -1902,7 +1902,7 @@
             };
 
             for(cases) |c| {
-                var o = try uString.initWithSlice(Allocator, c.value);
+                var o = try uString(u8).initWithSlice(Allocator, c.value);
                 defer o.deinit(Allocator);
                 try s.visualInsertSelf(Allocator, o, c.pos);
                 try expectStrings(c.expected, s.src());
@@ -1911,13 +1911,13 @@
             }
 
             // Failure Cases.
-            var o = try uString.initWithSlice(Allocator, "@");
+            var o = try uString(u8).initWithSlice(Allocator, "@");
             defer o.deinit(Allocator);
             try expectError(error.OutOfRange, s.visualInsertSelf(Allocator, o, 99));
         }
 
-        test "uString.visualInsertFmt" {
-            var s = uString.initEmpty();
+        test "uString(u8).visualInsertFmt" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
@@ -1943,8 +1943,8 @@
             try expectError(error.OutOfRange, s.visualInsertFmt(Allocator, "{s}", .{"@"}, 99));
         }
 
-        test "uString.visualInsert" {
-            var s = uString.initEmpty();
+        test "uString(u8).visualInsert" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
@@ -1970,8 +1970,8 @@
             try expectError(error.OutOfRange, s.visualInsert(Allocator, "@", 99));
         }
 
-        test "uString.appendSlice" {
-            var s = uString.initEmpty();
+        test "uString(u8).appendSlice" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -1993,8 +1993,8 @@
             }
         }
 
-        test "uString.appendByte" {
-            var s = uString.initEmpty();
+        test "uString(u8).appendChar" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: u8, expected: []const u8, size: usize };
@@ -2009,15 +2009,15 @@
             };
 
             for(cases) |c| {
-                try s.appendByte(Allocator, c.value);
+                try s.appendChar(Allocator, c.value);
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
                 try expectStrings(c.expected, s.src());
             }
         }
 
-        test "uString.appendSelf" {
-            var s = uString.initEmpty();
+        test "uString(u8).appendSelf" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -2032,7 +2032,7 @@
             };
 
             for(cases) |c| {
-                var o = try uString.initWithSlice(Allocator, c.value);
+                var o = try uString(u8).initWithSlice(Allocator, c.value);
                 defer o.deinit(Allocator);
                 try s.appendSelf(Allocator, o);
                 try expectEqual(c.expected.len, s.len());
@@ -2041,8 +2041,8 @@
             }
         }
 
-        test "uString.appendFmt" {
-            var s = uString.initEmpty();
+        test "uString(u8).appendFmt" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -2064,8 +2064,8 @@
             }
         }
 
-        test "uString.append" {
-            var s = uString.initEmpty();
+        test "uString(u8).append" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -2087,8 +2087,8 @@
             }
         }
 
-        test "uString.prependSlice" {
-            var s = uString.initEmpty();
+        test "uString(u8).prependSlice" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -2110,8 +2110,8 @@
             }
         }
 
-        test "uString.prependByte" {
-            var s = uString.initEmpty();
+        test "uString(u8).prependChar" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: u8, expected: []const u8, size: usize };
@@ -2126,15 +2126,15 @@
             };
 
             for(cases) |c| {
-                try s.prependByte(Allocator, c.value);
+                try s.prependChar(Allocator, c.value);
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
                 try expectStrings(c.expected, s.src());
             }
         }
 
-        test "uString.prependSelf" {
-            var s = uString.initEmpty();
+        test "uString(u8).prependSelf" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -2149,7 +2149,7 @@
             };
 
             for(cases) |c| {
-                var o = try uString.initWithSlice(Allocator, c.value);
+                var o = try uString(u8).initWithSlice(Allocator, c.value);
                 defer o.deinit(Allocator);
                 try s.prependSelf(Allocator, o);
                 try expectEqual(c.expected.len, s.len());
@@ -2158,8 +2158,8 @@
             }
         }
 
-        test "uString.prependFmt" {
-            var s = uString.initEmpty();
+        test "uString(u8).prependFmt" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -2181,8 +2181,8 @@
             }
         }
 
-        test "uString.prepend" {
-            var s = uString.initEmpty();
+        test "uString(u8).prepend" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -2209,8 +2209,8 @@
 
     // ┌─────────────────────────── Remove ───────────────────────────┐
 
-        test "uString.removeIndex" {
-            var s = try uString.initWithSlice(Allocator, "Hello !");
+        test "uString(u8).removeIndex" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello !");
             defer s.deinit(Allocator);
 
             const Cases = struct { pos: usize, expected: []const u8 };
@@ -2233,8 +2233,8 @@
             try expectError(error.OutOfRange, s.removeIndex(1));
         }
 
-        test "uString.removeVisualIndex" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).removeVisualIndex" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             const Cases = struct { pos: usize, expected: []const u8 };
@@ -2258,15 +2258,15 @@
             const res = s.removeVisualIndex(1);
             try expectError(error.OutOfRange, res);
 
-            var s2 = try uString.initWithSlice(Allocator, "👨‍🏭");
+            var s2 = try uString(u8).initWithSlice(Allocator, "👨‍🏭");
             defer s2.deinit(Allocator);
 
             const res2 = s2.removeVisualIndex(2);
             try expectError(error.InvalidPosition, res2);
         }
 
-        test "uString.removeRange" {
-            var s = try uString.initWithSlice(Allocator, "Hello !");
+        test "uString(u8).removeRange" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello !");
             defer s.deinit(Allocator);
 
             const Cases = struct { pos: usize, len: usize, expected: []const u8 };
@@ -2289,8 +2289,8 @@
             try expectError(error.OutOfRange, s.removeRange(1, 1));
         }
 
-        test "uString.removeVisualRange" {
-            var s = try uString.init(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).removeVisualRange" {
+            var s = try uString(u8).init(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             const Cases = struct { pos: usize, len: usize, expected: []const u8 };
@@ -2314,15 +2314,15 @@
             const res = s.removeVisualRange(1, 1);
             try expectError(error.OutOfRange, res);
 
-            var s2 = try uString.init(Allocator, "👨‍🏭");
+            var s2 = try uString(u8).init(Allocator, "👨‍🏭");
             defer s2.deinit(Allocator);
 
             const res2 = s2.removeVisualRange(2, 1);
             try expectError(error.InvalidPosition, res2);
         }
 
-        test "uString.pop" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).pop" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             const Cases = struct { removed: []const u8, expected: []const u8 };
@@ -2347,8 +2347,8 @@
             try expectEqual(null, s.pop());
         }
 
-        test "uString.shift" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).shift" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             const Cases = struct { removed: []const u8, expected: []const u8 };
@@ -2372,8 +2372,8 @@
             }
         }
 
-        test "uString.trimStart" {
-            var s = try uString.initWithSlice(Allocator, "   Hello 👨‍🏭!");
+        test "uString(u8).trimStart" {
+            var s = try uString(u8).initWithSlice(Allocator, "   Hello 👨‍🏭!");
             defer s.deinit(Allocator);
             s.trimStart(); // x1 (remove empty spaces)
             s.trimStart(); // x2 (no effect)
@@ -2381,8 +2381,8 @@
             try expectEqual(18, s.len());
         }
 
-        test "uString.trimEnd" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!    ");
+        test "uString(u8).trimEnd" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!    ");
             defer s.deinit(Allocator);
             s.trimEnd(); // x1 (remove empty spaces)
             s.trimEnd(); // x2 (no effect)
@@ -2390,8 +2390,8 @@
             try expectEqual(18, s.len());
         }
 
-        test "uString.trim" {
-            var s = try uString.initWithSlice(Allocator, "    Hello 👨‍🏭!    ");
+        test "uString(u8).trim" {
+            var s = try uString(u8).initWithSlice(Allocator, "    Hello 👨‍🏭!    ");
             defer s.deinit(Allocator);
             s.trim(); // x1 (remove empty spaces)
             s.trim(); // x2 (no effect)
@@ -2404,29 +2404,29 @@
 
     // ┌─────────────────────────── Replace ──────────────────────────┐
 
-        test "uString.replaceRange" {
-            var s = try uString.init(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).replaceRange" {
+            var s = try uString(u8).init(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
             try s.replaceRange(Allocator, 6, 11, "World");
             try expectStrings("Hello World!", s.src());
         }
 
-        test "uString.replaceVisualRange" {
-            var s = try uString.init(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).replaceVisualRange" {
+            var s = try uString(u8).init(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
             try s.replaceVisualRange(Allocator, 6, 1, "World");
             try expectStrings("Hello World!", s.src());
         }
 
-        test "uString.replaceFirst" {
-            var s = try uString.init(Allocator, "Hello 👨‍🏭👨‍🏭!");
+        test "uString(u8).replaceFirst" {
+            var s = try uString(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭!");
             defer s.deinit(Allocator);
             try s.replaceFirst(Allocator, "👨‍🏭", "World");
             try expectStrings("Hello World👨‍🏭!", s.src());
         }
 
-        test "uString.replaceFirstN" {
-            var s = try uString.init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
+        test "uString(u8).replaceFirstN" {
+            var s = try uString(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
             defer s.deinit(Allocator);
 
             try s.replaceFirstN(Allocator, "👨‍🏭", "World", 1);
@@ -2437,15 +2437,15 @@
             try expectStrings("Hello WorldWorldWorldWorld!", s.src());
         }
 
-        test "uString.replaceLast" {
-            var s = try uString.init(Allocator, "Hello 👨‍🏭👨‍🏭!");
+        test "uString(u8).replaceLast" {
+            var s = try uString(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭!");
             defer s.deinit(Allocator);
             try s.replaceLast(Allocator, "👨‍🏭", "World");
             try expectStrings("Hello 👨‍🏭World!", s.src());
         }
 
-        test "uString.replaceLastN" {
-            var s = try uString.init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
+        test "uString(u8).replaceLastN" {
+            var s = try uString(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
             defer s.deinit(Allocator);
 
             try s.replaceLastN(Allocator, "👨‍🏭", "World", 1);
@@ -2456,15 +2456,15 @@
             try expectStrings("Hello WorldWorldWorldWorld!", s.src());
         }
 
-        test "uString.replaceAll" {
-            var s = try uString.init(Allocator, "Hello 👨‍🏭👨‍🏭!");
+        test "uString(u8).replaceAll" {
+            var s = try uString(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭!");
             defer s.deinit(Allocator);
             try s.replaceAll(Allocator, "👨‍🏭", "World");
             try expectStrings("Hello WorldWorld!", s.src());
         }
 
-        test "uString.replaceNth" {
-            var s = try uString.init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
+        test "uString(u8).replaceNth" {
+            var s = try uString(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
             defer s.deinit(Allocator);
             try s.replaceNth(Allocator, "👨‍🏭", "World", 0);
             try expectStrings("Hello World👨‍🏭👨‍🏭👨‍🏭!", s.src());
@@ -2481,8 +2481,8 @@
 
     // ┌─────────────────────────── Repeat ───────────────────────────┐
 
-        test "uString.repeat" {
-            var s = uString.initEmpty();
+        test "uString(u8).repeat" {
+            var s = uString(u8).initEmpty();
             defer s.deinit(Allocator);
 
             // add 'H'x0
@@ -2511,8 +2511,8 @@
 
     // ┌──────────────────────────── Find ────────────────────────────┐
 
-        test "uString.find" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).find" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             const Cases = struct { value : []const u8 = undefined, expected  :? usize = null, };
@@ -2532,8 +2532,8 @@
             }
         }
 
-        test "uString.findVisual" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).findVisual" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
@@ -2553,8 +2553,8 @@
             }
         }
 
-        test "uString.findLast" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).findLast" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
@@ -2574,8 +2574,8 @@
             }
         }
 
-        test "uString.findLastVisual" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).findLastVisual" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             const Cases = struct { value  : []const u8 = undefined, expected  :? usize = null, };
@@ -2595,8 +2595,8 @@
             }
         }
 
-        test "uString.includes" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).includes" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             try expect(s.includes("H"));
@@ -2609,16 +2609,16 @@
             try expect(!s.includes("@"));
         }
 
-        test "uString.startsWith" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).startsWith" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             try expect(s.startsWith("H"));
             try expect(!s.startsWith("👨‍🏭"));
         }
 
-        test "uString.endsWith" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).endsWith" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             try expect(s.endsWith("!"));
@@ -2630,32 +2630,32 @@
 
     // ┌──────────────────────────── Case ────────────────────────────┐
 
-        test "uString.toLower" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).toLower" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             s.toLower();
             try expectStrings("hello 👨‍🏭!", s.src());
         }
 
-        test "uString.toUpper" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).toUpper" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
 
             s.toUpper();
             try expectStrings("HELLO 👨‍🏭!", s.src());
         }
 
-        test "uString.toTitle" {
-            var s = try uString.initWithSlice(Allocator, "heLLo 👨‍🏭!");
+        test "uString(u8).toTitle" {
+            var s = try uString(u8).initWithSlice(Allocator, "heLLo 👨‍🏭!");
             defer s.deinit(Allocator);
 
             s.toTitle();
             try expectStrings("Hello 👨‍🏭!", s.src());
         }
 
-        test "uString.reverse" {
-            var s = try uString.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "uString(u8).reverse" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit(Allocator);
             try s.reverse(Allocator);
             try expectStrings("!👨‍🏭 olleH", s.src());
@@ -2667,25 +2667,25 @@
 
     // ┌──────────────────────────── Check ───────────────────────────┐
 
-        test "uString.isEqual" {
-            var s1 = try uString.initWithSlice(Allocator, "Hello, World!");
+        test "uString(u8).isEqual" {
+            var s1 = try uString(u8).initWithSlice(Allocator, "Hello, World!");
             defer s1.deinit(Allocator);
 
-            var s2 = try uString.initWithSlice(Allocator, "Hello, World!");
+            var s2 = try uString(u8).initWithSlice(Allocator, "Hello, World!");
             defer s2.deinit(Allocator);
 
-            var s3 = try uString.initWithSlice(Allocator, "Goodbye, World!");
+            var s3 = try uString(u8).initWithSlice(Allocator, "Goodbye, World!");
             defer s3.deinit(Allocator);
 
             try expect(s1.isEqual(s2.src()));
             try expect(!s1.isEqual(s3.src()));
         }
 
-        test "uString.isEmpty" {
-            var empty = try uString.initWithSlice(Allocator, "");
+        test "uString(u8).isEmpty" {
+            var empty = try uString(u8).initWithSlice(Allocator, "");
             defer empty.deinit(Allocator);
 
-            var nonEmpty = try uString.initWithSlice(Allocator, "Hello, World!");
+            var nonEmpty = try uString(u8).initWithSlice(Allocator, "Hello, World!");
             defer nonEmpty.deinit(Allocator);
 
             try expect(empty.isEmpty());
@@ -2697,8 +2697,8 @@
 
     // ┌──────────────────────────── Data ────────────────────────────┐
 
-        test "uString.Writer.write" {
-            var s = try uString.initWithAllocator(Allocator);
+        test "uString(u8).Writer.write" {
+            var s = try uString(u8).initWithAllocator(Allocator);
             defer s.deinit(Allocator);
             var writer = s.writer(Allocator);
 
@@ -2712,8 +2712,8 @@
             try expectStrings("Hello World!", s.src());
         }
 
-        test "uString.iterator" {
-            var s = try uString.init(Allocator, "!👨‍🏭@👨‍🏭#");
+        test "uString(u8).iterator" {
+            var s = try uString(u8).init(Allocator, "!👨‍🏭@👨‍🏭#");
             defer s.deinit(Allocator);
             var iter = s.iterator();
 
@@ -2725,8 +2725,8 @@
             try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.current_index);
         }
 
-        test "uString.charAt and uString.atVisual and uString.sub and uString.toViewer" {
-            var s = try uString.initWithSlice(Allocator, "!👨‍🏭@👨‍🏭#");
+        test "uString(u8).charAt and uString(u8).atVisual and uString(u8).sub and uString(u8).toViewer" {
+            var s = try uString(u8).initWithSlice(Allocator, "!👨‍🏭@👨‍🏭#");
             defer s.deinit(Allocator);
 
             try expectEqual('!',  s.charAt(0).?);
@@ -2752,8 +2752,8 @@
 
     // ┌──────────────────────────── Split ───────────────────────────┐
 
-        test "uString.split" {
-            var s = try uString.init(Allocator, "0👨‍🏭11👨‍🏭2👨‍🏭33");
+        test "uString(u8).split" {
+            var s = try uString(u8).init(Allocator, "0👨‍🏭11👨‍🏭2👨‍🏭33");
             defer s.deinit(Allocator);
 
             // Test basic splits
@@ -2766,7 +2766,7 @@
             try expect(s.split("👨‍🏭", 4) == null);
 
             // Test empty input
-            var s2 = uString.initEmpty();
+            var s2 = uString(u8).initEmpty();
             defer s2.deinit(Allocator);
             try expectStrings("", s2.split("👨‍🏭", 0).?);
 
@@ -2774,9 +2774,9 @@
             try expectStrings(s.src(), s.split("X", 0).?);
         }
 
-        test "uString.splitAll" {
+        test "uString(u8).splitAll" {
             // Leading/trailing delimiters
-            var s = try uString.init(Allocator, "👨‍🏭a👨‍🏭b👨‍🏭");
+            var s = try uString(u8).init(Allocator, "👨‍🏭a👨‍🏭b👨‍🏭");
             defer s.deinit(Allocator);
 
             const parts2 = try s.splitAll(Allocator, "👨‍🏭", true);
@@ -2793,8 +2793,8 @@
             try expectStrings("b", parts3[1]);
         }
 
-        test "uString.splitToSelf" {
-            var s = try uString.init(Allocator, "0👨‍🏭11👨‍🏭2👨‍🏭33");
+        test "uString(u8).splitToSelf" {
+            var s = try uString(u8).init(Allocator, "0👨‍🏭11👨‍🏭2👨‍🏭33");
             defer s.deinit(Allocator);
 
             // Test basic splits
@@ -2819,7 +2819,7 @@
             try expect(try s.splitToSelf(Allocator, "👨‍🏭", 4) == null);
 
             // Test empty input
-            var s2 = uString.initEmpty();
+            var s2 = uString(u8).initEmpty();
             try expectStrings("", (try s2.splitToSelf(Allocator, "👨‍🏭", 0)).?.src());
 
             // Test non-existent delimiter
@@ -2829,9 +2829,9 @@
             }
         }
 
-        test "uString.splitAllToSelf" {
+        test "uString(u8).splitAllToSelf" {
             // Leading/trailing delimiters
-            var s = try uString.init(Allocator, "👨‍🏭a👨‍🏭b👨‍🏭");
+            var s = try uString(u8).init(Allocator, "👨‍🏭a👨‍🏭b👨‍🏭");
             defer s.deinit(Allocator);
 
             const parts2 = try s.splitAllToSelf(Allocator, "👨‍🏭");
@@ -2848,13 +2848,13 @@
 
     // ┌──────────────────────────── Utils ───────────────────────────┐
 
-        test "uString.shrinkAndFree" {
+        test "uString(u8).shrinkAndFree" {
             // shrink still sets length when resizing is disabled
             {
                 var failing_allocator = std.testing.FailingAllocator.init(Allocator, .{ .resize_fail_index = 0 });
                 const a = failing_allocator.allocator();
 
-                var s = uString.initEmpty();
+                var s = uString(u8).initEmpty();
                 defer s.deinit(a);
 
                 try s.append(a, 1);
@@ -2870,7 +2870,7 @@
                 var failing_allocator = std.testing.FailingAllocator.init(Allocator, .{ .resize_fail_index = 0 });
                 const a = failing_allocator.allocator();
 
-                var s = uString.initEmpty();
+                var s = uString(u8).initEmpty();
                 defer s.deinit(a);
 
                 try s.repeat(a, 3, 16);
@@ -2882,7 +2882,7 @@
             {
                 const a = std.testing.allocator;
 
-                var s = uString.initEmpty();
+                var s = uString(u8).initEmpty();
                 defer s.deinit(a);
 
                 try s.appendSlice(a, "abcd");
@@ -2899,10 +2899,10 @@
             }
         }
 
-        test "uString.resize" {
+        test "uString(u8).resize" {
             // empty
             {
-                var s = uString.initEmpty();
+                var s = uString(u8).initEmpty();
                 defer s.deinit(Allocator);
                 try expectEqual(0, s.size());
                 try expectEqual(0, s.len());
@@ -2926,7 +2926,7 @@
 
             // with value
             {
-                var s = try uString.initWithSlice(Allocator, "Hello");
+                var s = try uString(u8).initWithSlice(Allocator, "Hello");
                 defer s.deinit(Allocator);
 
                 try expectEqual(5, s.len());
@@ -2949,8 +2949,8 @@
             }
         }
 
-        test "uString.toManaged" {
-            var s = try uString.initWithSlice(Allocator, "Hello, World!");
+        test "uString(u8).toManaged" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello, World!");
 
             var managed = s.toManaged(Allocator);
             defer managed.deinit();
@@ -2960,14 +2960,14 @@
             // try expectStrings("Hello, Maysara!", managed.src());
         }
 
-        test "uString.fromOwnedSlice" {
-            var slice = try utils.bytes.initWithSlice(13, "Hello, World!");
-            const s = uString.fromOwnedSlice(&slice);
+        test "uString(u8).fromOwnedSlice" {
+            var slice = try utils.chars.initWithSlice(u8, 13, "Hello, World!");
+            const s = uString(u8).fromOwnedSlice(&slice);
             try expectStrings(&slice, s.src());
         }
 
-        test "uString.toOwnedSlice" {
-            var s = try uString.initWithSlice(Allocator, "Hello, World!");
+        test "uString(u8).toOwnedSlice" {
+            var s = try uString(u8).initWithSlice(Allocator, "Hello, World!");
 
             var ownedSlice = try s.toOwnedSlice(Allocator);
             ownedSlice[0] = 'X';
@@ -2986,95 +2986,95 @@
 
     // ┌─────────────────────── Initialization ───────────────────────┐
 
-        test "String.initWithAllocator" {
-            const s = try String.initWithAllocator(Allocator);
+        test "String(u8).initWithAllocator" {
+            const s = try String(u8).initWithAllocator(Allocator);
             try expectEqual(0, s.len());
             try expectEqual(0, s.size());
             try expectStrings("", s.src());
         }
 
-        test "String.initWithCapacity" {
-            var s = try String.initWithCapacity(Allocator, 10);
+        test "String(u8).initWithCapacity" {
+            var s = try String(u8).initWithCapacity(Allocator, 10);
             defer s.deinit();
             try expectEqual(0, s.len());
             try expectEqual(10, s.size());
             try expectStrings("", s.src());
 
             // zero
-            const s2 = try String.initWithCapacity(Allocator, 0);
+            const s2 = try String(u8).initWithCapacity(Allocator, 0);
             try expectEqual(0, s2.len());
             try expectEqual(0, s2.size());
             try expectStrings("", s2.src());
         }
 
-        test "String.initWithSlice" {
-            var s = try String.initWithSlice(Allocator, "Hello");
+        test "String(u8).initWithSlice" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello");
             defer s.deinit();
             try expectEqual(5, s.len());
             try expectEqual(5, s.size());
             try expectStrings("Hello", s.src());
         }
 
-        test "String.initWithByte" {
-            var s = try String.initWithByte(Allocator, 'H');
+        test "String(u8).initWithChar" {
+            var s = try String(u8).initWithChar(Allocator, 'H');
             defer s.deinit();
             try expectEqual(1, s.len());
             try expectEqual(1, s.size());
             try expectStrings("H", s.src());
         }
 
-        test "String.initWithSelf" {
-            var s = try String.initWithSlice(Allocator, "Hello");
+        test "String(u8).initWithSelf" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello");
             defer s.deinit();
-            var s2 = try String.initWithSelf(Allocator, s);
+            var s2 = try String(u8).initWithSelf(Allocator, s);
             defer s2.deinit();
             try expectEqual(5, s2.len());
             try expectEqual(5, s2.size());
             try expectStrings("Hello", s2.src());
         }
 
-        test "String.initWithFmt" {
-            var s = try String.initWithFmt(Allocator, "{s}", .{"Hello"});
+        test "String(u8).initWithFmt" {
+            var s = try String(u8).initWithFmt(Allocator, "{s}", .{"Hello"});
             defer s.deinit();
             try expectStrings("Hello", s.src());
 
-            var s2 = try String.initWithFmt(Allocator, "{s} {s}", .{"Hello", "World"});
+            var s2 = try String(u8).initWithFmt(Allocator, "{s} {s}", .{"Hello", "World"});
             defer s2.deinit();
             try expectStrings("Hello World", s2.src());
 
-            var s3 = try String.initWithFmt(Allocator, "{s}{s}", .{"Hello", "!"});
+            var s3 = try String(u8).initWithFmt(Allocator, "{s}{s}", .{"Hello", "!"});
             defer s3.deinit();
             try expectStrings("Hello!", s3.src());
         }
 
-        test "String.init (all types)" {
-            // with byte
-            const s = try String.init(Allocator, 'H'); defer s.deinit();
+        test "String(u8).init (all types)" {
+            // with char
+            const s = try String(u8).init(Allocator, 'H'); defer s.deinit();
             try expectEqual(1, s.len());
             try expectStrings("H", s.src());
 
             // with slice
-            const s2 = try String.init(Allocator, "H"); defer s2.deinit();
+            const s2 = try String(u8).init(Allocator, "H"); defer s2.deinit();
             try expectEqual(1, s2.len());
             try expectStrings("H", s2.src());
 
             // with self
-            const s3 = try String.init(Allocator, s2); defer s3.deinit();
+            const s3 = try String(u8).init(Allocator, s2); defer s3.deinit();
             try expectEqual(1, s3.len());
             try expectStrings("H", s3.src());
 
             // with positive integer
-            const s4 = try String.init(Allocator, 2099); defer s4.deinit();
+            const s4 = try String(u8).init(Allocator, 2099); defer s4.deinit();
             try expectEqual(4, s4.len());
             try expectStrings("2099", s4.src());
 
             // with negative integer
-            const s5 = try String.init(Allocator, -2099); defer s5.deinit();
+            const s5 = try String(u8).init(Allocator, -2099); defer s5.deinit();
             try expectEqual(5, s5.len());
             try expectStrings("-2099", s5.src());
 
             // with float
-            const s6 = try String.init(Allocator, 20.99); defer s6.deinit();
+            const s6 = try String(u8).init(Allocator, 20.99); defer s6.deinit();
             try expectEqual(7, s6.len());
             try expectStrings("2.099e1", s6.src());
 
@@ -3082,29 +3082,29 @@
             // rules
             // 1. u8 is a character.
             // 2. comptime_int between the `u8` range is a character.
-            const s7 = try String.init(Allocator, @as(u16, 2)); defer s7.deinit();
+            const s7 = try String(u8).init(Allocator, @as(u16, 2)); defer s7.deinit();
             try expectEqual(1, s7.len());
             try expectStrings("2", s7.src());
 
             // with boolean
-            const s8 = try String.init(Allocator, true); defer s8.deinit();
+            const s8 = try String(u8).init(Allocator, true); defer s8.deinit();
             try expectEqual(4, s8.len());
             try expectStrings("true", s8.src());
 
             // with array (not a s)
             const arr = [_]bool{ true, false };
-            const s9 = try String.init(Allocator, arr); defer s9.deinit();
+            const s9 = try String(u8).init(Allocator, arr); defer s9.deinit();
             try expectEqual(15, s9.len());
             try expectStrings("{ true, false }", s9.src());
 
             // with structure
-            const s10 = try String.init(Allocator, .{ .value = "Hello" }); defer s10.deinit();
+            const s10 = try String(u8).init(Allocator, .{ .value = "Hello" }); defer s10.deinit();
             // the `id` of the struct changed every time, so i will comment it.
             // try expectEqual(100, s10.len());
-            // try expectStrings("String.String.test.test.String.init (with byte)__struct_26510{ .value = { 72, 101, 108, 108, 111 } }", s10.src());
+            // try expectStrings("String(u8).String(u8).test.test.String(u8).init (with char)__struct_26510{ .value = { 72, 101, 108, 108, 111 } }", s10.src());
 
             // with null
-            const s11 = try String.init(Allocator, null); defer s11.deinit();
+            const s11 = try String(u8).init(Allocator, null); defer s11.deinit();
             try expectEqual(4, s11.len());
             try expectStrings("null", s11.src());
         }
@@ -3114,8 +3114,8 @@
 
     // ┌─────────────────────────── Insert ───────────────────────────┐
 
-        test "String.insertSlice" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).insertSlice" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -3139,8 +3139,8 @@
             try expectError(error.OutOfRange, s.insertSlice("@", 99));
         }
 
-        test "String.insertByte" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).insertChar" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: u8, expected: []const u8, pos: usize, size: usize };
@@ -3156,18 +3156,18 @@
             };
 
             for(cases) |c| {
-                try s.insertByte(c.value, c.pos);
+                try s.insertChar(c.value, c.pos);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
             }
 
             // Failure Cases.
-            try expectError(error.OutOfRange, s.insertByte('@', 99));
+            try expectError(error.OutOfRange, s.insertChar('@', 99));
         }
 
-        test "String.insertSelf" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).insertSelf" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -3181,7 +3181,7 @@
             };
 
             for(cases) |c| {
-                var o = try String.initWithSlice(Allocator, c.value);
+                var o = try String(u8).initWithSlice(Allocator, c.value);
                 defer o.deinit();
                 try s.insertSelf(o, c.pos);
                 try expectStrings(c.expected, s.src());
@@ -3190,13 +3190,13 @@
             }
 
             // Failure Cases.
-            var o = try String.initWithSlice(Allocator, "@");
+            var o = try String(u8).initWithSlice(Allocator, "@");
             defer o.deinit();
             try expectError(error.OutOfRange, s.insertSelf(o, 99));
         }
 
-        test "String.insertFmt" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).insertFmt" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -3220,8 +3220,8 @@
             try expectError(error.OutOfRange, s.insertFmt("{s}", .{"@"}, 99));
         }
 
-        test "String.insert" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).insert" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -3245,8 +3245,8 @@
             try expectError(error.OutOfRange, s.insert("@", 99));
         }
 
-        test "String.visualInsertSlice" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).visualInsertSlice" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
@@ -3272,8 +3272,8 @@
             try expectError(error.OutOfRange, s.visualInsertSlice("@", 99));
         }
 
-        test "String.visualInsertByte" {
-            var s = try String.initWithSlice(Allocator, "👨‍🏭");
+        test "String(u8).visualInsertChar" {
+            var s = try String(u8).initWithSlice(Allocator, "👨‍🏭");
             defer s.deinit();
 
             const Cases = struct { value: u8, expected: []const u8, pos: usize, size: usize };
@@ -3289,18 +3289,18 @@
             };
 
             for(cases) |c| {
-                try s.visualInsertByte(c.value, c.pos);
+                try s.visualInsertChar(c.value, c.pos);
                 try expectStrings(c.expected, s.src());
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
             }
 
             // Failure Cases.
-            try expectError(error.OutOfRange, s.visualInsertByte('@', 99));
+            try expectError(error.OutOfRange, s.visualInsertChar('@', 99));
         }
 
-        test "String.visualInsertSelf" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).visualInsertSelf" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
@@ -3316,7 +3316,7 @@
             };
 
             for(cases) |c| {
-                var o = try String.initWithSlice(Allocator, c.value);
+                var o = try String(u8).initWithSlice(Allocator, c.value);
                 defer o.deinit();
                 try s.visualInsertSelf(o, c.pos);
                 try expectStrings(c.expected, s.src());
@@ -3325,13 +3325,13 @@
             }
 
             // Failure Cases.
-            var o = try String.initWithSlice(Allocator, "@");
+            var o = try String(u8).initWithSlice(Allocator, "@");
             defer o.deinit();
             try expectError(error.OutOfRange, s.visualInsertSelf(o, 99));
         }
 
-        test "String.visualInsertFmt" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).visualInsertFmt" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
@@ -3357,8 +3357,8 @@
             try expectError(error.OutOfRange, s.visualInsertFmt("{s}", .{"@"}, 99));
         }
 
-        test "String.visualInsert" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).visualInsert" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
             const Cases = struct { value: []const u8, expected: []const u8, pos: usize, size: usize };
             const cases = &[_]Cases{
@@ -3382,8 +3382,8 @@
             try expectError(error.OutOfRange, s.visualInsert("@", 99));
         }
 
-        test "String.appendSlice" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).appendSlice" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -3405,8 +3405,8 @@
             }
         }
 
-        test "String.appendByte" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).appendChar" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: u8, expected: []const u8, size: usize };
@@ -3421,15 +3421,15 @@
             };
 
             for(cases) |c| {
-                try s.appendByte(c.value);
+                try s.appendChar(c.value);
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
                 try expectStrings(c.expected, s.src());
             }
         }
 
-        test "String.appendSelf" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).appendSelf" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -3444,7 +3444,7 @@
             };
 
             for(cases) |c| {
-                var o = try String.initWithSlice(Allocator, c.value);
+                var o = try String(u8).initWithSlice(Allocator, c.value);
                 defer o.deinit();
                 try s.appendSelf(o);
                 try expectEqual(c.expected.len, s.len());
@@ -3453,8 +3453,8 @@
             }
         }
 
-        test "String.appendFmt" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).appendFmt" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -3476,8 +3476,8 @@
             }
         }
 
-        test "String.append" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).append" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -3499,8 +3499,8 @@
             }
         }
 
-        test "String.prependSlice" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).prependSlice" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -3522,8 +3522,8 @@
             }
         }
 
-        test "String.prependByte" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).prependChar" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: u8, expected: []const u8, size: usize };
@@ -3538,15 +3538,15 @@
             };
 
             for(cases) |c| {
-                try s.prependByte(c.value);
+                try s.prependChar(c.value);
                 try expectEqual(c.expected.len, s.len());
                 try expectEqual(c.size, s.size());
                 try expectStrings(c.expected, s.src());
             }
         }
 
-        test "String.prependSelf" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).prependSelf" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -3561,7 +3561,7 @@
             };
 
             for(cases) |c| {
-                var o = try String.initWithSlice(Allocator, c.value);
+                var o = try String(u8).initWithSlice(Allocator, c.value);
                 defer o.deinit();
                 try s.prependSelf(o);
                 try expectEqual(c.expected.len, s.len());
@@ -3570,8 +3570,8 @@
             }
         }
 
-        test "String.prependFmt" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).prependFmt" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -3593,8 +3593,8 @@
             }
         }
 
-        test "String.prepend" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).prepend" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             const Cases = struct { value: []const u8, expected: []const u8, size: usize };
@@ -3621,8 +3621,8 @@
 
     // ┌─────────────────────────── Remove ───────────────────────────┐
 
-        test "String.removeIndex" {
-            var s = try String.initWithSlice(Allocator, "Hello !");
+        test "String(u8).removeIndex" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello !");
             defer s.deinit();
 
             const Cases = struct { pos: usize, expected: []const u8 };
@@ -3645,8 +3645,8 @@
             try expectError(error.OutOfRange, s.removeIndex(1));
         }
 
-        test "String.removeVisualIndex" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).removeVisualIndex" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             const Cases = struct { pos: usize, expected: []const u8 };
@@ -3670,15 +3670,15 @@
             const res = s.removeVisualIndex(1);
             try expectError(error.OutOfRange, res);
 
-            var s2 = try String.initWithSlice(Allocator, "👨‍🏭");
+            var s2 = try String(u8).initWithSlice(Allocator, "👨‍🏭");
             defer s2.deinit();
 
             const res2 = s2.removeVisualIndex(2);
             try expectError(error.InvalidPosition, res2);
         }
 
-        test "String.removeRange" {
-            var s = try String.initWithSlice(Allocator, "Hello !");
+        test "String(u8).removeRange" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello !");
             defer s.deinit();
 
             const Cases = struct { pos: usize, len: usize, expected: []const u8 };
@@ -3701,8 +3701,8 @@
             try expectError(error.OutOfRange, s.removeRange(1, 1));
         }
 
-        test "String.removeVisualRange" {
-            var s = try String.init(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).removeVisualRange" {
+            var s = try String(u8).init(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             const Cases = struct { pos: usize, len: usize, expected: []const u8 };
@@ -3726,15 +3726,15 @@
             const res = s.removeVisualRange(1, 1);
             try expectError(error.OutOfRange, res);
 
-            var s2 = try String.init(Allocator, "👨‍🏭");
+            var s2 = try String(u8).init(Allocator, "👨‍🏭");
             defer s2.deinit();
 
             const res2 = s2.removeVisualRange(2, 1);
             try expectError(error.InvalidPosition, res2);
         }
 
-        test "String.pop" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).pop" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             const Cases = struct { removed: []const u8, expected: []const u8 };
@@ -3759,8 +3759,8 @@
             try expectEqual(null, s.pop());
         }
 
-        test "String.shift" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).shift" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             const Cases = struct { removed: []const u8, expected: []const u8 };
@@ -3784,8 +3784,8 @@
             }
         }
 
-        test "String.trimStart" {
-            var s = try String.initWithSlice(Allocator, "   Hello 👨‍🏭!");
+        test "String(u8).trimStart" {
+            var s = try String(u8).initWithSlice(Allocator, "   Hello 👨‍🏭!");
             defer s.deinit();
             s.trimStart(); // x1 (remove empty spaces)
             s.trimStart(); // x2 (no effect)
@@ -3793,8 +3793,8 @@
             try expectEqual(18, s.len());
         }
 
-        test "String.trimEnd" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!    ");
+        test "String(u8).trimEnd" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!    ");
             defer s.deinit();
             s.trimEnd(); // x1 (remove empty spaces)
             s.trimEnd(); // x2 (no effect)
@@ -3802,8 +3802,8 @@
             try expectEqual(18, s.len());
         }
 
-        test "String.trim" {
-            var s = try String.initWithSlice(Allocator, "    Hello 👨‍🏭!    ");
+        test "String(u8).trim" {
+            var s = try String(u8).initWithSlice(Allocator, "    Hello 👨‍🏭!    ");
             defer s.deinit();
             s.trim(); // x1 (remove empty spaces)
             s.trim(); // x2 (no effect)
@@ -3816,29 +3816,29 @@
 
     // ┌─────────────────────────── Replace ──────────────────────────┐
 
-        test "String.replaceRange" {
-            var s = try String.init(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).replaceRange" {
+            var s = try String(u8).init(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
             try s.replaceRange(6, 11, "World");
             try expectStrings("Hello World!", s.src());
         }
 
-        test "String.replaceVisualRange" {
-            var s = try String.init(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).replaceVisualRange" {
+            var s = try String(u8).init(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
             try s.replaceVisualRange(6, 1, "World");
             try expectStrings("Hello World!", s.src());
         }
 
-        test "String.replaceFirst" {
-            var s = try String.init(Allocator, "Hello 👨‍🏭👨‍🏭!");
+        test "String(u8).replaceFirst" {
+            var s = try String(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭!");
             defer s.deinit();
             try s.replaceFirst("👨‍🏭", "World");
             try expectStrings("Hello World👨‍🏭!", s.src());
         }
 
-        test "String.replaceFirstN" {
-            var s = try String.init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
+        test "String(u8).replaceFirstN" {
+            var s = try String(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
             defer s.deinit();
 
             try s.replaceFirstN("👨‍🏭", "World", 1);
@@ -3849,15 +3849,15 @@
             try expectStrings("Hello WorldWorldWorldWorld!", s.src());
         }
 
-        test "String.replaceLast" {
-            var s = try String.init(Allocator, "Hello 👨‍🏭👨‍🏭!");
+        test "String(u8).replaceLast" {
+            var s = try String(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭!");
             defer s.deinit();
             try s.replaceLast("👨‍🏭", "World");
             try expectStrings("Hello 👨‍🏭World!", s.src());
         }
 
-        test "String.replaceLastN" {
-            var s = try String.init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
+        test "String(u8).replaceLastN" {
+            var s = try String(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
             defer s.deinit();
 
             try s.replaceLastN("👨‍🏭", "World", 1);
@@ -3868,15 +3868,15 @@
             try expectStrings("Hello WorldWorldWorldWorld!", s.src());
         }
 
-        test "String.replaceAll" {
-            var s = try String.init(Allocator, "Hello 👨‍🏭👨‍🏭!");
+        test "String(u8).replaceAll" {
+            var s = try String(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭!");
             defer s.deinit();
             try s.replaceAll("👨‍🏭", "World");
             try expectStrings("Hello WorldWorld!", s.src());
         }
 
-        test "String.replaceNth" {
-            var s = try String.init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
+        test "String(u8).replaceNth" {
+            var s = try String(u8).init(Allocator, "Hello 👨‍🏭👨‍🏭👨‍🏭👨‍🏭!");
             defer s.deinit();
             try s.replaceNth("👨‍🏭", "World", 0);
             try expectStrings("Hello World👨‍🏭👨‍🏭👨‍🏭!", s.src());
@@ -3893,8 +3893,8 @@
 
     // ┌─────────────────────────── Repeat ───────────────────────────┐
 
-        test "String.repeat" {
-            var s = try String.initEmpty(Allocator);
+        test "String(u8).repeat" {
+            var s = try String(u8).initEmpty(Allocator);
             defer s.deinit();
 
             // add 'H'x0
@@ -3922,8 +3922,8 @@
 
 
     // ┌──────────────────────────── Find ────────────────────────────┐
-        test "String.find" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).find" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             const Cases = struct { value : []const u8 = undefined, expected  :? usize = null, };
@@ -3943,8 +3943,8 @@
             }
         }
 
-        test "String.findVisual" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).findVisual" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
@@ -3964,8 +3964,8 @@
             }
         }
 
-        test "String.findLast" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).findLast" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             const Cases = struct { value : []const u8 = undefined, expected :? usize = null, };
@@ -3985,8 +3985,8 @@
             }
         }
 
-        test "String.findLastVisual" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).findLastVisual" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             const Cases = struct { value  : []const u8 = undefined, expected  :? usize = null, };
@@ -4006,8 +4006,8 @@
             }
         }
 
-        test "String.includes" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).includes" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             try expect(s.includes("H"));
@@ -4020,16 +4020,16 @@
             try expect(!s.includes("@"));
         }
 
-        test "String.startsWith" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).startsWith" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             try expect(s.startsWith("H"));
             try expect(!s.startsWith("👨‍🏭"));
         }
 
-        test "String.endsWith" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).endsWith" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             try expect(s.endsWith("!"));
@@ -4041,32 +4041,32 @@
 
     // ┌──────────────────────────── Case ────────────────────────────┐
 
-        test "String.toLower" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).toLower" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             s.toLower();
             try expectStrings("hello 👨‍🏭!", s.src());
         }
 
-        test "String.toUpper" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).toUpper" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
 
             s.toUpper();
             try expectStrings("HELLO 👨‍🏭!", s.src());
         }
 
-        test "String.toTitle" {
-            var s = try String.initWithSlice(Allocator, "heLLo 👨‍🏭!");
+        test "String(u8).toTitle" {
+            var s = try String(u8).initWithSlice(Allocator, "heLLo 👨‍🏭!");
             defer s.deinit();
 
             s.toTitle();
             try expectStrings("Hello 👨‍🏭!", s.src());
         }
 
-        test "String.reverse" {
-            var s = try String.initWithSlice(Allocator, "Hello 👨‍🏭!");
+        test "String(u8).reverse" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello 👨‍🏭!");
             defer s.deinit();
             try s.reverse();
             try expectStrings("!👨‍🏭 olleH", s.src());
@@ -4077,25 +4077,25 @@
 
     // ┌──────────────────────────── Check ───────────────────────────┐
 
-        test "String.isEqual" {
-            const s1 = try String.initWithSlice(Allocator, "Hello, World!");
+        test "String(u8).isEqual" {
+            const s1 = try String(u8).initWithSlice(Allocator, "Hello, World!");
             defer s1.deinit();
 
-            const s2 = try String.initWithSlice(Allocator, "Hello, World!");
+            const s2 = try String(u8).initWithSlice(Allocator, "Hello, World!");
             defer s2.deinit();
 
-            const s3 = try String.initWithSlice(Allocator, "Goodbye, World!");
+            const s3 = try String(u8).initWithSlice(Allocator, "Goodbye, World!");
             defer s3.deinit();
 
             try expect(s1.isEqual(s2.src()));
             try expect(!s1.isEqual(s3.src()));
         }
 
-        test "String.isEmpty" {
-            const empty = try String.initWithSlice(Allocator, "");
+        test "String(u8).isEmpty" {
+            const empty = try String(u8).initWithSlice(Allocator, "");
             defer empty.deinit();
 
-            const nonEmpty = try String.initWithSlice(Allocator, "Hello, World!");
+            const nonEmpty = try String(u8).initWithSlice(Allocator, "Hello, World!");
             defer nonEmpty.deinit();
 
             try expect(empty.isEmpty());
@@ -4107,8 +4107,8 @@
 
     // ┌──────────────────────────── Data ────────────────────────────┐
 
-        test "String.Writer.write" {
-            var s = try String.initWithAllocator(Allocator);
+        test "String(u8).Writer.write" {
+            var s = try String(u8).initWithAllocator(Allocator);
             defer s.deinit();
             var writer = s.writer();
 
@@ -4122,8 +4122,8 @@
             try expectStrings("Hello World!", s.src());
         }
 
-        test "String.iterator" {
-            var s = try String.init(Allocator, "!👨‍🏭@👨‍🏭#");
+        test "String(u8).iterator" {
+            var s = try String(u8).init(Allocator, "!👨‍🏭@👨‍🏭#");
             defer s.deinit();
             var iter = s.iterator();
 
@@ -4135,8 +4135,8 @@
             try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.current_index);
         }
 
-        test "String.charAt and String.atVisual and String.sub and String.toViewer" {
-            var s = try String.initWithSlice(Allocator, "!👨‍🏭@👨‍🏭#");
+        test "String(u8).charAt and String(u8).atVisual and String(u8).sub and String(u8).toViewer" {
+            var s = try String(u8).initWithSlice(Allocator, "!👨‍🏭@👨‍🏭#");
             defer s.deinit();
 
             try expectEqual('!',  s.charAt(0).?);
@@ -4162,8 +4162,8 @@
 
     // ┌──────────────────────────── Split ───────────────────────────┐
 
-        test "String.split" {
-            var s = try String.init(Allocator, "0👨‍🏭11👨‍🏭2👨‍🏭33");
+        test "String(u8).split" {
+            var s = try String(u8).init(Allocator, "0👨‍🏭11👨‍🏭2👨‍🏭33");
             defer s.deinit();
 
             // Test basic splits
@@ -4176,7 +4176,7 @@
             try expect(s.split("👨‍🏭", 4) == null);
 
             // Test empty input
-            var s2 = try String.initEmpty(Allocator);
+            var s2 = try String(u8).initEmpty(Allocator);
             defer s2.deinit();
             try expectStrings("", s2.split("👨‍🏭", 0).?);
 
@@ -4184,9 +4184,9 @@
             try expectStrings(s.src(), s.split("X", 0).?);
         }
 
-        test "String.splitAll" {
+        test "String(u8).splitAll" {
             // Leading/trailing delimiters
-            var s = try String.init(Allocator, "👨‍🏭a👨‍🏭b👨‍🏭");
+            var s = try String(u8).init(Allocator, "👨‍🏭a👨‍🏭b👨‍🏭");
             defer s.deinit();
 
             const parts2 = try s.splitAll("👨‍🏭", true);
@@ -4203,8 +4203,8 @@
             try expectStrings("b", parts3[1]);
         }
 
-        test "String.splitToSelf" {
-            var s = try String.init(Allocator, "0👨‍🏭11👨‍🏭2👨‍🏭33");
+        test "String(u8).splitToSelf" {
+            var s = try String(u8).init(Allocator, "0👨‍🏭11👨‍🏭2👨‍🏭33");
             defer s.deinit();
 
             // Test basic splits
@@ -4229,7 +4229,7 @@
             try expect(try s.splitToSelf("👨‍🏭", 4) == null);
 
             // Test empty input
-            var s2 = try String.initEmpty(Allocator);
+            var s2 = try String(u8).initEmpty(Allocator);
             try expectStrings("", (try s2.splitToSelf("👨‍🏭", 0)).?.src());
 
             // Test non-existent delimiter
@@ -4239,9 +4239,9 @@
             }
         }
 
-        test "String.splitAllToSelf" {
+        test "String(u8).splitAllToSelf" {
             // Leading/trailing delimiters
-            var s = try String.init(Allocator, "👨‍🏭a👨‍🏭b👨‍🏭");
+            var s = try String(u8).init(Allocator, "👨‍🏭a👨‍🏭b👨‍🏭");
             defer s.deinit();
 
             const parts2 = try s.splitAllToSelf("👨‍🏭");
@@ -4258,13 +4258,13 @@
 
     // ┌──────────────────────────── Utils ───────────────────────────┐
 
-        test "String.shrinkAndFree" {
+        test "String(u8).shrinkAndFree" {
             // shrink still sets length when resizing is disabled
             {
                 var failing_allocator = std.testing.FailingAllocator.init(Allocator, .{ .resize_fail_index = 0 });
                 const a = failing_allocator.allocator();
 
-                var s = try String.initEmpty(a);
+                var s = try String(u8).initEmpty(a);
                 defer s.deinit();
 
                 try s.append(1);
@@ -4280,7 +4280,7 @@
                 var failing_allocator = std.testing.FailingAllocator.init(Allocator, .{ .resize_fail_index = 0 });
                 const a = failing_allocator.allocator();
 
-                var s = try String.initEmpty(a);
+                var s = try String(u8).initEmpty(a);
                 defer s.deinit();
 
                 try s.repeat(3, 16);
@@ -4292,7 +4292,7 @@
             {
                 const a = std.testing.allocator;
 
-                var s = try String.initEmpty(a);
+                var s = try String(u8).initEmpty(a);
                 defer s.deinit();
 
                 try s.appendSlice("abcd");
@@ -4309,10 +4309,10 @@
             }
         }
 
-        test "String.resize" {
+        test "String(u8).resize" {
             // empty
             {
-                var s = try String.initEmpty(Allocator);
+                var s = try String(u8).initEmpty(Allocator);
                 defer s.deinit();
                 try expectEqual(0, s.size());
                 try expectEqual(0, s.len());
@@ -4336,7 +4336,7 @@
 
             // with value
             {
-                var s = try String.initWithSlice(Allocator, "Hello");
+                var s = try String(u8).initWithSlice(Allocator, "Hello");
                 defer s.deinit();
 
                 try expectEqual(5, s.len());
@@ -4359,8 +4359,8 @@
             }
         }
 
-        test "String.toUnmanaged" {
-            var s = try String.initWithSlice(Allocator, "Hello, World!");
+        test "String(u8).toUnmanaged" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello, World!");
 
             var unmanaged = s.toUnmanaged();
             defer unmanaged.deinit(Allocator);
@@ -4370,14 +4370,14 @@
             // try expectStrings("Hello, Maysara!", unmanaged.src());
         }
 
-        test "String.fromOwnedSlice" {
-            var slice = try utils.bytes.initWithSlice(13, "Hello, World!");
-            const s = String.fromOwnedSlice(Allocator, &slice);
+        test "String(u8).fromOwnedSlice" {
+            var slice = try utils.chars.initWithSlice(u8, 13, "Hello, World!");
+            const s = String(u8).fromOwnedSlice(Allocator, &slice);
             try expectStrings(&slice, s.src());
         }
 
-        test "String.toOwnedSlice" {
-            var s = try String.initWithSlice(Allocator, "Hello, World!");
+        test "String(u8).toOwnedSlice" {
+            var s = try String(u8).initWithSlice(Allocator, "Hello, World!");
 
             var ownedSlice = try s.toOwnedSlice();
             ownedSlice[0] = 'X';

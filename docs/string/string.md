@@ -33,7 +33,7 @@ const String = @import("io").String;
 
 pub fn main() void {
     // Init with any-value from any-type you want!
-    var string = try String.init(allocator, true);
+    var string = try String(u8).init(allocator, true);
     defer string.deinit();
 
     // Append any-value from any-type you have! xD
@@ -46,7 +46,7 @@ pub fn main() void {
     string.print(); // "true!=false👨‍🏭"
 
     // Detect the correct data.
-    _ = string.len(); // 22 (👨‍🏭 = 11 byte)
+    _ = string.len(); // 22 (👨‍🏭 = 11 char)
     _ = string.vlen(); // 12 (👨‍🏭 = 1 character)
 
     // Correct unicode (codePoint/graphemeCluster) handling.
@@ -67,55 +67,55 @@ pub fn main() void {
 | init               | Initializes a `String` instance with anytype.             |
 | initEmpty          | Initializes a new empty `String` instance.                |
 | initWithSelf       | Initializes a new `String` instance with the specified initial `String`. |
-| initWithSlice      | Initializes a new `String` instance with the specified initial `bytes`. |
-| initWithByte       | Initializes a new `String` instance with the specified initial `byte`. |
+| initWithSlice      | Initializes a new `String` instance with the specified initial `chars`. |
+| initWithChar       | Initializes a new `String` instance with the specified initial `char`. |
 | initWithFmt        | Initializes a `String` instance with a formatted string.  |
 | initWithAllocator  | Initializes a new empty `String` instance with the specified allocator. |
 | initWithCapacity   | Initializes a new `String` instance with the specified allocator and initial `capacity`. |
 | deinit             | Releases all allocated memory associated with the `String` instance. |
-| size               | Returns the number of bytes that can be written.          |
-| len                | Returns the total number of written bytes.                |
+| size               | Returns the number of chars that can be written.          |
+| len                | Returns the total number of written chars.                |
 | vlen               | Returns the total number of visual characters.            |
 | src                | Returns a slice containing only the written part.         |
 | sub                | Returns a sub-slice of the `String`.                      |
 | charAt             | Returns a character at the specified index.               |
 | atVisual           | Returns a character at the specified visual position.     |
-| iterator           | Creates an iterator for traversing the Unicode bytes.     |
+| iterator           | Creates an iterator for traversing the Unicode chars.     |
 | writer             | Initializes a Writer which will append to the list.       |
 | insertSlice        | Inserts a slice into the `String` instance at the specified position. |
-| insertByte         | Inserts a byte into the `String` instance at the specified position. |
+| insertChar         | Inserts a char into the `String` instance at the specified position. |
 | insertSelf         | Inserts a `String` into the `String` instance at the specified position. |
 | insertFmt          | Inserts a formatted string into the `String` instance at the specified position. |
 | visualInsertSlice  | Inserts a slice into the `String` instance at the specified visual position. |
-| visualInsertByte   | Inserts a byte into the `String` instance at the specified visual position. |
+| visualInsertChar   | Inserts a char into the `String` instance at the specified visual position. |
 | visualInsertSelf   | Inserts a `String` into the `String` instance at the specified visual position. |
 | visualInsertFmt    | Inserts a formatted string into the `String` instance at the specified visual position. |
 | appendSlice        | Appends a slice to the `String` instance.                 |
-| appendByte         | Appends a byte to the `String` instance.                  |
+| appendChar         | Appends a char to the `String` instance.                  |
 | appendSelf         | Appends a `String` to the `String` instance.              |
 | appendFmt          | Appends a formatted string to the `String` instance.      |
 | prependSlice       | Prepends a slice to the `String` instance.                |
-| prependByte        | Prepends a byte to the `String` instance.                 |
+| prependChar        | Prepends a char to the `String` instance.                 |
 | prependSelf        | Prepends a `String` to the `String` instance.             |
 | prependFmt         | Prepends a formatted string to the `String` instance.     |
-| removeIndex        | Removes a byte from the `String` instance at the specified position. |
-| removeVisualIndex  | Removes a byte from the `String` instance by the specified visual position. |
-| removeRange        | Removes a range of bytes from the `String` instance.      |
-| removeVisualRange  | Removes a range of bytes from the `String` instance by the specified visual position. |
+| removeIndex        | Removes a char from the `String` instance at the specified position. |
+| removeVisualIndex  | Removes a char from the `String` instance by the specified visual position. |
+| removeRange        | Removes a range of chars from the `String` instance.      |
+| removeVisualRange  | Removes a range of chars from the `String` instance by the specified visual position. |
 | pop                | Removes the last grapheme cluster from the `String` instance. |
 | shift              | Removes the first grapheme cluster from the `String` instance. |
 | trim               | Trims whitespace from both ends of the `String` instance. |
 | trimStart          | Trims whitespace from the start of the `String` instance. |
 | trimEnd            | Trims whitespace from the end of the `String` instance.   |
-| replaceRange       | Replaces a range of bytes with another slice in the `String`. |
-| replaceVisualRange | Replaces a visual range of bytes with another slice in the `String`. |
+| replaceRange       | Replaces a range of chars with another slice in the `String`. |
+| replaceVisualRange | Replaces a visual range of chars with another slice in the `String`. |
 | replaceFirst       | Replaces the first occurrence of a slice with another slice in the `String`. |
 | replaceFirstN      | Replaces the first N(count) occurrence of a slice with another slice in the `String`. |
 | replaceLast        | Replaces the last occurrence of a slice with another slice in the `String`. |
 | replaceLastN       | Replaces the last N(count) occurrence of a slice with another slice in the `String`. |
 | replaceAll         | Replaces all occurrences of a slice with another slice in the `String`. |
 | replaceNth         | Replaces the `nth` occurrence of a slice with another slice in the `String`. |
-| repeat             | Repeats a byte `count` times and appends it to the `String` instance. |
+| repeat             | Repeats a char `count` times and appends it to the `String` instance. |
 | find               | Finds the position of the first occurrence of the target slice. |
 | findVisual         | Finds the visual position of the first occurrence of the target slice. |
 | findLast           | Finds the position of the last occurrence of the target slice. |

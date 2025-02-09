@@ -33,7 +33,7 @@ const Buffer = @import("io").Buffer;
 
 pub fn main() void {
     // Init with any-value from any-type you want!
-    var buffer = try Buffer(100).init(true);
+    var buffer = try Buffer(u8, 100).init(true);
 
     // Append any-value from any-type you have! xD
     try buffer.append('!');
@@ -45,7 +45,7 @@ pub fn main() void {
     buffer.print(); // "true!=false👨‍🏭"
 
     // Detect the correct data.
-    _ = buffer.len(); // 22 (👨‍🏭 = 11 byte)
+    _ = buffer.len(); // 22 (👨‍🏭 = 11 char)
     _ = buffer.vlen(); // 12 (👨‍🏭 = 1 character)
 
     // Correct unicode (codePoint/graphemeCluster) handling.
@@ -66,52 +66,52 @@ pub fn main() void {
 | init               | Initializes a `Buffer` instance with anytype.             |
 | initEmpty          | Initializes a new empty `Buffer` instance.                |
 | initWithSelf       | Initializes a new `Buffer` instance with the specified initial `Buffer`. |
-| initWithSlice      | Initializes a new `Buffer` instance with the specified initial `bytes`. |
-| initWithByte       | Initializes a new `Buffer` instance with the specified initial `byte`. |
+| initWithSlice      | Initializes a new `Buffer` instance with the specified initial `chars`. |
+| initWithChar       | Initializes a new `Buffer` instance with the specified initial `char`. |
 | initWithFmt        | Initializes a `Buffer` instance with a formatted string.  |
-| size               | Returns the number of bytes that can be written.          |
-| len                | Returns the total number of written bytes.                |
+| size               | Returns the number of chars that can be written.          |
+| len                | Returns the total number of written chars.                |
 | vlen               | Returns the total number of visual characters.            |
 | src                | Returns a slice containing only the written part.         |
 | sub                | Returns a sub-slice of the `Buffer`.                      |
 | charAt             | Returns a character at the specified index.               |
 | atVisual           | Returns a character at the specified visual position.     |
-| iterator           | Creates an iterator for traversing the Unicode bytes.     |
+| iterator           | Creates an iterator for traversing the Unicode chars.     |
 | writer             | Initializes a Writer which will append to the list.       |
 | insertSlice        | Inserts a slice into the `Buffer` instance at the specified position. |
-| insertByte         | Inserts a byte into the `Buffer` instance at the specified position. |
+| insertChar         | Inserts a char into the `Buffer` instance at the specified position. |
 | insertSelf         | Inserts a `Buffer` into the `Buffer` instance at the specified position. |
 | insertFmt          | Inserts a formatted string into the `Buffer` instance at the specified position. |
 | visualInsertSlice  | Inserts a slice into the `Buffer` instance at the specified visual position. |
-| visualInsertByte   | Inserts a byte into the `Buffer` instance at the specified visual position. |
+| visualInsertChar   | Inserts a char into the `Buffer` instance at the specified visual position. |
 | visualInsertSelf   | Inserts a `Buffer` into the `Buffer` instance at the specified visual position. |
 | visualInsertFmt    | Inserts a formatted string into the `Buffer` instance at the specified visual position. |
 | appendSlice        | Appends a slice to the `Buffer` instance.                 |
-| appendByte         | Appends a byte to the `Buffer` instance.                  |
+| appendChar         | Appends a char to the `Buffer` instance.                  |
 | appendSelf         | Appends a `Buffer` to the `Buffer` instance.              |
 | appendFmt          | Appends a formatted string to the `Buffer` instance.      |
 | prependSlice       | Prepends a slice to the `Buffer` instance.                |
-| prependByte        | Prepends a byte to the `Buffer` instance.                 |
+| prependChar        | Prepends a char to the `Buffer` instance.                 |
 | prependSelf        | Prepends a `Buffer` to the `Buffer` instance.             |
 | prependFmt         | Prepends a formatted string to the `Buffer` instance.     |
-| removeIndex        | Removes a byte from the `Buffer` instance at the specified position. |
-| removeVisualIndex  | Removes a byte from the `Buffer` instance by the specified visual position. |
-| removeRange        | Removes a range of bytes from the `Buffer` instance.      |
-| removeVisualRange  | Removes a range of bytes from the `Buffer` instance by the specified visual position. |
+| removeIndex        | Removes a char from the `Buffer` instance at the specified position. |
+| removeVisualIndex  | Removes a char from the `Buffer` instance by the specified visual position. |
+| removeRange        | Removes a range of chars from the `Buffer` instance.      |
+| removeVisualRange  | Removes a range of chars from the `Buffer` instance by the specified visual position. |
 | pop                | Removes the last grapheme cluster from the `Buffer` instance. |
 | shift              | Removes the first grapheme cluster from the `Buffer` instance. |
 | trim               | Trims whitespace from both ends of the `Buffer` instance. |
 | trimStart          | Trims whitespace from the start of the `Buffer` instance. |
 | trimEnd            | Trims whitespace from the end of the `Buffer` instance.   |
-| replaceRange       | Replaces a range of bytes with another slice in the `Buffer`. |
-| replaceVisualRange | Replaces a visual range of bytes with another slice in the `Buffer`. |
+| replaceRange       | Replaces a range of chars with another slice in the `Buffer`. |
+| replaceVisualRange | Replaces a visual range of chars with another slice in the `Buffer`. |
 | replaceFirst       | Replaces the first occurrence of a slice with another slice in the `Buffer`. |
 | replaceFirstN      | Replaces the first N(count) occurrence of a slice with another slice in the `Buffer`. |
 | replaceLast        | Replaces the last occurrence of a slice with another slice in the `Buffer`. |
 | replaceLastN       | Replaces the last N(count) occurrence of a slice with another slice in the `Buffer`. |
 | replaceAll         | Replaces all occurrences of a slice with another slice in the `Buffer`. |
 | replaceNth         | Replaces the `nth` occurrence of a slice with another slice in the `Buffer`. |
-| repeat             | Repeats a byte `count` times and appends it to the `Buffer` instance. |
+| repeat             | Repeats a char `count` times and appends it to the `Buffer` instance. |
 | find               | Finds the position of the first occurrence of the target slice. |
 | findVisual         | Finds the visual position of the first occurrence of the target slice. |
 | findLast           | Finds the position of the last occurrence of the target slice. |

@@ -33,7 +33,7 @@ const uString = @import("io").uString;
 
 pub fn main() void {
     // Init with any-value from any-type you want!
-    var ustring = try uString.init(allocator, true);
+    var ustring = try uString(u8).init(allocator, true);
     defer ustring.deinit(allocator);
 
     // Append any-value from any-type you have! xD
@@ -46,7 +46,7 @@ pub fn main() void {
     ustring.print(); // "true!=false👨‍🏭"
 
     // Detect the correct data.
-    _ = ustring.len(); // 22 (👨‍🏭 = 11 byte)
+    _ = ustring.len(); // 22 (👨‍🏭 = 11 char)
     _ = ustring.vlen(); // 12 (👨‍🏭 = 1 character)
 
     // Correct unicode (codePoint/graphemeCluster) handling.
@@ -67,55 +67,55 @@ pub fn main() void {
 | init               | Initializes a `uString` instance with anytype.            |
 | initEmpty          | Initializes a new empty `uString` instance.               |
 | initWithSelf       | Initializes a new `uString` instance with the specified initial `uString`. |
-| initWithSlice      | Initializes a new `uString` instance with the specified initial `bytes`. |
-| initWithByte       | Initializes a new `uString` instance with the specified initial `byte`. |
+| initWithSlice      | Initializes a new `uString` instance with the specified initial `chars`. |
+| initWithChar       | Initializes a new `uString` instance with the specified initial `char`. |
 | initWithFmt        | Initializes a `uString` instance with a formatted string. |
 | initWithAllocator  | Initializes a new empty `uString` instance with the specified allocator. |
 | initWithCapacity   | Initializes a new `uString` instance with the specified allocator and initial `capacity`. |
 | deinit             | Releases all allocated memory associated with the `uString` instance. |
-| size               | Returns the number of bytes that can be written.          |
-| len                | Returns the total number of written bytes.                |
+| size               | Returns the number of chars that can be written.          |
+| len                | Returns the total number of written chars.                |
 | vlen               | Returns the total number of visual characters.            |
 | src                | Returns a slice containing only the written part.         |
 | sub                | Returns a sub-slice of the `uString`.                     |
 | charAt             | Returns a character at the specified index.               |
 | atVisual           | Returns a character at the specified visual position.     |
-| iterator           | Creates an iterator for traversing the Unicode bytes.     |
+| iterator           | Creates an iterator for traversing the Unicode chars.     |
 | writer             | Initializes a Writer which will append to the list.       |
 | insertSlice        | Inserts a slice into the `uString` instance at the specified position. |
-| insertByte         | Inserts a byte into the `uString` instance at the specified position. |
+| insertChar         | Inserts a char into the `uString` instance at the specified position. |
 | insertSelf         | Inserts a `uString` into the `uString` instance at the specified position. |
 | insertFmt          | Inserts a formatted string into the `uString` instance at the specified position. |
 | visualInsertSlice  | Inserts a slice into the `uString` instance at the specified visual position. |
-| visualInsertByte   | Inserts a byte into the `uString` instance at the specified visual position. |
+| visualInsertChar   | Inserts a char into the `uString` instance at the specified visual position. |
 | visualInsertSelf   | Inserts a `uString` into the `uString` instance at the specified visual position. |
 | visualInsertFmt    | Inserts a formatted string into the `uString` instance at the specified visual position. |
 | appendSlice        | Appends a slice to the `uString` instance.                |
-| appendByte         | Appends a byte to the `uString` instance.                 |
+| appendChar         | Appends a char to the `uString` instance.                 |
 | appendSelf         | Appends a `uString` to the `uString` instance.            |
 | appendFmt          | Appends a formatted string to the `uString` instance.     |
 | prependSlice       | Prepends a slice to the `uString` instance.               |
-| prependByte        | Prepends a byte to the `uString` instance.                |
+| prependChar        | Prepends a char to the `uString` instance.                |
 | prependSelf        | Prepends a `uString` to the `uString` instance.           |
 | prependFmt         | Prepends a formatted string to the `uString` instance.    |
-| removeIndex        | Removes a byte from the `uString` instance at the specified position. |
-| removeVisualIndex  | Removes a byte from the `uString` instance by the specified visual position. |
-| removeRange        | Removes a range of bytes from the `uString` instance.     |
-| removeVisualRange  | Removes a range of bytes from the `uString` instance by the specified visual position. |
+| removeIndex        | Removes a char from the `uString` instance at the specified position. |
+| removeVisualIndex  | Removes a char from the `uString` instance by the specified visual position. |
+| removeRange        | Removes a range of chars from the `uString` instance.     |
+| removeVisualRange  | Removes a range of chars from the `uString` instance by the specified visual position. |
 | pop                | Removes the last grapheme cluster from the `uString` instance. |
 | shift              | Removes the first grapheme cluster from the `uString` instance. |
 | trim               | Trims whitespace from both ends of the `uString` instance.|
 | trimStart          | Trims whitespace from the start of the `uString` instance.|
 | trimEnd            | Trims whitespace from the end of the `uString` instance.  |
-| replaceRange       | Replaces a range of bytes with another slice in the `uString`. |
-| replaceVisualRange | Replaces a visual range of bytes with another slice in the `uString`. |
+| replaceRange       | Replaces a range of chars with another slice in the `uString`. |
+| replaceVisualRange | Replaces a visual range of chars with another slice in the `uString`. |
 | replaceFirst       | Replaces the first occurrence of a slice with another slice in the `uString`. |
 | replaceFirstN      | Replaces the first N(count) occurrence of a slice with another slice in the `uString`. |
 | replaceLast        | Replaces the last occurrence of a slice with another slice in the `uString`. |
 | replaceLastN       | Replaces the last N(count) occurrence of a slice with another slice in the `uString`. |
 | replaceAll         | Replaces all occurrences of a slice with another slice in the `uString`. |
 | replaceNth         | Replaces the `nth` occurrence of a slice with another slice in the `uString`. |
-| repeat             | Repeats a byte `count` times and appends it to the `uString` instance. |
+| repeat             | Repeats a char `count` times and appends it to the `uString` instance. |
 | find               | Finds the position of the first occurrence of the target slice. |
 | findVisual         | Finds the visual position of the first occurrence of the target slice. |
 | findLast           | Finds the position of the last occurrence of the target slice. |

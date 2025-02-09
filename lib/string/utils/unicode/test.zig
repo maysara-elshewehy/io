@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
 
     const std               = @import("std");
-    const bytes             = @import("../bytes/bytes.zig");
+    const chars             = @import("../chars/chars.zig");
     const unicode           = @import("./unicode.zig");
     const Iterator          = unicode.Iterator;
     const Codepoint         = unicode.Codepoint;
@@ -261,7 +261,7 @@
         }
 
         test "unicode.getRealPosition" {
-            const _Str = try bytes.initWithSlice(18, "Hello 👨‍🏭!");
+            const _Str = try chars.initWithSlice(u8, 18, "Hello 👨‍🏭!");
 
             const _Cases = .{
                 .{ 0, 0 },
@@ -283,7 +283,7 @@
         }
 
         test "unicode.getVisualPosition" {
-            const _Str = try bytes.initWithSlice(18, "Hello 👨‍🏭!");
+            const _Str = try chars.initWithSlice(u8, 18, "Hello 👨‍🏭!");
 
             const _Cases = .{
                 .{ 0, 0 },

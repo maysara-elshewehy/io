@@ -57,7 +57,7 @@
 
             // ┌────────────────────────── Methods ───────────────────────────┐
 
-                /// Initializes a Codepoint using the given input bytes.
+                /// Initializes a Codepoint using the given input chars.
                 /// - `Error.InvalidValue` **_if the `slice` is not a valid unicode._**
                 pub fn init(slice: []const u8) Error!Self {
                     if(slice.len == 0) return Error.InvalidValue;
@@ -92,7 +92,7 @@
 
     // ┌────────────────────────── Iterator ──────────────────────────┐
 
-        /// A _(`grapheme cluster`, `codepoint`)_ iterator for iterating over a slice of bytes.
+        /// A _(`grapheme cluster`, `codepoint`)_ iterator for iterating over a slice of chars.
         pub const Iterator = struct {
 
             // ┌──────────────────────────── ---- ────────────────────────────┐
@@ -110,8 +110,8 @@
 
             // ┌─────────────────────────── Fields ───────────────────────────┐
 
-                /// The input bytes to iterate over.
-                input_bytes: []const u8,
+                /// The input chars to iterate over.
+                input_chars: []const u8,
 
                 /// The current position of the iterator.
                 current_index: usize,
@@ -121,16 +121,16 @@
 
             // ┌────────────────────────── Methods ───────────────────────────┐
 
-                /// Initializes a Iterator with the given input bytes.
-                /// Returns `Error.InvalidValue` **_if the `input_bytes` is not a valid unicode._**
-                pub fn init(input_bytes: []const u8) Error!Self {
-                    if(!Utf8Validate(input_bytes)) return Error.InvalidValue;
-                    return initUnchecked(input_bytes);
+                /// Initializes a Iterator with the given input chars.
+                /// Returns `Error.InvalidValue` **_if the `input_chars` is not a valid unicode._**
+                pub fn init(input_chars: []const u8) Error!Self {
+                    if(!Utf8Validate(input_chars)) return Error.InvalidValue;
+                    return initUnchecked(input_chars);
                 }
 
-                /// Initializes a Iterator with the given input bytes.
-                pub inline fn initUnchecked(input_bytes: []const u8) Self {
-                    return .{ .input_bytes = input_bytes, .current_index = 0, };
+                /// Initializes a Iterator with the given input chars.
+                pub inline fn initUnchecked(input_chars: []const u8) Self {
+                    return .{ .input_chars = input_chars, .current_index = 0, };
                 }
 
                 /// Retrieves the next codepoint slice and advances the iterator.
@@ -145,14 +145,14 @@
 
                 /// Retrieves the next codepoint slice and advances the iterator.
                 fn getNextSlice(self: *Self, mode: modes) ?[]const u8 {
-                    if (self.current_index >= self.input_bytes.len) return null;
+                    if (self.current_index >= self.input_chars.len) return null;
                     const cp_len = switch (mode) {
-                        .codepoint => getLengthOfStartByte(self.input_bytes[self.current_index]) catch return null,
-                        .graphemeCluster => (getFirstGraphemeClusterSlice(self.input_bytes[self.current_index..]) orelse return null).len,
+                        .codepoint => getLengthOfStartChar(self.input_chars[self.current_index]) catch return null,
+                        .graphemeCluster => (getFirstGraphemeClusterSlice(self.input_chars[self.current_index..]) orelse return null).len,
                     };
 
                     self.current_index += cp_len;
-                    return self.input_bytes[self.current_index - cp_len..self.current_index];
+                    return self.input_chars[self.current_index - cp_len..self.current_index];
                 }
 
                 /// Decodes and returns the next codepoint and advances the iterator.
@@ -173,7 +173,7 @@
                         end_ix += next_codepoint_slice.len;
                     }
 
-                    return self.input_bytes[original_i..end_ix];
+                    return self.input_chars[original_i..end_ix];
                 }
 
             // └──────────────────────────────────────────────────────────────┘
@@ -188,9 +188,9 @@
         pub const getVisualPositionError = getRealPositionError;
 
 
-        /// Returns length of the codepoint depending on the first byte.
-        /// - `error.InvalidValue` **_if the `value` is not valid a utf8 start byte._**
-        pub inline fn getLengthOfStartByte(value: u8) error{InvalidValue}!usize {
+        /// Returns length of the codepoint depending on the first char.
+        /// - `error.InvalidValue` **_if the `value` is not valid a utf8 start char._**
+        pub inline fn getLengthOfStartChar(value: u8) error{InvalidValue}!usize {
             return switch (value) {
                 0b0000_0000...0b0111_1111 => 1,
                 0b1100_0000...0b1101_1111 => 2,
@@ -204,7 +204,7 @@
         pub inline fn getFirstCodepointSlice(value: []const u8) ?[]const u8 {
             if(!Utf8Validate(value)) return null;
             if(value.len == 0) return null;
-            return value[0..getLengthOfStartByte(value[0]) catch null];
+            return value[0..getLengthOfStartChar(value[0]) catch null];
         }
 
         /// -
@@ -217,10 +217,10 @@
             if(value.len == 0) return null;
             var i : usize = value.len;
             while(i > 0) {
-                const byte = value[i - 1];
-                // check if the byte is part of the unicode sequence
-                // and try to get the index of the start byte of this codepoint.
-                if ((byte & 0xC0) != 0x80) return value[i-1 ..];
+                const char = value[i - 1];
+                // check if the char is part of the unicode sequence
+                // and try to get the index of the start char of this codepoint.
+                if ((char & 0xC0) != 0x80) return value[i-1 ..];
                 i -= 1;
             }
             return null;
