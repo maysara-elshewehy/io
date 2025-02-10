@@ -18,7 +18,7 @@
 </p>
 <div align="center">
     <b><i>
-        <sup> part of <a href="https://github.com/Super-ZIG/io/unicode/">SuperZIG/io/unicode</a> module.</sup>
+        <sup> part of <a href="https://github.com/Super-ZIG/io/string/">SuperZIG/io/string</a> module.</sup>
     </i></b>
 </div>
 
