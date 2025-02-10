@@ -138,17 +138,18 @@
 
 - #### 📏 Data
 
-    | Function | Description                                           |
-    | -------- | ----------------------------------------------------- |
-    | size     | Returns the number of chars that can be written.      |
-    | len      | Returns the total number of written chars.            |
-    | vlen     | Returns the total number of visual characters.        |
-    | src      | Returns a slice containing only the written part.     |
-    | sub      | Returns a sub-slice of the `String`.                  |
-    | charAt   | Returns a character at the specified index.           |
-    | atVisual | Returns a character at the specified visual position. |
-    | iterator | Creates an iterator for traversing the Unicode chars. |
-    | writer   | Initializes a Writer which will append to the list.   |
+    | Function | Description                                                    |
+    | -------- | -------------------------------------------------------------- |
+    | size     | Returns the number of chars that can be written.               |
+    | len      | Returns the total number of written chars.                     |
+    | vlen     | Returns the total number of visual characters.                 |
+    | src      | Returns a slice containing only the written part.              |
+    | sub      | Returns a sub-slice of the `String`.                           |
+    | cString  | Returns a [:0]const u8 slice containing only the written part. |
+    | charAt   | Returns a character at the specified index.                    |
+    | atVisual | Returns a character at the specified visual position.          |
+    | iterator | Creates an iterator for traversing the Unicode chars.          |
+    | writer   | Initializes a Writer which will append to the list.            |
 
 - #### ❌ Remove
 

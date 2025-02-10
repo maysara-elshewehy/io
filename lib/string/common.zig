@@ -144,6 +144,15 @@
             return self.m_src[start..end];
         }
 
+        /// Return the written portion of `Self` as a [:0]const u8 slice.
+        pub inline fn cString(comptime Self: type, self: anytype, allocator: Allocator ) Allocator.Error![:0]const u8 {
+            comptime if (Self.getType() != u8) @compileError("cString is only available for u8");
+            try ensureExtraCapacity(Self, self, allocator, 1);
+            self.m_src[self.m_len] = 0;
+            // Don't increment m_len as the 0 is not part of the string itself.
+            return self.m_src[0..self.m_len :0];
+        }
+
     // └──────────────────────────────────────────────────────────────┘
 
 

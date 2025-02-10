@@ -1459,6 +1459,14 @@
             try expectStrings("👨‍🏭", try s.sub(1, 12));
         }
 
+        test "Buffer(u8, N).cString" {
+            var s = Buffer(u8, 64).initWithSlice("!👨‍🏭@👨‍🏭#");
+
+            const c_string = try s.cString();
+
+            try expectStrings("!👨‍🏭@👨‍🏭#", c_string);
+        }
+
     // └──────────────────────────────────────────────────────────────┘
 
 
@@ -2745,6 +2753,15 @@
 
             const v = s.toViewer();
             try expectStrings(s.src(), v.src());
+        }
+
+        test "uString(u8).cString" {
+            var s = try uString(u8).initWithSlice(Allocator, "!👨‍🏭@👨‍🏭#");
+            defer s.deinit(Allocator);
+
+            const c_string = try s.cString(Allocator);
+
+            try expectStrings("!👨‍🏭@👨‍🏭#", c_string);
         }
 
     // └──────────────────────────────────────────────────────────────┘
@@ -4155,6 +4172,15 @@
 
             const v = s.toViewer();
             try expectStrings(s.src(), v.src());
+        }
+
+        test "String(u8).cString" {
+            var s = try String(u8).initWithSlice(Allocator, "!👨‍🏭@👨‍🏭#");
+            defer s.deinit();
+
+            const c_string = try s.cString();
+
+            try expectStrings("!👨‍🏭@👨‍🏭#", c_string);
         }
 
     // └──────────────────────────────────────────────────────────────┘
