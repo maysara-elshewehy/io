@@ -15,6 +15,7 @@
 
     const StringModule      = @import("./string/string.zig");
     pub const chars         = StringModule.utils.chars;
+    pub const unicode       = StringModule.utils.unicode;
     pub const Viewer        = StringModule.Viewer;
     pub const Buffer        = StringModule.Buffer;
     pub const String        = StringModule.String;
