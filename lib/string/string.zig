@@ -347,6 +347,14 @@
                 return common.sub(Self, self, start, end);
             }
 
+            /// Return the written portion of `Self` as a [:0]const u8 slice.
+            pub inline fn cString(self: *Self) InsertError![:0]const u8 {
+                comptime if (Self.getType() != u8) @compileError("cString is only available for u8");
+                try utils.chars.insertChar(T, &self.m_src, 0, self.m_len, self.m_len);
+                // Don't increment m_len as the 0 is not part of the string itself.
+                return self.m_src[0..self.m_len :0];
+            }
+
             /// Returns a character at the specified index.
             pub inline fn charAt(self: Self, index: usize) ?T {
                 return if(index >= self.len()) null else self.m_src[index];
@@ -965,6 +973,11 @@
             /// Returns a sub-slice of the `uString`.
             pub inline fn sub(self: Self, start: usize, end: usize) RangeError![]const T {
                 return common.sub(Self, self, start, end);
+            }
+
+            /// Returns a [:0]const u8 slice containing only the written part of the `String`.
+            pub inline fn cString(self: *Self, alloc: Allocator) Allocator.Error![:0]const u8 {
+                return common.cString(Self, self, alloc);
             }
 
             /// Returns a character at the specified index.
@@ -1598,6 +1611,12 @@
             /// Returns a slice representing the entire allocated memory range.
             pub inline fn allocatedSlice(self: Self) []T {
                 return self.m_src[0..self.size()];
+            }
+
+            /// Returns a [:0]const u8 slice containing only the written part of the `String`.
+            pub inline fn cString(self: *Self) Allocator.Error![:0]const u8 {
+                comptime if (Self.getType() != u8) @compileError("cString is only available for u8");
+                return common.cString(Self, self, self.m_alloc);
             }
 
             /// Returns a character at the specified index.
