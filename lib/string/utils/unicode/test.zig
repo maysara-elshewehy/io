@@ -106,14 +106,14 @@
 
         fn testCodepointIterator() !void {
             var it1 = try Iterator.init("Hello 🌍");
-            try expect(mem.eql(u8, "H", it1.nextSlice().?));
-            try expect(mem.eql(u8, "e", it1.nextSlice().?));
-            try expect(mem.eql(u8, "l", it1.nextSlice().?));
-            try expect(mem.eql(u8, "l", it1.nextSlice().?));
-            try expect(mem.eql(u8, "o", it1.nextSlice().?));
-            try expect(mem.eql(u8, " ", it1.nextSlice().?));
-            try expect(mem.eql(u8, "🌍", it1.nextSlice().?));
-            try expect(it1.nextSlice() == null);
+            try expect(mem.eql(u8, "H", it1.nextCodepointSlice().?));
+            try expect(mem.eql(u8, "e", it1.nextCodepointSlice().?));
+            try expect(mem.eql(u8, "l", it1.nextCodepointSlice().?));
+            try expect(mem.eql(u8, "l", it1.nextCodepointSlice().?));
+            try expect(mem.eql(u8, "o", it1.nextCodepointSlice().?));
+            try expect(mem.eql(u8, " ", it1.nextCodepointSlice().?));
+            try expect(mem.eql(u8, "🌍", it1.nextCodepointSlice().?));
+            try expect(it1.nextCodepointSlice() == null);
 
             // next
             var it2 = try Iterator.init("Hello 🌍");
@@ -134,15 +134,15 @@
         fn testGraphemeClusterIterator() !void {
             @setEvalBranchQuota(2000);
 
-            // nextSlice
+            // nextCodepointSlice
             var it1 = try Iterator.init("👨‍🏭مرحبا");
-            try expect(mem.eql(u8, "👨‍🏭", it1.nextGraphemeCluster().?));
-            try expect(mem.eql(u8, "م",  it1.nextGraphemeCluster().?));
-            try expect(mem.eql(u8, "ر",  it1.nextGraphemeCluster().?));
-            try expect(mem.eql(u8, "ح",  it1.nextGraphemeCluster().?));
-            try expect(mem.eql(u8, "ب",  it1.nextGraphemeCluster().?));
-            try expect(mem.eql(u8, "ا",  it1.nextGraphemeCluster().?));
-            try expect(it1.nextGraphemeCluster() == null);
+            try expect(mem.eql(u8, "👨‍🏭", it1.nextGraphemeClusterSlice().?));
+            try expect(mem.eql(u8, "م",  it1.nextGraphemeClusterSlice().?));
+            try expect(mem.eql(u8, "ر",  it1.nextGraphemeClusterSlice().?));
+            try expect(mem.eql(u8, "ح",  it1.nextGraphemeClusterSlice().?));
+            try expect(mem.eql(u8, "ب",  it1.nextGraphemeClusterSlice().?));
+            try expect(mem.eql(u8, "ا",  it1.nextGraphemeClusterSlice().?));
+            try expect(it1.nextGraphemeClusterSlice() == null);
 
             // TODO: improve (next and peek) functions to use specific mode like (graphemeCluster) not just (codepoint).
 

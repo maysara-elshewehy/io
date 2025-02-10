@@ -51,8 +51,8 @@
             }
 
             /// Initializes a new `Viewer` instance with the specified initial `chars`.
-            pub fn initWithSlice(initial_chars: []const T) Self {
-                return Self{ .m_src = initial_chars, .m_len = utils.chars.countWritten(T, initial_chars) };
+            pub fn initWithSlice(initial_slice: []const T) Self {
+                return Self{ .m_src = initial_slice, .m_len = utils.chars.countWritten(T, initial_slice) };
             }
 
             /// Initializes a new `Viewer` instance with the specified initial `Viewer`.
@@ -282,8 +282,8 @@
             }
 
             /// Initializes a new `Buffer` instance with the specified initial `chars`.
-            pub fn initWithSlice(initial_chars: []const T) Self {
-                return Self{ .m_src = makeArrayAndFillWithSlice(initial_chars), .m_len = utils.chars.countWritten(T, initial_chars) };
+            pub fn initWithSlice(initial_slice: []const T) Self {
+                return Self{ .m_src = makeArrayAndFillWithSlice(initial_slice), .m_len = utils.chars.countWritten(T, initial_slice) };
             }
 
             /// Initializes a new `Buffer` instance with the specified initial `char`.
@@ -383,69 +383,69 @@
             /// Inserts a slice into the `Buffer` instance at the specified position.
             /// - `error.OutOfMemory` **if the buffer is not big enough.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insertSlice(self: *Self, slice: []const T, position: usize) InsertError!void {
-                try utils.chars.insertSlice(T, &self.m_src, slice, self.m_len, position);
+            pub fn insertSlice(self: *Self, slice: []const T, pos: usize) InsertError!void {
+                try utils.chars.insertSlice(T, &self.m_src, slice, self.m_len, pos);
                 self.m_len += slice.len;
             }
 
             /// Inserts a char into the `Buffer` instance at the specified position.
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insertChar(self: *Self, char: T, position: usize) InsertError!void {
-                try utils.chars.insertChar(T, &self.m_src, char, self.m_len, position);
+            pub fn insertChar(self: *Self, char: T, pos: usize) InsertError!void {
+                try utils.chars.insertChar(T, &self.m_src, char, self.m_len, pos);
                 self.m_len += 1;
             }
 
             /// Inserts a `Buffer` into the `Buffer` instance at the specified position.
             /// - `error.OutOfMemory` **if the buffer is not big enough.**
-            pub fn insertSelf(self: *Self, buffer: Self, position: usize) InsertError!void {
-                try utils.chars.insertSlice(T, &self.m_src, buffer.src(), self.m_len, position);
+            pub fn insertSelf(self: *Self, buffer: Self, pos: usize) InsertError!void {
+                try utils.chars.insertSlice(T, &self.m_src, buffer.src(), self.m_len, pos);
                 self.m_len += buffer.len();
             }
 
             /// Inserts a formatted string into the `Buffer` instance at the specified position.
             /// - `error.OutOfMemory` **if the buffer is not big enough.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insertFmt(self: *Self, comptime fmt: []const T, args: anytype, position: usize) InsertError!void {
+            pub fn insertFmt(self: *Self, comptime fmt: []const T, args: anytype, pos: usize) InsertError!void {
                 const temp = initWithFmt(fmt, args) catch return InsertError.OutOfMemory;
-                try self.insertSelf(temp, position);
+                try self.insertSelf(temp, pos);
             }
 
             /// Inserts a value from anytype into the `Buffer` instance at the specified position.
             /// - `error.OutOfMemory` **if the buffer is not big enough.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insert(self: *Self, value: anytype, position: usize) InsertError!void {
-                if(utils.chars.isChar(T, value)) try self.insertChar(value, position)
-                else if(utils.chars.isSlice(T, value)) try self.insertSlice(value, position)
-                else if(@TypeOf(value) == Self) try self.insertSelf(value, position)
-                else try self.insertFmt("", value, position);
+            pub fn insert(self: *Self, value: anytype, pos: usize) InsertError!void {
+                if(utils.chars.isChar(T, value)) try self.insertChar(value, pos)
+                else if(utils.chars.isSlice(T, value)) try self.insertSlice(value, pos)
+                else if(@TypeOf(value) == Self) try self.insertSelf(value, pos)
+                else try self.insertFmt("", value, pos);
             }
 
             /// Inserts a slice into the `Buffer` instance at the specified visual position.
             /// - `error.OutOfRange` **if the `position` is invalid or greater than `self.size()``.**
-            pub fn visualInsertSlice(self: *Self, slice: []const T, position: usize) InsertError!void {
-                try utils.chars.visualInsertSlice(T, &self.m_src, slice, self.m_len, position);
+            pub fn visualInsertSlice(self: *Self, slice: []const T, pos: usize) InsertError!void {
+                try utils.chars.visualInsertSlice(T, &self.m_src, slice, self.m_len, pos);
                 self.m_len += slice.len;
             }
 
             /// Inserts a char into the `Buffer` instance at the specified visual position.
             /// - `error.OutOfRange` **if the `position` is invalid or greater than `self.size()``.**
-            pub fn visualInsertChar(self: *Self, char: T, position: usize) InsertError!void {
-                try utils.chars.visualInsertChar(T, &self.m_src, char, self.m_len, position);
+            pub fn visualInsertChar(self: *Self, char: T, pos: usize) InsertError!void {
+                try utils.chars.visualInsertChar(T, &self.m_src, char, self.m_len, pos);
                 self.m_len += 1;
             }
 
             /// Inserts a `Buffer` into the `Buffer` instance at the specified visual position.
             /// - `error.OutOfRange` **if the `position` is invalid or greater than `self.size()``.**
-            pub fn visualInsertSelf(self: *Self, buffer: Self, position: usize) InsertError!void {
-                try utils.chars.visualInsertSlice(T, &self.m_src, buffer.src(), self.m_len, position);
+            pub fn visualInsertSelf(self: *Self, buffer: Self, pos: usize) InsertError!void {
+                try utils.chars.visualInsertSlice(T, &self.m_src, buffer.src(), self.m_len, pos);
                 self.m_len += buffer.len();
             }
 
             /// Inserts a formatted string into the `Buffer` instance at the specified visual position.
             /// - `error.OutOfRange` **if the `position` is invalid or greater than `self.size()``.**
-            pub fn visualInsertFmt(self: *Self, comptime fmt: []const T, args: anytype, position: usize) InsertError!void {
+            pub fn visualInsertFmt(self: *Self, comptime fmt: []const T, args: anytype, pos: usize) InsertError!void {
                 const temp = initWithFmt(fmt, args) catch return InsertError.OutOfMemory;
-                try self.visualInsertSelf(temp, position);
+                try self.visualInsertSelf(temp, pos);
             }
 
             /// Inserts a value from anytype into the `Buffer` instance at the specified visual position.
@@ -539,8 +539,8 @@
 
             /// Removes a char from the `Buffer` instance at the specified position.
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn removeIndex(self: *Self, position: usize) removeIndexError!void {
-                return common.removeIndex(Self, self, position);
+            pub fn removeIndex(self: *Self, pos: usize) removeIndexError!void {
+                return common.removeIndex(Self, self, pos);
             }
 
             /// Removes a char from the `Buffer` instance by the specified visual position.
@@ -555,8 +555,8 @@
             /// Removes a range of chars from the `Buffer` instance.
             /// - `removeIndexError.InvalidPosition` **if the `position` is invalid.**
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn removeRange(self: *Self, position: usize, length: usize) removeIndexError!void {
-                return common.removeRange(Self, self, position, length);
+            pub fn removeRange(self: *Self, pos: usize, length: usize) removeIndexError!void {
+                return common.removeRange(Self, self, pos, length);
             }
 
             /// Removes a range of chars from the `Buffer` instance by the specified visual position.
@@ -795,7 +795,7 @@
                 var unicode_iterator = utils.unicode.Iterator.initUnchecked(cloned.src());
                 var i: usize = self.m_len;
 
-                while (unicode_iterator.nextGraphemeCluster()) |gc| {
+                while (unicode_iterator.nextGraphemeClusterSlice()) |gc| {
                     i -= gc.len;
                     @memcpy(self.m_src[i..i + gc.len], gc);
                     if (i == 0) break; // to avoid underflow.
@@ -887,8 +887,8 @@
 
             /// Initializes a new `uString` instance with the specified allocator and initial `chars`.
             /// - `Allocator.Error` **if the allocator returned an error.**
-            pub fn initWithSlice(allocator: Allocator, initial_chars: []const T) Allocator.Error!Self {
-                return common.initWithSlice(Self, allocator, initial_chars);
+            pub fn initWithSlice(allocator: Allocator, initial_slice: []const T) Allocator.Error!Self {
+                return common.initWithSlice(Self, allocator, initial_slice);
             }
 
             /// Initializes a new `uString` instance with the specified allocator and initial `char`.
@@ -1009,42 +1009,42 @@
             /// Inserts a slice into the `uString` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insertSlice(self: *Self, allocator: Allocator, slice: []const T, position: usize) InsertError!void {
-                try common.insertSlice(Self, self, allocator, slice, position);
+            pub fn insertSlice(self: *Self, allocator: Allocator, slice: []const T, pos: usize) InsertError!void {
+                try common.insertSlice(Self, self, allocator, slice, pos);
             }
 
             /// Inserts a char into the `uString` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insertChar(self: *Self, allocator: Allocator, char: T, position: usize) InsertError!void {
-                try common.insertChar(Self, self, allocator, char, position);
+            pub fn insertChar(self: *Self, allocator: Allocator, char: T, pos: usize) InsertError!void {
+                try common.insertChar(Self, self, allocator, char, pos);
             }
 
             /// Inserts a `uString` into the `uString` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             ///
             /// Modifies `self` instance in place **if the `string` length is greater than 0.**
-            pub fn insertSelf(self: *Self, allocator: Allocator, string: Self, position: usize) InsertError!void {
-                try self.insertSlice(allocator, string.src(), position);
+            pub fn insertSelf(self: *Self, allocator: Allocator, string: Self, pos: usize) InsertError!void {
+                try self.insertSlice(allocator, string.src(), pos);
             }
 
             /// Inserts a formatted string into the `uString` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insertFmt(self: *Self, allocator: Allocator, comptime fmt: []const T, args: anytype, position: usize) InsertError!void {
+            pub fn insertFmt(self: *Self, allocator: Allocator, comptime fmt: []const T, args: anytype, pos: usize) InsertError!void {
                 const temp = try initWithFmt(allocator, fmt, args);
                 defer temp.deinit(allocator);
-                try self.insertSelf(allocator, temp, position);
+                try self.insertSelf(allocator, temp, pos);
             }
 
             /// Inserts a value from anytype into the `uString` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insert(self: *Self, allocator: Allocator, initial_value: anytype, position: usize) InsertError!void {
-                if(utils.chars.isChar(T, initial_value)) try self.insertChar(allocator, initial_value, position)
-                else if(utils.chars.isSlice(T, initial_value)) try self.insertSlice(allocator, initial_value, position)
-                else if(@TypeOf(initial_value) == Self) try self.insertSelf(allocator, initial_value, position)
-                else try self.insertFmt(allocator, "", initial_value, position);
+            pub fn insert(self: *Self, allocator: Allocator, initial_value: anytype, pos: usize) InsertError!void {
+                if(utils.chars.isChar(T, initial_value)) try self.insertChar(allocator, initial_value, pos)
+                else if(utils.chars.isSlice(T, initial_value)) try self.insertSlice(allocator, initial_value, pos)
+                else if(@TypeOf(initial_value) == Self) try self.insertSelf(allocator, initial_value, pos)
+                else try self.insertFmt(allocator, "", initial_value, pos);
             }
 
             /// Inserts a slice into the `uString` instance at the specified visual position.
@@ -1168,8 +1168,8 @@
 
             /// Removes a char from the `uString` instance at the specified position.
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn removeIndex(self: *Self, position: usize) removeIndexError!void {
-                return common.removeIndex(Self, self, position);
+            pub fn removeIndex(self: *Self, pos: usize) removeIndexError!void {
+                return common.removeIndex(Self, self, pos);
             }
 
             /// Removes a char from the `uString` instance by the specified visual position.
@@ -1184,8 +1184,8 @@
             /// Removes a range of chars from the `uString` instance.
             /// - `removeIndexError.InvalidPosition` **if the `position` is invalid.**
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn removeRange(self: *Self, position: usize, length: usize) removeIndexError!void {
-                return common.removeRange(Self, self, position, length);
+            pub fn removeRange(self: *Self, pos: usize, length: usize) removeIndexError!void {
+                return common.removeRange(Self, self, pos, length);
             }
 
             /// Removes a range of chars from the `uString` instance by the specified visual position.
@@ -1520,8 +1520,8 @@
 
             /// Initializes a new `String` instance with the specified allocator and initial `chars`.
             /// - `Allocator.Error` **if the allocator returned an error.**
-            pub fn initWithSlice(allocator: Allocator, initial_chars: []const T) Allocator.Error!Self {
-                return common.initWithSlice(Self, allocator, initial_chars);
+            pub fn initWithSlice(allocator: Allocator, initial_slice: []const T) Allocator.Error!Self {
+                return common.initWithSlice(Self, allocator, initial_slice);
             }
 
             /// Initializes a new `String` instance with the specified allocator and initial `char`.
@@ -1642,15 +1642,15 @@
             /// Inserts a slice into the `String` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insertSlice(self: *Self, slice: []const T, position: usize) InsertError!void {
-                try common.insertSlice(Self, self, self.m_alloc, slice, position);
+            pub fn insertSlice(self: *Self, slice: []const T, pos: usize) InsertError!void {
+                try common.insertSlice(Self, self, self.m_alloc, slice, pos);
             }
 
             /// Inserts a char into the `String` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insertChar(self: *Self, char: T, position: usize) InsertError!void {
-                try common.insertChar(Self, self, self.m_alloc, char, position);
+            pub fn insertChar(self: *Self, char: T, pos: usize) InsertError!void {
+                try common.insertChar(Self, self, self.m_alloc, char, pos);
             }
 
             /// Inserts a `String` into the `String` instance at the specified position.
@@ -1658,27 +1658,27 @@
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
             ///
             /// Modifies `self` instance in place **if the `string` length is greater than 0.**
-            pub fn insertSelf(self: *Self, string: Self, position: usize) InsertError!void {
-                try self.insertSlice(string.src(), position);
+            pub fn insertSelf(self: *Self, string: Self, pos: usize) InsertError!void {
+                try self.insertSlice(string.src(), pos);
             }
 
             /// Inserts a formatted string into the `String` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insertFmt(self: *Self, comptime fmt: []const T, args: anytype, position: usize) InsertError!void {
+            pub fn insertFmt(self: *Self, comptime fmt: []const T, args: anytype, pos: usize) InsertError!void {
                 const temp = try initWithFmt(self.m_alloc, fmt, args);
                 defer temp.deinit();
-                try self.insertSelf(temp, position);
+                try self.insertSelf(temp, pos);
             }
 
             /// Inserts a value from anytype into the `String` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn insert(self: *Self, value: anytype, position: usize) InsertError!void {
-                if(utils.chars.isChar(T, value)) return self.insertChar(value, position)
-                else if(utils.chars.isSlice(T, value)) return self.insertSlice(value, position)
-                else if(@TypeOf(value) == self) return self.insertSelf(value, position)
-                else return self.insertFmt("", value, position);
+            pub fn insert(self: *Self, value: anytype, pos: usize) InsertError!void {
+                if(utils.chars.isChar(T, value)) return self.insertChar(value, pos)
+                else if(utils.chars.isSlice(T, value)) return self.insertSlice(value, pos)
+                else if(@TypeOf(value) == self) return self.insertSelf(value, pos)
+                else return self.insertFmt("", value, pos);
             }
 
             /// Inserts a slice into the `String` instance at the specified visual position.
@@ -1806,8 +1806,8 @@
 
             /// Removes a char from the `String` instance at the specified position.
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn removeIndex(self: *Self, position: usize) removeIndexError!void {
-                return common.removeIndex(Self, self, position);
+            pub fn removeIndex(self: *Self, pos: usize) removeIndexError!void {
+                return common.removeIndex(Self, self, pos);
             }
 
             /// Removes a char from the `String` instance by the specified visual position.
@@ -1822,8 +1822,8 @@
             /// Removes a range of chars from the `String` instance.
             /// - `removeIndexError.InvalidPosition` **if the `position` is invalid.**
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
-            pub fn removeRange(self: *Self, position: usize, length: usize) removeIndexError!void {
-                return common.removeRange(Self, self, position, length);
+            pub fn removeRange(self: *Self, pos: usize, length: usize) removeIndexError!void {
+                return common.removeRange(Self, self, pos, length);
             }
 
             /// Removes a range of chars from the `String` instance by the specified visual position.

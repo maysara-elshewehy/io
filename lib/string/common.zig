@@ -18,8 +18,8 @@
     pub const std               = @import("std");
     pub const utils             = @import("./utils/utils.zig");
     pub const Allocator         = std.mem.Allocator;
-    pub const RangeError        = error { OutOfRange };
-    pub const CapacityError     = error { OutOfMemory };
+    pub const RangeError        = utils.chars.RangeError;
+    pub const CapacityError     = utils.chars.CapacityError;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -69,12 +69,12 @@
     // ┌─────────────────────── Initialization ───────────────────────┐
 
         /// Initializes a new `Self` instance with the specified allocator and initial chars.
-        pub inline fn initWithSlice(comptime Self: type, allocator: Allocator, initial_chars: []const u8) Allocator.Error!Self {
-            if (initial_chars.len == 0) return Self.initWithAllocator(allocator);
+        pub inline fn initWithSlice(comptime Self: type, allocator: Allocator, initial_slice: []const u8) Allocator.Error!Self {
+            if (initial_slice.len == 0) return Self.initWithAllocator(allocator);
 
-            var self = try Self.initWithCapacity(allocator, initial_chars.len);
-            utils.chars.appendSliceAssumeCapacity(Self.getType(), self.allocatedSlice(), initial_chars, 0);
-            self.m_len = utils.chars.countWritten(Self.getType(), initial_chars);
+            var self = try Self.initWithCapacity(allocator, initial_slice.len);
+            utils.chars.appendSliceAssumeCapacity(Self.getType(), self.allocatedSlice(), initial_slice, 0);
+            self.m_len = utils.chars.countWritten(Self.getType(), initial_slice);
 
             return self;
         }
@@ -149,22 +149,22 @@
 
     // ┌─────────────────────────── Insert ───────────────────────────┐
 
-        pub const InsertError = Allocator.Error || error { OutOfRange };
+        pub const InsertError = Allocator.Error || RangeError;
 
 
         /// Inserts a slice into the `Self` instance at the specified position.
-        pub inline fn insertSlice(comptime Self: type, self: anytype, allocator: Allocator, slice: []const u8, position: usize) InsertError!void {
-            if(self.m_len == 0 or position == self.m_src.len) return appendSlice(Self, self, allocator, slice);
+        pub inline fn insertSlice(comptime Self: type, self: anytype, allocator: Allocator, slice: []const u8, pos: usize) InsertError!void {
+            if(self.m_len == 0 or pos == self.m_src.len) return appendSlice(Self, self, allocator, slice);
             if (slice.len == 0) return;
-            if (position > self.m_src.len) return InsertError.OutOfRange;
-            try insertSliceAssumeCapacity(Self, self, allocator, slice, position);
+            if (pos > self.m_src.len) return InsertError.OutOfRange;
+            try insertSliceAssumeCapacity(Self, self, allocator, slice, pos);
         }
 
         /// Inserts a char into the `Self` instance at the specified position.
-        pub inline fn insertChar(comptime Self: type, self: anytype, allocator: Allocator, char: u8, position: usize) InsertError!void {
-            if(self.m_len == 0 or position == self.m_src.len) return appendChar(Self, self, allocator, char);
-            if (position > self.m_src.len) return InsertError.OutOfRange;
-            try insertCharAssumeCapacity(Self, self, allocator, char, position);
+        pub inline fn insertChar(comptime Self: type, self: anytype, allocator: Allocator, char: u8, pos: usize) InsertError!void {
+            if(self.m_len == 0 or pos == self.m_src.len) return appendChar(Self, self, allocator, char);
+            if (pos > self.m_src.len) return InsertError.OutOfRange;
+            try insertCharAssumeCapacity(Self, self, allocator, char, pos);
         }
 
         /// Inserts a slice into the `Self` instance at the specified visual position.
@@ -363,7 +363,7 @@
             var iter = utils.unicode.Iterator.initUnchecked(self.m_src[start..self.m_len]);
             var i: usize = 0;
 
-            while (iter.nextGraphemeCluster()) |gc| {
+            while (iter.nextGraphemeClusterSlice()) |gc| {
                 new_length += gc.len;
                 i += 1;
                 if (i == length) break;
@@ -589,9 +589,9 @@
     // ┌────────────────────────── Internal ───────────────────────────┐
 
         /// Integer addition returning `error.OutOfMemory` on overflow.
-        pub inline fn addOrOom(a: usize, b: usize) error { OutOfMemory } !usize {
+        pub inline fn addOrOom(a: usize, b: usize) CapacityError!usize {
             const result, const overflow = @addWithOverflow(a, b);
-            if (overflow != 0) return error.OutOfMemory;
+            if (overflow != 0) return CapacityError.OutOfMemory;
             return result;
         }
 
@@ -651,15 +651,15 @@
         }
 
         /// Inserts the specified slice at the specified position in the string.
-        pub inline fn insertSliceAssumeCapacity(comptime Self: type, self: anytype, allocator: Allocator, slice: []const u8, position: usize) InsertError!void {
-            const dst = try addManyAt(Self, self, allocator, position, slice.len);
+        pub inline fn insertSliceAssumeCapacity(comptime Self: type, self: anytype, allocator: Allocator, slice: []const u8, pos: usize) InsertError!void {
+            const dst = try addManyAt(Self, self, allocator, pos, slice.len);
             @memcpy(dst, slice);
             self.m_len += slice.len;
         }
 
         /// Inserts the specified char at the specified position in the string.
-        pub inline fn insertCharAssumeCapacity(comptime Self: type, self: anytype, allocator: Allocator, char: u8, position: usize) InsertError!void {
-            const dst = try addManyAt(Self, self, allocator, position, 1);
+        pub inline fn insertCharAssumeCapacity(comptime Self: type, self: anytype, allocator: Allocator, char: u8, pos: usize) InsertError!void {
+            const dst = try addManyAt(Self, self, allocator, pos, 1);
             dst[0] = char;
             self.m_len += 1;
         }

@@ -19,13 +19,6 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-
-    // All the functions here are designed to be used internally across a lot of other modules and its functions,
-    // so most of the functions here are `inline` as expected and required,
-    // and this module can be considered internal only, so to speak.
-    // I have reasons for this that may not be obvious in the current form of the project.
-
-
     // ┌────────────────────────── Codepoint ─────────────────────────┐
 
         /// A struct to represent a single Unicode codepoint with properties.
@@ -57,7 +50,7 @@
 
             // ┌────────────────────────── Methods ───────────────────────────┐
 
-                /// Initializes a Codepoint using the given input chars.
+                /// Initializes a `Codepoint` instance with the specified slice.
                 /// - `Error.InvalidValue` **_if the `slice` is not a valid unicode._**
                 pub fn init(slice: []const u8) Error!Self {
                     if(slice.len == 0) return Error.InvalidValue;
@@ -110,70 +103,70 @@
 
             // ┌─────────────────────────── Fields ───────────────────────────┐
 
-                /// The input chars to iterate over.
-                input_chars: []const u8,
+                /// The input slice to iterate over.
+                src: []const u8,
 
                 /// The current position of the iterator.
-                current_index: usize,
+                pos: usize,
 
             // └──────────────────────────────────────────────────────────────┘
 
 
             // ┌────────────────────────── Methods ───────────────────────────┐
 
-                /// Initializes a Iterator with the given input chars.
-                /// Returns `Error.InvalidValue` **_if the `input_chars` is not a valid unicode._**
-                pub fn init(input_chars: []const u8) Error!Self {
-                    if(!Utf8Validate(input_chars)) return Error.InvalidValue;
-                    return initUnchecked(input_chars);
+                /// Initializes an `Iterator` with the given input slice.
+                /// Returns `Error.InvalidValue` **_if the `initial_slice` is not a valid unicode._**
+                pub fn init(initial_slice: []const u8) Error!Self {
+                    if(!Utf8Validate(initial_slice)) return Error.InvalidValue;
+                    return initUnchecked(initial_slice);
                 }
 
-                /// Initializes a Iterator with the given input chars.
-                pub inline fn initUnchecked(input_chars: []const u8) Self {
-                    return .{ .input_chars = input_chars, .current_index = 0, };
+                /// Initializes an `Iterator` with the given input slice without validation.
+                pub inline fn initUnchecked(initial_slice: []const u8) Self {
+                    return .{ .src = initial_slice, .pos = 0, };
                 }
 
-                /// Retrieves the next codepoint slice and advances the iterator.
-                pub inline fn nextSlice(self: *Self) ?[]const u8 {
+                /// Returns the next codepoint slice and advances the iterator.
+                pub inline fn nextCodepointSlice(self: *Self) ?[]const u8 {
                     return self.getNextSlice(.codepoint);
                 }
 
-                /// Retrieves the next grapheme cluster slice and advances the iterator.
-                pub inline fn nextGraphemeCluster(self: *Self) ?[]const u8 {
+                /// Returns the next grapheme cluster slice and advances the iterator.
+                pub inline fn nextGraphemeClusterSlice(self: *Self) ?[]const u8 {
                     return self.getNextSlice(.graphemeCluster);
-                }
-
-                /// Retrieves the next codepoint slice and advances the iterator.
-                fn getNextSlice(self: *Self, mode: modes) ?[]const u8 {
-                    if (self.current_index >= self.input_chars.len) return null;
-                    const cp_len = switch (mode) {
-                        .codepoint => getLengthOfStartChar(self.input_chars[self.current_index]) catch return null,
-                        .graphemeCluster => (getFirstGraphemeClusterSlice(self.input_chars[self.current_index..]) orelse return null).len,
-                    };
-
-                    self.current_index += cp_len;
-                    return self.input_chars[self.current_index - cp_len..self.current_index];
                 }
 
                 /// Decodes and returns the next codepoint and advances the iterator.
                 pub inline fn next(self: *Self) ?u21 {
-                    const slice = self.nextSlice() orelse return null;
+                    const slice = self.nextCodepointSlice() orelse return null;
                     return Utf8Decode(slice[0..]) catch null;
                 }
 
                 /// Decodes and returns the next codepoint without advancing the iterator.
                 pub inline fn peek(self: *Self, codepoints_count: usize) ?[]const u8 {
-                    const original_i = self.current_index;
-                    defer self.current_index = original_i;
+                    const original_i = self.pos;
+                    defer self.pos = original_i;
 
                     var end_ix = original_i;
                     var found: usize = 0;
                     while (found < codepoints_count) : (found += 1) {
-                        const next_codepoint_slice = self.nextSlice() orelse return null;
+                        const next_codepoint_slice = self.nextCodepointSlice() orelse return null;
                         end_ix += next_codepoint_slice.len;
                     }
 
-                    return self.input_chars[original_i..end_ix];
+                    return self.src[original_i..end_ix];
+                }
+
+                /// Returns the next slice depending on the mode and advances the iterator.
+                inline fn getNextSlice(self: *Self, mode: modes) ?[]const u8 {
+                    if (self.pos >= self.src.len) return null;
+                    const cp_len = switch (mode) {
+                        .codepoint => getLengthOfStartByte(self.src[self.pos]) catch return null,
+                        .graphemeCluster => (getFirstGraphemeClusterSlice(self.src[self.pos..]) orelse return null).len,
+                    };
+
+                    self.pos += cp_len;
+                    return self.src[self.pos - cp_len..self.pos];
                 }
 
             // └──────────────────────────────────────────────────────────────┘
@@ -182,16 +175,16 @@
     // └──────────────────────────────────────────────────────────────┘
 
 
-    // ┌─────────────────────────── Getters ──────────────────────────┐
+    // ┌──────────────────────────── Utils ───────────────────────────┐
 
         pub const getRealPositionError   = error { InvalidValue, OutOfRange };
         pub const getVisualPositionError = getRealPositionError;
 
 
-        /// Returns length of the codepoint depending on the first char.
-        /// - `error.InvalidValue` **_if the `value` is not valid a utf8 start char._**
-        pub inline fn getLengthOfStartChar(value: u8) error{InvalidValue}!usize {
-            return switch (value) {
+        /// Returns length of the codepoint depending on the first byte.
+        /// - `error.InvalidValue` **_if the `byte` is not valid a utf8 start char._**
+        pub inline fn getLengthOfStartByte(byte: u8) error{InvalidValue}!usize {
+            return switch (byte) {
                 0b0000_0000...0b0111_1111 => 1,
                 0b1100_0000...0b1101_1111 => 2,
                 0b1110_0000...0b1110_1111 => 3,
@@ -200,19 +193,19 @@
             };
         }
 
-        /// -
+        /// Returns the first codepoint slice.
         pub inline fn getFirstCodepointSlice(value: []const u8) ?[]const u8 {
             if(!Utf8Validate(value)) return null;
             if(value.len == 0) return null;
-            return value[0..getLengthOfStartChar(value[0]) catch null];
+            return value[0..getLengthOfStartByte(value[0]) catch null];
         }
 
-        /// -
+        /// Returns the first codepoint.
         pub inline fn getFirstCodepoint(value: []const u8) ?Codepoint {
             return Codepoint.init((getFirstCodepointSlice(value) orelse return null)) catch null;
         }
 
-        /// -
+        /// Returns the last codepoint slice.
         pub inline fn getLastCodepointSlice(value: []const u8) ?[]const u8 {
             if(value.len == 0) return null;
             var i : usize = value.len;
@@ -226,12 +219,12 @@
             return null;
         }
 
-        /// -
+        /// Returns the last codepoint.
         pub inline fn getLastCodepoint(value: []const u8) ?Codepoint {
             return Codepoint.init((getLastCodepointSlice(value) orelse return null)) catch null;
         }
 
-        /// -
+        /// Returns the first grapheme cluster slice.
         pub inline fn getFirstGraphemeClusterSlice(value: []const u8) ?[]const u8 {
             if(!Utf8Validate(value)) return null;
             if(value.len == 0) return null;
@@ -277,7 +270,7 @@
             return value[0..counted_length];
         }
 
-        /// -
+        /// Returns the last grapheme cluster slice.
         pub inline fn getLastGraphemeClusterSlice(value: []const u8) ?[]const u8 {
             // TODO: clean this up.
 
@@ -370,7 +363,10 @@
 
     // ┌────────────────────────── Shortcuts ─────────────────────────┐
 
+        /// Returns true if the input consists entirely of UTF-8 codepoints.
         pub const Utf8Validate = std.unicode.utf8ValidateSlice;
+
+        /// Decodes a UTF-8 codepoint slice into a codepoint value.
         pub const Utf8Decode   = std.unicode.utf8Decode;
 
     // └──────────────────────────────────────────────────────────────┘

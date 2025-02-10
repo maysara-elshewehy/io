@@ -84,7 +84,20 @@
     | [`Viewer`](./viewer.md)   | Immutable fixed-size string type that supports unicode.   |
     | [`Buffer`](./buffer.md)   | Mutable fixed-size string type that supports unicode.     |
     | [`String`](./string.md)   | Managed dynamic-size string type that supports unicode.   |
-    | [`uString`](./ustring.md) | Unmanaged dynamic-size string type that supports unicode. |
+    | [`uString`](./uString.md) | Unmanaged dynamic-size string type that supports unicode. |
+
+
+    <div align="center">
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+    </div>
+
+    > Internal utility modules for handling char arrays and Unicode operations.
+
+    | Module                    | Description                                                     |
+    | ------------------------- | --------------------------------------------------------------- |
+    | [`chars`](./chars.md)     | Utility functions for char arrays.                              |
+    | [`unicode`](./unicode.md) | Utility functions for Unicode codepoints and grapheme clusters. |
+
 
     <div align="center">
     <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -187,6 +200,7 @@
     | toViewer           | ⚫      | 🟡      | 🟢      | 🟢       |
     | toInteger          | 🟡      | 🟡      | 🟡      | 🟡       |
     | toFloat            | 🟡      | 🟡      | 🟡      | 🟡       |
+    | print              | 🟡      | 🟡      | 🟡      | 🟡       |
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

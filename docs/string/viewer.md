@@ -26,25 +26,57 @@
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-### Example
+- ### Quick start 🚀
 
-```zig
-const Viewer = @import("io").Viewer;
+    > If you have not already added the library to your project, please review the [installation guide](https://github.com/Super-ZIG/io/wiki/installation) for more information.
 
-pub fn main() void {
-    // Init with slice.
-    var viewer = Viewer(u8).initWithSlice("Hello 👨‍🏭!");
+    ```zig
+    const Viewer = @import("io").Viewer;
+    ```
 
-    // Fast printing
-    viewer.print(); // "true!=false👨‍🏭"
+    > Now let's create our container, but before that we need to define the data type used to store the values, for example:
+    >
+    > If you are going to deal with (`utf8`, `utf16`, ..) encoding, you can use (`u8`, `u16`, ..) as the data type.
 
-    // Detect the correct data.
-    _ = viewer.len(); // 18 (👨‍🏭 = 11 char)
-    _ = viewer.vlen(); // 8 (👨‍🏭 = 1 character)
+    ```zig
+    const view = try Viewer(u8).init("Hello 👨‍🏭!");
+    ```
 
-    // and more ..
-}
-```
+    > Then you can use it just like the example below with full flexibility.
+
+    ```zig
+    // Get the length of the viewer.
+    _ = view.len();             // 👉 18
+    ```
+
+    ```zig
+    // Get the visual length of the viewer.
+    _ = view.vlen();            // 👉 8
+    ```
+
+    ```zig
+    // Get a byte at a specific index.
+    _ = view.charAt(0);         // 👉 'H'
+    ```
+
+    ```zig
+    // Get a character at a specific visual position.
+    _ = view.atVisual(6);       // 👉 "👨‍🏭"
+    ```
+
+    ```zig
+    // Find the position of a substring.
+    _ = view.find("👨‍🏭");        // 👉 6
+    ```
+
+    ```zig
+    // Check if the viewer includes a specific substring.
+    _ = view.includes("👨‍🏭");    // 👉 true
+    ```
+
+    ```zig
+    // and much more . . !
+    ```
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -52,42 +84,97 @@ pub fn main() void {
 
 ### API
 
-| Function           | Description                                               |
-| ------------------ | --------------------------------------------------------- |
-| init               | Initializes a `Viewer` instance with anytype.             |
-| initEmpty          | Initializes a new empty `Viewer` instance.                |
-| initWithSelf       | Initializes a new `Viewer` instance with the specified initial `Viewer`. |
-| initWithSlice      | Initializes a new `Viewer` instance with the specified initial `chars`. |
-| size               | Returns the number of chars that can be written.          |
-| len                | Returns the total number of written chars.                |
-| vlen               | Returns the total number of visual characters.            |
-| src                | Returns a slice containing only the written part.         |
-| sub                | Returns a sub-slice of the `Viewer`.                      |
-| charAt             | Returns a character at the specified index.               |
-| atVisual           | Returns a character at the specified visual position.     |
-| iterator           | Creates an iterator for traversing the Unicode chars.     |
-| find               | Finds the position of the first occurrence of the target slice. |
-| findVisual         | Finds the visual position of the first occurrence of the target slice. |
-| findLast           | Finds the position of the last occurrence of the target slice. |
-| findLastVisual     | Finds the visual position of the last occurrence of the target slice. |
-| includes           | Returns `true` if the `Viewer` instance contains the target slice. |
-| startsWith         | Returns `true` if the `Viewer` instance starts with the target slice. |
-| endsWith           | Returns `true` if the `Viewer` instance ends with the target slice. |
-| isEqual            | Returns `true` if the `Viewer` instance equals the given target slice. |
-| isEmpty            | Returns `true` if the `Viewer` instance is empty.         |
-| split              | Splits the written portion into substrings separated by the specified delimiters. |
-| splitAll           | Splits the written portion into all substrings separated by the specified delimiters. |
-| splitToSelf        | Splits the written portion into substrings separated by the specified delimiters, returning the substring at the specified index as a new `Viewer` instance. |
-| splitAllToSelf     | Splits the written portion into all substrings separated by the specified delimiters, returning an array of new `Viewer` instances. |
-| clone              | Returns a deep copy of the `Viewer` instance.             |
-| clear              | Clears the contents of the `Viewer`.                      |
+- #### 🧩 Fields
+
+    | Field     | Type                | Description                           |
+    | --------- | ------------------- | ------------------------------------- |
+    | `m_src`   | `[]const u8`        | The immutable unicode encoded chars.  |
+    | `m_len`   | `usize`             | The number of written chars.          |
+
+ - #### ✨ Initialization
+
+    | Function          | Description                                                                              |
+    | ----------------- | ---------------------------------------------------------------------------------------- |
+    | init              | Initializes a `Viewer` instance with anytype.                                            |
+    | initEmpty         | Initializes a new empty `Viewer` instance.                                               |
+    | initWithChar      | Initializes a new `Viewer` instance with the specified initial `char`.                   |
+    | initWithSlice     | Initializes a new `Viewer` instance with the specified initial `chars`.                  |
+    | initWithSelf      | Initializes a new `Viewer` instance with the specified initial `Viewer`.                 |
+
+- #### 📏 Data
+
+    | Function | Description                                           |
+    | -------- | ----------------------------------------------------- |
+    | size     | Returns the number of chars that can be written.      |
+    | len      | Returns the total number of written chars.            |
+    | vlen     | Returns the total number of visual characters.        |
+    | src      | Returns a slice containing only the written part.     |
+    | sub      | Returns a sub-slice of the `Viewer`.                  |
+    | charAt   | Returns a character at the specified index.           |
+    | atVisual | Returns a character at the specified visual position. |
+    | iterator | Creates an iterator for traversing the Unicode chars. |
+
+- #### 🔍 Find
+
+    | Function       | Description                                                            |
+    | -------------- | ---------------------------------------------------------------------- |
+    | find           | Finds the position of the first occurrence of the target slice.        |
+    | findVisual     | Finds the visual position of the first occurrence of the target slice. |
+    | findLast       | Finds the position of the last occurrence of the target slice.         |
+    | findLastVisual | Finds the visual position of the last occurrence of the target slice.  |
+    | includes       | Returns `true` if the `Viewer` instance contains the target slice.     |
+    | startsWith     | Returns `true` if the `Viewer` instance starts with the target slice.  |
+    | endsWith       | Returns `true` if the `Viewer` instance ends with the target slice.    |
+
+- #### ✅ Check
+
+    | Function | Description                                                            |
+    | -------- | ---------------------------------------------------------------------- |
+    | isEqual  | Returns `true` if the `Viewer` instance equals the given target slice. |
+    | isEmpty  | Returns `true` if the `Viewer` instance is empty.                      |
+
+- #### 🔄 Split
+
+    | Function       | Description                                                                                                                                                  |
+    | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    | split          | Splits the written portion into substrings separated by the specified delimiters.                                                                            |
+    | splitAll       | Splits the written portion into all substrings separated by the specified delimiters.                                                                        |
+    | splitToSelf    | Splits the written portion into substrings separated by the specified delimiters, returning the substring at the specified index as a new `Viewer` instance. |
+    | splitAllToSelf | Splits the written portion into all substrings separated by the specified delimiters, returning an array of new `Viewer` instances.                          |
+
+- #### 🔄 Utils
+
+    | Function | Description                                                                          |
+    | -------- | ------------------------------------------------------------------------------------ |
+    | clone    | Returns a deep copy of the `Viewer` instance.                                        |
+    | clear    | Clears the contents of the `Viewer`.                                                 |
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-### Related Links
+- ### 🔗 Related
 
-- [Buffer](./buffer.md)
-- [String](./string.md)
-- [uString](./ustring.md)
+    - [Unicode](./unicode.md)
+        > Utility functions for Unicode codepoints and grapheme clusters.
+
+    - [Chars](./chars.md)
+        > Utility functions for char arrays.
+
+    - [String](./string.md)
+        > Managed dynamic-size string type that supports unicode.
+
+    - [Buffer](./buffer.md)
+        > Mutable fixed-size string type that supports unicode.
+
+    - [uString](./uString.md)
+        > Unmanaged dynamic-size string type that supports unicode.
+
+
+<div align="center"><br>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+</div>
+
+<div align="center"><br>
+<a href="https://github.com/maysara-elshewehy"> <img src="https://img.shields.io/badge/Made with ❤️ by-Maysara-orange"/> </a>
+</div>

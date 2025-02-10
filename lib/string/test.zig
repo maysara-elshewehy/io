@@ -210,12 +210,12 @@
             var s = Viewer(u8).initWithSlice("!👨‍🏭@👨‍🏭#");
             var iter = s.iterator();
 
-            while(iter.nextSlice()) |slice| {
+            while(iter.nextCodepointSlice()) |slice| {
                 try expect(utils.unicode.Utf8Validate(slice));
             }
 
             // Ensure all characters were iterated
-            try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.current_index);
+            try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.pos);
         }
 
         test "Viewer(u8).charAt and Viewer(u8).atVisual and Viewer(u8).sub" {
@@ -1433,12 +1433,12 @@
             var s = Buffer(u8, 64).initWithSlice("!👨‍🏭@👨‍🏭#");
             var iter = s.iterator();
 
-            while(iter.nextSlice()) |slice| {
+            while(iter.nextCodepointSlice()) |slice| {
                 try expect(utils.unicode.Utf8Validate(slice));
             }
 
             // Ensure all characters were iterated
-            try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.current_index);
+            try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.pos);
         }
 
         test "Buffer(u8, N).charAt and Buffer(u8, N).atVisual and Buffer(u8, N).sub" {
@@ -2717,12 +2717,12 @@
             defer s.deinit(Allocator);
             var iter = s.iterator();
 
-            while(iter.nextSlice()) |slice| {
+            while(iter.nextCodepointSlice()) |slice| {
                 try expect(utils.unicode.Utf8Validate(slice));
             }
 
             // Ensure all characters were iterated
-            try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.current_index);
+            try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.pos);
         }
 
         test "uString(u8).charAt and uString(u8).atVisual and uString(u8).sub and uString(u8).toViewer" {
@@ -4127,12 +4127,12 @@
             defer s.deinit();
             var iter = s.iterator();
 
-            while(iter.nextSlice()) |slice| {
+            while(iter.nextCodepointSlice()) |slice| {
                 try expect(utils.unicode.Utf8Validate(slice));
             }
 
             // Ensure all characters were iterated
-            try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.current_index);
+            try expectEqual("!👨‍🏭@👨‍🏭#".len, iter.pos);
         }
 
         test "String(u8).charAt and String(u8).atVisual and String(u8).sub and String(u8).toViewer" {
