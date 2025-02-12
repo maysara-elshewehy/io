@@ -33,6 +33,8 @@
 <br>
 <div align="center" style="display: flex; flex-direction: row; justify-content: center;"><br>
   <a href="https://super-zig.github.io/io/string/"><img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/String/short.png" alt="String" height="50" /></a>
+  <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/Terminal/short.png" alt="Terminal" height="50" width="1" />
+  <a href="https://super-zig.github.io/io/terminal/"><img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/Terminal/short.png" alt="Terminal" height="50" /></a>
 </div>
 
 <div align="center"><br>
