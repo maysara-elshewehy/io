@@ -13,7 +13,7 @@
 // ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
 
     /// -
-    pub const utils = @import("./utils/utils.zig");
+    pub const ansi = @import("./ansi/ansi.zig");
 
     /// -
     pub const events = @import("./events/events.zig");
@@ -28,7 +28,7 @@
 // ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
 
     test {
-        _ = @import("./utils/utils.test.zig");
+        _ = @import("./ansi/ansi.test.zig");
         _ = @import("./events/events.test.zig");
     }
 

@@ -64,6 +64,14 @@
 
     > This library provides several sections, each with its own approach to handling Terminal in the ZIG language.
 
+    - #### [❯ Events](./events)
+
+        > Event handling for terminal input.
+
+    - #### [❯ ANSI](./ansi)
+
+        > ANSI escape codes handling.
+
     - #### [❯ CLI](./cli)
 
         > Easy CLI in ZIG.
@@ -72,106 +80,15 @@
 
         > Beautiful and advanced prompts in ZIG.
 
-    - #### 🎉 Events
-
-        - #### 🛠 Event Methods
-
-            > Event handling for terminal input.
-
-            | Method      | Description                                                    |
-            | ----------- | -------------------------------------------------------------- |
-            | listen      | Listens for a single key press with modifires support.         |
-            | listenUntil | Continuously listens for key presses until a condition is met. |
-
-        - #### 📚 Event Types
-
-            > Type definitions used in event operations.
-
-            | Type  | Description                     |
-            | ----- | ------------------------------- |
-            | Key   | Represents a key press event.   |
-            | Mouse | Represents a mouse press event. |
-
-    - #### 🔧 Utils
-
-        > Utility functions for terminal operations.
-
-       - #### 🗑️ clear
-
-          | Function               | Description                                         |
-          | ---------------------- | --------------------------------------------------- |
-          | clear.all              | Clears the entire terminal screen.                  |
-          | clear.line             | Clears the current line in the terminal.            |
-          | clear.screenFromCursor | Clears the screen from the cursor to the end.       |
-          | clear.screenToCursor   | Clears the screen from the beginning to the cursor. |
-          | clear.lineFromCursor   | Clears the line from the cursor to the end.         |
-          | clear.lineToCursor     | Clears the line from the beginning to the cursor.   |
-
-       - #### ↗️ cursor
-
-          | Function       | Description                                                |
-          | -------------- | ---------------------------------------------------------- |
-          | cursor.goTo    | Moves the cursor to the specified position.                |
-          | cursor.goUp    | Moves the cursor up by the specified number of rows.       |
-          | cursor.goDown  | Moves the cursor down by the specified number of rows.     |
-          | cursor.goLeft  | Moves the cursor left by the specified number of columns.  |
-          | cursor.goRight | Moves the cursor right by the specified number of columns. |
-          | cursor.hide    | Hides the cursor.                                          |
-          | cursor.show    | Shows the cursor.                                          |
-          | cursor.save    | Saves the current cursor position.                         |
-          | cursor.restore | Restores the cursor to the saved position.                 |
-
-       - #### 🎨 colors
-
-          | Function        | Description                                 |
-          | --------------- | ------------------------------------------- |
-          | colors.fg256    | Sets the foreground color using 256 colors. |
-          | colors.bg256    | Sets the background color using 256 colors. |
-          | colors.fgRGB    | Sets the foreground color using RGB values. |
-          | colors.bgRGB    | Sets the background color using RGB values. |
-          | colors.resetAll | Resets all colors and styles.               |
-
-       - #### ✨ attr
-
-          | Function             | Description                         |
-          | -------------------- | ----------------------------------- |
-          | attr.reset           | Resets all attributes.              |
-          | attr.bold            | Sets the bold attribute.            |
-          | attr.noBold          | Unsets the bold attribute.          |
-          | attr.dim             | Sets the dim attribute.             |
-          | attr.noDim           | Unsets the dim attribute.           |
-          | attr.italic          | Sets the italic attribute.          |
-          | attr.noItalic        | Unsets the italic attribute.        |
-          | attr.underline       | Sets the underline attribute.       |
-          | attr.noUnderline     | Unsets the underline attribute.     |
-          | attr.blinking        | Sets the blinking attribute.        |
-          | attr.noBlinking      | Unsets the blinking attribute.      |
-          | attr.reverse         | Sets the reverse attribute.         |
-          | attr.noReverse       | Unsets the reverse attribute.       |
-          | attr.hidden          | Sets the hidden attribute.          |
-          | attr.noHidden        | Unsets the hidden attribute.        |
-          | attr.strikethrough   | Sets the strikethrough attribute.   |
-          | attr.noStrikethrough | Unsets the strikethrough attribute. |
-
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Comparisons
 
-    > First, a special thanks to [Mibu](https://github.com/xyaman/mibu).
-    It is an excellent library, and much of the utils section is inspired by it.
-    >
-    > However, **it has a limitation**: it only works with `POSIX` and specifically `termios`, which is not supported on `Windows`.
-    >
-    > This library was built not only to address this but also to offer many other features you'll discover while browsing the documentation.
+    - #### [Events vs Mibu](./events.md#vs-mibu)
 
-    | Library       | Cross-platform |
-    | ------------- | -------------- |
-    | `io.terminal` | ✔              |
-    | `mibu`        | ❌              |
-
-<div align="center"><br>
+<div align="center">
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
