@@ -81,10 +81,10 @@
 
     | Type                      | Description                                               |
     | ------------------------- | --------------------------------------------------------- |
-    | [`Viewer`](./Viewer.md)   | Immutable fixed-size string type that supports unicode.   |
-    | [`Buffer`](./Buffer.md)   | Mutable fixed-size string type that supports unicode.     |
-    | [`String`](./String.md)   | Managed dynamic-size string type that supports unicode.   |
-    | [`uString`](./uString.md) | Unmanaged dynamic-size string type that supports unicode. |
+    | [`Viewer`](./Viewer)   | Immutable fixed-size string type that supports unicode.   |
+    | [`Buffer`](./Buffer)   | Mutable fixed-size string type that supports unicode.     |
+    | [`String`](./String)   | Managed dynamic-size string type that supports unicode.   |
+    | [`uString`](./uString) | Unmanaged dynamic-size string type that supports unicode. |
 
 
     <div align="center">
@@ -95,8 +95,8 @@
 
     | Module                    | Description                                                     |
     | ------------------------- | --------------------------------------------------------------- |
-    | [`chars`](./chars.md)     | Utility functions for char arrays.                              |
-    | [`unicode`](./unicode.md) | Utility functions for Unicode codepoints and grapheme clusters. |
+    | [`chars`](./chars)     | Utility functions for char arrays.                              |
+    | [`unicode`](./unicode) | Utility functions for Unicode codepoints and grapheme clusters. |
 
 
     <div align="center">

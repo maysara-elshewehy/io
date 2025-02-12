@@ -64,7 +64,7 @@
 
     > This library provides several sections, each with its own approach to handling Terminal in the ZIG language.
 
-    - #### [❯ CLI](./cli.md)
+    - #### [❯ CLI](./cli)
 
         > Easy CLI in ZIG.
 

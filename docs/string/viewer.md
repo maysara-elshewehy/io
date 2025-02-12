@@ -183,19 +183,19 @@
 
 - ### 🔗 Related
 
-    - [Unicode](./unicode.md)
+    - [Unicode](./unicode)
         > Utility functions for Unicode codepoints and grapheme clusters.
 
-    - [Chars](./chars.md)
+    - [Chars](./chars)
         > Utility functions for char arrays.
 
-    - [String](./String.md)
+    - [String](./String)
         > Managed dynamic-size string type that supports unicode.
 
-    - [Buffer](./Buffer.md)
+    - [Buffer](./Buffer)
         > Mutable fixed-size string type that supports unicode.
 
-    - [uString](./uString.md)
+    - [uString](./uString)
         > Unmanaged dynamic-size string type that supports unicode.
 
 
