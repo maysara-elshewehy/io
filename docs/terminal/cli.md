@@ -14,11 +14,11 @@
 </p>
 
 <p align="center">
-    <b> CLI in ZIG done right. </b>
+    <b> Easy CLI in ZIG. </b>
 </p>
 <div align="center">
     <b><i>
-        <sup> part of <a href="https://github.com/Super-ZIG/io">SuperZIG/io</a> library.</sup>
+        <sup> part of <a href="https://super-zig.github.io/io/terminal">SuperZIG/io/terminal</a> module.</sup>
     </i></b>
 </div>
 
@@ -184,6 +184,23 @@
 - ### Comparisons
 
     > TODO
+
+
+- ### 🔗 Related
+
+    - [Prompts](#)
+
+        > ..?
+
+    - [Terminal Events](./index.md#-events)
+
+        > ..?
+
+
+    - [Terminal Utils](./index.md#-utils)
+
+        > ..?
+
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

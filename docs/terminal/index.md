@@ -68,6 +68,10 @@
 
         > Easy CLI in ZIG.
 
+    - #### [❯ Prompts](#) | Todo
+
+        > Beautiful and advanced prompts in ZIG.
+
     - #### 🎉 Events
 
         - #### 🛠 Event Methods

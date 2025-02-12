@@ -18,11 +18,36 @@
 </p>
 <div align="center">
     <b><i>
-        <sup> part of <a href="https://github.com/Super-ZIG/io/string/">SuperZIG/io/string</a> module.</sup>
+        <sup> part of <a href="https://github.com/Super-ZIG/io">SuperZIG/io</a> library.</sup>
     </i></b>
 </div>
 
+
 <div align="center">
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+</div>
+
+<div align="center">
+    <b><i>
+        <sup> 🔥 Built for power. Designed for speed. Ready for production. 🔥 </sup>
+    </i></b>
+</div>
+<br>
+
+- ### 🚀 Features 🚀
+  -  TODO
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+</div>
+
+- ### 📖 Table of Contents
+
+    🔹 [🚀 Quick Start](#quick-start-) – A quick guide to get you started with the library.
+
+    🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
+
+<div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
