@@ -81,10 +81,10 @@
 
     | Type                      | Description                                               |
     | ------------------------- | --------------------------------------------------------- |
-    | [`Viewer`](./Viewer)   | Immutable fixed-size string type that supports unicode.   |
-    | [`Buffer`](./Buffer)   | Mutable fixed-size string type that supports unicode.     |
-    | [`String`](./String)   | Managed dynamic-size string type that supports unicode.   |
-    | [`uString`](./uString) | Unmanaged dynamic-size string type that supports unicode. |
+    | [`Viewer`](./viewer)   | Immutable fixed-size string type that supports unicode.   |
+    | [`Buffer`](./buffer)   | Mutable fixed-size string type that supports unicode.     |
+    | [`String`](./string)   | Managed dynamic-size string type that supports unicode.   |
+    | [`uString`](./ustring) | Unmanaged dynamic-size string type that supports unicode. |
 
 
     <div align="center">

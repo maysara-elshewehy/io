@@ -189,13 +189,13 @@
     - [Chars](./chars)
         > Utility functions for char arrays.
 
-    - [String](./String)
+    - [String](./string)
         > Managed dynamic-size string type that supports unicode.
 
-    - [Buffer](./Buffer)
+    - [Buffer](./buffer)
         > Mutable fixed-size string type that supports unicode.
 
-    - [uString](./uString)
+    - [uString](./ustring)
         > Unmanaged dynamic-size string type that supports unicode.
 
 
