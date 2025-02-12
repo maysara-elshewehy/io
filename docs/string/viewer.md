@@ -86,20 +86,20 @@
 
 - #### 🧩 Fields
 
-    | Field     | Type                | Description                           |
-    | --------- | ------------------- | ------------------------------------- |
-    | `m_src`   | `[]const u8`        | The immutable unicode encoded chars.  |
-    | `m_len`   | `usize`             | The number of written chars.          |
+    | Field   | Type         | Description                          |
+    | ------- | ------------ | ------------------------------------ |
+    | `m_src` | `[]const u8` | The immutable unicode encoded chars. |
+    | `m_len` | `usize`      | The number of written chars.         |
 
  - #### ✨ Initialization
 
-    | Function          | Description                                                                              |
-    | ----------------- | ---------------------------------------------------------------------------------------- |
-    | init              | Initializes a `Viewer` instance with anytype.                                            |
-    | initEmpty         | Initializes a new empty `Viewer` instance.                                               |
-    | initWithChar      | Initializes a new `Viewer` instance with the specified initial `char`.                   |
-    | initWithSlice     | Initializes a new `Viewer` instance with the specified initial `chars`.                  |
-    | initWithSelf      | Initializes a new `Viewer` instance with the specified initial `Viewer`.                 |
+    | Function      | Description                                                              |
+    | ------------- | ------------------------------------------------------------------------ |
+    | init          | Initializes a `Viewer` instance with anytype.                            |
+    | initEmpty     | Initializes a new empty `Viewer` instance.                               |
+    | initWithChar  | Initializes a new `Viewer` instance with the specified initial `char`.   |
+    | initWithSlice | Initializes a new `Viewer` instance with the specified initial `chars`.  |
+    | initWithSelf  | Initializes a new `Viewer` instance with the specified initial `Viewer`. |
 
 - #### 📏 Data
 
@@ -144,10 +144,13 @@
 
 - #### 🔄 Utils
 
-    | Function | Description                                                                          |
-    | -------- | ------------------------------------------------------------------------------------ |
-    | clone    | Returns a deep copy of the `Viewer` instance.                                        |
-    | clear    | Clears the contents of the `Viewer`.                                                 |
+    | Function         | Description                                                                             |
+    | ---------------- | --------------------------------------------------------------------------------------- |
+    | clone            | Returns a deep copy of the `Viewer` instance.                                           |
+    | clear            | Clears the contents of the `Viewer`.                                                    |
+    | print            | Prints the contents of the `Viewer` instance to the standard writer.                    |
+    | printTo          | Prints the contents of the `Viewer` instance to the given writer.                       |
+    | printWithNewline | Prints the contents of the `Viewer` instance to the standard writer and adds a newline. |
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

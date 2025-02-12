@@ -592,6 +592,26 @@
             }
         }
 
+        /// Prints the contents of the `Self` instance to the given writer.
+        pub inline fn printTo(self: anytype, _writer: anytype) !void {
+            if(self.m_len > 0)
+            try _writer.writeAll(self.src());
+        }
+
+        /// Prints the contents of the `Self` instance to the standard writer.
+        pub inline fn print(self: anytype) !void {
+            if(self.m_len > 0)
+            try std.io.getStdOut().writer().writeAll(self.src());
+        }
+
+        /// Prints the contents of the `Self` instance to the standard writer and adds a newline.
+        pub inline fn printWithNewLine(self: anytype) !void {
+            if(self.m_len > 0) {
+                try std.io.getStdOut().writer().writeAll(self.src());
+                try std.io.getStdOut().writer().writeByte('\n');
+            }
+        }
+
     // └──────────────────────────────────────────────────────────────┘
 
 

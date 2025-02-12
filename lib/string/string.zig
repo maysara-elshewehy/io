@@ -232,6 +232,21 @@
                 self.m_len = 0;
             }
 
+            /// Prints the contents of the `Viewer` instance to the given writer.
+            pub fn printTo(self: Self, _writer: anytype) !void {
+                return help.printTo(self, _writer);
+            }
+
+            /// Prints the contents of the `Viewer` instance to the standard writer.
+            pub fn print(self: Self) !void {
+                return help.print(self);
+            }
+
+            /// Prints the contents of the `Viewer` instance to the standard writer and adds a newline.
+            pub fn printWithNewline(self: Self) !void {
+                return help.printWithNewline(self);
+            }
+
         // └──────────────────────────────────────────────────────────────┘
 
         };
@@ -808,6 +823,21 @@
                     @memcpy(self.m_src[i..i + gc.len], gc);
                     if (i == 0) break; // to avoid underflow.
                 }
+            }
+
+            /// Prints the contents of the `Buffer` instance to the given writer.
+            pub fn printTo(self: Self, _writer: anytype) !void {
+                return help.printTo(self, _writer);
+            }
+
+            /// Prints the contents of the `Buffer` instance to the standard writer.
+            pub fn print(self: Self) !void {
+                return help.print(self);
+            }
+
+            /// Prints the contents of the `Buffer` instance to the standard writer and adds a newline.
+            pub fn printWithNewline(self: Self) !void {
+                return help.printWithNewline(self);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -1476,6 +1506,21 @@
                 return Viewer(T).initWithSlice(self.src());
             }
 
+            /// Prints the contents of the `uString` instance to the given writer.
+            pub fn printTo(self: Self, _writer: anytype) !void {
+                return help.printTo(self, _writer);
+            }
+
+            /// Prints the contents of the `uString` instance to the standard writer.
+            pub fn print(self: Self) !void {
+                return help.print(self);
+            }
+
+            /// Prints the contents of the `uString` instance to the standard writer and adds a newline.
+            pub fn printWithNewline(self: Self) !void {
+                return help.printWithNewLine(self);
+            }
+
         // └──────────────────────────────────────────────────────────────┘
 
         };
@@ -2124,6 +2169,21 @@
             /// Converts the `String` instance to a `Viewer`.
             pub fn toViewer(self: Self) Viewer(T) {
                 return Viewer(T).initWithSlice(self.src());
+            }
+
+            /// Prints the contents of the `String` instance to the given writer.
+            pub fn printTo(self: Self, _writer: anytype) !void {
+                return help.printTo(self, _writer);
+            }
+
+            /// Prints the contents of the `String` instance to the standard writer.
+            pub fn print(self: Self) !void {
+                return help.print(self);
+            }
+
+            /// Prints the contents of the `String` instance to the standard writer and adds a newline.
+            pub fn printWithNewline(self: Self) !void {
+                return help.printWithNewLine(self);
             }
 
         // └──────────────────────────────────────────────────────────────┘

@@ -241,10 +241,13 @@
 
 - #### 🔄 Utils
 
-    | Function | Description                                                                          |
-    | -------- | ------------------------------------------------------------------------------------ |
-    | clone    | Returns a deep copy of the `String` instance.                                        |
-    | reverse  | Reverses the order of the characters in the `String` instance (considering Unicode). |
+    | Function         | Description                                                                             |
+    | ---------------- | --------------------------------------------------------------------------------------- |
+    | clone            | Returns a deep copy of the `String` instance.                                           |
+    | reverse          | Reverses the order of the characters in the `String` instance (considering Unicode).    |
+    | print            | Prints the contents of the `String` instance to the standard writer.                    |
+    | printTo          | Prints the contents of the `String` instance to the given writer.                       |
+    | printWithNewline | Prints the contents of the `String` instance to the standard writer and adds a newline. |
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

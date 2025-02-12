@@ -80,21 +80,21 @@
 
 - #### 🧩 Fields
 
-    | Field     | Type                | Description                           |
-    | --------- | ------------------- | ------------------------------------- |
-    | `m_src`   | `[100]u8`           | The mutable unicode encoded chars.    |
-    | `m_len`   | `usize`             | The number of written chars.          |
+    | Field   | Type      | Description                        |
+    | ------- | --------- | ---------------------------------- |
+    | `m_src` | `[100]u8` | The mutable unicode encoded chars. |
+    | `m_len` | `usize`   | The number of written chars.       |
 
  - #### ✨ Initialization
 
-    | Function          | Description                                                                              |
-    | ----------------- | ---------------------------------------------------------------------------------------- |
-    | init              | Initializes a `Buffer` instance with anytype.                                            |
-    | initEmpty         | Initializes a new empty `Buffer` instance.                                               |
-    | initWithChar      | Initializes a new `Buffer` instance with the specified initial `char`.                   |
-    | initWithSlice     | Initializes a new `Buffer` instance with the specified initial `chars`.                  |
-    | initWithSelf      | Initializes a new `Buffer` instance with the specified initial `Buffer`.                 |
-    | initWithFmt       | Initializes a `Buffer` instance with a formatted string.                                 |
+    | Function      | Description                                                              |
+    | ------------- | ------------------------------------------------------------------------ |
+    | init          | Initializes a `Buffer` instance with anytype.                            |
+    | initEmpty     | Initializes a new empty `Buffer` instance.                               |
+    | initWithChar  | Initializes a new `Buffer` instance with the specified initial `char`.   |
+    | initWithSlice | Initializes a new `Buffer` instance with the specified initial `chars`.  |
+    | initWithSelf  | Initializes a new `Buffer` instance with the specified initial `Buffer`. |
+    | initWithFmt   | Initializes a `Buffer` instance with a formatted string.                 |
 
 - #### ➕ Insert
 
@@ -207,11 +207,14 @@
 
 - #### 🔄 Utils
 
-    | Function | Description                                                                          |
-    | -------- | ------------------------------------------------------------------------------------ |
-    | clone    | Returns a deep copy of the `Buffer` instance.                                        |
-    | clear    | Clears the contents of the `Buffer`.                                                 |
-    | reverse  | Reverses the order of the characters in the `Buffer` instance (considering Unicode). |
+    | Function         | Description                                                                             |
+    | ---------------- | --------------------------------------------------------------------------------------- |
+    | clone            | Returns a deep copy of the `Buffer` instance.                                           |
+    | clear            | Clears the contents of the `Buffer`.                                                    |
+    | reverse          | Reverses the order of the characters in the `Buffer` instance (considering Unicode).    |
+    | print            | Prints the contents of the `Buffer` instance to the standard writer.                    |
+    | printTo          | Prints the contents of the `Buffer` instance to the given writer.                       |
+    | printWithNewline | Prints the contents of the `Buffer` instance to the standard writer and adds a newline. |
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
