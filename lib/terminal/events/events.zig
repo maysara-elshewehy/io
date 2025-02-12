@@ -14,8 +14,8 @@
 
     const std       = @import("std");
     const builtin   = @import("builtin");
-    const Types       = @import("./events.types.zig");
-    const core      = switch (builtin.os.tag) {
+    const types     = @import("./events.types.zig");
+    const events    = switch (builtin.os.tag) {
         .linux      => @import("./events.linux.zig"),
         .windows    => @import("./events.win.zig"),
         else        => @compileError("OS not supported"),
@@ -28,12 +28,12 @@
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
     // Implementation for listening to a single key press
-    pub fn listen() !Types.Key {
-        return core.listen();
+    pub fn listen() !types.Key {
+        return events.enableRawMode();
     }
 
     // Implementation for continuously listening to key presses
-    pub fn listenUntil(condition: fn (key: Types.Key) bool) !void {
+    pub fn listenUntil(condition: fn (key: types.Key) bool) !void {
         while (true) {
             const key = try listen();
             if (condition(key)) break;

@@ -14,7 +14,7 @@
 
     const std       = @import("std");
     const builtin   = @import("builtin");
-    const Types     = @import("./events.types.zig");
+    const types     = @import("./events.types.zig");
     const posix     = std.posix;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
@@ -23,8 +23,12 @@
 
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-    // Implementation for listening to a single key press
-    pub inline fn listen() !Types.Key {
+    /// Linux implementation for enabling raw mode and detecting key presses.
+    ///
+    /// We use posix tcgetattr and tcsetattr to get and set terminal attributes.
+    ///
+    /// Then we use posix read to get key events and parse them into Key.
+    pub inline fn enableRawMode() !types.Key {
 
         // Get current terminal settings.
         const start_settings = try posix.tcgetattr(0);
@@ -50,16 +54,17 @@
         // Read key input
         bytes_read = try std.io.getStdIn().reader().read(key_buffer[0..]);
 
-        if (bytes_read > 0) return detectKey(key_buffer[0..], bytes_read)
+        if (bytes_read > 0) return parseBytesRead(key_buffer[0..], bytes_read)
         else unreachable;
     }
 
-    inline fn detectKey(key_buffer: []const u8, bytes_read: usize) Types.Key {
-        var res = Types.Key {
+    /// -
+    inline fn parseBytesRead(key_buffer: []const u8, bytes_read: usize) types.Key {
+        var res = types.Key {
             .m_val  = 0,
             .m_mod  = 0,
-            .m_state = Types.Key.State.None,
-            .m_arrow = Types.Key.Arrow.None,
+            .m_state = types.Key.State.None,
+            .m_arrow = types.Key.Arrow.None,
         };
 
         if (bytes_read == 0) return res;
@@ -67,11 +72,11 @@
         // Detect arrow keys
         if (key_buffer[1] == '[' and bytes_read > 2) {
             res.m_arrow = switch (key_buffer[2]) {
-                'A' => Types.Key.Arrow.Up,
-                'B' => Types.Key.Arrow.Down,
-                'C' => Types.Key.Arrow.Right,
-                'D' => Types.Key.Arrow.Left,
-                else => Types.Key.Arrow.None,
+                'A' => types.Key.Arrow.Up,
+                'B' => types.Key.Arrow.Down,
+                'C' => types.Key.Arrow.Right,
+                'D' => types.Key.Arrow.Left,
+                else => types.Key.Arrow.None,
             };
             return res;
         }

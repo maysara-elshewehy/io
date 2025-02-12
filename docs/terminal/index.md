@@ -35,7 +35,7 @@
 <br>
 
 
-- ### ✨ Features ✨
+- ### 🚀 Features 🚀
 
     - 🌍 **Cross Platform**
         > Tested on Windows, macOS and Linux.
@@ -64,26 +64,28 @@
 
     > This library provides several sections, each with its own approach to handling Terminal in the ZIG language.
 
-    - #### Events
-        > Event handling for terminal input.
+    - #### 🎉 Events
 
-        | Event       | Description                                                    |
-        | ----------- | -------------------------------------------------------------- |
-        | listen      | Listens for a single key press.                                |
-        | listenUntil | Continuously listens for key presses until a condition is met. |
+        - #### 🛠 Event Methods
+            > Event handling for terminal input.
 
-    - #### Types
-        > Type definitions used in terminal operations.
+            | Method      | Description                                                    |
+            | ----------- | -------------------------------------------------------------- |
+            | listen      | Listens for a single key press with modifires support.         |
+            | listenUntil | Continuously listens for key presses until a condition is met. |
 
-        | Event | Description                     |
-        | ----- | ------------------------------- |
-        | Key   | Represents a key press event.   |
-        | Mouse | Represents a mouse press event. |
+        - #### 📚 Event Types
+            > Type definitions used in event operations.
 
-    - #### Utils
+            | Type  | Description                     |
+            | ----- | ------------------------------- |
+            | Key   | Represents a key press event.   |
+            | Mouse | Represents a mouse press event. |
+
+    - #### 🔧 Utils
         > Utility functions for terminal operations.
 
-       - #### ✨ clear
+       - #### 🗑️ clear
 
           | Function               | Description                                         |
           | ---------------------- | --------------------------------------------------- |
@@ -94,7 +96,7 @@
           | clear.lineFromCursor   | Clears the line from the cursor to the end.         |
           | clear.lineToCursor     | Clears the line from the beginning to the cursor.   |
 
-       - #### ✨ cursor
+       - #### ↗️ cursor
 
           | Function       | Description                                                |
           | -------------- | ---------------------------------------------------------- |
@@ -108,7 +110,7 @@
           | cursor.save    | Saves the current cursor position.                         |
           | cursor.restore | Restores the cursor to the saved position.                 |
 
-       - #### ✨ colors
+       - #### 🎨 colors
 
           | Function        | Description                                 |
           | --------------- | ------------------------------------------- |
