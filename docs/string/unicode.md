@@ -1,5 +1,5 @@
 <p align="center"> <br>
-  <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/Unicode/logo.png" alt="Unicode" width="1000" />
+  <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/logo/Unicode/logo.png" alt="Unicode" width="1000" />
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center">
@@ -38,7 +38,7 @@
   -  TODO
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### 📖 Table of Contents
@@ -48,7 +48,7 @@
     🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Quick Start 🚀
@@ -111,7 +111,7 @@
     ```
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 ### API
@@ -139,7 +139,7 @@
     | init     | Initializes a `Codepoint` instance with the specified slice. |
 
     <div align="center"><br>
-    <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
     </div>
 
 - #### ♻️ Iterator
@@ -173,7 +173,7 @@
     | peek                     | Decodes and returns the next codepoint without advancing the iterator. |
 
     <div align="center"><br>
-    <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
     </div>
 
 - #### 🔥 Utils
@@ -211,7 +211,7 @@
     | Utf8Decode   | Decodes a UTF-8 codepoint slice into a codepoint value.          |
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### 🔗 Related
@@ -233,7 +233,7 @@
 
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center"><br>

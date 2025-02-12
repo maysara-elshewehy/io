@@ -1,5 +1,5 @@
 <p align="center"> <br>
-  <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/CLI/logo.png" alt="CLI" width="1000" />
+  <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/logo/CLI/logo.png" alt="CLI" width="1000" />
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center">
@@ -53,7 +53,7 @@
       > Supports Windows, Linux and macOS.
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### 📖 Table of Contents
@@ -65,7 +65,7 @@
     🔹 [🌍 Comparisons](#comparisons) – Detailed comparison with other libraries.
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Quick Start 🚀
@@ -170,7 +170,7 @@
 
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### API
@@ -178,7 +178,7 @@
     > TODO
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Comparisons
@@ -203,7 +203,7 @@
 
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center"><br>

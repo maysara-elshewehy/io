@@ -1,5 +1,5 @@
 <p align="center"> <br>
-  <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/IO/logo.png" alt="Input / Output" width="1000" />
+  <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/logo/IO/logo.png" alt="Input / Output" width="1000" />
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
 </div><br>
 
 > This library is considered as a container for several other sub-libraries that are generally related to the concept of input and output in the ZIG language.
@@ -32,13 +32,13 @@
 
 <br>
 <div align="center" style="display: flex; flex-direction: row; justify-content: center;"><br>
-  <a href="https://super-zig.github.io/io/string/"><img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/String/short.png" alt="String" height="50" /></a>
-  <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/Terminal/short.png" alt="Terminal" height="50" width="1" />
-  <a href="https://super-zig.github.io/io/terminal/"><img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/Terminal/short.png" alt="Terminal" height="50" /></a>
+  <a href="https://super-zig.github.io/io/string/"><img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/logo/String/short.png" alt="String" height="50" /></a>
+  <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/logo/Terminal/short.png" alt="Terminal" height="50" width="1" />
+  <a href="https://super-zig.github.io/io/terminal/"><img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/logo/Terminal/short.png" alt="Terminal" height="50" /></a>
 </div>
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 
@@ -53,7 +53,7 @@
 
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center"><br>

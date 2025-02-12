@@ -1,5 +1,5 @@
 <p align="center"> <br>
-  <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/ANSI/logo.png" alt="ANSI" width="1000" />
+  <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/logo/ANSI/logo.png" alt="ANSI" width="1000" />
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@
 
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center">
@@ -42,7 +42,7 @@
         > Simple API for initializing and handling key events.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### 📖 Table of Contents
@@ -52,7 +52,7 @@
     🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Quick Start 🚀
@@ -73,7 +73,7 @@
     ```
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 ### API
@@ -137,7 +137,7 @@
 
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### 🔗 Related
@@ -153,7 +153,7 @@
 
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center"><br>

@@ -1,5 +1,5 @@
 <p align="center"> <br>
-  <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/logo/Events/logo.png" alt="Events" width="1000" />
+  <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/logo/Events/logo.png" alt="Events" width="1000" />
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center">
@@ -47,7 +47,7 @@
         > Simple API for initializing and handling key events.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### 📖 Table of Contents
@@ -59,7 +59,7 @@
     🔹 [🌍 Comparisons](#comparisons) – Detailed comparison with other libraries.
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### Quick Start 🚀
@@ -88,7 +88,7 @@
     ```
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 ### API
@@ -127,7 +127,7 @@
       | `print`  | Prints a human-readable representation of the key. |
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 ### Comparisons
@@ -147,7 +147,7 @@
       | `mibu`        | ❌              |
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 - ### 🔗 Related
@@ -162,7 +162,7 @@
         > Interactive prompts for user input.
 
 <div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-dist/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
 <div align="center"><br>
