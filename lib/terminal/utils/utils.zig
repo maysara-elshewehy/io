@@ -1,7 +1,7 @@
 // Copyright (c) 2025 SuperZIG All rights reserved.
 //
 // repo: https://github.com/Super-ZIG/io
-// docs: https://super-zig.github.io/io/terminal/utils
+// docs: https://super-zig.github.io/io/terminal
 //
 // Thanks to `https://github.com/xyaman/mibu/`
 //

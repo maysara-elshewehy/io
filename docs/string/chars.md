@@ -46,7 +46,7 @@
 
     ```zig
     // Append a slice.
-    try chars.appendSlice(u8, &array, "ello 👨‍🏭!", 0);    // 👉 "ello 👨‍🏭!"
+    try chars.appendSlice(u8, &array, "ello 👨‍🏭!", 0);  // 👉 "ello 👨‍🏭!"
     ```
 
     ```zig
@@ -66,12 +66,12 @@
 
     ```zig
     // Find the position of a substring.
-    _ = chars.find(u8, array, "👨‍🏭");                    // 👉 6
+    _ = chars.find(u8, array, "👨‍🏭");                  // 👉 6
     ```
 
     ```zig
     // Check if the array includes a specific substring.
-    _ = chars.includes(u8, array, "👨‍🏭");                // 👉 true
+    _ = chars.includes(u8, array, "👨‍🏭");             // 👉 true
     ```
 
     ```zig
@@ -86,95 +86,98 @@
 
 - #### ✨ Initialization
 
-    | Function          | Description                                                                              |
-    | ----------------- | ---------------------------------------------------------------------------------------- |
-    | initWithCapacity  | Initializes an array of chars of a given `size`, filled with null chars.                 |
-    | initWithSlice     | Initializes an array of chars of a given `size` and `value`, terminated with a null char.|
-    | initWithSliceAssumeCapacity | Initializes an array of chars of a given `size` and `value`.                   |
+    | Function                    | Description                                                                               |
+    | --------------------------- | ----------------------------------------------------------------------------------------- |
+    | initWithCapacity            | Initializes an array of chars of a given `size`, filled with null chars.                  |
+    | initWithSlice               | Initializes an array of chars of a given `size` and `value`, terminated with a null char. |
+    | initWithSliceAssumeCapacity | Initializes an array of chars of a given `size` and `value`.                              |
 
 - #### ➕ Insert
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | insertSlice       | Inserts a `slice` into `dest` at the specified `position` by **real position**.            |
-    | insertChar        | Inserts a `char` into `dest` at the specified `position` by **real position**.             |
-    | visualInsertSlice | Inserts a `slice` into `dest` at the specified `visual position`.                          |
-    | visualInsertChar  | Inserts a `char` into `dest` at the specified `visual position`.                           |
-    | appendSlice       | Appends a `slice` into `dest`.                                                             |
-    | appendChar        | Appends a `char` into `dest`.                                                              |
-    | prependSlice      | Prepends a `slice` into `dest`.                                                            |
-    | prependChar       | Prepends a `char` into `dest`.                                                             |
+    | Function          | Description                                                                     |
+    | ----------------- | ------------------------------------------------------------------------------- |
+    | insertSlice       | Inserts a `slice` into `dest` at the specified `position` by **real position**. |
+    | insertChar        | Inserts a `char` into `dest` at the specified `position` by **real position**.  |
+    | visualInsertSlice | Inserts a `slice` into `dest` at the specified `visual position`.               |
+    | visualInsertChar  | Inserts a `char` into `dest` at the specified `visual position`.                |
+    | appendSlice       | Appends a `slice` into `dest`.                                                  |
+    | appendChar        | Appends a `char` into `dest`.                                                   |
+    | prependSlice      | Prepends a `slice` into `dest`.                                                 |
+    | prependChar       | Prepends a `char` into `dest`.                                                  |
 
 - #### ❌ Remove
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | removeIndex       | Removes a char from the `dest`.                                                            |
-    | removeVisualIndex | Removes a char from the `dest` by the `visual position`.                                    |
-    | removeRange       | Removes a `range` of chars from the `dest`.                                                |
-    | removeVisualRange | Removes a `range` of chars from the `dest` by the `visual position`.                       |
-    | pop               | Returns the length of the last grapheme cluster at the `dest`.                             |
-    | shift             | Removes the first grapheme cluster at the `dest`, returns the number of removed chars.     |
+    | Function          | Description                                                                            |
+    | ----------------- | -------------------------------------------------------------------------------------- |
+    | removeIndex       | Removes a char from the `dest`.                                                        |
+    | removeVisualIndex | Removes a char from the `dest` by the `visual position`.                               |
+    | removeRange       | Removes a `range` of chars from the `dest`.                                            |
+    | removeVisualRange | Removes a `range` of chars from the `dest` by the `visual position`.                   |
+    | pop               | Returns the length of the last grapheme cluster at the `dest`.                         |
+    | shift             | Removes the first grapheme cluster at the `dest`, returns the number of removed chars. |
 
 - #### 🔍 Find
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | find              | Finds the `position` of the **first** occurrence of `target`.                              |
-    | findVisual        | Finds the `visual position` of the **first** occurrence of `target`.                       |
-    | findLast          | Finds the `position` of the **last** occurrence of `target`.                               |
-    | findLastVisual    | Finds the `visual position` of the **last** occurrence of `target`.                        |
-    | includes          | Returns `true` **if `dest` contains `target`**.                                            |
-    | startsWith        | Returns `true` **if `dest` starts with `target`**.                                         |
-    | endsWith          | Returns `true` **if `dest` ends with `target`**.                                           |
+    | Function       | Description                                                          |
+    | -------------- | -------------------------------------------------------------------- |
+    | find           | Finds the `position` of the **first** occurrence of `target`.        |
+    | findVisual     | Finds the `visual position` of the **first** occurrence of `target`. |
+    | findLast       | Finds the `position` of the **last** occurrence of `target`.         |
+    | findLastVisual | Finds the `visual position` of the **last** occurrence of `target`.  |
+    | includes       | Returns `true` **if `dest` contains `target`**.                      |
+    | startsWith     | Returns `true` **if `dest` starts with `target`**.                   |
+    | endsWith       | Returns `true` **if `dest` ends with `target`**.                     |
 
 - #### 🔠 Case
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | toLower           | Converts all (ASCII) letters to lowercase.                                                 |
-    | toUpper           | Converts all (ASCII) letters to uppercase.                                                 |
-    | toTitle           | Converts all (ASCII) letters to titlecase.                                                 |
-    | reverse           | Reverses the order of the chars.                                                           |
-    | reverseUnicode    | Reverses the order of the chars in the `Self` instance (considering Unicode).              |
+    | Function       | Description                                                                   |
+    | -------------- | ----------------------------------------------------------------------------- |
+    | toLower        | Converts all (ASCII) letters to lowercase.                                    |
+    | toUpper        | Converts all (ASCII) letters to uppercase.                                    |
+    | toTitle        | Converts all (ASCII) letters to titlecase.                                    |
+    | reverse        | Reverses the order of the chars.                                              |
+    | reverseUnicode | Reverses the order of the chars in the `Self` instance (considering Unicode). |
 
 - #### ✅ Check
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | isChar            | Returns `true` **if the value is a valid char**.                                           |
-    | isSlice           | Returns `true` **if the value is a valid array of chars**.                                 |
+    | Function | Description                                                |
+    | -------- | ---------------------------------------------------------- |
+    | isChar   | Returns `true` **if the value is a valid char**.           |
+    | isSlice  | Returns `true` **if the value is a valid array of chars**. |
 
 - #### 📏 Count
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | countWritten      | Returns the total number of written chars, stopping at the first null char.                |
-    | countVisual       | Returns the total number of visual chars.                                                  |
-    | writtenSlice      | Returns a slice containing only the written part.                                          |
+    | Function     | Description                                                                 |
+    | ------------ | --------------------------------------------------------------------------- |
+    | countWritten | Returns the total number of written chars, stopping at the first null char. |
+    | countVisual  | Returns the total number of visual chars.                                   |
+    | writtenSlice | Returns a slice containing only the written part.                           |
 
 - #### 🔄 Split
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | split             | Splits the written portion of the string into substrings separated by the delimiter.       |
-    | splitAll          | Splits the written portion of the string into all substrings separated by the delimiter.   |
+    | Function | Description                                                                              |
+    | -------- | ---------------------------------------------------------------------------------------- |
+    | split    | Splits the written portion of the string into substrings separated by the delimiter.     |
+    | splitAll | Splits the written portion of the string into all substrings separated by the delimiter. |
 
 - #### 🔄 Replace
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | replaceAllChars   | Replaces all occurrence of a character with another.                                       |
-    | replaceAllSlices  | Replaces all occurrences of a slice with another.                                          |
-    | replaceRange      | Replaces a range of chars with another.                                                    |
-    | replaceVisualRange| Replaces a visual range of chars with another.                                             |
+    | Function           | Description                                          |
+    | ------------------ | ---------------------------------------------------- |
+    | replaceAllChars    | Replaces all occurrence of a character with another. |
+    | replaceAllSlices   | Replaces all occurrences of a slice with another.    |
+    | replaceRange       | Replaces a range of chars with another.              |
+    | replaceVisualRange | Replaces a visual range of chars with another.       |
 
 - #### 🔄 Utils
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | equals            | Returns true if the `a` is equal to `b`.                                                   |
-    | isEmpty           | Returns true if the `value` is empty.                                                      |
+    | Function         | Description                                                                   |
+    | ---------------- | ----------------------------------------------------------------------------- |
+    | equals           | Returns true if the `a` is equal to `b`.                                      |
+    | isEmpty          | Returns true if the `value` is empty.                                         |
+    | print            | Prints the contents of the `slice` to the standard writer.                    |
+    | printTo          | Prints the contents of the `slice` to the given writer.                       |
+    | printWithNewline | Prints the contents of the `slice` to the standard writer and adds a newline. |
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

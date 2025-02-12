@@ -26,6 +26,16 @@
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
+- ### 📖 Table of Contents
+
+    🔹 [🚀 Quick Start](#quick-start-) – A quick guide to get you started with the library.
+
+    🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
+
+<div align="center"><br>
+<img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+</div>
+
 - ### Quick start 🚀
 
     > If you have not already added the library to your project, please review the [installation guide](https://github.com/Super-ZIG/io/wiki/installation) for more information.

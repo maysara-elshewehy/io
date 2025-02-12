@@ -1,7 +1,7 @@
 // Copyright (c) 2025 SuperZIG All rights reserved.
 //
 // repo: https://github.com/Super-ZIG/io
-// docs: https://super-zig.github.io/io/terminal/events
+// docs: https://super-zig.github.io/io/terminal
 //
 // Made with ❤️ by Maysara
 //

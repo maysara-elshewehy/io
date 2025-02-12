@@ -376,7 +376,7 @@
             std.mem.reverse(T, value);
         }
 
-        /// Reverses the order of the chars in the `Self` instance (considering Unicode).
+        /// Reverses the order of the chars in the `slice` (considering Unicode).
         pub inline fn reverseUnicode(comptime T: type, dist: []T, dist_wlen: usize, temp: []const T) void {
             var unicode_iterator = unicode.Iterator.initUnchecked(temp[0..]);
             var i: usize = dist_wlen;
@@ -606,6 +606,26 @@
         /// Returns true if the `value` is empty.
         pub inline fn isEmpty(comptime T: type, value: []const T) bool {
             return countWritten(u8, value) == 0;
+        }
+
+        /// Prints the contents of the `slice` instance to the given writer.
+        pub inline fn printTo(slice: []const u8, _writer: anytype) !void {
+            if(slice.len > 0)
+            try _writer.writeAll(slice[0..]);
+        }
+
+        /// Prints the contents of the `slice` to the standard writer.
+        pub inline fn print(slice: []const u8) !void {
+            if(slice.len > 0)
+            try std.io.getStdOut().writer().writeAll(slice[0..]);
+        }
+
+        /// Prints the contents of the `slice` to the standard writer and adds a newline.
+        pub inline fn printWithNewLine(slice: []const u8) !void {
+            if(slice.len > 0) {
+                try std.io.getStdOut().writer().writeAll(slice[0..]);
+                try std.io.getStdOut().writer().writeByte('\n');
+            }
         }
 
     // └──────────────────────────────────────────────────────────────┘

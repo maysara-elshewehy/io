@@ -64,9 +64,14 @@
 
     > This library provides several sections, each with its own approach to handling Terminal in the ZIG language.
 
+    - #### [❯ CLI](./cli.md)
+
+        > Easy CLI in ZIG.
+
     - #### 🎉 Events
 
         - #### 🛠 Event Methods
+
             > Event handling for terminal input.
 
             | Method      | Description                                                    |
@@ -75,6 +80,7 @@
             | listenUntil | Continuously listens for key presses until a condition is met. |
 
         - #### 📚 Event Types
+
             > Type definitions used in event operations.
 
             | Type  | Description                     |
@@ -83,6 +89,7 @@
             | Mouse | Represents a mouse press event. |
 
     - #### 🔧 Utils
+
         > Utility functions for terminal operations.
 
        - #### 🗑️ clear

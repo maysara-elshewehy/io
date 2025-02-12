@@ -18,6 +18,9 @@
     /// -
     pub const events = @import("./events/events.zig");
 
+    /// -
+    pub const cli = @import("./cli/cli.zig");
+
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
 
