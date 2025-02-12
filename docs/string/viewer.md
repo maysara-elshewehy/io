@@ -161,10 +161,10 @@
     - [Chars](./chars.md)
         > Utility functions for char arrays.
 
-    - [String](./string.md)
+    - [String](./String.md)
         > Managed dynamic-size string type that supports unicode.
 
-    - [Buffer](./buffer.md)
+    - [Buffer](./Buffer.md)
         > Mutable fixed-size string type that supports unicode.
 
     - [uString](./uString.md)

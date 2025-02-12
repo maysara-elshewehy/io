@@ -66,7 +66,7 @@
 
     🔹 [⚡ Performance & Benchmarks](#benchmarking) – Speed comparisons with other implementations.
 
-    🔹 [🌍 Unicode Handling](#unicode-handling-comparison) – How the library correctly processes Unicode text.
+    🔹 [🌍 Comparisons](#comparisons) – Detailed comparison with other string libraries.
 
 
 <div align="center"><br>
@@ -81,9 +81,9 @@
 
     | Type                      | Description                                               |
     | ------------------------- | --------------------------------------------------------- |
-    | [`Viewer`](./viewer.md)   | Immutable fixed-size string type that supports unicode.   |
-    | [`Buffer`](./buffer.md)   | Mutable fixed-size string type that supports unicode.     |
-    | [`String`](./string.md)   | Managed dynamic-size string type that supports unicode.   |
+    | [`Viewer`](./Viewer.md)   | Immutable fixed-size string type that supports unicode.   |
+    | [`Buffer`](./Buffer.md)   | Mutable fixed-size string type that supports unicode.     |
+    | [`String`](./String.md)   | Managed dynamic-size string type that supports unicode.   |
     | [`uString`](./uString.md) | Unmanaged dynamic-size string type that supports unicode. |
 
 
@@ -103,105 +103,105 @@
     <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
     </div>
 
-    > 🟢 Implemented and tested.
+    > ✔️ Implemented and tested.
     >
-    > 🟡 Under development.
+    > ⚒️ Under development.
     >
-    > 🟣 Exists only for internal API integration.
+    > 🔩 Exists only for internal API integration.
     >
-    > ⚫ Contradicts container logic.
+    > ❌ Contradicts container logic.
 
     | Function           | Viewer | Buffer | String | uString |
     | ------------------ | ------ | ------ | ------ | ------- |
-    | init               | 🟢      | 🟢      | 🟢      | 🟢       |
-    | initEmpty          | 🟢      | 🟢      | 🟢      | 🟢       |
-    | initWithSelf       | 🟢      | 🟢      | 🟢      | 🟢       |
-    | initWithSlice      | 🟢      | 🟢      | 🟢      | 🟢       |
-    | initWithChar       | ⚫      | 🟢      | 🟢      | 🟢       |
-    | initWithCapacity   | ⚫      | 🟢      | 🟢      | 🟢       |
-    | initWithFmt        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | initWithAllocator  | ⚫      | ⚫      | 🟢      | 🟣       |
-    | deinit             | ⚫      | ⚫      | 🟢      | 🟢       |
-    | size               | 🟢      | 🟢      | 🟢      | 🟢       |
-    | len                | 🟢      | 🟢      | 🟢      | 🟢       |
-    | vlen               | 🟢      | 🟢      | 🟢      | 🟢       |
-    | src                | 🟢      | 🟢      | 🟢      | 🟢       |
-    | sub                | 🟢      | 🟢      | 🟢      | 🟢       |
-    | cString            | ⚫      | 🟢      | 🟢      | 🟢       |
-    | allocatedSlice     | ⚫      | ⚫      | 🟢      | 🟢       |
-    | iterator           | 🟢      | 🟢      | 🟢      | 🟢       |
-    | writer             | ⚫      | 🟢      | 🟢      | 🟢       |
-    | charAt             | 🟢      | 🟢      | 🟢      | 🟢       |
-    | atVisual           | 🟢      | 🟢      | 🟢      | 🟢       |
-    | find               | 🟢      | 🟢      | 🟢      | 🟢       |
-    | findVisual         | 🟢      | 🟢      | 🟢      | 🟢       |
-    | findLast           | 🟢      | 🟢      | 🟢      | 🟢       |
-    | findLastVisual     | 🟢      | 🟢      | 🟢      | 🟢       |
-    | includes           | 🟢      | 🟢      | 🟢      | 🟢       |
-    | startsWith         | 🟢      | 🟢      | 🟢      | 🟢       |
-    | endsWith           | 🟢      | 🟢      | 🟢      | 🟢       |
-    | clone              | 🟢      | 🟢      | 🟢      | 🟢       |
-    | isEqual            | 🟢      | 🟢      | 🟢      | 🟢       |
-    | isEmpty            | 🟢      | 🟢      | 🟢      | 🟢       |
-    | insert             | ⚫      | 🟢      | 🟢      | 🟢       |
-    | insertSlice        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | insertChar         | ⚫      | 🟢      | 🟢      | 🟢       |
-    | insertSelf         | ⚫      | 🟢      | 🟢      | 🟢       |
-    | insertFmt          | ⚫      | 🟢      | 🟢      | 🟢       |
-    | visualInsert       | ⚫      | 🟢      | 🟢      | 🟢       |
-    | visualInsertSlice  | ⚫      | 🟢      | 🟢      | 🟢       |
-    | visualInsertChar   | ⚫      | 🟢      | 🟢      | 🟢       |
-    | visualInsertSelf   | ⚫      | 🟢      | 🟢      | 🟢       |
-    | visualInsertFmt    | ⚫      | 🟢      | 🟢      | 🟢       |
-    | append             | ⚫      | 🟢      | 🟢      | 🟢       |
-    | appendSlice        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | appendChar         | ⚫      | 🟢      | 🟢      | 🟢       |
-    | appendSelf         | ⚫      | 🟢      | 🟢      | 🟢       |
-    | appendFmt          | ⚫      | 🟢      | 🟢      | 🟢       |
-    | prepend            | ⚫      | 🟢      | 🟢      | 🟢       |
-    | prependSlice       | ⚫      | 🟢      | 🟢      | 🟢       |
-    | prependChar        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | prependSelf        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | prependFmt         | ⚫      | 🟢      | 🟢      | 🟢       |
-    | repeat             | ⚫      | 🟢      | 🟢      | 🟢       |
-    | removeIndex        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | removeVisualIndex  | ⚫      | 🟢      | 🟢      | 🟢       |
-    | removeRange        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | removeVisualRange  | ⚫      | 🟢      | 🟢      | 🟢       |
-    | pop                | ⚫      | 🟢      | 🟢      | 🟢       |
-    | shift              | ⚫      | 🟢      | 🟢      | 🟢       |
-    | trim               | ⚫      | 🟢      | 🟢      | 🟢       |
-    | trimStart          | ⚫      | 🟢      | 🟢      | 🟢       |
-    | trimEnd            | ⚫      | 🟢      | 🟢      | 🟢       |
-    | replaceRange       | ⚫      | 🟢      | 🟢      | 🟢       |
-    | replaceVisualRange | ⚫      | 🟢      | 🟢      | 🟢       |
-    | replaceFirst       | ⚫      | 🟢      | 🟢      | 🟢       |
-    | replaceFirstN      | ⚫      | 🟢      | 🟢      | 🟢       |
-    | replaceLast        | ⚫      | 🟢      | 🟢      | 🟢       |
-    | replaceLastN       | ⚫      | 🟢      | 🟢      | 🟢       |
-    | replaceNth         | ⚫      | 🟢      | 🟢      | 🟢       |
-    | replaceAll         | ⚫      | 🟢      | 🟢      | 🟢       |
-    | toLower            | ⚫      | 🟢      | 🟢      | 🟢       |
-    | toUpper            | ⚫      | 🟢      | 🟢      | 🟢       |
-    | toTitle            | ⚫      | 🟢      | 🟢      | 🟢       |
-    | reverse            | ⚫      | 🟢      | 🟢      | 🟢       |
-    | split              | 🟢      | 🟢      | 🟢      | 🟢       |
-    | splitAll           | 🟢      | 🟢      | 🟢      | 🟢       |
-    | splitToSelf        | 🟢      | 🟢      | 🟢      | 🟢       |
-    | splitAllToSelf     | 🟢      | 🟢      | 🟢      | 🟢       |
-    | clear              | 🟢      | 🟢      | 🟢      | 🟢       |
-    | clearAndFree       | ⚫      | ⚫      | 🟢      | 🟢       |
-    | shrink             | ⚫      | ⚫      | 🟢      | 🟢       |
-    | shrinkAndFree      | ⚫      | ⚫      | 🟢      | 🟢       |
-    | resize             | ⚫      | ⚫      | 🟢      | 🟢       |
-    | fromOwnedSlice     | ⚫      | ⚫      | 🟢      | 🟢       |
-    | toOwnedSlice       | ⚫      | ⚫      | 🟢      | 🟢       |
-    | toManaged          | 🟡      | 🟡      | ⚫      | 🟢       |
-    | toUnmanaged        | 🟡      | 🟡      | 🟢      | ⚫       |
-    | toViewer           | ⚫      | 🟡      | 🟢      | 🟢       |
-    | toInteger          | 🟡      | 🟡      | 🟡      | 🟡       |
-    | toFloat            | 🟡      | 🟡      | 🟡      | 🟡       |
-    | print              | 🟡      | 🟡      | 🟡      | 🟡       |
+    | init               | ✔️      | ✔️      | ✔️      | ✔️       |
+    | initEmpty          | ✔️      | ✔️      | ✔️      | ✔️       |
+    | initWithSelf       | ✔️      | ✔️      | ✔️      | ✔️       |
+    | initWithSlice      | ✔️      | ✔️      | ✔️      | ✔️       |
+    | initWithChar       | ❌      | ✔️      | ✔️      | ✔️       |
+    | initWithCapacity   | ❌      | ✔️      | ✔️      | ✔️       |
+    | initWithFmt        | ❌      | ✔️      | ✔️      | ✔️       |
+    | initWithAllocator  | ❌      | ❌      | ✔️      | 🔩       |
+    | deinit             | ❌      | ❌      | ✔️      | ✔️       |
+    | size               | ✔️      | ✔️      | ✔️      | ✔️       |
+    | len                | ✔️      | ✔️      | ✔️      | ✔️       |
+    | vlen               | ✔️      | ✔️      | ✔️      | ✔️       |
+    | src                | ✔️      | ✔️      | ✔️      | ✔️       |
+    | sub                | ✔️      | ✔️      | ✔️      | ✔️       |
+    | cString            | ❌      | ✔️      | ✔️      | ✔️       |
+    | allocatedSlice     | ❌      | ❌      | ✔️      | ✔️       |
+    | iterator           | ✔️      | ✔️      | ✔️      | ✔️       |
+    | writer             | ❌      | ✔️      | ✔️      | ✔️       |
+    | charAt             | ✔️      | ✔️      | ✔️      | ✔️       |
+    | atVisual           | ✔️      | ✔️      | ✔️      | ✔️       |
+    | find               | ✔️      | ✔️      | ✔️      | ✔️       |
+    | findVisual         | ✔️      | ✔️      | ✔️      | ✔️       |
+    | findLast           | ✔️      | ✔️      | ✔️      | ✔️       |
+    | findLastVisual     | ✔️      | ✔️      | ✔️      | ✔️       |
+    | includes           | ✔️      | ✔️      | ✔️      | ✔️       |
+    | startsWith         | ✔️      | ✔️      | ✔️      | ✔️       |
+    | endsWith           | ✔️      | ✔️      | ✔️      | ✔️       |
+    | clone              | ✔️      | ✔️      | ✔️      | ✔️       |
+    | isEqual            | ✔️      | ✔️      | ✔️      | ✔️       |
+    | isEmpty            | ✔️      | ✔️      | ✔️      | ✔️       |
+    | insert             | ❌      | ✔️      | ✔️      | ✔️       |
+    | insertSlice        | ❌      | ✔️      | ✔️      | ✔️       |
+    | insertChar         | ❌      | ✔️      | ✔️      | ✔️       |
+    | insertSelf         | ❌      | ✔️      | ✔️      | ✔️       |
+    | insertFmt          | ❌      | ✔️      | ✔️      | ✔️       |
+    | visualInsert       | ❌      | ✔️      | ✔️      | ✔️       |
+    | visualInsertSlice  | ❌      | ✔️      | ✔️      | ✔️       |
+    | visualInsertChar   | ❌      | ✔️      | ✔️      | ✔️       |
+    | visualInsertSelf   | ❌      | ✔️      | ✔️      | ✔️       |
+    | visualInsertFmt    | ❌      | ✔️      | ✔️      | ✔️       |
+    | append             | ❌      | ✔️      | ✔️      | ✔️       |
+    | appendSlice        | ❌      | ✔️      | ✔️      | ✔️       |
+    | appendChar         | ❌      | ✔️      | ✔️      | ✔️       |
+    | appendSelf         | ❌      | ✔️      | ✔️      | ✔️       |
+    | appendFmt          | ❌      | ✔️      | ✔️      | ✔️       |
+    | prepend            | ❌      | ✔️      | ✔️      | ✔️       |
+    | prependSlice       | ❌      | ✔️      | ✔️      | ✔️       |
+    | prependChar        | ❌      | ✔️      | ✔️      | ✔️       |
+    | prependSelf        | ❌      | ✔️      | ✔️      | ✔️       |
+    | prependFmt         | ❌      | ✔️      | ✔️      | ✔️       |
+    | repeat             | ❌      | ✔️      | ✔️      | ✔️       |
+    | removeIndex        | ❌      | ✔️      | ✔️      | ✔️       |
+    | removeVisualIndex  | ❌      | ✔️      | ✔️      | ✔️       |
+    | removeRange        | ❌      | ✔️      | ✔️      | ✔️       |
+    | removeVisualRange  | ❌      | ✔️      | ✔️      | ✔️       |
+    | pop                | ❌      | ✔️      | ✔️      | ✔️       |
+    | shift              | ❌      | ✔️      | ✔️      | ✔️       |
+    | trim               | ❌      | ✔️      | ✔️      | ✔️       |
+    | trimStart          | ❌      | ✔️      | ✔️      | ✔️       |
+    | trimEnd            | ❌      | ✔️      | ✔️      | ✔️       |
+    | replaceRange       | ❌      | ✔️      | ✔️      | ✔️       |
+    | replaceVisualRange | ❌      | ✔️      | ✔️      | ✔️       |
+    | replaceFirst       | ❌      | ✔️      | ✔️      | ✔️       |
+    | replaceFirstN      | ❌      | ✔️      | ✔️      | ✔️       |
+    | replaceLast        | ❌      | ✔️      | ✔️      | ✔️       |
+    | replaceLastN       | ❌      | ✔️      | ✔️      | ✔️       |
+    | replaceNth         | ❌      | ✔️      | ✔️      | ✔️       |
+    | replaceAll         | ❌      | ✔️      | ✔️      | ✔️       |
+    | toLower            | ❌      | ✔️      | ✔️      | ✔️       |
+    | toUpper            | ❌      | ✔️      | ✔️      | ✔️       |
+    | toTitle            | ❌      | ✔️      | ✔️      | ✔️       |
+    | reverse            | ❌      | ✔️      | ✔️      | ✔️       |
+    | split              | ✔️      | ✔️      | ✔️      | ✔️       |
+    | splitAll           | ✔️      | ✔️      | ✔️      | ✔️       |
+    | splitToSelf        | ✔️      | ✔️      | ✔️      | ✔️       |
+    | splitAllToSelf     | ✔️      | ✔️      | ✔️      | ✔️       |
+    | clear              | ✔️      | ✔️      | ✔️      | ✔️       |
+    | clearAndFree       | ❌      | ❌      | ✔️      | ✔️       |
+    | shrink             | ❌      | ❌      | ✔️      | ✔️       |
+    | shrinkAndFree      | ❌      | ❌      | ✔️      | ✔️       |
+    | resize             | ❌      | ❌      | ✔️      | ✔️       |
+    | fromOwnedSlice     | ❌      | ❌      | ✔️      | ✔️       |
+    | toOwnedSlice       | ❌      | ❌      | ✔️      | ✔️       |
+    | toManaged          | ⚒️      | ⚒️      | ❌      | ✔️       |
+    | toUnmanaged        | ⚒️      | ⚒️      | ✔️      | ❌       |
+    | toViewer           | ❌      | ⚒️      | ✔️      | ✔️       |
+    | toInteger          | ⚒️      | ⚒️      | ⚒️      | ⚒️       |
+    | toFloat            | ⚒️      | ⚒️      | ⚒️      | ⚒️       |
+    | print              | ⚒️      | ⚒️      | ⚒️      | ⚒️       |
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -254,32 +254,98 @@
 
     > You can find the source code for this benchmark here: **[io-bench](https://github.com/maysara-elshewehy/io-bench)**.
 
-- ### Unicode Handling Comparison
+### Comparisons
 
-    > The `std.ArrayList` does not support Unicode, so it is excluded from this comparison.
+- ### Comparison with Zig's Standard Library
+    > Zig provides `std.unicode`, which includes utilities like `Utf8View` and `Utf8Iterator`.
+    >
+    > These are useful and were leveraged in our implementation of Unicode support.
+    >
+    > However, they have significant limitations.
 
-    > The following test demonstrates the difference in Unicode handling between the two implementations:
-
-    - `String`
+    - #### Unicode Iteration
+        > Consider the following text:
         ```zig
-        var string = try String.init(allocator, "-☹️");
-        defer string.deinit();
-        try std.testing.expectEqualStrings("-☹️", string.src());
+        const txt = "Aأ你🌟☹️👨‍🏭";
+        ```
+        > Each character in this string is represented as follows:
 
-        try std.testing.expectEqualStrings("☹️", string.pop().?); // Correctly handles grapheme clusters.
-        try std.testing.expectEqualStrings("-", string.src());
+        | Character | Bytes | Codepoints |
+        | --------- | ----- | ---------- |
+        | `A`       | 1     | 1          |
+        | `أ`       | 2     | 1          |
+        | `你`      | 3     | 1          |
+        | `🌟`       | 4     | 1          |
+        | `☹️`       | 6     | 2          |
+        | `👨‍🏭`       | 11    | 3          |
+
+        - #### Iteration Using Zig's Standard Library
+            > The only way to iterate over characters using Zig's standard library is:
+
+            ```zig
+            const std_view = try std.unicode.Utf8View.init("Aأ你🌟☹️👨‍🏭");
+            var std_iter = std_view.iterator();
+
+            while (std_iter.nextCodepointSlice()) |res|
+                std.debug.print("{s}\n", .{res});
+            ```
+
+            **Output:**
+            ```
+            A
+            ╪ú (أ)
+            Σ╜á (你)
+            ≡ƒîƒ (🌟)
+            Γÿ╣ (Emoji part of ☹️)
+            ∩╕Å (Modifier)
+            ≡ƒæ¿ (👨)
+            ΓÇì (ZWJ)
+            ≡ƒÅ¡ (🏭)
+            ```
+
+            > As you can see, the standard library does not provide a way to iterate over real visual characters (grapheme clusters).
+
+      - #### Iteration Using Our Library
+        > We provide a better approach that allows iterating over grapheme clusters:
+
+        ```zig
+        var io_iter = try io.unicode.Iterator.init("Aأ你🌟☹️👨‍🏭");
+        while (io_iter.nextGraphemeClusterSlice()) |res|
+            std.debug.print("{s}\n", .{res});
         ```
 
-    - `@JakubSzark/zig-string`
-        ```zig
-        var string = try zig_string.init_with_contents(allocator, "-☹️");
-        defer string.deinit();
-        try std.testing.expectEqualStrings("-☹️", string.str());
-
-        // Fails: Incorrectly splits the grapheme cluster.
-        try std.testing.expectEqualStrings("☹️", string.pop().?); // Found '\xef'.
-        try std.testing.expectEqualStrings("-", string.str());
+        **Output:**
         ```
+        A
+        ╪ú (أ)
+        Σ╜á (你)
+        ≡ƒîƒ (🌟)
+        Γÿ╣∩╕Å (☹️)
+        ≡ƒæ¿ΓÇì≡ƒÅ¡ (👨‍🏭)
+        ```
+
+        > Our library correctly groups Unicode characters into proper grapheme clusters, making it a superior solution for text handling.
+
+- ### Additional Comparisons
+
+    #### `@JakubSzark/zig-string`
+    - **Slow performance**: The implementation is not optimized for speed.
+    - **Limited functionality**: Only supports UTF-8 code points but not full Unicode grapheme clusters.
+    - **Incorrect behavior**: Mishandles Unicode text splitting.
+
+    #### `zg`
+    - Focused on Unicode normalization using a full local Unicode database.
+    - Designed for a different purpose, making direct comparison with our library irrelevant.
+
+    ### Why Our Library is Superior
+    Our library provides:
+    - **Proper Unicode support**: Handling grapheme clusters as expected.
+    - **Performance**: Matching the speed of the Zig standard library.
+    - **Feature completeness**: Everything offered by `std.ArrayList` and more.
+    - **Real-world usability**: A practical and efficient solution for text processing.
+
+    ### Final Thoughts
+    We have invested significant time in understanding Unicode and designing an efficient approach. The claim that we have merely "simplified" text handling is inaccurate. Instead, we have **innovated and optimized** the process to create a truly robust solution.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/io-bench/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

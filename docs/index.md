@@ -43,8 +43,11 @@
   - #### [installation](https://github.com/Super-ZIG/io/wiki/installation)
     > to learn how to add dependencies to your ZIG project.
 
-  - #### [Documentation](https://super-zig.github.io/io/)
-    > to learn more about the library and its features.
+  - #### [String Documentation](https://super-zig.github.io/io/string)
+    > to learn more about the `IO String` library and its features.
+
+  - #### [Terminal Documentation](https://super-zig.github.io/io/terminal)
+    > to learn more about the `IO Terminal` library and its features.
 
 
 <div align="center"><br>

@@ -10,15 +10,15 @@
 
 
 
-// ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
+// ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
 
-    const common                = @import("./common.zig");
-    const std                   = common.std;
-    const Allocator             = common.Allocator;
-    pub const utils             = common.utils;
-    pub const Iterator          = utils.unicode.Iterator;
-    pub const RangeError        = common.RangeError;
-    pub const CapacityError     = common.CapacityError;
+    const help              = @import("./string.help.zig");
+    const std               = help.std;
+    const Allocator         = help.Allocator;
+    pub const utils         = help.utils;
+    pub const Iterator      = help.utils.unicode.Iterator;
+    pub const RangeError    = help.RangeError;
+    pub const CapacityError = help.CapacityError;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -66,7 +66,7 @@
             pub fn init(initial_value: anytype) !Self {
                 if(utils.chars.isSlice(T, initial_value)) return Self.initWithSlice(initial_value)
                 else if(@TypeOf(initial_value) == Self) return Self.initWithSelf(initial_value)
-                else @panic("Initialization error: Viewer type only supports slice values. Non-slice data cannot be used for initialization.");
+                else @compileError("Initialization error: Viewer type only supports slice values. Non-slice data cannot be used for initialization.");
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -101,7 +101,7 @@
 
             /// Returns a sub-slice of the `Viewer`.
             pub inline fn sub(self: Self, start: usize, end: usize) RangeError![]const T {
-                return common.sub(Self, self, start, end);
+                return help.sub(Self, self, start, end);
             }
 
             /// Returns a character at the specified index.
@@ -111,7 +111,7 @@
 
             /// Returns a character at the specified visual position.
             pub inline fn atVisual(self: Self, visual_pos: usize) ?[]const T {
-                return common.atVisual(Self, self, visual_pos);
+                return help.atVisual(Self, self, visual_pos);
             }
 
             /// Creates an iterator for traversing the Unicode chars in the `Viewer`.
@@ -344,7 +344,7 @@
 
             /// Returns a sub-slice of the `Buffer`.
             pub inline fn sub(self: Self, start: usize, end: usize) RangeError![]const T {
-                return common.sub(Self, self, start, end);
+                return help.sub(Self, self, start, end);
             }
 
             /// Return the written portion of `Self` as a [:0]const u8 slice.
@@ -362,7 +362,7 @@
 
             /// Returns a character at the specified visual position.
             pub inline fn atVisual(self: Self, visual_pos: usize) ?[]const T {
-                return common.atVisual(Self, self, visual_pos);
+                return help.atVisual(Self, self, visual_pos);
             }
 
             /// Creates an iterator for traversing the Unicode chars in the `Buffer`.
@@ -542,13 +542,13 @@
 
         // ┌─────────────────────────── Remove ───────────────────────────┐
 
-            pub const removeIndexError = common.removeIndexError;
-            pub const removeVisualIndexError = common.removeVisualIndexError;
+            pub const removeIndexError = help.removeIndexError;
+            pub const removeVisualIndexError = help.removeVisualIndexError;
 
             /// Removes a char from the `Buffer` instance at the specified position.
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn removeIndex(self: *Self, pos: usize) removeIndexError!void {
-                return common.removeIndex(Self, self, pos);
+                return help.removeIndex(Self, self, pos);
             }
 
             /// Removes a char from the `Buffer` instance by the specified visual position.
@@ -557,14 +557,14 @@
             ///
             /// Returns the removed slice.
             pub fn removeVisualIndex(self: *Self, visual_pos: usize) removeVisualIndexError![]const T {
-                return common.removeVisualIndex(Self, self, visual_pos);
+                return help.removeVisualIndex(Self, self, visual_pos);
             }
 
             /// Removes a range of chars from the `Buffer` instance.
             /// - `removeIndexError.InvalidPosition` **if the `position` is invalid.**
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn removeRange(self: *Self, pos: usize, length: usize) removeIndexError!void {
-                return common.removeRange(Self, self, pos, length);
+                return help.removeRange(Self, self, pos, length);
             }
 
             /// Removes a range of chars from the `Buffer` instance by the specified visual position.
@@ -573,34 +573,34 @@
             ///
             /// Returns the removed slice.
             pub fn removeVisualRange(self: *Self, visual_pos: usize, length: usize) removeVisualIndexError![]const T {
-                return common.removeVisualRange(Self, self, visual_pos, length);
+                return help.removeVisualRange(Self, self, visual_pos, length);
             }
 
             /// Removes the last grapheme cluster from the `Buffer` instance.
             /// Returns the removed slice.
             pub fn pop(self: *Self) ?[]const T {
-                return common.pop(Self, self);
+                return help.pop(Self, self);
             }
 
             /// Removes the first grapheme cluster from the `Buffer` instance.
             /// Returns the number of removed chars.
             pub fn shift(self: *Self) usize {
-                return common.shift(Self, self);
+                return help.shift(Self, self);
             }
 
             /// Trims whitespace from both ends of the `Buffer` instance.
             pub fn trim(self: *Self) void {
-                return common.trim(self);
+                return help.trim(self);
             }
 
             /// Trims whitespace from the start of the `Buffer` instance.
             pub fn trimStart(self: *Self) void {
-                return common.trimStart(self);
+                return help.trimStart(self);
             }
 
             /// Trims whitespace from the end of the `Buffer` instance.
             pub fn trimEnd(self: *Self) void {
-                return common.trimEnd(self);
+                return help.trimEnd(self);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -610,42 +610,42 @@
 
             /// Replaces a range of chars with another slice in the `Buffer`.
             pub fn replaceRange(self: *Self, start: usize, length: usize, replacement: []const T) InsertError!void {
-                try common.replaceRangeForFixed(Self, self, start, length, replacement);
+                try help.replaceRangeForFixed(Self, self, start, length, replacement);
             }
 
             /// Replaces a visual range of chars with another slice in the `Buffer`.
             pub fn replaceVisualRange(self: *Self, start: usize, length: usize, replacement: []const T) InsertError!void {
-                try common.replaceVisualRangeForFixed(Self, self, start, length, replacement);
+                try help.replaceVisualRangeForFixed(Self, self, start, length, replacement);
             }
 
             /// Replaces the first occurrence of a slice with another slice in the `Buffer`.
             pub fn replaceFirst(self: *Self, target: []const T, replacement: []const T) InsertError!void {
-                try common.replaceFirstForFixed(Self, self, target, replacement);
+                try help.replaceFirstForFixed(Self, self, target, replacement);
             }
 
             /// Replaces the first N(count) occurrence of a slice with another slice in the `Buffer`.
             pub fn replaceFirstN(self: *Self, target: []const T, replacement: []const T, count: usize) InsertError!void {
-                try common.replaceFirstForFixedN(Self, self, target, replacement, count);
+                try help.replaceFirstForFixedN(Self, self, target, replacement, count);
             }
 
             /// Replaces the last occurrence of a slice with another slice in the `Buffer`.
             pub fn replaceLast(self: *Self, target: []const T, replacement: []const T) InsertError!void {
-                try common.replaceLastForFixed(Self, self, target, replacement);
+                try help.replaceLastForFixed(Self, self, target, replacement);
             }
 
             /// Replaces the last N(count) occurrence of a slice with another slice in the `Buffer`.
             pub fn replaceLastN(self: *Self, target: []const T, replacement: []const T, count: usize) InsertError!void {
-                try common.replaceLastForFixedN(Self, self, target, replacement, count);
+                try help.replaceLastForFixedN(Self, self, target, replacement, count);
             }
 
             /// Replaces all occurrences of a slice with another slice in the `Buffer`.
             pub fn replaceAll(self: *Self, target: []const T, replacement: []const T) InsertError!void {
-                try common.replaceAllForFixed(Self, self, target, replacement);
+                try help.replaceAllForFixed(Self, self, target, replacement);
             }
 
             /// Replaces the `nth` occurrence of a slice with another slice in the `Buffer`.
             pub fn replaceNth(self: *Self, target: []const T, replacement: []const T, nth: usize) InsertError!void {
-                try common.replaceNthForFixed(Self, self, target, replacement, nth);
+                try help.replaceNthForFixed(Self, self, target, replacement, nth);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -656,7 +656,7 @@
             /// Repeats a char `count` times and appends it to the `Buffer` instance.
             pub fn repeat(self: *Self, char: T, count: usize) InsertError!void {
                 if(self.size() < self.m_len+count) return InsertError.OutOfMemory;
-                return common.appendNTimesAssumeCapacity(Self, self, char, count);
+                return help.appendNTimesAssumeCapacity(Self, self, char, count);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -889,44 +889,44 @@
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithCapacity(allocator: Allocator, initial_capacity: usize) Allocator.Error!Self {
                 var self : Self = .{ };
-                try common.ensureCapacity(Self, &self, allocator, initial_capacity);
+                try help.ensureCapacity(Self, &self, allocator, initial_capacity);
                 return self;
             }
 
             /// Initializes a new `uString` instance with the specified allocator and initial `chars`.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithSlice(allocator: Allocator, initial_slice: []const T) Allocator.Error!Self {
-                return common.initWithSlice(Self, allocator, initial_slice);
+                return help.initWithSlice(Self, allocator, initial_slice);
             }
 
             /// Initializes a new `uString` instance with the specified allocator and initial `char`.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithChar(allocator: Allocator, initial_char: T) Allocator.Error!Self {
-                return common.initWithChar(Self, allocator, initial_char);
+                return help.initWithChar(Self, allocator, initial_char);
             }
 
             /// Initializes a new `uString` instance with the specified allocator and initial `uString`.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithSelf(allocator: Allocator, initial_self: Self) Allocator.Error!Self {
-                return common.initWithSelf(Self, allocator, initial_self);
+                return help.initWithSelf(Self, allocator, initial_self);
             }
 
             /// Initializes a `uString` instance with the specified allocator and formatted string.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithFmt(allocator: Allocator, comptime fmt: []const T, args: anytype) Allocator.Error!Self {
-                return common.initWithFmt(Self, allocator, fmt, args);
+                return help.initWithFmt(Self, allocator, fmt, args);
             }
 
             /// Initializes a `uString` instance with the specified allocator and anytype.
             /// the value will be converted to a string if necessary.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn init(allocator: Allocator, initial_value: anytype) Allocator.Error!Self {
-                return common.init(Self, allocator, initial_value);
+                return help.init(Self, allocator, initial_value);
             }
 
             /// Releases all allocated memory associated with the `uString` instance.
             pub fn deinit(self: Self, allocator: Allocator) void {
-                return common.deinit(Self, self, allocator);
+                return help.deinit(Self, self, allocator);
             }
 
             /// Releases all allocated memory associated with the `String` instance.
@@ -972,12 +972,12 @@
 
             /// Returns a sub-slice of the `uString`.
             pub inline fn sub(self: Self, start: usize, end: usize) RangeError![]const T {
-                return common.sub(Self, self, start, end);
+                return help.sub(Self, self, start, end);
             }
 
             /// Returns a [:0]const u8 slice containing only the written part of the `String`.
             pub inline fn cString(self: *Self, alloc: Allocator) Allocator.Error![:0]const u8 {
-                return common.cString(Self, self, alloc);
+                return help.cString(Self, self, alloc);
             }
 
             /// Returns a character at the specified index.
@@ -987,7 +987,7 @@
 
             /// Returns a character at the specified visual position.
             pub inline fn atVisual(self: Self, visual_pos: usize) ?[]const T {
-                return common.atVisual(Self, self, visual_pos);
+                return help.atVisual(Self, self, visual_pos);
             }
 
             /// Creates an iterator for traversing the Unicode chars in the `uString`.
@@ -1017,20 +1017,20 @@
 
         // ┌─────────────────────────── Insert ───────────────────────────┐
 
-            pub const InsertError = common.InsertError;
+            pub const InsertError = help.InsertError;
 
             /// Inserts a slice into the `uString` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn insertSlice(self: *Self, allocator: Allocator, slice: []const T, pos: usize) InsertError!void {
-                try common.insertSlice(Self, self, allocator, slice, pos);
+                try help.insertSlice(Self, self, allocator, slice, pos);
             }
 
             /// Inserts a char into the `uString` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn insertChar(self: *Self, allocator: Allocator, char: T, pos: usize) InsertError!void {
-                try common.insertChar(Self, self, allocator, char, pos);
+                try help.insertChar(Self, self, allocator, char, pos);
             }
 
             /// Inserts a `uString` into the `uString` instance at the specified position.
@@ -1064,14 +1064,14 @@
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `InsertError.OutOfRange` **if the `position` is invalid or greater than `self.size()``.**
             pub fn visualInsertSlice(self: *Self, allocator: Allocator, slice: []const T, visual_pos: usize) InsertError!void {
-                try common.visualInsertSlice(Self, self, allocator, slice, visual_pos);
+                try help.visualInsertSlice(Self, self, allocator, slice, visual_pos);
             }
 
             /// Inserts a char into the `uString` instance at the specified visual position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `InsertError.OutOfRange` **if the `position` is invalid or greater than `self.size()``.**
             pub fn visualInsertChar(self: *Self, allocator: Allocator, char: T, visual_pos: usize) InsertError!void {
-                try common.visualInsertChar(Self, self, allocator, char, visual_pos);
+                try help.visualInsertChar(Self, self, allocator, char, visual_pos);
             }
 
             /// Inserts a `uString` into the `uString` instance at the specified visual position.
@@ -1104,13 +1104,13 @@
             /// Appends a slice to the end of the `uString` instance.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn appendSlice(self: *Self, allocator: Allocator, slice: []const T) Allocator.Error!void {
-                try common.appendSlice(Self, self, allocator, slice);
+                try help.appendSlice(Self, self, allocator, slice);
             }
 
             /// Appends a char to the end of the `uString` instance.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn appendChar(self: *Self, allocator: Allocator, char: T) Allocator.Error!void {
-                try common.appendChar(Self, self, allocator, char);
+                try help.appendChar(Self, self, allocator, char);
             }
 
             /// Appends a `uString` to the end of the `uString` instance.
@@ -1139,13 +1139,13 @@
             /// Prepends a slice to the beginning of the `uString` instance.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn prependSlice(self: *Self, allocator: Allocator, slice: []const T) InsertError!void {
-                try common.insertSlice(Self, self, allocator, slice, 0);
+                try help.insertSlice(Self, self, allocator, slice, 0);
             }
 
             /// Prepends a char to the beginning of the `uString` instance.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn prependChar(self: *Self, allocator: Allocator, char: T) InsertError!void {
-                try common.insertChar(Self, self, allocator, char, 0);
+                try help.insertChar(Self, self, allocator, char, 0);
             }
 
             /// Prepends a `uString` to the beginning of the `uString` instance.
@@ -1176,13 +1176,13 @@
 
         // ┌─────────────────────────── Remove ───────────────────────────┐
 
-            pub const removeIndexError = common.removeIndexError;
-            pub const removeVisualIndexError = common.removeVisualIndexError;
+            pub const removeIndexError = help.removeIndexError;
+            pub const removeVisualIndexError = help.removeVisualIndexError;
 
             /// Removes a char from the `uString` instance at the specified position.
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn removeIndex(self: *Self, pos: usize) removeIndexError!void {
-                return common.removeIndex(Self, self, pos);
+                return help.removeIndex(Self, self, pos);
             }
 
             /// Removes a char from the `uString` instance by the specified visual position.
@@ -1191,14 +1191,14 @@
             ///
             /// Returns the removed slice.
             pub fn removeVisualIndex(self: *Self, visual_pos: usize) removeVisualIndexError![]const T {
-                return common.removeVisualIndex(Self, self, visual_pos);
+                return help.removeVisualIndex(Self, self, visual_pos);
             }
 
             /// Removes a range of chars from the `uString` instance.
             /// - `removeIndexError.InvalidPosition` **if the `position` is invalid.**
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn removeRange(self: *Self, pos: usize, length: usize) removeIndexError!void {
-                return common.removeRange(Self, self, pos, length);
+                return help.removeRange(Self, self, pos, length);
             }
 
             /// Removes a range of chars from the `uString` instance by the specified visual position.
@@ -1207,34 +1207,34 @@
             ///
             /// Returns the removed slice.
             pub fn removeVisualRange(self: *Self, visual_pos: usize, length: usize) removeVisualIndexError![]const T {
-                return common.removeVisualRange(Self, self, visual_pos, length);
+                return help.removeVisualRange(Self, self, visual_pos, length);
             }
 
             /// Removes the last grapheme cluster from the `uString` instance.
             /// Returns the removed slice.
             pub fn pop(self: *Self) ?[]const T {
-                return common.pop(Self, self);
+                return help.pop(Self, self);
             }
 
             /// Removes the first grapheme cluster from the `uString` instance.
             /// Returns the number of removed chars.
             pub fn shift(self: *Self) usize {
-                return common.shift(Self, self);
+                return help.shift(Self, self);
             }
 
             /// Trims whitespace from both ends of the `uString` instance.
             pub fn trim(self: *Self) void {
-                return common.trim(self);
+                return help.trim(self);
             }
 
             /// Trims whitespace from the start of the `uString` instance.
             pub fn trimStart(self: *Self) void {
-                return common.trimStart(self);
+                return help.trimStart(self);
             }
 
             /// Trims whitespace from the end of the `uString` instance.
             pub fn trimEnd(self: *Self) void {
-                return common.trimEnd(self);
+                return help.trimEnd(self);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -1244,42 +1244,42 @@
 
             /// Replaces a range of chars with another slice in the `uString`.
             pub fn replaceRange(self: *Self, allocator: Allocator, start: usize, length: usize, replacement: []const T) InsertError!void {
-                try common.replaceRange(Self, self, allocator, start, length, replacement);
+                try help.replaceRange(Self, self, allocator, start, length, replacement);
             }
 
             /// Replaces a visual range of chars with another slice in the `uString`.
             pub fn replaceVisualRange(self: *Self, allocator : Allocator, start: usize, length: usize, replacement: []const T) InsertError!void {
-                try common.replaceVisualRange(Self, self, allocator, start, length, replacement);
+                try help.replaceVisualRange(Self, self, allocator, start, length, replacement);
             }
 
             /// Replaces the first occurrence of a slice with another slice in the `uString`.
             pub fn replaceFirst(self: *Self, allocator : Allocator, target: []const T, replacement: []const T) InsertError!void {
-                try common.replaceFirst(Self, self, allocator, target, replacement);
+                try help.replaceFirst(Self, self, allocator, target, replacement);
             }
 
             /// Replaces the first N(count) occurrence of a slice with another slice in the `uString`.
             pub fn replaceFirstN(self: *Self, allocator : Allocator, target: []const T, replacement: []const T, count: usize) InsertError!void {
-                try common.replaceFirstN(Self, self, allocator, target, replacement, count);
+                try help.replaceFirstN(Self, self, allocator, target, replacement, count);
             }
 
             /// Replaces the last occurrence of a slice with another slice in the `uString`.
             pub fn replaceLast(self: *Self, allocator : Allocator, target: []const T, replacement: []const T) InsertError!void {
-                try common.replaceLast(Self, self, allocator, target, replacement);
+                try help.replaceLast(Self, self, allocator, target, replacement);
             }
 
             /// Replaces the last N(count) occurrence of a slice with another slice in the `uString`.
             pub fn replaceLastN(self: *Self, allocator : Allocator, target: []const T, replacement: []const T, count: usize) InsertError!void {
-                try common.replaceLastN(Self, self, allocator, target, replacement, count);
+                try help.replaceLastN(Self, self, allocator, target, replacement, count);
             }
 
             /// Replaces all occurrences of a slice with another slice in the `uString`.
             pub fn replaceAll(self: *Self, allocator : Allocator, target: []const T, replacement: []const T) InsertError!void {
-                try common.replaceAll(Self, self, allocator, target, replacement);
+                try help.replaceAll(Self, self, allocator, target, replacement);
             }
 
             /// Replaces the `nth` occurrence of a slice with another slice in the `uString`.
             pub fn replaceNth(self: *Self, allocator : Allocator, target: []const T, replacement: []const T, nth: usize) InsertError!void {
-                try common.replaceNth(Self, self, allocator, target, replacement, nth);
+                try help.replaceNth(Self, self, allocator, target, replacement, nth);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -1289,7 +1289,7 @@
 
             /// Repeats a char `count` times and appends it to the `uString` instance.
             pub fn repeat(self: *Self, allocator : Allocator, char: T, count: usize) InsertError!void {
-                try common.appendNTimes(Self, self, allocator, char, count);
+                try help.appendNTimes(Self, self, allocator, char, count);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -1425,12 +1425,12 @@
 
             /// Reverses the order of the chars in the `uString` instance (considering Unicode).
             pub fn reverse(self: *Self, allocator: Allocator) Allocator.Error!void {
-                return common.reverse(Self, self, allocator);
+                return help.reverse(Self, self, allocator);
             }
 
             /// Reduce allocated capacity to `new_len`.
             pub fn shrinkAndFree(self: *Self, allocator: Allocator, new_len: usize) void {
-                common.shrinkAndFree(Self, self, allocator, new_len);
+                help.shrinkAndFree(Self, self, allocator, new_len);
             }
 
             /// Reduce length to `new_len`.
@@ -1440,7 +1440,7 @@
 
             /// Adjust the `uString` instance length to `new_len`.
             pub fn resize(self: *Self, allocator: Allocator, new_len: usize) Allocator.Error!void {
-                return common.resize(Self, self, allocator, new_len);
+                return help.resize(Self, self, allocator, new_len);
             }
 
             /// Clears the contents of the `uString`.
@@ -1450,7 +1450,7 @@
 
             /// Clears the contents of the `uString` and frees its memory, invalidating all pointers.
             pub fn clearAndFree(self: *Self, allocator: Allocator) void {
-                common.clearAndFree(Self, self, allocator);
+                help.clearAndFree(Self, self, allocator);
             }
 
             /// Initializes a new `uString` instance from an owned slice of chars.
@@ -1463,7 +1463,7 @@
 
             /// Transfers ownership of the `uString`'s memory to the caller, emptying the `uString` and resetting its capacity.
             pub fn toOwnedSlice(self: *Self, allocator: Allocator) Allocator.Error![]T {
-                return common.toOwnedSlice(Self, self, allocator);
+                return help.toOwnedSlice(Self, self, allocator);
             }
 
             /// Converts the `uString` into a managed `String`, transferring ownership of its memory.
@@ -1527,44 +1527,44 @@
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithCapacity(allocator: Allocator, initial_capacity: usize) Allocator.Error!Self {
                 var self : Self = .{ .m_alloc = allocator };
-                try common.ensureCapacity(Self, &self, allocator, initial_capacity);
+                try help.ensureCapacity(Self, &self, allocator, initial_capacity);
                 return self;
             }
 
             /// Initializes a new `String` instance with the specified allocator and initial `chars`.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithSlice(allocator: Allocator, initial_slice: []const T) Allocator.Error!Self {
-                return common.initWithSlice(Self, allocator, initial_slice);
+                return help.initWithSlice(Self, allocator, initial_slice);
             }
 
             /// Initializes a new `String` instance with the specified allocator and initial `char`.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithChar(allocator: Allocator, initial_char: T) Allocator.Error!Self {
-                return common.initWithChar(Self, allocator, initial_char);
+                return help.initWithChar(Self, allocator, initial_char);
             }
 
             /// Initializes a new `String` instance with the specified allocator and initial `Self`.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithSelf(allocator: Allocator, initial_self: Self) Allocator.Error!Self {
-                return common.initWithSelf(Self, allocator, initial_self);
+                return help.initWithSelf(Self, allocator, initial_self);
             }
 
             /// Initializes a `String` instance with the specified allocator and formatted string.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn initWithFmt(allocator: Allocator, comptime fmt: []const T, args: anytype) Allocator.Error!Self {
-                return common.initWithFmt(Self, allocator, fmt, args);
+                return help.initWithFmt(Self, allocator, fmt, args);
             }
 
             /// Initializes a `String` instance with the specified allocator and anytype.
             /// the value will be converted to a string if necessary.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn init(allocator: Allocator, initial_value: anytype) Allocator.Error!Self {
-                return common.init(Self, allocator, initial_value);
+                return help.init(Self, allocator, initial_value);
             }
 
             /// Releases all allocated memory associated with the `String` instance.
             pub fn deinit(self: Self) void {
-                return common.deinit(Self, self, self.m_alloc);
+                return help.deinit(Self, self, self.m_alloc);
             }
 
             /// Releases all allocated memory associated with the `String` instance.
@@ -1605,7 +1605,7 @@
 
             /// Returns a sub-slice of the `String`.
             pub inline fn sub(self: Self, start: usize, end: usize) RangeError![]const T {
-                return common.sub(Self, self, start, end);
+                return help.sub(Self, self, start, end);
             }
 
             /// Returns a slice representing the entire allocated memory range.
@@ -1616,7 +1616,7 @@
             /// Returns a [:0]const u8 slice containing only the written part of the `String`.
             pub inline fn cString(self: *Self) Allocator.Error![:0]const u8 {
                 comptime if (Self.getType() != u8) @compileError("cString is only available for u8");
-                return common.cString(Self, self, self.m_alloc);
+                return help.cString(Self, self, self.m_alloc);
             }
 
             /// Returns a character at the specified index.
@@ -1626,7 +1626,7 @@
 
             /// Returns a character at the specified visual position.
             pub inline fn atVisual(self: Self, visual_pos: usize) ?[]const T {
-                return common.atVisual(Self, self, visual_pos);
+                return help.atVisual(Self, self, visual_pos);
             }
 
             /// Creates an iterator for traversing the Unicode chars in the `String`.
@@ -1656,20 +1656,20 @@
 
         // ┌─────────────────────────── Insert ───────────────────────────┐
 
-            pub const InsertError = common.InsertError;
+            pub const InsertError = help.InsertError;
 
             /// Inserts a slice into the `String` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn insertSlice(self: *Self, slice: []const T, pos: usize) InsertError!void {
-                try common.insertSlice(Self, self, self.m_alloc, slice, pos);
+                try help.insertSlice(Self, self, self.m_alloc, slice, pos);
             }
 
             /// Inserts a char into the `String` instance at the specified position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `error.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn insertChar(self: *Self, char: T, pos: usize) InsertError!void {
-                try common.insertChar(Self, self, self.m_alloc, char, pos);
+                try help.insertChar(Self, self, self.m_alloc, char, pos);
             }
 
             /// Inserts a `String` into the `String` instance at the specified position.
@@ -1704,14 +1704,14 @@
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `InsertError.OutOfRange` **if the `position` is invalid or greater than `self.size()``.**
             pub fn visualInsertSlice(self: *Self, slice: []const T, visual_pos: usize) InsertError!void {
-                try common.visualInsertSlice(Self, self, self.m_alloc, slice, visual_pos);
+                try help.visualInsertSlice(Self, self, self.m_alloc, slice, visual_pos);
             }
 
             /// Inserts a char into the `String` instance at the specified visual position.
             /// - `Allocator.Error` **if the allocator returned an error.**
             /// - `InsertError.OutOfRange` **if the `position` is invalid or greater than `self.size()``.**
             pub fn visualInsertChar(self: *Self, char: T, visual_pos: usize) InsertError!void {
-                try common.visualInsertChar(Self, self, self.m_alloc, char, visual_pos);
+                try help.visualInsertChar(Self, self, self.m_alloc, char, visual_pos);
             }
 
             /// Inserts a `String` into the `String` instance at the specified visual position.
@@ -1744,13 +1744,13 @@
             /// Appends a slice to the end of the `String` instance.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn appendSlice(self: *Self, slice: []const T) Allocator.Error!void {
-                try common.appendSlice(Self, self, self.m_alloc, slice);
+                try help.appendSlice(Self, self, self.m_alloc, slice);
             }
 
             /// Appends a char to the end of the `String` instance.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn appendChar(self: *Self, char: T) Allocator.Error!void {
-                try common.appendChar(Self, self, self.m_alloc, char);
+                try help.appendChar(Self, self, self.m_alloc, char);
             }
 
             /// Appends a `String` to the end of the `String` instance.
@@ -1781,13 +1781,13 @@
             /// Prepends a slice to the beginning of the `String` instance.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn prependSlice(self: *Self, slice: []const T) InsertError!void {
-                try common.insertSlice(Self, self, self.m_alloc, slice, 0);
+                try help.insertSlice(Self, self, self.m_alloc, slice, 0);
             }
 
             /// Prepends a char to the beginning of the `String` instance.
             /// - `Allocator.Error` **if the allocator returned an error.**
             pub fn prependChar(self: *Self, char: T) InsertError!void {
-                try common.insertChar(Self, self, self.m_alloc, char, 0);
+                try help.insertChar(Self, self, self.m_alloc, char, 0);
             }
 
             /// Prepends a `Srting` to the beginning of the `String` instance.
@@ -1820,13 +1820,13 @@
 
         // ┌─────────────────────────── Remove ───────────────────────────┐
 
-            pub const removeIndexError = common.removeIndexError;
-            pub const removeVisualIndexError = common.removeVisualIndexError;
+            pub const removeIndexError = help.removeIndexError;
+            pub const removeVisualIndexError = help.removeVisualIndexError;
 
             /// Removes a char from the `String` instance at the specified position.
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn removeIndex(self: *Self, pos: usize) removeIndexError!void {
-                return common.removeIndex(Self, self, pos);
+                return help.removeIndex(Self, self, pos);
             }
 
             /// Removes a char from the `String` instance by the specified visual position.
@@ -1835,14 +1835,14 @@
             ///
             /// Returns the removed slice.
             pub fn removeVisualIndex(self: *Self, visual_pos: usize) removeVisualIndexError![]const T {
-                return common.removeVisualIndex(Self, self, visual_pos);
+                return help.removeVisualIndex(Self, self, visual_pos);
             }
 
             /// Removes a range of chars from the `String` instance.
             /// - `removeIndexError.InvalidPosition` **if the `position` is invalid.**
             /// - `removeIndexError.OutOfRange` **if the `position` is greater than `self.size()``.**
             pub fn removeRange(self: *Self, pos: usize, length: usize) removeIndexError!void {
-                return common.removeRange(Self, self, pos, length);
+                return help.removeRange(Self, self, pos, length);
             }
 
             /// Removes a range of chars from the `String` instance by the specified visual position.
@@ -1851,34 +1851,34 @@
             ///
             /// Returns the removed slice.
             pub fn removeVisualRange(self: *Self, visual_pos: usize, length: usize) removeVisualIndexError![]const T {
-                return common.removeVisualRange(Self, self, visual_pos, length);
+                return help.removeVisualRange(Self, self, visual_pos, length);
             }
 
             /// Removes the last grapheme cluster from the `String` instance.
             /// Returns the removed slice.
             pub fn pop(self: *Self) ?[]const T {
-                return common.pop(Self, self);
+                return help.pop(Self, self);
             }
 
             /// Removes the first grapheme cluster from the `String` instance.
             /// Returns the number of removed chars.
             pub fn shift(self: *Self) usize {
-                return common.shift(Self, self);
+                return help.shift(Self, self);
             }
 
             /// Trims whitespace from both ends of the `String` instance.
             pub fn trim(self: *Self) void {
-                return common.trim(self);
+                return help.trim(self);
             }
 
             /// Trims whitespace from the start of the `String` instance.
             pub fn trimStart(self: *Self) void {
-                return common.trimStart(self);
+                return help.trimStart(self);
             }
 
             /// Trims whitespace from the end of the `String` instance.
             pub fn trimEnd(self: *Self) void {
-                return common.trimEnd(self);
+                return help.trimEnd(self);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -1888,42 +1888,42 @@
 
             /// Replaces a range of chars with another slice in the `String`.
             pub fn replaceRange(self: *Self, start: usize, length: usize, replacement: []const T) InsertError!void {
-                try common.replaceRange(Self, self, self.m_alloc, start, length, replacement);
+                try help.replaceRange(Self, self, self.m_alloc, start, length, replacement);
             }
 
             /// Replaces a visual range of chars with another slice in the `String`.
             pub fn replaceVisualRange(self: *Self, start: usize, length: usize, replacement: []const T) InsertError!void {
-                try common.replaceVisualRange(Self, self, self.m_alloc, start, length, replacement);
+                try help.replaceVisualRange(Self, self, self.m_alloc, start, length, replacement);
             }
 
             /// Replaces the first occurrence of a slice with another slice in the `String`.
             pub fn replaceFirst(self: *Self, target: []const T, replacement: []const T) InsertError!void {
-                try common.replaceFirst(Self, self, self.m_alloc, target, replacement);
+                try help.replaceFirst(Self, self, self.m_alloc, target, replacement);
             }
 
             /// Replaces the first N(count) occurrence of a slice with another slice in the `String`.
             pub fn replaceFirstN(self: *Self, target: []const T, replacement: []const T, count: usize) InsertError!void {
-                try common.replaceFirstN(Self, self, self.m_alloc, target, replacement, count);
+                try help.replaceFirstN(Self, self, self.m_alloc, target, replacement, count);
             }
 
             /// Replaces the last occurrence of a slice with another slice in the `String`.
             pub fn replaceLast(self: *Self, target: []const T, replacement: []const T) InsertError!void {
-                try common.replaceLast(Self, self, self.m_alloc, target, replacement);
+                try help.replaceLast(Self, self, self.m_alloc, target, replacement);
             }
 
             /// Replaces the last N(count) occurrence of a slice with another slice in the `String`.
             pub fn replaceLastN(self: *Self, target: []const T, replacement: []const T, count: usize) InsertError!void {
-                try common.replaceLastN(Self, self, self.m_alloc, target, replacement, count);
+                try help.replaceLastN(Self, self, self.m_alloc, target, replacement, count);
             }
 
             /// Replaces all occurrences of a slice with another slice in the `String`.
             pub fn replaceAll(self: *Self, target: []const T, replacement: []const T) InsertError!void {
-                try common.replaceAll(Self, self, self.m_alloc, target, replacement);
+                try help.replaceAll(Self, self, self.m_alloc, target, replacement);
             }
 
             /// Replaces the `nth` occurrence of a slice with another slice in the `String`.
             pub fn replaceNth(self: *Self, target: []const T, replacement: []const T, nth: usize) InsertError!void {
-                try common.replaceNth(Self, self, self.m_alloc, target, replacement, nth);
+                try help.replaceNth(Self, self, self.m_alloc, target, replacement, nth);
             }
 
 
@@ -1934,7 +1934,7 @@
 
             /// Repeats a char `count` times and appends it to the `String` instance.
             pub fn repeat(self: *Self, char: T, count: usize) InsertError!void {
-                try common.appendNTimes(Self, self, self.m_alloc, char, count);
+                try help.appendNTimes(Self, self, self.m_alloc, char, count);
             }
 
         // └──────────────────────────────────────────────────────────────┘
@@ -2071,12 +2071,12 @@
 
             /// Reverses the order of the chars in the `String` instance (considering Unicode).
             pub fn reverse(self: *Self) Allocator.Error!void {
-                return common.reverse(Self, self, self.m_alloc);
+                return help.reverse(Self, self, self.m_alloc);
             }
 
             /// Reduce allocated capacity to `new_len`.
             pub fn shrinkAndFree(self: *Self, new_len: usize) void {
-                common.shrinkAndFree(Self, self, self.m_alloc, new_len);
+                help.shrinkAndFree(Self, self, self.m_alloc, new_len);
             }
 
             /// Reduce length to `new_len`.
@@ -2086,7 +2086,7 @@
 
             /// Adjust the `String` instance length to `new_len`.
             pub fn resize(self: *Self, new_len: usize) Allocator.Error!void {
-                return common.resize(Self, self, self.m_alloc, new_len);
+                return help.resize(Self, self, self.m_alloc, new_len);
             }
 
             /// Clears the contents of the `String`.
@@ -2096,7 +2096,7 @@
 
             /// Clears the contents of the `String` and frees its memory, invalidating all pointers.
             pub fn clearAndFree(self: *Self) void {
-                common.clearAndFree(Self, self, self.m_alloc);
+                help.clearAndFree(Self, self, self.m_alloc);
             }
 
             /// Initializes a new `String` from the given owned slice.
@@ -2110,7 +2110,7 @@
 
             /// Transfers ownership of the `String`'s memory to the caller, emptying the `String` and resetting its capacity.
             pub fn toOwnedSlice(self: *Self) Allocator.Error![]T {
-                return common.toOwnedSlice(Self, self, self.m_alloc);
+                return help.toOwnedSlice(Self, self, self.m_alloc);
             }
 
             /// Converts the `String` into an unmanaged `uString`, transferring ownership of its memory.

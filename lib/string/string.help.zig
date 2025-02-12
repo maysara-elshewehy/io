@@ -13,13 +13,13 @@
 
 
 
-// ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
+// ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
 
-    pub const std               = @import("std");
-    pub const utils             = @import("./utils/utils.zig");
-    pub const Allocator         = std.mem.Allocator;
-    pub const RangeError        = utils.chars.RangeError;
-    pub const CapacityError     = utils.chars.CapacityError;
+    pub const std           = @import("std");
+    pub const utils         = @import("./utils/utils.zig");
+    pub const Allocator     = std.mem.Allocator;
+    pub const RangeError    = utils.chars.RangeError;
+    pub const CapacityError = utils.chars.CapacityError;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -130,7 +130,7 @@
 
         /// Returns a character at the specified visual position.
         pub inline fn atVisual(comptime Self: type, self: anytype, visual_pos: usize) ?[]const u8 {
-            if(Self.getType() != u8) @panic("atVisual is only available for u8 (i will improve it in the future)");
+            if(Self.getType() != u8) @compileError("atVisual is only available for u8 (i will improve it in the future)");
 
             if(visual_pos >= self.len()) return null;
             const index = if(visual_pos == 0) 0 else utils.unicode.getRealPosition(self.src(), visual_pos) catch return null;
@@ -178,7 +178,7 @@
 
         /// Inserts a slice into the `Self` instance at the specified visual position.
         pub inline fn visualInsertSlice(comptime Self: type, self: anytype, allocator: Allocator, slice: []const u8, visual_pos: usize) InsertError!void {
-            if(Self.getType() != u8) @panic("visualInsertSlice is only available for u8 (i will improve it in the future)");
+            if(Self.getType() != u8) @compileError("visualInsertSlice is only available for u8 (i will improve it in the future)");
 
             if(self.m_len == 0) return appendSlice(Self, self, allocator, slice);
             if (slice.len == 0) return;
@@ -189,7 +189,7 @@
 
         /// Inserts a char into the `Self` instance at the specified visual position.
         pub inline fn visualInsertChar(comptime Self: type, self: anytype, allocator: Allocator, char: u8, visual_pos: usize) InsertError!void {
-            if(Self.getType() != u8) @panic("visualInsertChar is only available for u8 (i will improve it in the future)");
+            if(Self.getType() != u8) @compileError("visualInsertChar is only available for u8 (i will improve it in the future)");
 
             if(self.m_len == 0) return appendChar(Self, self, allocator, char);
             if (visual_pos > self.m_src.len) return InsertError.OutOfRange;
@@ -227,7 +227,7 @@
 
         /// Removes a char from the `Self` instance by the specified visual position.
         pub inline fn removeVisualIndex(comptime Self: type, self: anytype, pos: usize) removeVisualIndexError![]const u8 {
-            if(Self.getType() != u8) @panic("removeVisualIndex is only available for u8 (i will improve it in the future)");
+            if(Self.getType() != u8) @compileError("removeVisualIndex is only available for u8 (i will improve it in the future)");
 
             const removed_slice = try utils.chars.removeVisualIndex(Self.getType(), self.m_src[0..self.size()], self.len(), pos);
             self.m_len -= removed_slice.len;
@@ -242,7 +242,7 @@
 
         /// Removes a range of chars from the `Self` instance by the specified visual position.
         pub inline fn removeVisualRange(comptime Self: type, self: anytype, pos: usize, len: usize) removeVisualIndexError![]const u8 {
-            if(Self.getType() != u8) @panic("removeVisualRange is only available for u8 (i will improve it in the future)");
+            if(Self.getType() != u8) @compileError("removeVisualRange is only available for u8 (i will improve it in the future)");
 
             const removed_slice = try utils.chars.removeVisualRange(Self.getType(), self.m_src[0..self.size()], self.len(), pos, len);
             self.m_len -= removed_slice.len;
@@ -366,7 +366,7 @@
 
         /// -
         pub inline fn getNewLengthForReplaceVisualRange(comptime Self: type, self: anytype, start: usize, length: usize) usize {
-            if(Self.getType() != u8) @panic("getNewLengthForReplaceVisualRange is only available for u8 (i will improve it in the future)");
+            if(Self.getType() != u8) @compileError("getNewLengthForReplaceVisualRange is only available for u8 (i will improve it in the future)");
 
             var new_length: usize = 0;
             var iter = utils.unicode.Iterator.initUnchecked(self.m_src[start..self.m_len]);

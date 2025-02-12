@@ -9,7 +9,7 @@
 
 
 
-// ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
+// ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
 
     const std                   = @import("std");
     const unicode               = @import("../unicode/unicode.zig");
@@ -100,7 +100,7 @@
         /// - `error.OutOfMemory` **_if the insertion exceeds the bounds of `dest`._**
         /// - `error.OutOfRange` **_if the `pos` is invalid or greater than `written_len`._**
         pub inline fn visualInsertSlice(comptime T: type, dest: []T, slice: []const T, written_len: usize, pos: usize) InsertError!void {
-            if(T != u8) @panic("visualInsertSlice is only available for u8 (i will improve it in the future)");
+            if(T != u8) @compileError("visualInsertSlice is only available for u8 (i will improve it in the future)");
 
             const real_pos = unicode.getRealPosition(dest[0..written_len], pos) catch return InsertError.OutOfRange;
             return insertSlice(T, dest, slice, written_len, real_pos);
@@ -110,7 +110,7 @@
         /// - `error.OutOfMemory` **_if the insertion exceeds the bounds of `dest`._**
         /// - `error.OutOfRange` **_if the `pos` is invalid or greater than `written_len`._**
         pub inline fn visualInsertChar(comptime T: type, dest: []T, char: T, written_len: usize, pos: usize) InsertError!void {
-            if(T != u8) @panic("visualInsertChar is only available for u8 (i will improve it in the future)");
+            if(T != u8) @compileError("visualInsertChar is only available for u8 (i will improve it in the future)");
 
             const real_pos = unicode.getRealPosition(dest[0..written_len], pos) catch return InsertError.OutOfRange;
             return insertChar(T, dest, char, written_len, real_pos);
@@ -203,7 +203,7 @@
         ///
         /// Returns the removed slice.
         pub inline fn removeVisualIndex(comptime T: type, dest: []T, written_len: usize, pos: usize) removeVisualIndexError![]const T {
-            if(T != u8) @panic("removeVisualIndex is only available for u8 (i will improve it in the future)");
+            if(T != u8) @compileError("removeVisualIndex is only available for u8 (i will improve it in the future)");
 
             if (pos > written_len) return removeVisualIndexError.OutOfRange;
             const real_pos = unicode.getRealPosition(dest[0..written_len], pos) catch return removeVisualIndexError.InvalidPosition;
@@ -234,7 +234,7 @@
         ///
         /// Returns the removed slice.
         pub inline fn removeVisualRange(comptime T: type, dest: []T, written_len: usize, pos: usize, len: usize) removeVisualIndexError![]const T {
-            if(T != u8) @panic("removeVisualRange is only available for u8 (i will improve it in the future)");
+            if(T != u8) @compileError("removeVisualRange is only available for u8 (i will improve it in the future)");
 
             if (pos+len > written_len) return removeVisualIndexError.OutOfRange;
             const real_pos = unicode.getRealPosition(dest[0..written_len], pos) catch return removeVisualIndexError.InvalidPosition;
@@ -286,7 +286,7 @@
 
         /// Finds the `visual position` of the **first** occurrence of `target`.
         pub inline fn findVisual(comptime T: type, dest: []const T, target: []const T) ?usize {
-            if(T != u8) @panic("findVisual is only available for u8 (i will improve it in the future)");
+            if(T != u8) @compileError("findVisual is only available for u8 (i will improve it in the future)");
 
             if(find(T, dest, target)) |pos| return unicode.getVisualPosition(dest, pos) catch null;
             return null;
@@ -299,7 +299,7 @@
 
         /// Finds the `visual position` of the **last** occurrence of `target`.
         pub inline fn findLastVisual(comptime T: type, dest: []const T, target: []const T) ?usize {
-            if(T != u8) @panic("findVisual is only available for u8 (i will improve it in the future)");
+            if(T != u8) @compileError("findVisual is only available for u8 (i will improve it in the future)");
 
             if(findLast(T, dest, target)) |pos| return unicode.getVisualPosition(dest, pos) catch null;
             return null;
@@ -438,7 +438,7 @@
         /// Returns the total number of visual chars.
         /// - `countVisualError.InvalidValue` **_if the `value` is not a valid unicode format._**
         pub inline fn countVisual(comptime T: type, value: []const T) countVisualError!usize {
-            if(T != u8) @panic("countVisual is only available for u8 (i will improve it in the future)");
+            if(T != u8) @compileError("countVisual is only available for u8 (i will improve it in the future)");
 
             const len = countWritten(u8, value);
             var count : usize = 0;
@@ -575,7 +575,7 @@
 
         /// Replaces a visual range of chars with another.
         pub inline fn replaceVisualRange(comptime T: type, dest: []T, written_len: usize, start: usize, len: usize, replacement: []const T) replaceError!void {
-            if(T != u8) @panic("replaceVisualRange is only available for u8 (i will improve it in the future)");
+            if(T != u8) @compileError("replaceVisualRange is only available for u8 (i will improve it in the future)");
 
             var new_len : usize = 0;
             var iter = unicode.Iterator.init(dest[start..written_len]) catch unreachable;

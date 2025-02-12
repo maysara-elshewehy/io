@@ -194,13 +194,13 @@
     - [Chars](./chars.md)
         > Utility functions for char arrays.
 
-    - [Viewer](./viewer.md)
+    - [Viewer](./Viewer.md)
         > Immutable fixed-size string type that supports unicode.
 
-    - [String](./string.md)
+    - [String](./String.md)
         > Managed dynamic-size string type that supports unicode.
 
-    - [Buffer](./buffer.md)
+    - [Buffer](./Buffer.md)
         > Mutable fixed-size string type that supports unicode.
 
     - [uString](./uString.md)

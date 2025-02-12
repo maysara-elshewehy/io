@@ -1,8 +1,7 @@
 // Copyright (c) 2025 SuperZIG All rights reserved.
 //
 // repo: https://github.com/Super-ZIG/io
-// docs: https://super-zig.github.io/io/
-// bench: https://github.com/maysara-elshewehy/io-bench
+// docs: https://super-zig.github.io/io/terminal/
 //
 // Made with ❤️ by Maysara
 //
@@ -13,15 +12,11 @@
 
 // ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
 
-    const StringModule      = @import("./string/string.zig");
-    pub const chars         = StringModule.utils.chars;
-    pub const unicode       = StringModule.utils.unicode;
-    pub const Viewer        = StringModule.Viewer;
-    pub const Buffer        = StringModule.Buffer;
-    pub const String        = StringModule.String;
-    pub const uString       = StringModule.uString;
+    /// -
+    pub const utils = @import("./utils/utils.zig");
 
-    pub const terminal      = @import("./terminal/terminal.zig");
+    /// -
+    pub const events = @import("./events/events.zig");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -30,8 +25,8 @@
 // ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
 
     test {
-        _ = @import("./string/string.test.zig");
-        _ = @import("./terminal/terminal.zig");
+        _ = @import("./utils/utils.test.zig");
+        _ = @import("./events/events.test.zig");
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

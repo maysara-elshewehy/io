@@ -1,17 +1,17 @@
-// ╔══════════════════════════════════════ INIT ══════════════════════════════════════╗
+// ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
 
-    const std               = @import("std");
-    const root              = @import("./string.zig");
-    const utils             = root.utils;
-    const Buffer            = root.Buffer;
-    const Viewer            = root.Viewer;
-    const String            = root.String;
-    const uString           = root.uString;
-    const expect            = std.testing.expect;
-    const expectEqual       = std.testing.expectEqual;
-    const expectError       = std.testing.expectError;
-    const expectStrings     = std.testing.expectEqualStrings;
-    const Allocator         = std.testing.allocator;
+    const std           = @import("std");
+    const root          = @import("./string.zig");
+    const utils         = root.utils;
+    const Buffer        = root.Buffer;
+    const Viewer        = root.Viewer;
+    const String        = root.String;
+    const uString       = root.uString;
+    const expect        = std.testing.expect;
+    const expectEqual   = std.testing.expectEqual;
+    const expectError   = std.testing.expectError;
+    const expectStrings = std.testing.expectEqualStrings;
+    const Allocator     = std.testing.allocator;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
