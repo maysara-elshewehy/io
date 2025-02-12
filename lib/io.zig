@@ -2,7 +2,7 @@
 //
 // repo: https://github.com/Super-ZIG/io
 // docs: https://super-zig.github.io/io/
-// bench: https://github.com/maysara-elshewehy/io-bench
+// bench: https://github.com/maysara-elshewehy/SuperZIG-bench
 //
 // Made with ❤️ by Maysara
 //

@@ -254,7 +254,7 @@
 
     > The tool used for benchmarking is **[zBench](https://github.com/hendriknielaender/zBench)** version **0.9.1**.
 
-    > You can find the source code for this benchmark here: **[io-bench](https://github.com/maysara-elshewehy/io-bench)**.
+    > You can find the source code for this benchmark here: **[SuperZIG-bench](https://github.com/maysara-elshewehy/SuperZIG-bench)**.
 
 ### Comparisons
 
