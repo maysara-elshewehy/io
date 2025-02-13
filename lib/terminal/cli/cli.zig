@@ -14,7 +14,6 @@
 
     const std = @import("std");
     const builtin = @import("builtin");
-    const StringModule = @import("../../string/string.zig");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -23,7 +22,7 @@
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
     /// Starts the CLI application.
-    pub fn start(commands: []const command, options: []const option, debug_mode: bool) !void {
+    pub fn start(commands: []const command, options: []const option, debug: bool) !void {
         if (commands.len > MAX_COMMANDS) {
             return error.TooManyCommands;
         }
@@ -40,13 +39,13 @@
         const args = try std.process.argsAlloc(allocator);
         defer std.process.argsFree(allocator, args);
 
-        try startWithArgs(commands, options, args, debug_mode);
+        try startWithArgs(commands, options, args, debug);
     }
 
     /// Starts the CLI application with provided arguments.
-    pub fn startWithArgs(commands: []const command, options: []const option, args: anytype, debug_mode: bool) !void {
+    pub fn startWithArgs(commands: []const command, options: []const option, args: anytype, debug: bool) !void {
         if (args.len < 2) {
-            if(debug_mode) std.debug.print("No command provided by user!\n", .{});
+            if(debug) std.debug.print("No command provided by user!\n", .{});
             return Error.NoArgsProvided;
         }
 
@@ -64,14 +63,14 @@
 
         // If no matching command is found, return an error
         if (detected_command == null) {
-            if(debug_mode) std.debug.print("Unknown command: {s}\n", .{command_name});
+            if(debug) std.debug.print("Unknown command: {s}\n", .{command_name});
             return Error.UnknownCommand;
         }
 
         // Retrieve the matched command from the optional variable
         const cmd = detected_command.?;
 
-        if(debug_mode) std.debug.print("Detected command: {s}\n", .{cmd.name});
+        if(debug) std.debug.print("Detected command: {s}\n", .{cmd.name});
 
         // Allocate memory for detected options based on remaining arguments
         var detected_options: [MAX_OPTIONS]option = undefined;
@@ -94,7 +93,7 @@
                 }
 
                 if (matched_option == null) {
-                    if(debug_mode) std.debug.print("Unknown option: {s}\n", .{arg});
+                    if(debug) std.debug.print("Unknown option: {s}\n", .{arg});
                     return Error.UnknownOption;
                 }
 
@@ -115,7 +114,7 @@
                 detected_options[detected_len] = opt;
                 detected_len += 1;
             } else {
-                if(debug_mode) std.debug.print("Unexpected argument: {s}\n", .{arg});
+                if(debug) std.debug.print("Unexpected argument: {s}\n", .{arg});
                 return Error.UnexpectedArgument;
             }
 
@@ -136,7 +135,7 @@
             }
 
             if (!found) {
-                if(debug_mode) std.debug.print("Missing required option: {s}\n", .{req_option});
+                if(debug) std.debug.print("Missing required option: {s}\n", .{req_option});
                 return Error.MissingRequiredOption;
             }
         }
@@ -151,14 +150,14 @@
                 const result = opt.func.?(opt.value);
 
                 if (!result) {
-                    if(debug_mode) std.debug.print("Option function execution failed: {s}\n", .{opt.name});
+                    if(debug) std.debug.print("Option function execution failed: {s}\n", .{opt.name});
                     return Error.CommandExecutionFailed;
                 }
             }
         }
 
         // If execution reaches this point, the command was executed successfully
-        if(debug_mode) std.debug.print("Command executed successfully: {s}\n", .{cmd.name});
+        if(debug) std.debug.print("Command executed successfully: {s}\n", .{cmd.name});
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
