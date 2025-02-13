@@ -15,7 +15,6 @@
     const std = @import("std");
     const builtin = @import("builtin");
     const StringModule = @import("../../string/string.zig");
-    const Buffer = StringModule.Buffer(u8, 64);
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -24,9 +23,13 @@
 // ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
     /// Starts the CLI application.
-    pub fn start ( commands: anytype, options: anytype, debug_mode: bool ) !void {
-        if (comptime false)
-            @compileError("This function must run at runtime!");
+    pub fn start(commands: []const command, options: []const option, debug_mode: bool) !void {
+        if (commands.len > MAX_COMMANDS) {
+            return error.TooManyCommands;
+        }
+        if (options.len > MAX_OPTIONS) {
+            return error.TooManyOptions;
+        }
 
         // Create a general-purpose allocator for managing memory during execution
         var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -37,19 +40,23 @@
         const args = try std.process.argsAlloc(allocator);
         defer std.process.argsFree(allocator, args);
 
-        // If no command is provided, return an error
+        try startWithArgs(commands, options, args, debug_mode);
+    }
+
+    /// Starts the CLI application with provided arguments.
+    pub fn startWithArgs(commands: []const command, options: []const option, args: anytype, debug_mode: bool) !void {
         if (args.len < 2) {
-            try std.debug.print("No command provided by user!\n", .{});
+            if(debug_mode) std.debug.print("No command provided by user!\n", .{});
             return Error.NoArgsProvided;
         }
 
         // Extract the name of the command (the second argument after the program name)
-        const command_name = Buffer.initWithSlice(args[1]);
+        const command_name = args[1];
         var detected_command: ?command = null;
 
         // Search through the list of available commands to find a match
         for (commands) |cmd| {
-            if (command_name.eql(cmd.name)) {
+            if (std.mem.eql(u8, cmd.name, command_name)) {
                 detected_command = cmd;
                 break;
             }
@@ -57,19 +64,17 @@
 
         // If no matching command is found, return an error
         if (detected_command == null) {
-            try std.debug.print("Unknown command: {s}\n", .{command_name});
+            if(debug_mode) std.debug.print("Unknown command: {s}\n", .{command_name});
             return Error.UnknownCommand;
         }
 
         // Retrieve the matched command from the optional variable
         const cmd = detected_command.?;
 
-        if(debug_mode)
-            try std.debug.print("Detected command: {s}\n", .{cmd.name});
+        if(debug_mode) std.debug.print("Detected command: {s}\n", .{cmd.name});
 
         // Allocate memory for detected options based on remaining arguments
-        var detected_options: []option = try allocator.alloc(option, args.len - 2);
-        defer allocator.free(detected_options);
+        var detected_options: [MAX_OPTIONS]option = undefined;
         var detected_len : usize = 0;
         var i: usize = 2;
 
@@ -89,7 +94,7 @@
                 }
 
                 if (matched_option == null) {
-                    try std.debug.print("Unknown option: {s}\n", .{arg});
+                    if(debug_mode) std.debug.print("Unknown option: {s}\n", .{arg});
                     return Error.UnknownOption;
                 }
 
@@ -103,10 +108,14 @@
                     opt.value = "";
                 }
 
+                if (detected_len >= MAX_OPTIONS) {
+                    return error.TooManyOptions;
+                }
+
                 detected_options[detected_len] = opt;
                 detected_len += 1;
             } else {
-                try std.debug.print("Unexpected argument: {s}\n", .{arg});
+                if(debug_mode) std.debug.print("Unexpected argument: {s}\n", .{arg});
                 return Error.UnexpectedArgument;
             }
 
@@ -127,7 +136,7 @@
             }
 
             if (!found) {
-                try std.debug.print("Missing required option: {s}\n", .{req_option});
+                if(debug_mode) std.debug.print("Missing required option: {s}\n", .{req_option});
                 return Error.MissingRequiredOption;
             }
         }
@@ -142,16 +151,14 @@
                 const result = opt.func.?(opt.value);
 
                 if (!result) {
-                    try std.debug.print("Option function execution failed: {s}\n", .{opt.name});
+                    if(debug_mode) std.debug.print("Option function execution failed: {s}\n", .{opt.name});
                     return Error.CommandExecutionFailed;
                 }
             }
         }
 
         // If execution reaches this point, the command was executed successfully
-        if(debug_mode) {
-            try std.debug.print("Command executed successfully: {s}\n", .{cmd.name});
-        }
+        if(debug_mode) std.debug.print("Command executed successfully: {s}\n", .{cmd.name});
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
@@ -160,27 +167,30 @@
 
 // ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
 
-    const byte    = u8;
-    const slice   = []const u8;
-    const slices  = []const slice;
+    pub const MAX_COMMANDS: u8 = 10;
+    pub const MAX_OPTIONS: u8 = 20;
+
+    const Byte    = u8;
+    const Slice   = []const Byte;
+    const Slices  = []const Slice;
 
     /// Structure to represent the type of command.
     pub const command = struct {
-        name : slice,                   // Name of the command
+        name : Slice,                   // Name of the command
         func : fnType,                  // Function to execute the command
-        req  : slices = &.{},           // Required options
-        opt  : slices = &.{},           // Optional options
+        req  : Slices = &.{},           // Required options
+        opt  : Slices = &.{},           // Optional options
         const fnType = *const fn ([]const option) bool;
     };
 
     /// Structure to represent the type of option.
     pub const option = struct {
-        name  : slice,                  // Name of the option
+        name  : Slice,                  // Name of the option
         func  : ?fnType = undefined,    // Function to execute the option
-        short : byte,                   // Short form, e.g., -n|-N
-        long  : slice,                  // Long form, e.g., --name
-        value : slice = "",             // Value of the option
-        const fnType = *const fn (slice) bool;
+        short : Byte,                   // Short form, e.g., -n|-N
+        long  : Slice,                  // Long form, e.g., --name
+        value : Slice = "",             // Value of the option
+        const fnType = *const fn (Slice) bool;
     };
 
     /// -
@@ -191,6 +201,8 @@
         MissingRequiredOption,
         UnexpectedArgument,
         CommandExecutionFailed,
+        TooManyCommands,
+        TooManyOptions,
     };
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

@@ -208,7 +208,7 @@
             | ------- | ------------------------ | ------------------------------- |
             | `name`  | `slice`                  | Name of the option.             |
             | `func`  | `*const fn (slice) bool` | Function to execute the option. |
-            | `short` | `byte`                   | Short form, e.g., -n/-N         |
+            | `short` | `u8`                    | Short form, e.g., -n/-N         |
             | `long`  | `slice`                  | Long form, e.g., --name.        |
             | `value` | `slice`                  | Value of the option.            |
 
