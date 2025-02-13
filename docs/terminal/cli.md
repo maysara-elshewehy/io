@@ -62,8 +62,6 @@
 
     🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
 
-    🔹 [🌍 Comparisons](#comparisons) – Detailed comparison with other libraries.
-
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
@@ -168,6 +166,7 @@
         ./your_app test -1 valOne -2 valTwo -3 valThree
         ```
 
+    > **Kickstart your project with our [cli-lit](https://github.com/maysara-elshewehy/lite-cli) template for a swift setup.**
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -175,15 +174,59 @@
 
 - ### API
 
-    > TODO
+
+    | Index                |
+    | -------------------- |
+    | [Methods](#-methods) |
+    | [Types](#️-types)     |
+    | [Errors](#️-errors)   |
+
+
+    - #### 🔹 Methods
+
+        | Function | Description                 |
+        | -------- | --------------------------- |
+        | `start`  | Starts the CLI application. |
+
+    - #### 🔹 Types
+
+        > `slice` = `[]const u8`
+
+        - #### 🔹 command
+
+            | Field  | Type                              | Description                      |
+            | ------ | --------------------------------- | -------------------------------- |
+            | `name` | `slice`                           | Name of the command.             |
+            | `func` | `*const fn ([]const option) bool` | Function to execute the command. |
+            | `req`  | `[]const slice`                   | Required options.                |
+            | `opt`  | `[]const slice`                   | Optional options.                |
+
+
+        - #### 🔹 option
+
+            | Field   | Type                     | Description                     |
+            | ------- | ------------------------ | ------------------------------- |
+            | `name`  | `slice`                  | Name of the option.             |
+            | `func`  | `*const fn (slice) bool` | Function to execute the option. |
+            | `short` | `byte`                   | Short form, e.g., -n/-N         |
+            | `long`  | `slice`                  | Long form, e.g., --name.        |
+            | `value` | `slice`                  | Value of the option.            |
+
+    - #### 🔹 Errors
+
+        | Error                    |
+        | ------------------------ |
+        | `NoArgsProvided`         |
+        | `UnknownCommand`         |
+        | `UnknownOption`          |
+        | `MissingRequiredOption`  |
+        | `UnexpectedArgument`     |
+        | `CommandExecutionFailed` |
+
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
-
-- ### Comparisons
-
-    > TODO
 
 
 - ### 🔗 Related

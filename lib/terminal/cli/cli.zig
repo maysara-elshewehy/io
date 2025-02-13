@@ -12,8 +12,10 @@
 
 // ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
 
-    const std       = @import("std");
-    const builtin   = @import("builtin");
+    const std = @import("std");
+    const builtin = @import("builtin");
+    const StringModule = @import("../../string/string.zig");
+    const Buffer = StringModule.Buffer(u8, 64);
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -28,17 +30,11 @@
 
         // Create a general-purpose allocator for managing memory during execution
         var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-
-        // - Ensures that `gpa` is properly cleaned up (memory released) when the function ends.
         defer _ = gpa.deinit();
-
-        // - `allocator` is a reference to the allocator created by `gpa`, used for memory operations.
         const allocator = gpa.allocator();
 
         // Retrieve the command-line arguments in a cross-platform manner
         const args = try std.process.argsAlloc(allocator);
-
-        // - Frees the memory allocated for the `args` array once it's no longer needed.
         defer std.process.argsFree(allocator, args);
 
         // If no command is provided, return an error
@@ -48,13 +44,12 @@
         }
 
         // Extract the name of the command (the second argument after the program name)
-        const command_name = args[1];
-
+        const command_name = Buffer.initWithSlice(args[1]);
         var detected_command: ?command = null;
 
         // Search through the list of available commands to find a match
         for (commands) |cmd| {
-            if (std.mem.eql(u8, command_name, cmd.name)) {
+            if (command_name.eql(cmd.name)) {
                 detected_command = cmd;
                 break;
             }
@@ -74,23 +69,16 @@
 
         // Allocate memory for detected options based on remaining arguments
         var detected_options: []option = try allocator.alloc(option, args.len - 2);
-
-        // - Ensures that memory allocated for `detected_options` is freed after usage.
         defer allocator.free(detected_options);
-
-        // - Counter to keep track of the number of detected options.
         var detected_len : usize = 0;
-
-        // - Starts parsing options from the third argument (index 2).
         var i: usize = 2;
 
         // Parsing options to capture their values
         while (i < args.len) {
             const arg = args[i];
 
-            if (arg[0] == '-') {
-                const option_name = if (arg.len > 2 and arg[1] == '-') arg[2..] else arg[1..];
-
+            if (std.mem.startsWith(u8, arg, "-")) {
+                const option_name = if (std.mem.startsWith(u8, arg[1..], "-")) arg[2..] else arg[1..];
                 var matched_option: ?option = null;
 
                 for (options) |opt| {
@@ -108,17 +96,16 @@
                 var opt = matched_option.?;
 
                 // Detect the value for the option
-                if (i + 1 < args.len and args[i + 1][0] != '-') {
+                if (i + 1 < args.len and !std.mem.startsWith(u8, args[i + 1], "-")) {
                     opt.value = args[i + 1];
-                    i += 1;             // Skip the value in the next iteration
+                    i += 1;
                 } else {
-                    opt.value = "";     // No value provided
+                    opt.value = "";
                 }
 
                 detected_options[detected_len] = opt;
                 detected_len += 1;
-            }
-            else {
+            } else {
                 try std.debug.print("Unexpected argument: {s}\n", .{arg});
                 return Error.UnexpectedArgument;
             }
@@ -131,7 +118,6 @@
 
         // Ensure all required options for the detected command are provided
         for (cmd.req) |req_option| {
-            // - Flag to check if the required option is found.
             var found = false;
 
             for (used_options) |opt| {
@@ -151,10 +137,8 @@
         else {
             // Execute option functions
             for (used_options) |opt| {
-                // Function Defined ?
                 if(opt.func == null) continue;
 
-                // Call the function associated with the option
                 const result = opt.func.?(opt.value);
 
                 if (!result) {

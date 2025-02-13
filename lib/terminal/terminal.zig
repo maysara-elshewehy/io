@@ -30,6 +30,7 @@
     test {
         _ = @import("./ansi/ansi.test.zig");
         _ = @import("./events/events.test.zig");
+        _ = @import("./cli/cli.test.zig");
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
