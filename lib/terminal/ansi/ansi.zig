@@ -3,7 +3,7 @@
 // repo: https://github.com/Super-ZIG/io
 // docs: https://super-zig.github.io/io/terminal
 //
-// Thanks to `https://github.com/xyaman/mibu/`
+// Thanks to https://github.com/xyaman/mibu
 //
 // Made with ❤️ by Maysara
 //
@@ -12,11 +12,10 @@
 
 
 
-// ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
+// ╔══════════════════════════════════════ PACK ══════════════════════════════════════╗
 
     const std = @import("std");
     const help = @import("./ansi.help.zig");
-    const unicodeIterator = @import("../../string/utils/unicode/unicode.zig").Iterator;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 

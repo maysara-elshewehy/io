@@ -34,8 +34,19 @@
 </div>
 <br>
 
-- ### 🚀 Features 🚀
-  -  TODO
+- ### Features 🌟
+
+    - 🌍 **Unicode Support**
+        > Properly handles Unicode, preserving character integrity, including complex grapheme clusters like emojis and modifiers.
+
+    - ⚡ **Blazing Fast Performance**
+        > Matches the speed of Zig’s standard library and outperforms competitors in benchmarks.
+
+    - 🛡️ **Rock-Solid Stability**
+        > Every function is rigorously tested, making the library safe, reliable, and ready for production.
+
+    - 🏗️ **Optimized for Scalability**
+        > Designed with efficiency in mind, avoiding unnecessary allocations while maintaining flexibility.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -45,7 +56,7 @@
 
     🔹 [🚀 Quick Start](#quick-start-) – A quick guide to get you started with the library.
 
-    🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
+    🔹 [🎇 API Reference](#api) – Detailed documentation of available functions.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -91,12 +102,12 @@
 
     ```zig
     // Find the position of a substring.
-    _ = view.find("👨‍🏭");        // 👉 6
+    _ = view.find("👨‍🏭");       // 👉 6
     ```
 
     ```zig
     // Check if the viewer includes a specific substring.
-    _ = view.includes("👨‍🏭");    // 👉 true
+    _ = view.includes("👨‍🏭");   // 👉 true
     ```
 
     ```zig
@@ -107,75 +118,75 @@
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-### API
+- ### API 🎇
 
-- #### 🧩 Fields
+    - #### 🍃 Fields
 
-    | Field   | Type         | Description                          |
-    | ------- | ------------ | ------------------------------------ |
-    | `m_src` | `[]const u8` | The immutable unicode encoded chars. |
-    | `m_len` | `usize`      | The number of written chars.         |
+        | Field   | Type         | Description                          |
+        | ------- | ------------ | ------------------------------------ |
+        | `m_src` | `[]const u8` | The immutable unicode encoded chars. |
+        | `m_len` | `usize`      | The number of written chars.         |
 
- - #### ✨ Initialization
+    - #### ✨ Initialization
 
-    | Function      | Description                                                              |
-    | ------------- | ------------------------------------------------------------------------ |
-    | init          | Initializes a `Viewer` instance with anytype.                            |
-    | initEmpty     | Initializes a new empty `Viewer` instance.                               |
-    | initWithChar  | Initializes a new `Viewer` instance with the specified initial `char`.   |
-    | initWithSlice | Initializes a new `Viewer` instance with the specified initial `chars`.  |
-    | initWithSelf  | Initializes a new `Viewer` instance with the specified initial `Viewer`. |
+        | Function      | Description                                                              |
+        | ------------- | ------------------------------------------------------------------------ |
+        | init          | Initializes a `Viewer` instance with anytype.                            |
+        | initEmpty     | Initializes a new empty `Viewer` instance.                               |
+        | initWithChar  | Initializes a new `Viewer` instance with the specified initial `char`.   |
+        | initWithSlice | Initializes a new `Viewer` instance with the specified initial `chars`.  |
+        | initWithSelf  | Initializes a new `Viewer` instance with the specified initial `Viewer`. |
 
-- #### 📏 Data
+    - #### 📏 Data
 
-    | Function | Description                                           |
-    | -------- | ----------------------------------------------------- |
-    | size     | Returns the number of chars that can be written.      |
-    | len      | Returns the total number of written chars.            |
-    | vlen     | Returns the total number of visual characters.        |
-    | src      | Returns a slice containing only the written part.     |
-    | sub      | Returns a sub-slice of the `Viewer`.                  |
-    | charAt   | Returns a character at the specified index.           |
-    | atVisual | Returns a character at the specified visual position. |
-    | iterator | Creates an iterator for traversing the Unicode chars. |
+        | Function | Description                                           |
+        | -------- | ----------------------------------------------------- |
+        | size     | Returns the number of chars that can be written.      |
+        | len      | Returns the total number of written chars.            |
+        | vlen     | Returns the total number of visual characters.        |
+        | src      | Returns a slice containing only the written part.     |
+        | sub      | Returns a sub-slice of the `Viewer`.                  |
+        | charAt   | Returns a character at the specified index.           |
+        | atVisual | Returns a character at the specified visual position. |
+        | iterator | Creates an iterator for traversing the Unicode chars. |
 
-- #### 🔍 Find
+    - #### 🔍 Find
 
-    | Function       | Description                                                            |
-    | -------------- | ---------------------------------------------------------------------- |
-    | find           | Finds the position of the first occurrence of the target slice.        |
-    | findVisual     | Finds the visual position of the first occurrence of the target slice. |
-    | findLast       | Finds the position of the last occurrence of the target slice.         |
-    | findLastVisual | Finds the visual position of the last occurrence of the target slice.  |
-    | includes       | Returns `true` if the `Viewer` instance contains the target slice.     |
-    | startsWith     | Returns `true` if the `Viewer` instance starts with the target slice.  |
-    | endsWith       | Returns `true` if the `Viewer` instance ends with the target slice.    |
+        | Function       | Description                                                            |
+        | -------------- | ---------------------------------------------------------------------- |
+        | find           | Finds the position of the first occurrence of the target slice.        |
+        | findVisual     | Finds the visual position of the first occurrence of the target slice. |
+        | findLast       | Finds the position of the last occurrence of the target slice.         |
+        | findLastVisual | Finds the visual position of the last occurrence of the target slice.  |
+        | includes       | Returns `true` if the `Viewer` instance contains the target slice.     |
+        | startsWith     | Returns `true` if the `Viewer` instance starts with the target slice.  |
+        | endsWith       | Returns `true` if the `Viewer` instance ends with the target slice.    |
 
-- #### ✅ Check
+    - #### ✅ Check
 
-    | Function | Description                                                            |
-    | -------- | ---------------------------------------------------------------------- |
-    | isEqual  | Returns `true` if the `Viewer` instance equals the given target slice. |
-    | isEmpty  | Returns `true` if the `Viewer` instance is empty.                      |
+        | Function | Description                                                            |
+        | -------- | ---------------------------------------------------------------------- |
+        | isEqual  | Returns `true` if the `Viewer` instance equals the given target slice. |
+        | isEmpty  | Returns `true` if the `Viewer` instance is empty.                      |
 
-- #### 🔄 Split
+    - #### 🔄 Split
 
-    | Function       | Description                                                                                                                                                  |
-    | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-    | split          | Splits the written portion into substrings separated by the specified delimiters.                                                                            |
-    | splitAll       | Splits the written portion into all substrings separated by the specified delimiters.                                                                        |
-    | splitToSelf    | Splits the written portion into substrings separated by the specified delimiters, returning the substring at the specified index as a new `Viewer` instance. |
-    | splitAllToSelf | Splits the written portion into all substrings separated by the specified delimiters, returning an array of new `Viewer` instances.                          |
+        | Function       | Description                                                                                                                                                  |
+        | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+        | split          | Splits the written portion into substrings separated by the specified delimiters.                                                                            |
+        | splitAll       | Splits the written portion into all substrings separated by the specified delimiters.                                                                        |
+        | splitToSelf    | Splits the written portion into substrings separated by the specified delimiters, returning the substring at the specified index as a new `Viewer` instance. |
+        | splitAllToSelf | Splits the written portion into all substrings separated by the specified delimiters, returning an array of new `Viewer` instances.                          |
 
-- #### 🔄 Utils
+    - #### 🔄 Utils
 
-    | Function         | Description                                                                             |
-    | ---------------- | --------------------------------------------------------------------------------------- |
-    | clone            | Returns a deep copy of the `Viewer` instance.                                           |
-    | clear            | Clears the contents of the `Viewer`.                                                    |
-    | print            | Prints the contents of the `Viewer` instance to the standard writer.                    |
-    | printTo          | Prints the contents of the `Viewer` instance to the given writer.                       |
-    | printWithNewline | Prints the contents of the `Viewer` instance to the standard writer and adds a newline. |
+        | Function         | Description                                                                             |
+        | ---------------- | --------------------------------------------------------------------------------------- |
+        | clone            | Returns a deep copy of the `Viewer` instance.                                           |
+        | clear            | Clears the contents of the `Viewer`.                                                    |
+        | print            | Prints the contents of the `Viewer` instance to the standard writer.                    |
+        | printTo          | Prints the contents of the `Viewer` instance to the given writer.                       |
+        | printWithNewline | Prints the contents of the `Viewer` instance to the standard writer and adds a newline. |
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

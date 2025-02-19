@@ -35,7 +35,7 @@
 <br>
 
 
-- ### 🚀 Features 🚀
+- ### Features 🌟
 
     - 🌍 **Cross Platform**
         > Tested on Windows, macOS and Linux.
@@ -52,7 +52,7 @@
 
 - ### 📖 Table of Contents
 
-    🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
+    🔹 [🎇 API Reference](#api-) – Detailed documentation of available functions.
 
     🔹 [🌍 Comparisons](#comparisons) – Detailed comparison with other libraries.
 
@@ -60,25 +60,21 @@
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-- ### API
+- ### API 🎇
 
     > This library provides several sections, each with its own approach to handling Terminal in the ZIG language.
 
-    - #### [❯ Events](./events)
+    - #### [⚙️ settings](./settings)
 
-        > Event handling for terminal input.
+        > Comprehensive terminal settings for cross-platform compatibility.
 
-    - #### [❯ ANSI](./ansi)
+    - #### [🎨 ansi](./ansi)
 
-        > ANSI escape codes handling.
+        > Utility functions for ANSI escape code manipulation and terminal styling.
 
-    - #### [❯ CLI](./cli)
+    - #### [🖥️ cli](./cli)
 
-        > Easy CLI in ZIG.
-
-    - #### [❯ Prompts](#) | Todo
-
-        > Beautiful and advanced prompts in ZIG.
+        > Seamless Command Line Integration with ZIG.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -86,7 +82,7 @@
 
 - ### Comparisons
 
-    - #### [Events vs Mibu](./events.md#vs-mibu)
+    > TODO
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

@@ -34,8 +34,19 @@
 </div>
 <br>
 
-- ### 🚀 Features 🚀
-  -  TODO
+- ### Features 🌟
+
+    - 🌍 **Unicode Support**
+        > Properly handles Unicode, preserving character integrity, including complex grapheme clusters like emojis and modifiers.
+
+    - ⚡ **Blazing Fast Performance**
+        > Matches the speed of Zig’s standard library and outperforms competitors in benchmarks.
+
+    - 🛡️ **Rock-Solid Stability**
+        > Every function is rigorously tested, making the library safe, reliable, and ready for production.
+
+    - 🏗️ **Optimized for Scalability**
+        > Designed with efficiency in mind, avoiding unnecessary allocations while maintaining flexibility.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -45,7 +56,7 @@
 
     🔹 [🚀 Quick Start](#quick-start-) – A quick guide to get you started with the library.
 
-    🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
+    🔹 [🎇 API Reference](#api) – Detailed documentation of available functions.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -101,145 +112,145 @@
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-### API
+- ### API 🎇
 
-- #### 🧩 Fields
+    - #### 🍃 Fields
 
-    | Field   | Type      | Description                        |
-    | ------- | --------- | ---------------------------------- |
-    | `m_src` | `[100]u8` | The mutable unicode encoded chars. |
-    | `m_len` | `usize`   | The number of written chars.       |
+        | Field   | Type      | Description                        |
+        | ------- | --------- | ---------------------------------- |
+        | `m_src` | `[100]u8` | The mutable unicode encoded chars. |
+        | `m_len` | `usize`   | The number of written chars.       |
 
- - #### ✨ Initialization
+    - #### ✨ Initialization
 
-    | Function      | Description                                                              |
-    | ------------- | ------------------------------------------------------------------------ |
-    | init          | Initializes a `Buffer` instance with anytype.                            |
-    | initEmpty     | Initializes a new empty `Buffer` instance.                               |
-    | initWithChar  | Initializes a new `Buffer` instance with the specified initial `char`.   |
-    | initWithSlice | Initializes a new `Buffer` instance with the specified initial `chars`.  |
-    | initWithSelf  | Initializes a new `Buffer` instance with the specified initial `Buffer`. |
-    | initWithFmt   | Initializes a `Buffer` instance with a formatted string.                 |
+        | Function      | Description                                                              |
+        | ------------- | ------------------------------------------------------------------------ |
+        | init          | Initializes a `Buffer` instance with anytype.                            |
+        | initEmpty     | Initializes a new empty `Buffer` instance.                               |
+        | initWithChar  | Initializes a new `Buffer` instance with the specified initial `char`.   |
+        | initWithSlice | Initializes a new `Buffer` instance with the specified initial `chars`.  |
+        | initWithSelf  | Initializes a new `Buffer` instance with the specified initial `Buffer`. |
+        | initWithFmt   | Initializes a `Buffer` instance with a formatted string.                 |
 
-- #### ➕ Insert
+    - #### ➕ Insert
 
-    | Function          | Description                                                                                |
-    | ----------------- | ------------------------------------------------------------------------------------------ |
-    | insert            | Inserts anyvalue from anytype into the `Buffer` instance at the specified position.        |
-    | insertChar        | Inserts a char into the `Buffer` instance at the specified position.                       |
-    | insertSlice       | Inserts a slice into the `Buffer` instance at the specified position.                      |
-    | insertSelf        | Inserts a `Buffer` into the `Buffer` instance at the specified position.                   |
-    | insertFmt         | Inserts a formatted string into the `Buffer` instance at the specified position.           |
-    | visualInsert      | Inserts anyvalue from anytype into the `Buffer` instance at the specified visual position. |
-    | visualInsertChar  | Inserts a char into the `Buffer` instance at the specified visual position.                |
-    | visualInsertSlice | Inserts a slice into the `Buffer` instance at the specified visual position.               |
-    | visualInsertSelf  | Inserts a `Buffer` into the `Buffer` instance at the specified visual position.            |
-    | visualInsertFmt   | Inserts a formatted string into the `Buffer` instance at the specified visual position.    |
-    | append            | Appends anyvalue from anytype to the `Buffer` instance.                                    |
-    | appendChar        | Appends a char to the `Buffer` instance.                                                   |
-    | appendSlice       | Appends a slice to the `Buffer` instance.                                                  |
-    | appendSelf        | Appends a `Buffer` to the `Buffer` instance.                                               |
-    | appendFmt         | Appends a formatted string to the `Buffer` instance.                                       |
-    | prepend           | Prepends anyvalue from anytype to the `Buffer` instance.                                   |
-    | prependChar       | Prepends a char to the `Buffer` instance.                                                  |
-    | prependSlice      | Prepends a slice to the `Buffer` instance.                                                 |
-    | prependSelf       | Prepends a `Buffer` to the `Buffer` instance.                                              |
-    | prependFmt        | Prepends a formatted string to the `Buffer` instance.                                      |
+        | Function          | Description                                                                                |
+        | ----------------- | ------------------------------------------------------------------------------------------ |
+        | insert            | Inserts anyvalue from anytype into the `Buffer` instance at the specified position.        |
+        | insertChar        | Inserts a char into the `Buffer` instance at the specified position.                       |
+        | insertSlice       | Inserts a slice into the `Buffer` instance at the specified position.                      |
+        | insertSelf        | Inserts a `Buffer` into the `Buffer` instance at the specified position.                   |
+        | insertFmt         | Inserts a formatted string into the `Buffer` instance at the specified position.           |
+        | visualInsert      | Inserts anyvalue from anytype into the `Buffer` instance at the specified visual position. |
+        | visualInsertChar  | Inserts a char into the `Buffer` instance at the specified visual position.                |
+        | visualInsertSlice | Inserts a slice into the `Buffer` instance at the specified visual position.               |
+        | visualInsertSelf  | Inserts a `Buffer` into the `Buffer` instance at the specified visual position.            |
+        | visualInsertFmt   | Inserts a formatted string into the `Buffer` instance at the specified visual position.    |
+        | append            | Appends anyvalue from anytype to the `Buffer` instance.                                    |
+        | appendChar        | Appends a char to the `Buffer` instance.                                                   |
+        | appendSlice       | Appends a slice to the `Buffer` instance.                                                  |
+        | appendSelf        | Appends a `Buffer` to the `Buffer` instance.                                               |
+        | appendFmt         | Appends a formatted string to the `Buffer` instance.                                       |
+        | prepend           | Prepends anyvalue from anytype to the `Buffer` instance.                                   |
+        | prependChar       | Prepends a char to the `Buffer` instance.                                                  |
+        | prependSlice      | Prepends a slice to the `Buffer` instance.                                                 |
+        | prependSelf       | Prepends a `Buffer` to the `Buffer` instance.                                              |
+        | prependFmt        | Prepends a formatted string to the `Buffer` instance.                                      |
 
-- #### 📏 Data
+    - #### 📏 Data
 
-    | Function | Description                                                    |
-    | -------- | -------------------------------------------------------------- |
-    | size     | Returns the number of chars that can be written.               |
-    | len      | Returns the total number of written chars.                     |
-    | vlen     | Returns the total number of visual characters.                 |
-    | src      | Returns a slice containing only the written part.              |
-    | sub      | Returns a sub-slice of the `Buffer`.                           |
-    | cString  | Returns a [:0]const u8 slice containing only the written part. |
-    | charAt   | Returns a character at the specified index.                    |
-    | atVisual | Returns a character at the specified visual position.          |
-    | iterator | Creates an iterator for traversing the Unicode chars.          |
-    | writer   | Initializes a Writer which will append to the list.            |
+        | Function | Description                                                    |
+        | -------- | -------------------------------------------------------------- |
+        | size     | Returns the number of chars that can be written.               |
+        | len      | Returns the total number of written chars.                     |
+        | vlen     | Returns the total number of visual characters.                 |
+        | src      | Returns a slice containing only the written part.              |
+        | sub      | Returns a sub-slice of the `Buffer`.                           |
+        | cString  | Returns a [:0]const u8 slice containing only the written part. |
+        | charAt   | Returns a character at the specified index.                    |
+        | atVisual | Returns a character at the specified visual position.          |
+        | iterator | Creates an iterator for traversing the Unicode chars.          |
+        | writer   | Initializes a Writer which will append to the list.            |
 
-- #### ❌ Remove
+    - #### ❌ Remove
 
-    | Function          | Description                                                                           |
-    | ----------------- | ------------------------------------------------------------------------------------- |
-    | removeIndex       | Removes a char from the `Buffer` instance at the specified position.                  |
-    | removeVisualIndex | Removes a char from the `Buffer` instance by the specified visual position.           |
-    | removeRange       | Removes a range of chars from the `Buffer` instance.                                  |
-    | removeVisualRange | Removes a range of chars from the `Buffer` instance by the specified visual position. |
-    | pop               | Removes the last grapheme cluster from the `Buffer` instance.                         |
-    | shift             | Removes the first grapheme cluster from the `Buffer` instance.                        |
-    | trim              | Trims whitespace from both ends of the `Buffer` instance.                             |
-    | trimStart         | Trims whitespace from the start of the `Buffer` instance.                             |
-    | trimEnd           | Trims whitespace from the end of the `Buffer` instance.                               |
+        | Function          | Description                                                                           |
+        | ----------------- | ------------------------------------------------------------------------------------- |
+        | removeIndex       | Removes a char from the `Buffer` instance at the specified position.                  |
+        | removeVisualIndex | Removes a char from the `Buffer` instance by the specified visual position.           |
+        | removeRange       | Removes a range of chars from the `Buffer` instance.                                  |
+        | removeVisualRange | Removes a range of chars from the `Buffer` instance by the specified visual position. |
+        | pop               | Removes the last grapheme cluster from the `Buffer` instance.                         |
+        | shift             | Removes the first grapheme cluster from the `Buffer` instance.                        |
+        | trim              | Trims whitespace from both ends of the `Buffer` instance.                             |
+        | trimStart         | Trims whitespace from the start of the `Buffer` instance.                             |
+        | trimEnd           | Trims whitespace from the end of the `Buffer` instance.                               |
 
-- #### 🔄 Replace
+    - #### 🔄 Replace
 
-    | Function           | Description                                                                           |
-    | ------------------ | ------------------------------------------------------------------------------------- |
-    | replaceRange       | Replaces a range of chars with another slice in the `Buffer`.                         |
-    | replaceVisualRange | Replaces a visual range of chars with another slice in the `Buffer`.                  |
-    | replaceFirst       | Replaces the first occurrence of a slice with another slice in the `Buffer`.          |
-    | replaceFirstN      | Replaces the first N(count) occurrence of a slice with another slice in the `Buffer`. |
-    | replaceLast        | Replaces the last occurrence of a slice with another slice in the `Buffer`.           |
-    | replaceLastN       | Replaces the last N(count) occurrence of a slice with another slice in the `Buffer`.  |
-    | replaceAll         | Replaces all occurrences of a slice with another slice in the `Buffer`.               |
-    | replaceNth         | Replaces the `nth` occurrence of a slice with another slice in the `Buffer`.          |
+        | Function           | Description                                                                           |
+        | ------------------ | ------------------------------------------------------------------------------------- |
+        | replaceRange       | Replaces a range of chars with another slice in the `Buffer`.                         |
+        | replaceVisualRange | Replaces a visual range of chars with another slice in the `Buffer`.                  |
+        | replaceFirst       | Replaces the first occurrence of a slice with another slice in the `Buffer`.          |
+        | replaceFirstN      | Replaces the first N(count) occurrence of a slice with another slice in the `Buffer`. |
+        | replaceLast        | Replaces the last occurrence of a slice with another slice in the `Buffer`.           |
+        | replaceLastN       | Replaces the last N(count) occurrence of a slice with another slice in the `Buffer`.  |
+        | replaceAll         | Replaces all occurrences of a slice with another slice in the `Buffer`.               |
+        | replaceNth         | Replaces the `nth` occurrence of a slice with another slice in the `Buffer`.          |
 
-- #### 🔍 Find
+    - #### 🔍 Find
 
-    | Function       | Description                                                            |
-    | -------------- | ---------------------------------------------------------------------- |
-    | find           | Finds the position of the first occurrence of the target slice.        |
-    | findVisual     | Finds the visual position of the first occurrence of the target slice. |
-    | findLast       | Finds the position of the last occurrence of the target slice.         |
-    | findLastVisual | Finds the visual position of the last occurrence of the target slice.  |
-    | includes       | Returns `true` if the `Buffer` instance contains the target slice.     |
-    | startsWith     | Returns `true` if the `Buffer` instance starts with the target slice.  |
-    | endsWith       | Returns `true` if the `Buffer` instance ends with the target slice.    |
+        | Function       | Description                                                            |
+        | -------------- | ---------------------------------------------------------------------- |
+        | find           | Finds the position of the first occurrence of the target slice.        |
+        | findVisual     | Finds the visual position of the first occurrence of the target slice. |
+        | findLast       | Finds the position of the last occurrence of the target slice.         |
+        | findLastVisual | Finds the visual position of the last occurrence of the target slice.  |
+        | includes       | Returns `true` if the `Buffer` instance contains the target slice.     |
+        | startsWith     | Returns `true` if the `Buffer` instance starts with the target slice.  |
+        | endsWith       | Returns `true` if the `Buffer` instance ends with the target slice.    |
 
-- #### 🔠 Case
+    - #### 🔠 Case
 
-    | Function | Description                                                          |
-    | -------- | -------------------------------------------------------------------- |
-    | toLower  | Converts all (ASCII) letters in the `Buffer` instance to lowercase.  |
-    | toUpper  | Converts all (ASCII) letters in the `Buffer` instance to uppercase.  |
-    | toTitle  | Converts all (ASCII) letters in the `Buffer` instance to title case. |
+        | Function | Description                                                          |
+        | -------- | -------------------------------------------------------------------- |
+        | toLower  | Converts all (ASCII) letters in the `Buffer` instance to lowercase.  |
+        | toUpper  | Converts all (ASCII) letters in the `Buffer` instance to uppercase.  |
+        | toTitle  | Converts all (ASCII) letters in the `Buffer` instance to title case. |
 
-- #### ✅ Check
+    - #### ✅ Check
 
-    | Function | Description                                                            |
-    | -------- | ---------------------------------------------------------------------- |
-    | isEqual  | Returns `true` if the `Buffer` instance equals the given target slice. |
-    | isEmpty  | Returns `true` if the `Buffer` instance is empty.                      |
+        | Function | Description                                                            |
+        | -------- | ---------------------------------------------------------------------- |
+        | isEqual  | Returns `true` if the `Buffer` instance equals the given target slice. |
+        | isEmpty  | Returns `true` if the `Buffer` instance is empty.                      |
 
-- #### 🔄 Split
+    - #### 🔄 Split
 
-    | Function       | Description                                                                                                                                                  |
-    | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-    | split          | Splits the written portion into substrings separated by the specified delimiters.                                                                            |
-    | splitAll       | Splits the written portion into all substrings separated by the specified delimiters.                                                                        |
-    | splitToSelf    | Splits the written portion into substrings separated by the specified delimiters, returning the substring at the specified index as a new `Buffer` instance. |
-    | splitAllToSelf | Splits the written portion into all substrings separated by the specified delimiters, returning an array of new `Buffer` instances.                          |
+        | Function       | Description                                                                                                                                                  |
+        | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+        | split          | Splits the written portion into substrings separated by the specified delimiters.                                                                            |
+        | splitAll       | Splits the written portion into all substrings separated by the specified delimiters.                                                                        |
+        | splitToSelf    | Splits the written portion into substrings separated by the specified delimiters, returning the substring at the specified index as a new `Buffer` instance. |
+        | splitAllToSelf | Splits the written portion into all substrings separated by the specified delimiters, returning an array of new `Buffer` instances.                          |
 
-- #### 🔄 Repeat
+    - #### 🔄 Repeat
 
-    | Function | Description                                                           |
-    | -------- | --------------------------------------------------------------------- |
-    | repeat   | Repeats a char `count` times and appends it to the `Buffer` instance. |
+        | Function | Description                                                           |
+        | -------- | --------------------------------------------------------------------- |
+        | repeat   | Repeats a char `count` times and appends it to the `Buffer` instance. |
 
-- #### 🔄 Utils
+    - #### 🔄 Utils
 
-    | Function         | Description                                                                             |
-    | ---------------- | --------------------------------------------------------------------------------------- |
-    | clone            | Returns a deep copy of the `Buffer` instance.                                           |
-    | clear            | Clears the contents of the `Buffer`.                                                    |
-    | reverse          | Reverses the order of the characters in the `Buffer` instance (considering Unicode).    |
-    | print            | Prints the contents of the `Buffer` instance to the standard writer.                    |
-    | printTo          | Prints the contents of the `Buffer` instance to the given writer.                       |
-    | printWithNewline | Prints the contents of the `Buffer` instance to the standard writer and adds a newline. |
+        | Function         | Description                                                                             |
+        | ---------------- | --------------------------------------------------------------------------------------- |
+        | clone            | Returns a deep copy of the `Buffer` instance.                                           |
+        | clear            | Clears the contents of the `Buffer`.                                                    |
+        | reverse          | Reverses the order of the characters in the `Buffer` instance (considering Unicode).    |
+        | print            | Prints the contents of the `Buffer` instance to the standard writer.                    |
+        | printTo          | Prints the contents of the `Buffer` instance to the given writer.                       |
+        | printWithNewline | Prints the contents of the `Buffer` instance to the standard writer and adds a newline. |
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

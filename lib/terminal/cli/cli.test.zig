@@ -15,8 +15,8 @@
 
 // ╔══════════════════════════════════════ Test ══════════════════════════════════════╗
 
-    fn TrueHandler(_: []const cli.option) bool { return true; }
-    fn FalseHandler(_: []const cli.option) bool { return false; }
+    fn trueCallback(_: []const cli.option) bool { return true; }
+    fn falseCallback(_: []const cli.option) bool { return false; }
 
     test "No command provided" {
         const commands = &[_]cli.command{};
@@ -27,7 +27,7 @@
 
     test "Unknown command" {
         const commands = &[_]cli.command{
-            .{ .name = "known_command", .func = TrueHandler },
+            .{ .name = "known_command", .func = trueCallback },
         };
         const options = &[_]cli.option{};
         const args = &[_][]const u8{"program_name", "unknown_command"};
@@ -36,7 +36,7 @@
 
     test "Unknown option" {
         const commands = &[_]cli.command{
-            .{ .name = "known_command", .func = TrueHandler },
+            .{ .name = "known_command", .func = trueCallback },
         };
         const options = &[_]cli.option{
             .{ .name = "known_option", .short = 'k', .long = "known" },
@@ -47,7 +47,7 @@
 
     test "Missing required option" {
         const commands = &[_]cli.command{
-            .{ .name = "known_command", .func = TrueHandler, .req = &.{ "required_option" } },
+            .{ .name = "known_command", .func = trueCallback, .req = &.{ "required_option" } },
         };
         const options = &[_]cli.option{
             .{ .name = "required_option", .short = 'r', .long = "required" },
@@ -58,7 +58,7 @@
 
     test "Unexpected argument" {
         const commands = &[_]cli.command{
-            .{ .name = "known_command", .func = TrueHandler },
+            .{ .name = "known_command", .func = trueCallback },
         };
         const options = &[_]cli.option{};
         const args = &[_][]const u8{"program_name", "known_command", "unexpected_arg"};
@@ -67,7 +67,7 @@
 
     test "Command execution failed" {
         const commands = &[_]cli.command{
-            .{ .name = "known_command", .func = FalseHandler },
+            .{ .name = "known_command", .func = falseCallback },
         };
         const options = &[_]cli.option{};
         const args = &[_][]const u8{"program_name", "known_command"};

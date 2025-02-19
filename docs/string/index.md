@@ -34,9 +34,7 @@
 </div>
 <br>
 
-
-
-- ### ✨ Features ✨
+- ### Features 🌟
 
     - 🚀 **Unified Internal Logic**
         > All string types share the same core logic, acting as simple containers. The real functionality resides in internal modules like `utils.chars` and `utils.unicode`, ensuring efficiency, maintainability, and elegance.
@@ -62,7 +60,7 @@
 
 - ### 📖 Table of Contents
 
-    🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
+    🔹 [🎇 API Reference](#api) – Detailed documentation of available functions.
 
     🔹 [⚡ Performance & Benchmarks](#benchmarking) – Speed comparisons with other implementations.
 
@@ -73,7 +71,7 @@
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-- ### API
+- ### API 🎇
 
     > This library provides several types, each with its own approach to handling strings in the ZIG language.
 

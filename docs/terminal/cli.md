@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-    <b> Easy CLI in ZIG. </b>
+    <b> Seamless Command Line Integration with ZIG. </b>
 </p>
 <div align="center">
     <b><i>
@@ -35,7 +35,7 @@
 <br>
 
 
-- ### 🚀 Features 🚀
+- ### Features 🌟
 
   - **📋 Command Management**
       > Define and handle commands with ease.
@@ -60,7 +60,7 @@
 
     🔹 [🚀 Quick Start](#quick-start-) – A quick guide to get you started with the library.
 
-    🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
+    🔹 [🎇 API Reference](#api-) – Detailed documentation of available functions.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -172,8 +172,7 @@
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-- ### API
-
+- ### API 🎇
 
     | Index                |
     | -------------------- |
@@ -182,17 +181,17 @@
     | [Errors](#️-errors)   |
 
 
-    - #### 🔹 Methods
+    - #### ✨ Methods
 
         | Function | Description                 |
         | -------- | --------------------------- |
         | `start`  | Starts the CLI application. |
 
-    - #### 🔹 Types
+    - #### 🍃 Types
 
         > `slice` = `[]const u8`
 
-        - #### 🔹 command
+        - #### command
 
             | Field  | Type                              | Description                      |
             | ------ | --------------------------------- | -------------------------------- |
@@ -202,17 +201,17 @@
             | `opt`  | `[]const slice`                   | Optional options.                |
 
 
-        - #### 🔹 option
+        - #### option
 
             | Field   | Type                     | Description                     |
             | ------- | ------------------------ | ------------------------------- |
             | `name`  | `slice`                  | Name of the option.             |
             | `func`  | `*const fn (slice) bool` | Function to execute the option. |
-            | `short` | `u8`                    | Short form, e.g., -n/-N         |
+            | `short` | `u8`                     | Short form, e.g., -n/-N         |
             | `long`  | `slice`                  | Long form, e.g., --name.        |
             | `value` | `slice`                  | Value of the option.            |
 
-    - #### 🔹 Errors
+    - #### ❌ Errors
 
         | Error                    |
         | ------------------------ |
@@ -231,19 +230,21 @@
 
 - ### 🔗 Related
 
-    - [Prompts](#)
+    - [Info](./info)
+
+        > Detailed terminal information ensuring cross-platform compatibility.
+
+    - [settings](./settings)
+
+        > Comprehensive terminal settings for cross-platform compatibility.
+
+    - [ansi](./ansi)
+
+        > Utility functions for ANSI escape code manipulation and terminal styling.
+
+    - [Prompt](prompt)
 
         > Interactive prompts for user input.
-
-    - [Events](./events.md)
-
-        > Event handling for terminal input.
-
-
-    - [Ansi](./ansi.md)
-
-        > ANSI escape codes handling.
-
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

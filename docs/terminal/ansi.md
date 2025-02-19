@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-    <b> ANSI escape codes handling. </b>
+    <b> Utility functions for ANSI escape code manipulation and terminal styling. </b>
 </p>
 <div align="center">
     <b><i>
@@ -34,7 +34,7 @@
 </div>
 <br>
 
-- ### 🚀 Features 🚀
+- ### Features 🌟
     - 🌍 **Cross Platform**
         > Support for Linux and Windows.
 
@@ -49,7 +49,7 @@
 
     🔹 [🚀 Quick Start](#quick-start-) – A quick guide to get you started with the library.
 
-    🔹 [🛠 API Reference](#api) – Detailed documentation of available functions.
+    🔹 [🎇 API Reference](#api-) – Detailed documentation of available functions.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
@@ -76,64 +76,64 @@
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-### API
+- ### API 🎇
 
-- #### 🗑️ clear
+    - #### 🗑️ clear
 
-    | Function               | Description                                         |
-    | ---------------------- | --------------------------------------------------- |
-    | clear.all              | Clears the entire terminal screen.                  |
-    | clear.line             | Clears the current line in the terminal.            |
-    | clear.screenFromCursor | Clears the screen from the cursor to the end.       |
-    | clear.screenToCursor   | Clears the screen from the beginning to the cursor. |
-    | clear.lineFromCursor   | Clears the line from the cursor to the end.         |
-    | clear.lineToCursor     | Clears the line from the beginning to the cursor.   |
+        | Function               | Description                                         |
+        | ---------------------- | --------------------------------------------------- |
+        | clear.all              | Clears the entire terminal screen.                  |
+        | clear.line             | Clears the current line in the terminal.            |
+        | clear.screenFromCursor | Clears the screen from the cursor to the end.       |
+        | clear.screenToCursor   | Clears the screen from the beginning to the cursor. |
+        | clear.lineFromCursor   | Clears the line from the cursor to the end.         |
+        | clear.lineToCursor     | Clears the line from the beginning to the cursor.   |
 
-- #### ↗️ cursor
+    - #### ↗️ cursor
 
-    | Function       | Description                                                |
-    | -------------- | ---------------------------------------------------------- |
-    | cursor.goTo    | Moves the cursor to the specified position.                |
-    | cursor.goUp    | Moves the cursor up by the specified number of rows.       |
-    | cursor.goDown  | Moves the cursor down by the specified number of rows.     |
-    | cursor.goLeft  | Moves the cursor left by the specified number of columns.  |
-    | cursor.goRight | Moves the cursor right by the specified number of columns. |
-    | cursor.hide    | Hides the cursor.                                          |
-    | cursor.show    | Shows the cursor.                                          |
-    | cursor.save    | Saves the current cursor position.                         |
-    | cursor.restore | Restores the cursor to the saved position.                 |
+        | Function       | Description                                                |
+        | -------------- | ---------------------------------------------------------- |
+        | cursor.goTo    | Moves the cursor to the specified position.                |
+        | cursor.goUp    | Moves the cursor up by the specified number of rows.       |
+        | cursor.goDown  | Moves the cursor down by the specified number of rows.     |
+        | cursor.goLeft  | Moves the cursor left by the specified number of columns.  |
+        | cursor.goRight | Moves the cursor right by the specified number of columns. |
+        | cursor.hide    | Hides the cursor.                                          |
+        | cursor.show    | Shows the cursor.                                          |
+        | cursor.save    | Saves the current cursor position.                         |
+        | cursor.restore | Restores the cursor to the saved position.                 |
 
-- #### 🎨 colors
+    - #### 🎨 colors
 
-    | Function        | Description                                 |
-    | --------------- | ------------------------------------------- |
-    | colors.fg256    | Sets the foreground color using 256 colors. |
-    | colors.bg256    | Sets the background color using 256 colors. |
-    | colors.fgRGB    | Sets the foreground color using RGB values. |
-    | colors.bgRGB    | Sets the background color using RGB values. |
-    | colors.resetAll | Resets all colors and styles.               |
+        | Function        | Description                                 |
+        | --------------- | ------------------------------------------- |
+        | colors.fg256    | Sets the foreground color using 256 colors. |
+        | colors.bg256    | Sets the background color using 256 colors. |
+        | colors.fgRGB    | Sets the foreground color using RGB values. |
+        | colors.bgRGB    | Sets the background color using RGB values. |
+        | colors.resetAll | Resets all colors and styles.               |
 
-- #### ✨ attr
+    - #### ✨ attr
 
-    | Function             | Description                         |
-    | -------------------- | ----------------------------------- |
-    | attr.reset           | Resets all attributes.              |
-    | attr.bold            | Sets the bold attribute.            |
-    | attr.noBold          | Unsets the bold attribute.          |
-    | attr.dim             | Sets the dim attribute.             |
-    | attr.noDim           | Unsets the dim attribute.           |
-    | attr.italic          | Sets the italic attribute.          |
-    | attr.noItalic        | Unsets the italic attribute.        |
-    | attr.underline       | Sets the underline attribute.       |
-    | attr.noUnderline     | Unsets the underline attribute.     |
-    | attr.blinking        | Sets the blinking attribute.        |
-    | attr.noBlinking      | Unsets the blinking attribute.      |
-    | attr.reverse         | Sets the reverse attribute.         |
-    | attr.noReverse       | Unsets the reverse attribute.       |
-    | attr.hidden          | Sets the hidden attribute.          |
-    | attr.noHidden        | Unsets the hidden attribute.        |
-    | attr.strikethrough   | Sets the strikethrough attribute.   |
-    | attr.noStrikethrough | Unsets the strikethrough attribute. |
+        | Function             | Description                         |
+        | -------------------- | ----------------------------------- |
+        | attr.reset           | Resets all attributes.              |
+        | attr.bold            | Sets the bold attribute.            |
+        | attr.noBold          | Unsets the bold attribute.          |
+        | attr.dim             | Sets the dim attribute.             |
+        | attr.noDim           | Unsets the dim attribute.           |
+        | attr.italic          | Sets the italic attribute.          |
+        | attr.noItalic        | Unsets the italic attribute.        |
+        | attr.underline       | Sets the underline attribute.       |
+        | attr.noUnderline     | Unsets the underline attribute.     |
+        | attr.blinking        | Sets the blinking attribute.        |
+        | attr.noBlinking      | Unsets the blinking attribute.      |
+        | attr.reverse         | Sets the reverse attribute.         |
+        | attr.noReverse       | Unsets the reverse attribute.       |
+        | attr.hidden          | Sets the hidden attribute.          |
+        | attr.noHidden        | Unsets the hidden attribute.        |
+        | attr.strikethrough   | Sets the strikethrough attribute.   |
+        | attr.noStrikethrough | Unsets the strikethrough attribute. |
 
 
 <div align="center"><br>
@@ -142,15 +142,13 @@
 
 - ### 🔗 Related
 
-    - [CLI](./cli)
-        > Easy CLI in ZIG.
+    - [Prompt](prompt)
 
-    - [Events](./events)
-        > Event handling for terminal input.
-
-    - [Prompts](#)
         > Interactive prompts for user input.
 
+    - [cli](./cli)
+
+        > Seamless Command Line Integration with ZIG.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
