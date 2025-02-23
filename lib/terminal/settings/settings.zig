@@ -12,10 +12,10 @@
 
 // ╔══════════════════════════════════════ PACK ══════════════════════════════════════╗
 
+    const std = @import("std");
     const cross = switch (@import("builtin").os.tag) {
-        .linux    => @import("./settings.linux.zig"),
-        .windows  => @import("./settings.win.zig"),
-        else      => @compileError("OS not supported"),
+        .windows => @import("./settings.win.zig"),
+        else     => @import("./settings.linux.zig"),
     };
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

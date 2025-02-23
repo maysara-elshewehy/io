@@ -64,6 +64,10 @@
 
     > This library provides several sections, each with its own approach to handling Terminal in the ZIG language.
 
+    - #### [ℹ️ info](./info)
+
+        > Detailed terminal information ensuring cross-platform compatibility.
+
     - #### [⚙️ settings](./settings)
 
         > Comprehensive terminal settings for cross-platform compatibility.
@@ -71,6 +75,10 @@
     - #### [🎨 ansi](./ansi)
 
         > Utility functions for ANSI escape code manipulation and terminal styling.
+
+    - #### [✨ Events](./events)
+
+        > Robust event handling for terminal key presses and mouse events.
 
     - #### [🖥️ cli](./cli)
 
@@ -82,7 +90,18 @@
 
 - ### Comparisons
 
-    > TODO
+    - #### `mibu` vs. `SuperZIG/io Terminal` Module
+
+        | Feature                | mibu                                                                                      | SuperZIG/io Terminal Module                                                                                                                              |
+        | ---------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+        | **Platform Support**   | Linux only                                                                                | Cross Platform – Supports Linux, Windows, and macOS                                                                                                      |
+        | **API Usability**      | Provides a limited set of functionalities; the API can be more complex and less intuitive | Offers a comprehensive and easy-to-use API with clear, well-documented functions (e.g., `listenUntil`, `listenUntilWith`)                                |
+        | **Key Event Handling** | Covers basic terminal input handling                                                      | Robust event handling supporting modifiers (Ctrl, Alt, Shift), Unicode (e.g., Arabic, English, etc.), and simultaneous key detection (e.g., Ctrl+Alt+Up) |
+        | **Documentation**      | Minimal documentation and examples                                                        | Detailed documentation with examples and extensive testing                                                                                               |
+        | **Extensibility**      | Basic functionality with limited scope                                                    | Modular design with separate sub-modules (info, settings, ansi, cli, events, and upcoming prompts) enabling future expansion                             |
+
+        > SuperZIG/io Terminal Module aims to provide a powerful, yet intuitive solution for terminal input handling across multiple platforms. While mibu offers a baseline solution for Linux environments, our library delivers a more complete and flexible experience with support for modern features like Unicode input and advanced modifier detection.
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>

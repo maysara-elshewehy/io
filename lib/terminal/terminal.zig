@@ -24,6 +24,9 @@
     /// Seamless Command Line Integration with ZIG.
     pub const cli = @import("./cli/cli.zig");
 
+    /// -
+    pub const events = @import("./events/events.zig");
+
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
 
@@ -35,6 +38,7 @@
         _ = @import("./ansi/ansi.test.zig");
         _ = @import("./info/info.test.zig");
         _ = @import("./cli/cli.test.zig");
+        _ = @import("./events/events.test.zig");
     }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

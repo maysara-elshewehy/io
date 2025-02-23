@@ -13,12 +13,10 @@
 // ╔══════════════════════════════════════ PACK ══════════════════════════════════════╗
 
     const std       = @import("std");
-    const builtin   = @import("builtin");
     const ansi      = @import("../ansi/ansi.zig");
-    const cross     = switch (builtin.os.tag) {
-        .linux      => @import("./info.linux.zig"),
+    const cross     = switch (@import("builtin").os.tag) {
         .windows    => @import("./info.win.zig"),
-        else        => @compileError("OS not supported"),
+        else        => @import("./info.linux.zig"),
     };
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝

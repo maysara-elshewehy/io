@@ -21,8 +21,8 @@
     test "settings.TerminalOptions" {
         const TerminalOptions = settings.TerminalOptions;
         try testing.expect(@hasField(TerminalOptions, "rawMode"));
-        try testing.expect(@hasField(TerminalOptions, "echo"));
         if (builtin.os.tag == .linux) {
+            try testing.expect(@hasField(TerminalOptions, "echo"));
             try testing.expect(@hasField(TerminalOptions, "canonical"));
             try testing.expect(@hasField(TerminalOptions, "extended"));
             try testing.expect(@hasField(TerminalOptions, "signals"));
@@ -50,8 +50,8 @@
         };
 
         try FN.enableAndDisableOption("rawMode");
-        try FN.enableAndDisableOption("echo");
         if (builtin.os.tag == .linux) {
+            try FN.enableAndDisableOption("echo");
             try FN.enableAndDisableOption("canonical");
             try FN.enableAndDisableOption("extended");
             try FN.enableAndDisableOption("signals");
@@ -63,8 +63,8 @@
         const original_settings = try settings.enableRawMode();
         var updated_settings = try settings.get();
         try testing.expect(updated_settings.options.rawMode);
-        try testing.expect(!updated_settings.options.echo);
         if (builtin.os.tag == .linux) {
+            try testing.expect(!updated_settings.options.echo);
             try testing.expect(!updated_settings.options.canonical);
             try testing.expect(!updated_settings.options.extended);
             try testing.expect(!updated_settings.options.signals);
@@ -75,8 +75,8 @@
         try settings.disableRawMode(original_settings);
         updated_settings = try settings.get();
         try testing.expect(!updated_settings.options.rawMode);
-        try testing.expect(updated_settings.options.echo);
         if (builtin.os.tag == .linux) {
+            try testing.expect(updated_settings.options.echo);
             try testing.expect(updated_settings.options.canonical);
             try testing.expect(updated_settings.options.extended);
             try testing.expect(updated_settings.options.signals);

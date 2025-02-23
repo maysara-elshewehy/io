@@ -45,10 +45,11 @@
 
         /// true if the raw mode is enabled.
         rawMode: bool,
-
-        /// true if the echo is enabled.
-        echo: bool,
     };
+
+    pub extern "kernel32" fn SetConsoleCP(
+        wCodePageID: std.os.windows.UINT,
+    ) callconv(.winapi) std.os.windows.BOOL;
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -86,7 +87,6 @@
             // Options
             .options = .{
                 .rawMode    = (inputMode & ENABLE_VIRTUAL_TERMINAL_INPUT) == ENABLE_VIRTUAL_TERMINAL_INPUT,
-                .echo       = (inputMode & ENABLE_ECHO_INPUT) == ENABLE_ECHO_INPUT,
             }
         };
     }
@@ -98,26 +98,24 @@
 
         // apply the new settings
         {
-            // echo
-            if (settings.options.echo != new_settings.options.echo) {
-                if (settings.options.echo) {
-                    new_settings.core.inputMode |= ENABLE_ECHO_INPUT;
-                } else {
-                    new_settings.core.inputMode &= ~ENABLE_ECHO_INPUT;
-                }
-            }
-
             // raw mode
             if (settings.options.rawMode != new_settings.options.rawMode) {
                 if (settings.options.rawMode) {
                     new_settings.core.inputMode &= ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT);
-                    new_settings.core.inputMode |= ENABLE_VIRTUAL_TERMINAL_INPUT | ENABLE_PROCESSED_INPUT;
+                    new_settings.core.inputMode |= ENABLE_VIRTUAL_TERMINAL_INPUT | ENABLE_KEYBOARD_INPUT;
                 } else {
                     new_settings.core.inputMode |= ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT;
-                    new_settings.core.inputMode &= ~ENABLE_VIRTUAL_TERMINAL_INPUT;
+                    new_settings.core.inputMode &= ~ENABLE_VIRTUAL_TERMINAL_INPUT | ENABLE_KEYBOARD_INPUT;
                 }
             }
         }
+
+        // Set the console code page to UTF-8 for both input and output
+        if (std.os.windows.kernel32.SetConsoleOutputCP(65001) == 0)
+            return SetSettingsError.FailedToSetSettings;
+
+        if (SetConsoleCP(65001) == 0)
+            return SetSettingsError.FailedToSetSettings;
 
         // apply the new settings
         const handle = if(new_settings.handles.inputHandle) |_inputHandle| _inputHandle else unreachable;
@@ -135,6 +133,8 @@
     const ENABLE_ECHO_INPUT             : std.os.windows.DWORD = 0x0004;
     const ENABLE_PROCESSED_INPUT        : std.os.windows.DWORD = 0x0001;
     const ENABLE_LINE_INPUT             : std.os.windows.DWORD = 0x0002;
+    const ENABLE_KEYBOARD_INPUT         : std.os.windows.DWORD = 0x0008;
+    const ENABLE_MOUSE_INPUT            : std.os.windows.DWORD = 0x0010;
     const ENABLE_VIRTUAL_TERMINAL_INPUT : std.os.windows.DWORD = 0x0200;
 
     /// Get windows API input handle.

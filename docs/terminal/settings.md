@@ -133,7 +133,7 @@
             | Field       | Type | Description                                                                  | Supported OS |
             | ----------- | ---- | ---------------------------------------------------------------------------- | ------------ |
             | `rawMode`   | bool | true if the `raw mode` is enabled.                                           | All          |
-            | `echo`      | bool | true if the `echo` is enabled.                                               | All          |
+            | `echo`      | bool | true if the `echo` is enabled.                                               | Linux        |
             | `canonical` | bool | true if the `canonical` input is enabled.                                    | Linux        |
             | `extended`  | bool | true if the `extended` input processing is enabled.                          | Linux        |
             | `signals`   | bool | true if the signals (`SIGINT`, `SIGTSTP`, `SIGTTIN`, `SIGTTOU`) are enabled. | Linux        |

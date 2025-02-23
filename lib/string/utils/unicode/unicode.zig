@@ -122,28 +122,28 @@
                 }
 
                 /// Initializes an `Iterator` with the given input slice without validation.
-                pub inline fn initUnchecked(initial_slice: []const u8) Self {
+                pub fn initUnchecked(initial_slice: []const u8) Self {
                     return .{ .src = initial_slice, .pos = 0, };
                 }
 
                 /// Returns the next codepoint slice and advances the iterator.
-                pub inline fn nextCodepointSlice(self: *Self) ?[]const u8 {
+                pub fn nextCodepointSlice(self: *Self) ?[]const u8 {
                     return self.getNextSlice(.codepoint);
                 }
 
                 /// Returns the next grapheme cluster slice and advances the iterator.
-                pub inline fn nextGraphemeClusterSlice(self: *Self) ?[]const u8 {
+                pub fn nextGraphemeClusterSlice(self: *Self) ?[]const u8 {
                     return self.getNextSlice(.graphemeCluster);
                 }
 
                 /// Decodes and returns the next codepoint and advances the iterator.
-                pub inline fn next(self: *Self) ?u21 {
+                pub fn next(self: *Self) ?u21 {
                     const slice = self.nextCodepointSlice() orelse return null;
                     return Utf8Decode(slice[0..]) catch null;
                 }
 
                 /// Decodes and returns the next codepoint without advancing the iterator.
-                pub inline fn peek(self: *Self, codepoints_count: usize) ?[]const u8 {
+                pub fn peek(self: *Self, codepoints_count: usize) ?[]const u8 {
                     const original_i = self.pos;
                     defer self.pos = original_i;
 
