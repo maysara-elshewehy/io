@@ -328,16 +328,19 @@
 
 - ### Additional Comparisons
 
-    #### `@JakubSzark/zig-string`
+    #### @JakubSzark/zig-string
+    
     - **Slow performance**: The implementation is not optimized for speed.
     - **Limited functionality**: Only supports UTF-8 code points but not full Unicode grapheme clusters.
     - **Incorrect behavior**: Mishandles Unicode text splitting.
 
-    #### `zg`
+    #### zg
+    
     - Focused on Unicode normalization using a full local Unicode database.
     - Designed for a different purpose, making direct comparison with our library irrelevant.
 
     ### Why Our Library is Superior
+
     Our library provides:
     - **Proper Unicode support**: Handling grapheme clusters as expected.
     - **Performance**: Matching the speed of the Zig standard library.
