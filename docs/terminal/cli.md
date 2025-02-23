@@ -242,6 +242,10 @@
 
         > Utility functions for ANSI escape code manipulation and terminal styling.
 
+    - [Events](./events)
+
+      > Robust event handling for terminal key presses and mouse events.
+
     - [Prompt](prompt)
 
         > Interactive prompts for user input.

@@ -156,6 +156,10 @@
 
         > Seamless Command Line Integration with ZIG.
 
+    - [Events](./events)
+
+      > Robust event handling for terminal key presses and mouse events.
+
     - [Prompt](prompt)
 
         > Interactive prompts for user input.

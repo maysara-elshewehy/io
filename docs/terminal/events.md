@@ -144,50 +144,53 @@
 
       - #### Fields
 
-        | Field    | Type         | Description                                                                                           |
-        | -------- | ------------ | ----------------------------------------------------------------------------------------------------- |
-        | `m_read` | `[]const u8` | Reference to the raw key buffer as received from the terminal.                                        |
-        | `m_key`  | `[32]u8`     | A copy of the key (in UTF-8) extracted during parsing, ensuring stable display regardless of memory changes. |
+        | Field    | Type         | Description                                                                                                     |
+        | -------- | ------------ | --------------------------------------------------------------------------------------------------------------- |
+        | `m_read` | `[]const u8` | Reference to the raw key buffer as received from the terminal.                                                  |
+        | `m_key`  | `[32]u8`     | A copy of the key (in UTF-8) extracted during parsing, ensuring stable display regardless of memory changes.    |
         | `m_mask` | `u32`        | Bitmask representing modifiers and special key types (e.g., Ctrl, Alt, Shift, arrow keys, function keys, etc.). |
 
       - #### Methods
 
-        - **Print / Format**
-            | Function               | Description                                                          |
-            | ---------------------- | -------------------------------------------------------------------- |
-            | `printTo`              | Prints the key to a provided writer.                                 |
-            | `print`                | Prints the key to the standard output.                               |
-            | `printWithNewline`     | Prints the key to standard output with a newline appended.           |
+        - #### Print / Format
 
-        - **Check Functions**
-            | Function             | Description                                               |
-            | -------------------- | --------------------------------------------------------- |
-            | `isAlphabetic`       | Checks if the key is an alphabetic character.             |
-            | `isNumeric`          | Checks if the key is numeric.                             |
-            | `isShift`            | Returns true if the Shift modifier is active.             |
-            | `isAlt`              | Returns true if the Alt modifier is active.               |
-            | `isAltShift`         | Returns true if both Alt and Shift modifiers are active.  |
-            | `isAltCtrl`          | Returns true if both Alt and Ctrl modifiers are active.   |
-            | `isCtrl`             | Returns true if the Ctrl modifier is active.              |
-            | `isCtrlShift`        | Returns true if both Ctrl and Shift modifiers are active. |
-            | `isCtrlAltShift`     | Returns true if Ctrl, Alt, and Shift modifiers are active.|
-            | `isModifier`         | Returns true if any modifier (Ctrl, Alt, Shift) is active.  |
-            | `isArrow`            | Checks if an arrow key is pressed.                        |
-            | `isUp`               | Checks if the Up arrow key is pressed.                    |
-            | `isDown`             | Checks if the Down arrow key is pressed.                  |
-            | `isLeft`             | Checks if the Left arrow key is pressed.                  |
-            | `isRight`            | Checks if the Right arrow key is pressed.                 |
-            | `isFunction`         | Checks if any function key (F1-F12) is pressed.           |
-            | `isF1` – `isF12`     | Checks for specific function keys (F1 through F12).       |
-            | `isSpecial`          | Checks if the key is one of the special keys (Enter, Escape, Tab, Backspace, etc.). |
-            | `isHome`             | Checks if the Home key is pressed.                        |
-            | `isEnd`              | Checks if the End key is pressed.                         |
-            | `isPageUp`           | Checks if the Page Up key is pressed.                     |
-            | `isPageDown`         | Checks if the Page Down key is pressed.                   |
-            | `isInsert`           | Checks if the Insert key is pressed.                      |
-            | `isDelete`           | Checks if the Delete key is pressed.                      |
+            | Function           | Description                                                |
+            | ------------------ | ---------------------------------------------------------- |
+            | `printTo`          | Prints the key to a provided writer.                       |
+            | `print`            | Prints the key to the standard output.                     |
+            | `printWithNewline` | Prints the key to standard output with a newline appended. |
+
+        - #### Check Functions
+
+            | Function         | Description                                                                         |
+            | ---------------- | ----------------------------------------------------------------------------------- |
+            | `isAlphabetic`   | Checks if the key is an alphabetic character.                                       |
+            | `isNumeric`      | Checks if the key is numeric.                                                       |
+            | `isShift`        | Returns true if the Shift modifier is active.                                       |
+            | `isAlt`          | Returns true if the Alt modifier is active.                                         |
+            | `isAltShift`     | Returns true if both Alt and Shift modifiers are active.                            |
+            | `isAltCtrl`      | Returns true if both Alt and Ctrl modifiers are active.                             |
+            | `isCtrl`         | Returns true if the Ctrl modifier is active.                                        |
+            | `isCtrlShift`    | Returns true if both Ctrl and Shift modifiers are active.                           |
+            | `isCtrlAltShift` | Returns true if Ctrl, Alt, and Shift modifiers are active.                          |
+            | `isModifier`     | Returns true if any modifier (Ctrl, Alt, Shift) is active.                          |
+            | `isArrow`        | Checks if an arrow key is pressed.                                                  |
+            | `isUp`           | Checks if the Up arrow key is pressed.                                              |
+            | `isDown`         | Checks if the Down arrow key is pressed.                                            |
+            | `isLeft`         | Checks if the Left arrow key is pressed.                                            |
+            | `isRight`        | Checks if the Right arrow key is pressed.                                           |
+            | `isFunction`     | Checks if any function key (F1-F12) is pressed.                                     |
+            | `isF1` – `isF12` | Checks for specific function keys (F1 through F12).                                 |
+            | `isSpecial`      | Checks if the key is one of the special keys (Enter, Escape, Tab, Backspace, etc.). |
+            | `isHome`         | Checks if the Home key is pressed.                                                  |
+            | `isEnd`          | Checks if the End key is pressed.                                                   |
+            | `isPageUp`       | Checks if the Page Up key is pressed.                                               |
+            | `isPageDown`     | Checks if the Page Down key is pressed.                                             |
+            | `isInsert`       | Checks if the Insert key is pressed.                                                |
+            | `isDelete`       | Checks if the Delete key is pressed.                                                |
 
     - #### Mouse
+
       > (Mouse functionality is planned for future development.)
 
 <div align="center"><br>
@@ -197,18 +200,23 @@
 - ### 🔗 Related
 
     - [Info](./info)
+
       > Detailed terminal information ensuring cross-platform compatibility.
 
     - [settings](./settings)
+
       > Comprehensive terminal settings for cross-platform operation.
 
     - [ansi](./ansi)
+
       > Utility functions for ANSI escape code manipulation and terminal styling.
 
     - [cli](./cli)
+
       > Seamless command-line integration with ZIG.
 
     - [Prompt](prompt)
+
       > Interactive prompts for user input.
 
 <div align="center"><br>
