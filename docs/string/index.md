@@ -328,27 +328,27 @@
 
 - ### Additional Comparisons
 
-    #### @JakubSzark/zig-string
+    - #### @JakubSzark/zig-string
     
-    - **Slow performance**: The implementation is not optimized for speed.
-    - **Limited functionality**: Only supports UTF-8 code points but not full Unicode grapheme clusters.
-    - **Incorrect behavior**: Mishandles Unicode text splitting.
+      - **Slow performance**: The implementation is not optimized for speed.
+      - **Limited functionality**: Only supports UTF-8 code points but not full Unicode grapheme clusters.
+      - **Incorrect behavior**: Mishandles Unicode text splitting.
 
-    #### zg
+    - #### zg
     
-    - Focused on Unicode normalization using a full local Unicode database.
-    - Designed for a different purpose, making direct comparison with our library irrelevant.
+      - Focused on Unicode normalization using a full local Unicode database.
+      - Designed for a different purpose, making direct comparison with our library irrelevant.
 
-    ### Why Our Library is Superior
+    - #### Why Our Library is Superior
+  
+      - **Proper Unicode support**: Handling grapheme clusters as expected.
+      - **Performance**: Matching the speed of the Zig standard library.
+      - **Feature completeness**: Everything offered by `std.ArrayList` and more.
+      - **Real-world usability**: A practical and efficient solution for text processing.
 
-    Our library provides:
-    - **Proper Unicode support**: Handling grapheme clusters as expected.
-    - **Performance**: Matching the speed of the Zig standard library.
-    - **Feature completeness**: Everything offered by `std.ArrayList` and more.
-    - **Real-world usability**: A practical and efficient solution for text processing.
+    - #### Final Thoughts
 
-    ### Final Thoughts
-    We have invested significant time in understanding Unicode and designing an efficient approach. The claim that we have merely "simplified" text handling is inaccurate. Instead, we have **innovated and optimized** the process to create a truly robust solution.
+      > We have invested significant time in understanding Unicode and designing an efficient approach. The claim that we have merely "simplified" text handling is inaccurate. Instead, we have **innovated and optimized** the process to create a truly robust solution.
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
