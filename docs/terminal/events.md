@@ -111,7 +111,7 @@
     4. `Shift + Up`
     5. `Ctrl + Alt + Up`
     6. `Ctrl + Shift + Alt + Up`
-    7. `Ctrl + Q`
+    7. `Alt + Q`
 
     > The expected output will be:
 

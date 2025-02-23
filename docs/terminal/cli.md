@@ -166,7 +166,7 @@
         ./your_app test -1 valOne -2 valTwo -3 valThree
         ```
 
-    > **Kickstart your project with our [cli-lit](https://github.com/maysara-elshewehy/lite-cli) template for a swift setup.**
+    > **Kickstart your project with our [lite-cli](https://github.com/maysara-elshewehy/lite-cli) template for a swift setup.**
 
 <div align="center"><br>
 <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
