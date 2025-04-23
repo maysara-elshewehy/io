@@ -16,8 +16,8 @@
 <!----------------------------------- BEG ----------------------------------->
 <br>
 <div align="center">
-    <p style="font-size: 80px; font-family: 'Chakra Petch', sans-serif;">
-        IO
+    <p>
+        <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/logo/IO/logo.png" alt="Input / Output" width="1000" />
     </p>
 </div>
 
