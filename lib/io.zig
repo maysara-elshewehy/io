@@ -1,27 +1,22 @@
-// Copyright (c) 2025 SuperZIG All rights reserved.
+// Copyright (c) 2025 Maysara, All rights reserved.
 //
-// repo: https://github.com/Super-ZIG/io
-// docs: https://super-zig.github.io/io/
-// bench: https://github.com/maysara-elshewehy/SuperZIG-bench
+// repo : https://github.com/Super-ZIG/io
+// docs : https://super-zig.github.io/io
+//
+// owner : https://github.com/maysara-elshewehy
+// email : maysara.elshewehy@gmail.com
 //
 // Made with ❤️ by Maysara
-//
-// maysara.elshewehy@gmail.com.
-// https://github.com/maysara-elshewehy
 
 
 
-// ╔══════════════════════════════════════ ---- ══════════════════════════════════════╗
+// ╔══════════════════════════════════════ PACK ══════════════════════════════════════╗
 
-    const StringModule      = @import("./string/string.zig");
-    pub const chars         = StringModule.utils.chars;
-    pub const unicode       = StringModule.utils.unicode;
-    pub const Viewer        = StringModule.Viewer;
-    pub const Buffer        = StringModule.Buffer;
-    pub const String        = StringModule.String;
-    pub const uString       = StringModule.uString;
+    /// Provides utilities for string manipulation and operations.
+    pub const string = @import("./string/string.zig");
 
-    pub const terminal      = @import("./terminal/terminal.zig");
+    /// Provides utilities for terminal input/output operations.
+    pub const terminal = @import("./terminal/terminal.zig");
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
@@ -30,7 +25,7 @@
 // ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
 
     test {
-        _ = @import("./string/string.test.zig");
+        _ = @import("./string/string.zig");
         _ = @import("./terminal/terminal.zig");
     }
 

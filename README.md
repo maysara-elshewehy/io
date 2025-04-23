@@ -1,58 +1,144 @@
-<p align="center"> <br>
-  <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/logo/IO/logo.png" alt="Input / Output" width="1000" />
-</p>
+<!----------------------------------- CSS ----------------------------------->
+
+<style>
+@font-face {
+    font-family: 'Chakra Petch';
+    src: url('https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/fonts/Chakra_Petch/ChakraPetch-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+</style>
+
+<!--------------------------------------------------------------------------->
+
+
+
+<!----------------------------------- BEG ----------------------------------->
+<br>
+<div align="center">
+    <p style="font-size: 80px; font-family: 'Chakra Petch', sans-serif;">
+        IO
+    </p>
+</div>
 
 <p align="center">
-     <a href="#">
-        <img src="https://img.shields.io/badge/under--development-yellow.svg" alt="Under Development" />
-    </a>
+    <img src="https://img.shields.io/badge/version-0.0.8 dev.1-blue.svg" alt="Version" />
     <a href="https://github.com/Super-ZIG/io/actions/workflows/main.yml">
         <img src="https://github.com/Super-ZIG/io/actions/workflows/main.yml/badge.svg" alt="CI" />
     </a>
     <img src="https://img.shields.io/github/issues/Super-ZIG/io?style=flat" alt="Github Repo Issues" />
+    <a href="https://github.com/Super-ZIG/io/blob/main/LICENSE">
+        <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="license" />
+    </a>
     <img src="https://img.shields.io/github/stars/Super-ZIG/io?style=social" alt="GitHub Repo stars" />
 </p>
 
 <p align="center">
-    <b> Easy input and output in ZIG. </b>
+    <b>
+        When simplicity meets efficiency
+    </b>
 </p>
+
 <div align="center">
-    <b><i>
-        <sup> part of <a href="https://github.com/Super-ZIG">SuperZIG</a> framework.</sup>
-    </i></b>
+    <b>
+        <i>
+            <sup>
+                part of <a href="https://github.com/Super-ZIG">SuperZIG</a> framework
+            </sup>
+        </i>
+    </b>
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/><br>
-</div><br>
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+    <br>
+</div>
 
-> This library is considered as a container for several other sub-libraries that are generally related to the concept of input and output in the ZIG language.
+<!--------------------------------------------------------------------------->
 
-> The currently available sections are as follows, **please click on the desired section to access more information about it**.
+
+
+<!--------------------------------- Features -------------------------------->
+
+- **🍃 Zero dependencies**—meticulously crafted code.
+
+- **🚀 Blazing fast**—almost as fast as light!
+
+- **🌍 Universal compatibility**—Windows, Linux, and macOS.
+
+- **🛡️ Battle-tested**—ready for production.
 
 <br>
-<div align="center" style="display: flex; flex-direction: row; justify-content: center;"><br>
-  <a href="https://super-zig.github.io/io/string/" title="click here"><img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/logo/String/short.png" alt="String" height="50" /></a>
-  <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/logo/Terminal/short.png" alt="Terminal" height="50" width="1" />
-  <a href="https://super-zig.github.io/io/terminal/" title="click here"><img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/logo/Terminal/short.png" alt="Terminal" height="50" /></a>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-<div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+<!--------------------------------------------------------------------------->
+
+
+
+<!----------------------------------- API ----------------------------------->
+
+- ### API
+
+    - #### String
+       > - ##### view
+       > - ##### fixed
+       > - ##### managed
+       > - ##### unmanaged
+
+        - ##### Utils
+          - ###### [ascii](https://super-zig.github.io/io/string/utils/ascii)
+          - ###### [utf8](https://super-zig.github.io/io/string/utils/utf8)
+          > - ###### codepoint
+          > - ###### grapheme
+          > - ###### memory
+
+    - #### Terminal
+        > - ##### print
+        > - ##### info
+        > - ##### settings
+        > - ##### ansi
+        > - ##### events
+        > - ##### prompts
+        > - ##### cli
+
+<br>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-
-  - #### [installation](https://github.com/Super-ZIG/io/wiki/installation)
-    > to learn how to add dependencies to your ZIG project.
-
-  - #### [Documentation](https://super-zig.github.io/io/)
-    > to learn more about the library and its features.
+<!--------------------------------------------------------------------------->
 
 
-<div align="center"><br>
-<img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
+
+<!---------------------------------- BENCH ---------------------------------->
+
+- ### Benchmark
+
+    > A quick summary with sample performance test results between _**`SuperZIG`.`io`**_ implementations and its popular competitors.
+
+    | Implementation                                                                   | Competitor    | Result                 |
+    | -------------------------------------------------------------------------------- | ------------- | ---------------------- |
+    | [`io.string.ascii`](https://super-zig.github.io/io/string/utils/ascii#Benchmark) | `std.ascii`   | same speed             |
+    | [`io.string.utf8`](https://super-zig.github.io/io/string/utils/utf8#Benchmark)   | `std.unicode` | **x5 faster ⚡** |
+
+<br>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/md/line.png" alt="line" style="display: block; margin-top:20px;margin-bottom:20px;width:500px;"/>
 </div>
 
-<div align="center"><br>
-<a href="https://github.com/maysara-elshewehy"> <img src="https://img.shields.io/badge/Made with ❤️ by-Maysara-orange"/> </a>
+<!--------------------------------------------------------------------------->
+
+
+
+<!----------------------------------- END ----------------------------------->
+
+<br>
+<div align="center">
+    <a href="https://github.com/maysara-elshewehy">
+        <img src="https://img.shields.io/badge/Made with ❤️ by-Maysara-orange"/>
+    </a>
 </div>
+
+<!--------------------------------------------------------------------------->

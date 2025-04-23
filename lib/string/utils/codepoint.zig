@@ -1,7 +1,7 @@
 // Copyright (c) 2025 Maysara, All rights reserved.
 //
 // repo : https://github.com/Super-ZIG/io
-// docs : https://super-zig.github.io/io/terminal
+// docs : https://super-zig.github.io/io/string/codepoint
 //
 // owner : https://github.com/maysara-elshewehy
 // email : maysara.elshewehy@gmail.com
@@ -17,9 +17,7 @@
 
 
 
-// ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
+// ╔══════════════════════════════════════ CORE ══════════════════════════════════════╗
 
-    test {
-    }
 
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
