@@ -132,8 +132,8 @@
 
         | Function | Description                                                                                        |
         | -------- | -------------------------------------------------------------------------------------------------- |
-        | toUpper  | Fast encode a single Unicode `codepoint` to `UTF-8 sequence`, Returns the number of bytes written. |
-        | toLower  | Fast decode a `UTF-8 sequence` to a Unicode `codepoint`, Returns the number of bytes read.         |
+        | encode   | Fast encode a single Unicode `codepoint` to `UTF-8 sequence`, Returns the number of bytes written. |
+        | decode   | Fast decode a `UTF-8 sequence` to a Unicode `codepoint`, Returns the number of bytes read.         |
 
     - #### Properties
 

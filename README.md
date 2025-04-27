@@ -105,8 +105,8 @@
 
     | Implementation                                                                   | Competitor    | Result                 |
     | -------------------------------------------------------------------------------- | ------------- | ---------------------- |
-    | [`io.string.ascii`](https://super-zig.github.io/io/string/utils/ascii#Benchmark) | `std.ascii`   | same speed             |
-    | [`io.string.utf8`](https://super-zig.github.io/io/string/utils/utf8#Benchmark)   | `std.unicode` | **x5 faster ⚡** |
+    | [`io.string.ascii`](https://super-zig.github.io/io/string/utils/ascii#benchmark) | `std.ascii`   | same speed             |
+    | [`io.string.utf8`](https://super-zig.github.io/io/string/utils/utf8#benchmark)   | `std.unicode` | **x5 faster ⚡** |
 
 <br>
 <div align="center">
