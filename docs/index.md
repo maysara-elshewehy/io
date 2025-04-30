@@ -17,7 +17,7 @@
 <br>
 <div align="center">
     <p>
-        <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/logo/IO/logo.png" alt="Input / Output" width="1000" />
+        <img src="https://raw.githubusercontent.com/maysara-elshewehy/SuperZIG-assets/refs/heads/main/dist/img/logo/IO/logo-x.png" alt="Input / Output" width="1000" />
     </p>
 </div>
 
@@ -82,26 +82,30 @@
 - ### API
 
     - #### String
-       > - ##### view
-       > - ##### fixed
-       > - ##### managed
-       > - ##### unmanaged
+        - ##### Types
+            > - ##### view
+            > - ##### fixed
+            > - ##### managed
+            > - ##### unmanaged
 
         - ##### Utils
-          - ###### [ascii](https://super-zig.github.io/io/string/utils/ascii)
-          - ###### [utf8](https://super-zig.github.io/io/string/utils/utf8)
-          > - ###### codepoint
-          > - ###### grapheme
-          > - ###### memory
+          - ##### [ascii](https://super-zig.github.io/io/string/utils/ascii)
+          - ##### [utf8](https://super-zig.github.io/io/string/utils/utf8)
+          > - ##### codepoint
+          > - ##### grapheme
+          > - ##### memory
 
     - #### Terminal
-        > - ##### print
-        > - ##### info
-        > - ##### settings
-        > - ##### ansi
-        > - ##### events
-        > - ##### prompts
-        > - ##### cli
+        - ##### App
+            > - ##### cli
+            > - ##### prompts
+
+        - ##### Utils
+            > - ##### ansi
+            > - ##### print
+            > - ##### info
+            > - ##### settings
+            > - ##### events
 
 <br>
 <div align="center">
