@@ -92,27 +92,27 @@
     > Convert slice to codepoint
 
     ```zig
-    const cp = utf8.decode("😀");                   // cp 👉 0x1F600
+    const cp = utf8.decode("🌟");                   // cp 👉 0x1F31F
     ```
 
     > Convert codepoint to slice
 
     ```zig
     var buf: [4]u8 = undefined;
-    const len = utf8.encode(0x1F600, &buf);         // len 👉 4
-                                                    // buf 👉 "😀"
+    const len = utf8.encode(0x1F31F, &buf);         // len 👉 4
+                                                    // buf 👉 "🌟"
     ```
 
     > Get codepoint length
 
     ```zig
-    const len = utf8.getCodepointLength(0x1F600)    // 👉 4
+    const len = utf8.getCodepointLength(0x1F31F)    // 👉 4
     ```
 
     > Get UTF-8 sequence length
 
     ```zig
-    const len = utf8.getCodepointLength("😀"[0])    // 👉 4
+    const len = utf8.getCodepointLength("🌟"[0])    // 👉 4
     ```
 
 <br>
@@ -128,19 +128,25 @@
 
 - ### API
 
-    - #### Conversion
+    - #### Encoding / Decoding
 
         | Function | Description                                                                                        |
         | -------- | -------------------------------------------------------------------------------------------------- |
-        | encode   | Fast encode a single Unicode `codepoint` to `UTF-8 sequence`, Returns the number of bytes written. |
-        | decode   | Fast decode a `UTF-8 sequence` to a Unicode `codepoint`, Returns the decoded codepoint.            |
+        | encode _(`cp: u21, out: []u8`) `u3`_  | Fast encode a single Unicode `codepoint` to `UTF-8 sequence`, Returns the number of bytes written. |
+        | decode _(`slice: []const u8`) `u21`_  | Fast decode a `UTF-8 sequence` to a Unicode `codepoint`, Returns the decoded codepoint.            |
 
     - #### Properties
 
         | Function           | Description                                                                                 |
         | ------------------ | ------------------------------------------------------------------------------------------- |
-        | getCodepointLength | Returns the number of bytes (`1-4`) needed to encode a `codepoint` in UTF-8 format.         |
-        | getSequenceLength  | Returns the expected number of bytes (`1-4`) in a `UTF-8 sequence` based on the first byte. |
+        | getCodepointLength _(`cp: u21`) `u3`_ | Returns the number of bytes (`1-4`) needed to encode a `codepoint` in UTF-8 format.         |
+        | getSequenceLength _(`first_byte: u8`) `u3`_  | Returns the expected number of bytes (`1-4`) in a `UTF-8 sequence` based on the first byte. |
+
+    - #### Validation
+
+        | Function           | Description                                                         |
+        | ------------------ | ------------------------------------------------------------------- |
+        | isValid _(`slice: []const u8`) `bool`_ | Returns true if the provided slice contains valid `UTF-8 sequence`. |
 
 <br>
 <div align="center">
