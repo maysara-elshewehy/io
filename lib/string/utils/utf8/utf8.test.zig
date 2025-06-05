@@ -70,12 +70,26 @@
             try testing.expectEqual(@as(u3, 0), utf8.getCodepointLength(0x110000));
         }
 
-        test "utf8.getFirstByteLength" {
-            try testing.expectEqual(@as(u3, 1), utf8.getFirstByteLength('A'));
-            try testing.expectEqual(@as(u3, 2), utf8.getFirstByteLength(0xC2));
-            try testing.expectEqual(@as(u3, 3), utf8.getFirstByteLength(0xE2));
-            try testing.expectEqual(@as(u3, 4), utf8.getFirstByteLength(0xF0));
-            try testing.expectEqual(@as(u3, 0), utf8.getFirstByteLength(0xF8));
+        test "utf8.getSequenceLength" {
+            try testing.expectEqual(@as(u3, 1), utf8.getSequenceLength('A'));
+            try testing.expectEqual(@as(u3, 2), utf8.getSequenceLength(0xC2));
+            try testing.expectEqual(@as(u3, 3), utf8.getSequenceLength(0xE2));
+            try testing.expectEqual(@as(u3, 4), utf8.getSequenceLength(0xF0));
+            try testing.expectEqual(@as(u3, 0), utf8.getSequenceLength(0xF8));
+        }
+
+        test "utf8.isValid" {
+            // Valid UTF-8 sequences
+            try testing.expect(utf8.isValid(""));
+            try testing.expect(utf8.isValid("Hello"));
+            try testing.expect(utf8.isValid("Hello 世界"));
+            try testing.expect(utf8.isValid("🌍🌎🌏"));
+
+            // Invalid UTF-8 sequences
+            try testing.expect(!utf8.isValid(&[_]u8{0xFF}));
+            try testing.expect(!utf8.isValid(&[_]u8{0xC0, 0x80}));
+            try testing.expect(!utf8.isValid(&[_]u8{0xE0, 0x80}));
+            try testing.expect(!utf8.isValid(&[_]u8{0xF0, 0x80, 0x80}));
         }
 
     // └──────────────────────────────────────────────────────────────┘

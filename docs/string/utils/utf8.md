@@ -133,14 +133,14 @@
         | Function | Description                                                                                        |
         | -------- | -------------------------------------------------------------------------------------------------- |
         | encode   | Fast encode a single Unicode `codepoint` to `UTF-8 sequence`, Returns the number of bytes written. |
-        | decode   | Fast decode a `UTF-8 sequence` to a Unicode `codepoint`, Returns the number of bytes read.         |
+        | decode   | Fast decode a `UTF-8 sequence` to a Unicode `codepoint`, Returns the decoded codepoint.            |
 
     - #### Properties
 
         | Function           | Description                                                                                 |
         | ------------------ | ------------------------------------------------------------------------------------------- |
         | getCodepointLength | Returns the number of bytes (`1-4`) needed to encode a `codepoint` in UTF-8 format.         |
-        | getFirstByteLength | Returns the expected number of bytes (`1-4`) in a `UTF-8 sequence` based on the first byte. |
+        | getSequenceLength  | Returns the expected number of bytes (`1-4`) in a `UTF-8 sequence` based on the first byte. |
 
 <br>
 <div align="center">
