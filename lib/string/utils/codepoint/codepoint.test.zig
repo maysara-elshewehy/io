@@ -27,13 +27,38 @@
         .{ .utf8 = "😀", .cp = 0x1F600 },
     };
 
+    const INVALID_CP = 0x110000;
+    const INVALID_UTF8 = "\xFF";
+
 // ╚══════════════════════════════════════════════════════════════════════════════════╝
 
 
 // ╔══════════════════════════════════════ TEST ══════════════════════════════════════╗
 
-    test "peek & next" {
-        var iterator = Codepoint.Utf8Iterator { .src = SAMPLE };
+    test "Codepoint" {
+        for(0..RESULT.len) |i| {
+            // init (using codepoint)
+            if(Codepoint.init(RESULT[i].cp)) |cp| {
+                try testing.expectEqual(RESULT[i].utf8.len, cp.len);
+                try testing.expectEqual(RESULT[i].cp, cp.src);
+            } else return error.CodepointInitError;
+
+            // fromUtf8 (using UTF-8 slice)
+            if(Codepoint.fromUtf8(RESULT[i].utf8)) |cp| {
+                try testing.expectEqual(RESULT[i].utf8.len, cp.len);
+                try testing.expectEqual(RESULT[i].cp, cp.src);
+            } else return error.CodepointFromUtf8Error;
+        }
+
+        // must fail
+        if(Codepoint.init(INVALID_CP)) |_| return error.CodepointInitMustFail;
+        if(Codepoint.fromUtf8(INVALID_UTF8)) |_| return error.CodepointFromUtf8MustFail;
+    }
+
+    test "Utf8Iterator" {
+        // must fail
+        if(Codepoint.Utf8Iterator.init(INVALID_UTF8)) |_| return error.Utf8IteratorInitMustFail;
+        var iterator = Codepoint.Utf8Iterator.init(SAMPLE) orelse return error.Utf8IteratorInitError;
 
         for(0..RESULT.len) |i| {
 

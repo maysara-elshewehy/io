@@ -1,7 +1,7 @@
 // Copyright (c) 2025 Maysara, All rights reserved.
 //
 // repo : https://github.com/Super-ZIG/io
-// docs : https://super-zig.github.io/io/string/utf8
+// docs : https://super-zig.github.io/io/string/utils/utf8
 //
 // owner : https://github.com/maysara-elshewehy
 // email : maysara.elshewehy@gmail.com
@@ -14,13 +14,12 @@
 
     // ┌────────────────────────── Conversion ────────────────────────┐
 
-        /// Fast encode a single Unicode `codepoint` to `UTF-8 sequence`
+        /// Encodes a single Unicode `codepoint` to a UTF-8 sequence.
         /// Returns the number of bytes written.
         ///
-        /// This function assumes that the input `codepoint` is valid,
-        /// And the output slice is large enough to hold the result.
-        pub inline fn encode(cp: u21, out: []u8) u3 {
-            const length = getCodepointLength(cp);
+        /// Assumes the input `codepoint` is valid and the output slice is large enough.
+        pub fn encode(cp: u21, out: []u8) u3 {
+            const length = @call(.always_inline, getCodepointLength, .{cp});
 
             switch (length) {
                 1 => {
@@ -38,24 +37,22 @@
                     out[2] = @truncate(0x80  |  (cp         & 0x3F));
                 },
 
-                4 => {
+                else => {
                     out[0] = @truncate(0xF0  |  (cp >> 18         ));
                     out[1] = @truncate(0x80  | ((cp >> 12)  & 0x3F));
                     out[2] = @truncate(0x80  | ((cp >> 6)   & 0x3F));
                     out[3] = @truncate(0x80  |  (cp         & 0x3F));
-                },
-
-                else => unreachable,
+                }
             }
 
             return length;
         }
 
-        /// Fast decode a `UTF-8 sequence` to a Unicode `codepoint`
+        /// Decodes a UTF-8 sequence to a Unicode `codepoint`.
         /// Returns the decoded codepoint.
         ///
-        /// This function assumes that the input `UTF-8 sequence` is valid.
-        pub inline fn decode(slice: []const u8) u21 {
+        /// Assumes the input slice is a valid UTF-8 sequence of length 1-4.
+        pub fn decode(slice: []const u8) u21 {
             return switch (slice.len) {
                 1 => @as(u21,
                     slice[0]),
@@ -66,10 +63,8 @@
                 3 => (((@as(u21,
                     (slice[0] & 0x0F)) << 6) | (slice[1] & 0x3F)) << 6) | (slice[2] & 0x3F),
 
-                4 => (((((@as(u21,
-                    (slice[0] & 0x07)) << 6) | (slice[1] & 0x3F)) << 6) | (slice[2] & 0x3F)) << 6) | (slice[3] & 0x3F),
-
-                else => unreachable,
+                else => (((((@as(u21,
+                    (slice[0] & 0x07)) << 6) | (slice[1] & 0x3F)) << 6) | (slice[2] & 0x3F)) << 6) | (slice[3] & 0x3F)
             };
         }
 
@@ -78,39 +73,50 @@
 
     // ┌────────────────────────── Properties ────────────────────────┐
 
-        /// Returns the number of bytes (`1-4`) needed to encode a `codepoint` in UTF-8 format
-        /// **if the codepoint is valid**, otherwise it returns `0`.
-        pub inline fn getCodepointLength(cp: u21) u3 {
+
+        /// Returns the number of bytes (1-4) needed to encode a `codepoint` in UTF-8 format.
+        pub fn getCodepointLength(cp: u21) u3 {
             return switch (cp) {
                 0x00000...0x00007F => @as(u3, 1),
                 0x00080...0x0007FF => @as(u3, 2),
                 0x00800...0x00FFFF => @as(u3, 3),
-                0x10000...0x10FFFF => @as(u3, 4),
-                else => @as(u3, 0),
+                else => @as(u3, 4),
             };
         }
 
-        /// Returns the expected number of bytes (`1-4`) in a `UTF-8 sequence` based on the first byte
-        /// **if the codepoint is valid**, otherwise it returns `0`.
-        pub inline fn getSequenceLength(first_byte: u8) u3 {
+        /// Returns the number of bytes (1-4) needed to encode a `codepoint` in UTF-8 format,
+        /// or null if the codepoint is invalid.
+        pub fn getCodepointLengthOrNull(cp: u21) ?u3 {
+            return if (cp > 0x10FFFF) null else @call(.always_inline, getCodepointLength, .{cp});
+        }
+
+        /// Returns the expected number of bytes (1-4) in a UTF-8 sequence based on the first byte.
+        pub fn getSequenceLength(first_byte: u8) u3 {
             return switch (first_byte) {
                 0x00...0x7F => @as(u3, 1),
                 0xC0...0xDF => @as(u3, 2),
                 0xE0...0xEF => @as(u3, 3),
-                0xF0...0xF7 => @as(u3, 4),
-                else => @as(u3, 0),
+                else => @as(u3, 4),
             };
         }
 
+        /// Returns the expected number of bytes (1-4) in a UTF-8 sequence based on the first byte,
+        /// or null if the first byte is not a valid starter.
+        pub fn getSequenceLengthOrNull(first_byte: u8) ?u3 {
+            return if (first_byte > 0xF7) null
+            else @call(.always_inline, getSequenceLength, .{first_byte});
+        }
+
         /// Returns true if the provided slice contains valid UTF-8 data.
-        pub inline fn isValid(slice: []const u8) bool {
+        pub fn isValidSlice(utf8: []const u8) bool {
             // Inspired by: std.unicode.utf8ValidateSliceImpl
+            // Todo: optimize or remove it (This was for learning purposes).
 
             // default lowest and highest continuation byte
             const lo_cb = 0b10000000;
             const hi_cb = 0b10111111;
 
-            var remaining = slice;
+            var remaining = utf8;
             vectorized: {
                 const chunk_len = @import("std").simd.suggestVectorLength(u8) orelse break :vectorized;
                 const Chunk = @Vector(chunk_len, u8);
@@ -189,20 +195,14 @@
                     2 => i += 2,
                     3 => {
                         const c2 = remaining[i + 2];
-                        if (c2 < lo_cb or hi_cb < c2) {
-                            return false;
-                        }
+                        if (c2 < lo_cb or hi_cb < c2) return false;
                         i += 3;
                     },
                     4 => {
                         const c2 = remaining[i + 2];
-                        if (c2 < lo_cb or hi_cb < c2) {
-                            return false;
-                        }
+                        if (c2 < lo_cb or hi_cb < c2) return false;
                         const c3 = remaining[i + 3];
-                        if (c3 < lo_cb or hi_cb < c3) {
-                            return false;
-                        }
+                        if (c3 < lo_cb or hi_cb < c3) return false;
                         i += 4;
                     },
                     else => unreachable,
@@ -210,6 +210,11 @@
             }
 
             return true;
+        }
+
+        /// Returns true if the provided codepoint is valid for UTF-8 encoding.
+        pub fn isValidCodepoint(cp: u21) bool {
+            return cp <= 0x10FFFF;
         }
 
     // └──────────────────────────────────────────────────────────────┘

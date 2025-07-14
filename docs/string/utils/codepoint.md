@@ -17,7 +17,7 @@
 <br>
 <div align="center">
     <p style="font-size: 40px; font-family: 'Chakra Petch', sans-serif;">
-        UTF-8
+        Codepoint
     </p>
 </div>
 
@@ -86,32 +86,23 @@
     > If you have not already added the library to your project, please review the [installation guide](https://github.com/Super-ZIG/io/wiki/installation) for more information.
 
     ```zig
-    const utf8 = @import("io").string.utils.utf8;
+    const codepoint = @import("io").string.utils.codepoint;
     ```
 
-    > Convert slice to codepoint
+    > Initializes a Codepoint from a Codepoint or UTF-8 slice.
 
     ```zig
-    _ = utf8.decode("🌟").?;                // 👉 0x1F31F
+    _ = codepoint.init(0x1F31F).?;   // 👉 .{ .src = 0x1F31F, .len = 4 }
+    _ = codepoint.fromUtf8("🌟").?;  // 👉 .{ .src = 0x1F31F, .len = 4 }
     ```
 
-    > Convert codepoint to slice
+    > Iterate over a Codepoint or UTF-8 slice.
 
     ```zig
-    var buf: [4]u8 = undefined;             // 👉 "🌟"
-    _ = utf8.encode(0x1F31F, &buf).?;       // 👉 4
-    ```
+    var iter = codepoint.Utf8Iterator.init("..").?; // 👉 .{ .src = "..", .pos = 0 }
 
-    > Get codepoint length
-
-    ```zig
-    _ = utf8.getCodepointLength(0x1F31F);   // 👉 4
-    ```
-
-    > Get UTF-8 sequence length
-
-    ```zig
-    _ = utf8.getCodepointLength("🌟"[0]);   // 👉 4
+    while(iter.nextSlice())     |slice| { .. }
+    while(iter.nextCodepoint()) |cp|    { .. }
     ```
 
 <br>
@@ -127,28 +118,55 @@
 
 - ### API
 
-    - #### Encoding / Decoding
+    - #### Codepoint
 
-        | Function | Return | Description                                                                                   |
-        | -------- | ------ | --------------------------------------------------------------------------------------------- |
-        | encode   | `u3`   | Encode a single Unicode `codepoint` to `UTF-8 sequence`, Returns the number of bytes written. |
-        | decode   | `u21`  | Decode a `UTF-8 sequence` to a Unicode `codepoint`, Returns the decoded codepoint.            |
+        - ##### Fields
 
-    - #### Properties
+            | Field | Type  | Description                                                  |
+            | ----- | ----- | ------------------------------------------------------------ |
+            | `src` | `u21` | Numeric value of the Unicode codepoint (U+0000 to U+10FFFF). |
+            | `len` | `u3`  | Length of this codepoint in UTF-8 (1-4 bytes).               |
 
-        | Function                 | Return | Description                                                                                  |
-        | ------------------------ | ------ | -------------------------------------------------------------------------------------------- |
-        | getCodepointLength       | `u3`   | Returns the number of bytes (`1-4`) needed to encode a `codepoint` in UTF-8 format.          |
-        | getCodepointLengthOrNull | `?u3`  | Returns the number of bytes (`1-4`) needed to encode a `codepoint` in UTF-8 format if valid. |
-        | getSequenceLength        | `u3`   | Returns the number of bytes (`1-4`) in a `UTF-8 sequence` based on the first byte.           |
-        | getSequenceLengthOrNull  | `?u3`  | Returns the number of bytes (`1-4`) in a `UTF-8 sequence` based on the first byte if valid.  |
+        - ##### Initialization
 
-    - #### Validation
+            | Function        | Return  | Description                                                        |
+            | --------------- | ------- | ------------------------------------------------------------------ |
+            | init            | `?Self` | Initializes a Codepoint from a Unicode `codepoint` value if valid. |
+            | unsafe_init     | `Self`  | Initializes a Codepoint from a Unicode `codepoint` value.          |
+            | fromUtf8        | `?Self` | Initializes a Codepoint from a `UTF-8 encoded slice` if valid.     |
+            | unsafe_fromUtf8 | `Self`  | Initializes a Codepoint from a `UTF-8 encoded slice`.              |
 
-        | Function         | Return | Description                                                            |
-        | ---------------- | ------ | ---------------------------------------------------------------------- |
-        | isValidSlice     | `bool` | Returns true if the provided slice contains valid `UTF-8 sequence`.    |
-        | isValidCodepoint | `bool` | Returns true if the provided code point is valid for `UTF-8 encoding`. |
+    - #### Utf8Iterator
+
+        - ##### Fields
+
+            | Field | Type         | Description                                               |
+            | ----- | ------------ | --------------------------------------------------------- |
+            | `src` | `[]const u8` | The UTF-8 encoded string that the iterator will traverse. |
+            | `pos` | `usize`      | The current byte position in the string.                  |
+
+        - ##### Initialization
+
+            | Function    | Return  | Description                                                           |
+            | ----------- | ------- | --------------------------------------------------------------------- |
+            | init        | `?Self` | Initializes a new Utf8Iterator from the given `UTF-8 slice` if valid. |
+            | unsafe_init | `Self`  | Initializes a new Utf8Iterator from the given `UTF-8 slice`.          |
+
+        - ##### Next
+
+            | Function      | Return       | Description                                                          |
+            | ------------- | ------------ | -------------------------------------------------------------------- |
+            | nextCodepoint | `?Codepoint` | Returns the next `Codepoint` **and** increments the position.        |
+            | nextSlice     | `?Codepoint` | Returns the next `UTF-8 slice` **and** increments the position.      |
+            | nextLength    | `?Codepoint` | Returns the next `Codepoint` length **and** increments the position. |
+
+        - ##### Peek
+
+            | Function      | Return       | Description                                                                |
+            | ------------- | ------------ | -------------------------------------------------------------------------- |
+            | peekCodepoint | `?Codepoint` | Returns the next `Codepoint` **without** incrementing the position.        |
+            | peekSlice     | `?Codepoint` | Returns the next `UTF-8 slice` **without** incrementing the position.      |
+            | peekLength    | `?Codepoint` | Returns the next `Codepoint` length **without** incrementing the position. |
 
 <br>
 <div align="center">
@@ -163,33 +181,33 @@
 
 - ### Benchmark
 
-    > A quick summary with sample performance test results between _**`SuperZIG`.`io`.`string`.`utils`.`utf8`**_ implementations and its popular competitors.
+    > A quick summary with sample performance test results between _**`SuperZIG`.`io`.`string`.`utils`.`codepoint`**_ implementations and its popular competitors.
 
     - #### vs `std.unicode`
 
         > _**In summary**, `io` is faster by **5 times** compared to `std` in most cases, thanks to its optimized implementation. ✨_
 
-        - #### Debug Build (`zig build run --release=safe -- utf8`)
+        - #### Debug Build (`zig build run -- codepoint`)
 
             | Benchmark | Runs   | Total Time | Avg Time | Speed |
             | --------- | ------ | ---------- | -------- | ----- |
-            | std_x10   | 100000 | 92.7ms     | 927ns    | x1.00 |
-            | io_x10    | 100000 | 31.9ms     | 319ns    | x2.91 |
-            | std_x100  | 21485  | 1.959s     | 91.188us | x1.00 |
-            | io_x100   | 96186  | 1.997s     | 20.768us | x4.39 |
-            | std_x1000 | 218    | 2.067s     | 9.482ms  | x1.00 |
-            | io_x1000  | 961    | 1.87s      | 1.946ms  | x4.87 |
+            | std_x10   | 100000 | 87.4ms     | 874ns    | x1.00 |
+            | io_x10    | 100000 | 65.6ms     | 656ns    | x1.33 |
+            | std_x100  | 23412  | 2.108s     | 90.082us | x1.00 |
+            | io_x100   | 46583  | 1.952s     | 41.918us | x2.15 |
+            | std_x1000 | 234    | 2.061s     | 8.81ms   | x1.00 |
+            | io_x1000  | 457    | 2.1s       | 4.596ms  | x1.92 |
 
-        - #### Release Build (`zig build run --release=fast -- utf8`)
+        - #### Release Build (`zig build run --release=fast -- codepoint`)
 
             | Benchmark | Runs   | Total Time | Avg Time | Speed |
             | --------- | ------ | ---------- | -------- | ----- |
-            | std_x10   | 100000 | 102.6ms    | 1.026us  | x1.00 |
-            | io_x10    | 100000 | 29.1ms     | 291ns    | x3.53 |
-            | std_x100  | 20653  | 1.915s     | 92.771us | x1.00 |
-            | io_x100   | 100000 | 1.796s     | 17.962us | x5.16 |
-            | std_x1000 | 232    | 2.028s     | 8.742ms  | x1.00 |
-            | io_x1000  | 1176   | 2.07s      | 1.76ms   | x4.96 |
+            | std_x10   | 100000 | 84.9ms     | 849ns    | x1.00 |
+            | io_x10    | 100000 | 22ms       | 220ns    | x3.86 |
+            | std_x100  | 25531  | 1.967s     | 77.053us | x1.00 |
+            | io_x100   | 100000 | 1.56s      | 15.608us | x4.94 |
+            | std_x1000 | 263    | 2.107s     | 8.012ms  | x1.00 |
+            | io_x1000  | 1233   | 1.966s     | 1.594ms  | x5.02 |
 
     > **It is normal for the values ​​to differ each time the benchmark is run, but in general these percentages will remain close.**
 
@@ -197,7 +215,7 @@
     >
     > The version of zig used is **0.14.0**.
     >
-    > The source code of this benchmark **[bench/string/utils/utf8.zig](https://github.com/Super-ZIG/io-bench/tree/main/src/bench/string/utils/utf8.zig)**.
+    > The source code of this benchmark **[bench/string/utils/codepoint.zig](https://github.com/Super-ZIG/io-bench/tree/main/src/bench/string/utils/codepoint.zig)**.
 
 <br>
 <div align="center">
